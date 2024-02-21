@@ -5,6 +5,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:storybook/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -15,4 +18,61 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-}
+  'newline-before-return': 'error',
+  'import/newline-after-import': 'error',
+  'import/order': [
+    'error',
+    {
+      groups: [
+        'type',
+        'builtin',
+        'external',
+        'internal',
+        'parent',
+        'sibling',
+        'index',
+        'unknown',
+      ],
+      pathGroups: [
+        {
+          pattern: 'react*',
+          group: 'external',
+          position: 'before',
+        },
+        {
+          pattern: '@/pages*',
+          group: 'internal',
+          position: 'before',
+        },
+        {
+          pattern: '@/hooks*',
+          group: 'internal',
+          position: 'before',
+        },
+        {
+          pattern: '@/components*',
+          group: 'internal',
+          position: 'before',
+        },
+        {
+          pattern: '@/services*',
+          group: 'internal',
+          position: 'after',
+        },
+        {
+          pattern: '@/constants*',
+          group: 'internal',
+          position: 'after',
+        },
+        {
+          pattern: '@/types*',
+          group: 'internal',
+          position: 'after',
+        },
+      ],
+      alphabetize: {
+        order: 'asc',
+      },
+    },
+  ],
+};
