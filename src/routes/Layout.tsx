@@ -1,14 +1,16 @@
+import { Container } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
+import Header from '@/components/Header';
 
 const Layout = () => {
   return (
-    <div>
-      <div>Header</div>
-      <div>
-        <Outlet />
-      </div>
-      <div>Footer</div>
-    </div>
+    <>
+      <Container pos="sticky" top={0} bg="white">
+        <Header />
+      </Container>
+
+      <Outlet />
+    </>
   );
 };
 

@@ -1,7 +1,11 @@
+import { Box } from '@chakra-ui/react';
+
 const MainPage = () => {
   return (
     <div>
-      <h1>Main</h1>
+      <Box height="300vh" bg="orange.200">
+        Main
+      </Box>
     </div>
   );
 };
