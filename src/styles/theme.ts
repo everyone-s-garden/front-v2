@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   black: '#282828',
   white: '#FFFFFF',
   primary: '#B3D36F',
@@ -39,27 +39,36 @@ const colors = {
   },
 };
 
-const devices = {
+export const devices = {
   mobile: `(min-width: 640px)`,
   tablet: `(min-width: 992px)`,
   desktop: `(min-width: 1024px)`,
 };
 
-const fontWeight = {
+export const breakpoints = {
+  mobile: '640px',
+  tablet: '992px',
+  desktop: '1024px',
+};
+
+export const fontWeight = {
   regular: 400,
   medium: 500,
   semiBold: 600,
   bold: 700,
 };
 
-const theme = {
+export const theme = {
   colors,
   devices,
   fontWeight,
 };
 
+export const chakraTheme = {
+  colors,
+  breakpoints,
+};
+
 export type Colors = typeof colors;
 export type Devices = typeof devices;
 export type FontWeight = typeof fontWeight;
-
-export default theme;

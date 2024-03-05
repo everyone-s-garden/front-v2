@@ -1,25 +1,26 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import { ThemeProvider, Global } from '@emotion/react';
-import styled from '@emotion/styled';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { RouterProvider } from 'react-router-dom';
+import router from './routes/router';
 import globalStyles from './styles/globalStyles';
-import theme from './styles/theme';
+import { chakraTheme, theme } from './styles/theme';
 
 const App = () => {
+  const queryClient = new QueryClient();
+
   return (
-    <ThemeProvider theme={theme}>
-      <Global styles={globalStyles} />
-      <Box>정말 반갑습니다</Box>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={chakraTheme}>
+        <ThemeProvider theme={theme}>
+          <Global styles={globalStyles} />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </ChakraProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
 export default App;
-
-const Box = styled.div`
-  font-size: 1.5rem;
-  background-color: ${({ theme }) => theme.colors.green[500]};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-
-  @media ${({ theme }) => theme.devices.mobile} {
-    background-color: ${({ theme }) => theme.colors.orange[500]};
-  }
-`;

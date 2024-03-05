@@ -88,6 +88,10 @@ const globalStyles = css`
     outline: none;
   }
 
+  img {
+    object-fit: cover;
+  }
+
   /* clearfix */
   .clearfix {
     zoom: 1;
