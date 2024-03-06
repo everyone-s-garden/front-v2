@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { useGetUserInfo } from '@/services/user/query';
 
-const MainPage = () => {
+const Main = () => {
   const { data } = useGetUserInfo(1);
   console.log(data);
 
@@ -14,4 +14,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Main;

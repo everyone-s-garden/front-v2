@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { MainPage } from '@/pages';
+import { Main } from '@/pages';
 import Layout from './Layout';
 import { PATH } from './constants';
 
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: PATH.MAIN,
-        element: <MainPage />,
+        element: <Main />,
       },
       {
         path: PATH.ERROR,
