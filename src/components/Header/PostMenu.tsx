@@ -12,7 +12,7 @@ import { PlusIcon } from '@/assets/icons';
 
 const PostMenu = () => {
   return (
-    <Menu>
+    <Menu direction="rtl">
       <MenuButton
         as={Button}
         leftIcon={<PlusIcon />}

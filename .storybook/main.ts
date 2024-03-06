@@ -8,8 +8,8 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     '@chakra-ui/storybook-addon',
+    'storybook-addon-react-router-v6',
   ],
-  features: {},
   framework: {
     name: '@storybook/react-vite',
     options: {},

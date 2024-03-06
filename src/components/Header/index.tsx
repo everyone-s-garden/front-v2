@@ -28,13 +28,7 @@ const Header = () => {
           px={20}
         >
           <Flex gap={36} align="center">
-            <Image
-              src={Logo}
-              alt="로고"
-              maxW="163px"
-              h="auto"
-              cursor="pointer"
-            />
+            <Image src={Logo} alt="로고" maxW="163px" h="auto" />
             {headerNavLinks.map(({ href, name }) => (
               <ChakraLink
                 as={ReactRouterLink}
@@ -71,7 +65,7 @@ const MobileHeader = () => {
       justifyContent="space-between"
     >
       <Flex justify="space-between" pt={15} px={20}>
-        <Image src={Logo} alt="로고" w="127px" h="22px" cursor="pointer" />
+        <Image src={Logo} alt="로고" w="127px" h="22px" />
         <ProfileIcon />
       </Flex>
       <NavTab />

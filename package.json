@@ -54,6 +54,7 @@
     "eslint-plugin-storybook": "^0.8.0",
     "prettier": "3.2.5",
     "storybook": "^7.6.17",
+    "storybook-addon-react-router-v6": "^2.0.11",
     "typescript": "^5.2.2",
     "vite": "^5.1.0",
     "vite-plugin-svgr": "^4.2.0"

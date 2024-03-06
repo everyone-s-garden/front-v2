@@ -5,19 +5,19 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider } from 'react-router-dom';
 import router from './routes/router';
 import globalStyles from './styles/globalStyles';
-import { chakraTheme, theme } from './styles/theme';
+import { chakraTheme, emotionTheme } from './styles/theme';
 
 const App = () => {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={chakraTheme}>
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={emotionTheme}>
+        <ChakraProvider theme={chakraTheme}>
           <Global styles={globalStyles} />
           <RouterProvider router={router} />
-        </ThemeProvider>
-      </ChakraProvider>
+        </ChakraProvider>
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

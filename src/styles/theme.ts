@@ -1,3 +1,5 @@
+import { extendTheme } from '@chakra-ui/react';
+
 export const colors = {
   black: '#282828',
   white: '#FFFFFF',
@@ -58,7 +60,7 @@ export const fontWeights = {
   bold: 700,
 };
 
-export const theme = {
+export const emotionTheme = {
   colors,
   devices,
   fontWeights,
@@ -69,6 +71,8 @@ export const chakraTheme = {
   breakpoints,
   fontWeights,
 };
+
+export const theme = extendTheme(chakraTheme);
 
 export type Colors = typeof colors;
 export type Devices = typeof devices;
