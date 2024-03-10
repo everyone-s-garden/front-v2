@@ -5,8 +5,10 @@ import { headerNavLinks } from './constants';
 const NavTab = () => {
   const { pathname } = useLocation();
 
+  // BUG: popstate(뒤로가기, 앞으로가기) 때 탭 막대가 움직이지 않음
+  // https://chakra-ui.com/docs/components/tabs/usage#controlled-tabs 로 해결
   return (
-    <Tabs position="relative" isFitted={true}>
+    <Tabs position="relative" isFitted={true} defaultIndex={2}>
       <TabList
         justifyContent="space-between"
         borderBottom="2px solid"
