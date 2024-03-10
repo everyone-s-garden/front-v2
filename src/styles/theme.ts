@@ -42,14 +42,14 @@ export const colors = {
 };
 
 export const devices = {
-  mobile: `(min-width: 640px)`,
-  tablet: `(min-width: 992px)`,
+  mobile: `(min-width: 0px)`,
+  tablet: `(min-width: 768px)`,
   desktop: `(min-width: 1024px)`,
 };
 
 export const breakpoints = {
   mobile: '0',
-  tablet: '992px',
+  tablet: '768px',
   desktop: '1024px',
 };
 

@@ -6,7 +6,7 @@ import {
   Container,
   Show,
 } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import NavTab from './NavTab';
 import PostMenu from './PostMenu';
 import { headerNavLinks } from './constants';
@@ -14,6 +14,8 @@ import { ProfileIcon } from '@/assets/icons';
 import Logo from '@/assets/images/logo/logo_horizon.png';
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <Show above="tablet">
@@ -28,8 +30,15 @@ const Header = () => {
           px={20}
         >
           <Flex gap={36} align="center">
-            <Image src={Logo} alt="로고" maxW="163px" h="auto" />
-            {headerNavLinks.map(({ href, name }) => (
+            <Image
+              src={Logo}
+              alt="로고"
+              maxW="163px"
+              h="auto"
+              cursor="pointer"
+              onClick={() => navigate('/')}
+            />
+            {headerNavLinks.slice(1).map(({ href, name }) => (
               <ChakraLink
                 as={ReactRouterLink}
                 to={href}
@@ -55,6 +64,8 @@ const Header = () => {
 };
 
 const MobileHeader = () => {
+  const navigate = useNavigate();
+
   return (
     <Container
       as="header"
@@ -65,7 +76,13 @@ const MobileHeader = () => {
       justifyContent="space-between"
     >
       <Flex justify="space-between" pt={15} px={20}>
-        <Image src={Logo} alt="로고" w="127px" h="22px" />
+        <Image
+          src={Logo}
+          alt="로고"
+          w="127px"
+          h="22px"
+          onClick={() => navigate('/')}
+        />
         <ProfileIcon />
       </Flex>
       <NavTab />

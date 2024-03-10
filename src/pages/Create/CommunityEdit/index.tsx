@@ -1,5 +1,5 @@
-const CommunityCreate = () => {
-  return <h1>CommunityCreate 페이지</h1>;
+const CommunityEdit = () => {
+  return <h1>CommunityEdit 페이지</h1>;
 };
 
-export default CommunityCreate;
+export default CommunityEdit;
