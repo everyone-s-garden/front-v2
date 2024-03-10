@@ -7,8 +7,8 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { postOptions } from './constants';
 import { PlusIcon } from '@/assets/icons';
+import { postOptions } from './constants';
 
 const PostMenu = () => {
   return (

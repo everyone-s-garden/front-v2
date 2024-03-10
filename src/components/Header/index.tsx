@@ -7,11 +7,11 @@ import {
   Show,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
+import { ProfileIcon } from '@/assets/icons';
+import { LogoHorizon } from '@/assets/images';
 import NavTab from './NavTab';
 import PostMenu from './PostMenu';
 import { headerNavLinks } from './constants';
-import { ProfileIcon } from '@/assets/icons';
-import Logo from '@/assets/images/logo/logo_horizon.png';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Header = () => {
         >
           <Flex gap={36} align="center">
             <Image
-              src={Logo}
+              src={LogoHorizon}
               alt="로고"
               maxW="163px"
               h="auto"
@@ -77,7 +77,7 @@ const MobileHeader = () => {
     >
       <Flex justify="space-between" pt={15} px={20}>
         <Image
-          src={Logo}
+          src={LogoHorizon}
           alt="로고"
           w="127px"
           h="22px"

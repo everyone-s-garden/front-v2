@@ -11,8 +11,8 @@ import {
 import { nanoid } from 'nanoid';
 import { useEffect, useRef, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
-import Arrow from './Arrow';
 import { CameraIcon, CloseIcon } from '@/assets/icons';
+import Arrow from './Arrow';
 
 interface ImageSelectorProps {
   color: 'green' | 'orange';
