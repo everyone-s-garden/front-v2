@@ -23,9 +23,10 @@ const NavTab = () => {
               pathname.slice(1) === href.split('/')[1] ? 'black' : 'gray.200'
             }
             fontWeight="bold"
-            px={20}
-            pb={14}
+            px="20px"
+            pb="14px"
             flexGrow={1}
+            _hover={{ bg: 'none' }}
           >
             {name}
           </Tab>

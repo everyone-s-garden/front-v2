@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Show,
+  Box,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { ProfileIcon } from '@/assets/icons';
@@ -21,15 +22,15 @@ const Header = () => {
       <Show above="tablet">
         <Container
           as="header"
-          h={108}
-          maxW={1167}
+          h="108px"
+          maxW="1167px"
           mx="auto"
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          px={20}
+          px="20px"
         >
-          <Flex gap={36} align="center">
+          <Flex gap="36px" align="center">
             <Image
               src={LogoHorizon}
               alt="로고"
@@ -44,14 +45,17 @@ const Header = () => {
                 to={href}
                 key={href}
                 fontWeight="semiBold"
-                fontSize={18}
+                fontSize="18px"
+                _hover={{ textDecoration: 'none' }}
               >
                 {name}
               </ChakraLink>
             ))}
           </Flex>
-          <Flex gap={30}>
-            <Button>로그인 / 회원가입</Button>
+          <Flex gap="30px">
+            <Button fontWeight="regular" bg="none" _hover={{ bg: 'none' }}>
+              로그인 / 회원가입
+            </Button>
             <PostMenu />
           </Flex>
         </Container>
@@ -67,15 +71,14 @@ const MobileHeader = () => {
   const navigate = useNavigate();
 
   return (
-    <Container
+    <Box
       as="header"
-      h={100}
-      mx="auto"
+      h="100px"
       display="flex"
       flexDir="column"
       justifyContent="space-between"
     >
-      <Flex justify="space-between" pt={15} px={20}>
+      <Flex justify="space-between" pt="15px" px="20px">
         <Image
           src={LogoHorizon}
           alt="로고"
@@ -86,7 +89,7 @@ const MobileHeader = () => {
         <ProfileIcon />
       </Flex>
       <NavTab />
-    </Container>
+    </Box>
   );
 };
 
