@@ -59,12 +59,27 @@ module.exports = {
             position: 'after',
           },
           {
-            pattern: '@/constants*',
+            pattern: '@/utils*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@/stores*',
             group: 'internal',
             position: 'after',
           },
           {
             pattern: '@/types*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@/assets/icons*',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '@/assets/images*',
             group: 'internal',
             position: 'after',
           },
