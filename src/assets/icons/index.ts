@@ -4,3 +4,5 @@ export { default as PrevIcon } from './arrow-left.svg?react';
 export { default as NextIcon } from './arrow-right.svg?react';
 export { default as CameraIcon } from './camera.svg?react';
 export { default as CloseIcon } from './close.svg?react';
+export { default as LikeIcon } from './like.svg?react';
+export { default as LikeDoneIcon } from './like-done.svg?react';
