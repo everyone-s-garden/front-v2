@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { LikeDoneIcon, LikeIcon } from '@/assets/icons';
 
 export interface GardenCardProps {
-  type: PageType;
+  type: 'mainPage' | 'cropsPage';
   src: string;
   children: ReactNode;
   navUrl: string;
@@ -12,8 +12,6 @@ export interface GardenCardProps {
   // 좋아요 API 통신시 수정 예정입니다.
   clickLike: () => void;
 }
-
-type PageType = 'mainPage' | 'cropsPage';
 
 const GardenCard = ({ type, src, children, navUrl }: GardenCardProps) => {
   // 좋아요 API 통신시 수정 예정입니다. 현재는 좋아요 상태관리만 해주고 있습니다.
