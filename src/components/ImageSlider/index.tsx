@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -13,8 +13,6 @@ export interface ArrowProps {
 }
 
 export interface ImageSliderProps {
-  children: ReactNode;
-
   // 메인페이지에서만 >,<의 디자인디 다르기 때문에 props로 isMainPage로 true, false값을 내려주시면 됩니다.
   isMainPage: boolean;
 
@@ -26,7 +24,7 @@ const ImageSlider = ({
   children,
   numberOfSlides,
   isMainPage,
-}: ImageSliderProps) => {
+}: PropsWithChildren<ImageSliderProps>) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const settings = {
