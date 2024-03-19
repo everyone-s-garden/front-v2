@@ -1,6 +1,6 @@
 import { Box, Icon } from '@chakra-ui/react';
 import { NextIcon } from '@/assets/icons';
-import { ArrowProps } from '.';
+import { ArrowProps } from './ImageSlider';
 
 const NextArrow = ({
   onClick,

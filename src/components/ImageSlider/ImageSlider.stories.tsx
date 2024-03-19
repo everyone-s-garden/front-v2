@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { PropsWithChildren } from 'react';
 import { withRouter } from 'storybook-addon-react-router-v6';
 import { Banner1, Banner2 } from '@/assets/images';
-import ImageSlider, { ImageSliderProps } from '.';
+import ImageSlider, { ImageSliderProps } from './ImageSlider';
 
 const meta: Meta<typeof ImageSlider> = {
   title: 'Components/ImageSlider',

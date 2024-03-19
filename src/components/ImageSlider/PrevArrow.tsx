@@ -1,6 +1,6 @@
 import { Box, Icon } from '@chakra-ui/react';
 import { PrevIcon } from '@/assets/icons';
-import { ArrowProps } from '.';
+import { ArrowProps } from './ImageSlider';
 
 const PrevArrow = ({ onClick, currentSlide, isMainPage }: ArrowProps) => {
   return (
