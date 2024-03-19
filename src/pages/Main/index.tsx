@@ -1,14 +1,14 @@
 import { Box } from '@chakra-ui/react';
-import { useGetUserInfo } from '@/services/user/query';
+import { TagComponent } from '@/components';
+// import { useGetUserInfo } from '@/services/user/query';
 
 const Main = () => {
-  const { data } = useGetUserInfo(1);
-  console.log(data);
+  // const { data } = useGetUserInfo(1);
 
   return (
     <div>
-      <Box height="300vh" bg="orange.200">
-        Main
+      <Box height="300vh">
+        <TagComponent tagLabel="화장실" variant="faq" />
       </Box>
     </div>
   );
