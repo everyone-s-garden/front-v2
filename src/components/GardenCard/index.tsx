@@ -1,19 +1,23 @@
 import { Box, Card, CardBody, Image } from '@chakra-ui/react';
-import { ReactNode, useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LikeDoneIcon, LikeIcon } from '@/assets/icons';
 
 export interface GardenCardProps {
   type: 'mainPage' | 'cropsPage';
   src: string;
-  children: ReactNode;
   navUrl: string;
 
   // 좋아요 API 통신시 수정 예정입니다.
   clickLike: () => void;
 }
 
-const GardenCard = ({ type, src, children, navUrl }: GardenCardProps) => {
+const GardenCard = ({
+  type,
+  src,
+  children,
+  navUrl,
+}: PropsWithChildren<GardenCardProps>) => {
   // 좋아요 API 통신시 수정 예정입니다. 현재는 좋아요 상태관리만 해주고 있습니다.
   const [like, setLike] = useState(false);
   const navigate = useNavigate();
