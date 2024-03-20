@@ -1,4 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
+import Tabs from './components/tab';
 
 export const colors = {
   black: '#282828',
@@ -70,6 +71,9 @@ export const chakraTheme = {
   colors,
   breakpoints,
   fontWeights,
+  components: {
+    Tabs,
+  },
 };
 
 export const theme = extendTheme(chakraTheme);
