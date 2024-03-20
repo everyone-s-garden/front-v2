@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import ImageSelector from '@/components/ImageSelector';
+import ImageSelector from '@/components/ImageSelector/ImageSelector';
 
 const GardenEdit = () => {
   return (
