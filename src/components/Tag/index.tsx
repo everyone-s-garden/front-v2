@@ -1,15 +1,14 @@
-import { Box, Circle, Flex, useStyleConfig } from '@chakra-ui/react';
-// importhemet  { colors } from '@/styles/theme';
-// import React from 'react';
+import {
+  Circle,
+  Flex,
+  ResponsiveValue,
+  useStyleConfig,
+} from '@chakra-ui/react';
 
-interface TagProps {
-  tag?: string;
+export interface TagProps {
   tagLabel?: string;
-  tagRightIcon?: string;
-  tagCloseButton?: string;
-  active?: boolean;
-  size?: string;
-  variant?: string;
+  size?: ResponsiveValue<string> | undefined;
+  variant?: ResponsiveValue<string> | undefined;
   icon?: boolean;
   progress?: boolean;
 }
@@ -31,7 +30,7 @@ const TagComponent = ({
     <Flex sx={styles} direction={'row'} w={'fit-content'} alignItems={'center'}>
       {icon && (
         <Circle
-          size={3}
+          size={'9px'}
           mr={2}
           bg={'#FF6A00'}
           boxShadow={

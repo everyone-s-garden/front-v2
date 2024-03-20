@@ -14,19 +14,19 @@ const TagStyleConfig: ComponentStyleConfig = defineStyleConfig({
   },
   sizes: {
     sm: {
-      px: 6,
-      py: 4,
-      borderRadius: 6,
+      px: '6px',
+      py: '4px',
+      borderRadius: '6px',
     },
     md: {
-      px: 10,
-      py: 6,
-      borderRadius: 6,
+      px: '10px',
+      py: '6px',
+      borderRadius: '6px',
     },
     lg: {
-      px: 10,
-      py: 6,
-      borderRadius: 8,
+      px: '10px',
+      py: '6px',
+      borderRadius: '8px',
     },
   },
   variants: {
@@ -43,12 +43,12 @@ const TagStyleConfig: ComponentStyleConfig = defineStyleConfig({
     },
     userName: {
       backgroundColor: 'orange.500',
-      borderRadius: 12,
+      borderRadius: '12px',
       color: 'white',
     },
     facility: {
       border: '1px solid #414C38',
-      borderRadius: 16.7,
+      borderRadius: '16.7px',
     },
     postState: {
       backgroundColor: 'white',
