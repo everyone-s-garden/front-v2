@@ -1,4 +1,4 @@
-export { default as Header } from './Header';
-export { default as ImageSelector } from './ImageSelector';
+export { default as Header } from './Header/Header';
+export { default as ImageSelector } from './ImageSelector/ImageSelector';
 
-export * from './Dropdown';
+export * from './Dropdown/Dropdown';

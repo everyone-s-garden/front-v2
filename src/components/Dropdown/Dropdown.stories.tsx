@@ -3,7 +3,12 @@ import { Button, Text } from '@chakra-ui/react';
 import { withRouter } from 'storybook-addon-react-router-v6';
 import { PlusIcon } from '@/assets/icons';
 import { postOptions } from '../Header/constants';
-import { Dropdown, DropdownItem, DropdownList, DropdownTrigger } from '.';
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownList,
+  DropdownTrigger,
+} from './Dropdown';
 
 const meta = {
   title: 'Components/Dropdown',
