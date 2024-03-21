@@ -4,12 +4,13 @@ import {
   ModalContent,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   Button,
 } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
 export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
   showExitIcon: boolean;
   showButton: boolean;
   buttonContent?: string;
@@ -19,6 +20,8 @@ export interface ModalProps {
 }
 
 const Modal = ({
+  isOpen,
+  onClose,
   showExitIcon,
   showButton,
   buttonContent,
@@ -27,8 +30,6 @@ const Modal = ({
   handleClickButton,
   children,
 }: PropsWithChildren<ModalProps>) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const buttonColorStyles = {
     backgroundColor: buttonColor === 'green' ? 'green.500' : 'orange.500',
     _hover: {},
@@ -38,8 +39,6 @@ const Modal = ({
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
-
       <ChakraModal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay backgroundColor="#00000099" />
         <ModalContent

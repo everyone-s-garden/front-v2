@@ -1,7 +1,6 @@
-import { Box, Input, Text } from '@chakra-ui/react';
+import { Box, Button, Input, Text, useDisclosure } from '@chakra-ui/react';
 import { Meta, StoryObj } from '@storybook/react';
 import { PropsWithChildren } from 'react';
-import { withRouter } from 'storybook-addon-react-router-v6';
 import { LocationIcon, ModalPlusIcon } from '@/assets/icons';
 import Modal, { ModalProps } from './Modal';
 
@@ -9,13 +8,13 @@ const meta = {
   title: 'Components/Modal',
   component: Modal,
   tags: ['autodocs'],
-  decorators: [withRouter],
 } satisfies Meta<typeof Modal>;
 
 export default meta;
 
 export const 작물거래글쓰기: StoryObj<PropsWithChildren<ModalProps>> = {
   args: {
+    isOpen: false,
     showExitIcon: false,
     showButton: true,
     buttonContent: '등록하기',
@@ -61,6 +60,16 @@ export const 작물거래글쓰기: StoryObj<PropsWithChildren<ModalProps>> = {
       </Box>
     ),
   },
+  render: (args) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    return (
+      <>
+        <Button onClick={onOpen}>Open Modal</Button>
+        <Modal {...args} isOpen={isOpen} onClose={onClose} />
+      </>
+    );
+  },
 };
 
 export const 채팅거래완료: StoryObj<PropsWithChildren<ModalProps>> = {
@@ -90,6 +99,16 @@ export const 채팅거래완료: StoryObj<PropsWithChildren<ModalProps>> = {
       </Box>
     ),
   },
+  render: (args) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    return (
+      <>
+        <Button onClick={onOpen}>Open Modal</Button>
+        <Modal {...args} isOpen={isOpen} onClose={onClose} />
+      </>
+    );
+  },
 };
 
 export const 마이페이지게시글삭제: StoryObj<PropsWithChildren<ModalProps>> = {
@@ -118,5 +137,15 @@ export const 마이페이지게시글삭제: StoryObj<PropsWithChildren<ModalPro
         </Text>
       </Box>
     ),
+  },
+  render: (args) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    return (
+      <>
+        <Button onClick={onOpen}>Open Modal</Button>
+        <Modal {...args} isOpen={isOpen} onClose={onClose} />
+      </>
+    );
   },
 };
