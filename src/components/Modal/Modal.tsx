@@ -12,10 +12,10 @@ import { PropsWithChildren } from 'react';
 export interface ModalProps {
   showExitIcon: boolean;
   showButton: boolean;
-  buttonContent: '등록하기' | '삭제하기' | '후기 작성하기';
-  buttonColor: 'green' | 'orange';
-  buttonDisabled: boolean;
-  handleClickButton: () => void;
+  buttonContent?: '등록하기' | '삭제하기' | '후기 작성하기';
+  buttonColor?: 'green' | 'orange';
+  buttonDisabled?: boolean;
+  handleClickButton?: () => void;
 }
 
 const Modal = ({
