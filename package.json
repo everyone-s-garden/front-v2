@@ -24,6 +24,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@stomp/stompjs": "^7.0.0",
+    "@storybook/icons": "^1.2.9",
     "@tanstack/react-query": "^5.22.2",
     "@tanstack/react-query-devtools": "^5.24.0",
     "axios": "^1.6.7",
