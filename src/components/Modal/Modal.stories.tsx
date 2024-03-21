@@ -76,9 +76,10 @@ export const 채팅거래완료: StoryObj<PropsWithChildren<ModalProps>> = {
         h="calc(249px - 61px)"
         display="flex"
         justifyContent="center"
-        alignItems="center"
       >
         <Text
+          marginTop="70px"
+          marginBottom="51px"
           textAlign="center"
           fontSize="20px"
           lineHeight="30px"
@@ -100,15 +101,16 @@ export const 마이페이지게시글삭제: StoryObj<PropsWithChildren<ModalPro
     buttonDisabled: false,
     children: (
       <Box
-        w="450px"
+        w="470px"
         h="calc(242px - 61px)"
         display="flex"
         justifyContent="center"
-        alignItems="center"
       >
         <Text
+          marginTop="70px"
+          marginBottom="51px"
           textAlign="center"
-          fontSize="20px"
+          fontSize="18px"
           lineHeight="30px"
           fontWeight="semibold"
         >

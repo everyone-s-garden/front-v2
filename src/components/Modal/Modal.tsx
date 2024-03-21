@@ -42,13 +42,19 @@ const Modal = ({
 
       <ChakraModal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay backgroundColor="#00000099" />
-        <ModalContent borderRadius="10px" w="fit-content" padding="0px">
+        <ModalContent
+          maxWidth="fit-content"
+          borderRadius="10px"
+          w="fit-content"
+          padding="0px"
+        >
           {showExitIcon && <ModalCloseButton />}
           <ModalBody padding="0px">{children}</ModalBody>
 
           {showButton && (
             <Button
               w="100%"
+              h="61px"
               sx={buttonColorStyles}
               borderRadius="0px 0px 10px 10px"
               color="white"
