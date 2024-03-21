@@ -2,19 +2,19 @@ import { PropsWithChildren, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import NextArrow from './NextArrow';
-import PrevArrow from './PrevArrow';
+import Arrow from './Arrow';
 
 export interface ArrowProps {
   onClick?: () => void;
   currentSlide?: number;
   numberOfSlides?: number;
-  isMainPage: boolean;
+  arrowStyle: 'plain' | 'circle';
+  dir: 'prev' | 'next';
 }
 
 export interface ImageSliderProps {
-  // 메인페이지에서만 >,<의 디자인이 다르기 때문에 props로 isMainPage로 true, false값을 내려주시면 됩니다.
-  isMainPage: boolean;
+  // >,< 화살표 모양을 정해서 내려주시면 됩니다. plain은 메인페이지에서만 사용 되는 화살표이고, 'circle'은 동그란 화살표입니다.
+  arrowStyle: 'plain' | 'circle';
 
   // 이미지 슬라이드의 총 개수를 넘겨주시면 됩니다.
   numberOfSlides: number;
@@ -23,7 +23,7 @@ export interface ImageSliderProps {
 const ImageSlider = ({
   children,
   numberOfSlides,
-  isMainPage,
+  arrowStyle,
 }: PropsWithChildren<ImageSliderProps>) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -34,17 +34,19 @@ const ImageSlider = ({
     slidesToScroll: 1,
     beforeChange: (newIndex: number) => setCurrentSlide(newIndex),
     nextArrow: (
-      <NextArrow
+      <Arrow
         currentSlide={currentSlide}
         numberOfSlides={numberOfSlides}
-        isMainPage={isMainPage}
+        arrowStyle={arrowStyle}
+        dir="next"
       />
     ),
     prevArrow: (
-      <PrevArrow
+      <Arrow
         currentSlide={currentSlide}
         numberOfSlides={numberOfSlides}
-        isMainPage={isMainPage}
+        arrowStyle={arrowStyle}
+        dir="prev"
       />
     ),
   };

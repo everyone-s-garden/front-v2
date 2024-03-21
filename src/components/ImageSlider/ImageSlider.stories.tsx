@@ -22,7 +22,7 @@ const communityPageImageArray = [
 
 export const MainPage: StoryObj<PropsWithChildren<ImageSliderProps>> = {
   args: {
-    isMainPage: true,
+    arrowStyle: 'plain',
     numberOfSlides: mainPageImageArray.length,
     children: mainPageImageArray.map((image, i) => (
       <Image src={image} key={i} />
@@ -32,7 +32,7 @@ export const MainPage: StoryObj<PropsWithChildren<ImageSliderProps>> = {
 
 export const AnotherPage: StoryObj<PropsWithChildren<ImageSliderProps>> = {
   args: {
-    isMainPage: false,
+    arrowStyle: 'circle',
     numberOfSlides: communityPageImageArray.length,
     children: communityPageImageArray.map((image, i) => (
       <Image src={image} key={i} />
