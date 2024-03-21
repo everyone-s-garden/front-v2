@@ -13,7 +13,7 @@ export interface ArrowProps {
 }
 
 export interface ImageSliderProps {
-  // 메인페이지에서만 >,<의 디자인디 다르기 때문에 props로 isMainPage로 true, false값을 내려주시면 됩니다.
+  // 메인페이지에서만 >,<의 디자인이 다르기 때문에 props로 isMainPage로 true, false값을 내려주시면 됩니다.
   isMainPage: boolean;
 
   // 이미지 슬라이드의 총 개수를 넘겨주시면 됩니다.
