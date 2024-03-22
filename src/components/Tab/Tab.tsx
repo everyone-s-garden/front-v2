@@ -1,6 +1,6 @@
 import { TabIndicator, TabList, Tabs, Tab as TabItem } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { TabData } from './types';
 
@@ -12,20 +12,10 @@ interface TabProps {
 }
 
 const Tab = ({ gap = 0, tabWidth = 'fit', color, tabsData }: TabProps) => {
+  const [tabIndex, setTabIndex] = useState(-1);
+
   const { pathname: currentPath } = useLocation();
   const navigate = useNavigate();
-
-  const calculateSelectedIndex = useCallback(() => {
-    if (currentPath === '/') {
-      return 0;
-    }
-
-    const index = tabsData.findIndex(
-      ({ keyword }) => keyword !== '' && currentPath.includes(keyword),
-    );
-
-    return index;
-  }, [currentPath, tabsData]);
 
   const calculateWidth = useCallback(
     (tabWidth: 'full' | 'fit' | number): string => {
@@ -42,20 +32,30 @@ const Tab = ({ gap = 0, tabWidth = 'fit', color, tabsData }: TabProps) => {
     [],
   );
 
-  const [tabIndex, setTabIndex] = useState(calculateSelectedIndex());
-
   const handleClickTab = (index: number, href: string) => {
-    setTabIndex(index);
-
     if (currentPath === href) return;
+
+    setTabIndex(index);
     navigate(href);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const calculateSelectedIndex = () => {
+      if (currentPath === '/') {
+        return 0;
+      }
+
+      const index = tabsData.findIndex(
+        ({ keyword }) => keyword !== '' && currentPath.includes(keyword),
+      );
+
+      return index;
+    };
+
     if (calculateSelectedIndex() === tabIndex) return;
 
     setTabIndex(calculateSelectedIndex());
-  }, [currentPath, calculateSelectedIndex, tabIndex]);
+  }, [currentPath, tabIndex, tabsData]);
 
   return (
     <Tabs position="relative" index={tabIndex} bg="white">
