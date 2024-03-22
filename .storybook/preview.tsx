@@ -3,6 +3,10 @@ import { theme } from '../src/styles/theme';
 import { Global } from '@emotion/react';
 import globalStyles from '../src/styles/globalStyles';
 import React from 'react';
+import {
+  INITIAL_VIEWPORTS,
+  MINIMAL_VIEWPORTS,
+} from '@storybook/addon-viewport';
 
 const preview: Preview = {
   decorators: [
@@ -22,6 +26,12 @@ const preview: Preview = {
       },
     },
     chakra: { theme },
+    viewport: {
+      viewports: {
+        ...INITIAL_VIEWPORTS,
+        ...MINIMAL_VIEWPORTS,
+      },
+    },
   },
 };
 
