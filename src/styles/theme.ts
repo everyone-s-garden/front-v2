@@ -1,6 +1,7 @@
 import { ThemeOverride, extendTheme } from '@chakra-ui/react';
 import Button from './components/button';
 import Menu from './components/menu';
+import Tabs from './components/tab';
 
 export const colors = {
   black: '#282828',
@@ -75,6 +76,7 @@ export const chakraTheme = {
   components: {
     Menu,
     Button,
+    Tabs,
   },
 } satisfies ThemeOverride;
 
