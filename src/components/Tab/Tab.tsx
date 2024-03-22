@@ -24,10 +24,6 @@ const Tab = ({ gap = 0, tabWidth = 'fit', color, tabsData }: TabProps) => {
       ({ keyword }) => keyword !== '' && currentPath.includes(keyword),
     );
 
-    if (index === -1) {
-      return -1;
-    }
-
     return index;
   }, [currentPath, tabsData]);
 
