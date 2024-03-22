@@ -16,7 +16,7 @@ const Arrow = ({
   arrowStyle,
   dir,
 }: ArrowProps) => {
-  if (!numberOfSlides) return;
+  if (!numberOfSlides || numberOfSlides === 1) return;
 
   const isPrev = dir === 'prev';
   const disabled = isPrev
