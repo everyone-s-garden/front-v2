@@ -44,7 +44,7 @@ const Arrow = ({
       alignItems="center"
       w={isPlain ? undefined : { mobile: '28px', tablet: '36px' }}
       h={isPlain ? undefined : { mobile: '28px', tablet: '36px' }}
-      backgroundColor={isPlain ? undefined : '#EBEBEB'}
+      backgroundColor={isPlain ? undefined : 'gray.100'}
       onClick={onClick}
     >
       <Icon
@@ -59,7 +59,7 @@ const Arrow = ({
             ? { mobile: '24px', tablet: '30px' }
             : { mobile: '14px', tablet: '18px' }
         }
-        fill={isPlain ? undefined : '#BEBEBE'}
+        fill={isPlain ? undefined : 'gray.300'}
       />
     </Box>
   );
