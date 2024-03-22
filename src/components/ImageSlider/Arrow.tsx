@@ -1,6 +1,13 @@
 import { Box, Icon } from '@chakra-ui/react';
 import { NextIcon, PrevIcon } from '@/assets/icons';
-import { ArrowProps } from './ImageSlider';
+
+interface ArrowProps {
+  onClick?: () => void;
+  currentSlide?: number;
+  numberOfSlides?: number;
+  arrowStyle: 'plain' | 'circle';
+  dir: 'prev' | 'next';
+}
 
 const Arrow = ({
   onClick,

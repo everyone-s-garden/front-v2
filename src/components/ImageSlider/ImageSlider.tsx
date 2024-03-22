@@ -4,14 +4,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Arrow from './Arrow';
 
-export interface ArrowProps {
-  onClick?: () => void;
-  currentSlide?: number;
-  numberOfSlides?: number;
-  arrowStyle: 'plain' | 'circle';
-  dir: 'prev' | 'next';
-}
-
 export interface ImageSliderProps {
   // >,< 화살표 모양을 정해서 내려주시면 됩니다. plain은 메인페이지에서만 사용 되는 화살표이고, 'circle'은 동그란 화살표입니다.
   arrowStyle: 'plain' | 'circle';
