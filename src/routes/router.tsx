@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { GardenEdit, Main, MyGardenEdit } from '@/pages';
 import Layout from './Layout';
 import { PATH } from './constants';
+import Map from '@/pages/Map/Map';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path: PATH.ERROR,
         element: <div>에러</div>,
+      },
+      {
+        path: PATH.MAP.MAIN,
+        element: <Map />,
       },
       {
         path: PATH.MAP.CREATE_GARDEN,
