@@ -24,8 +24,8 @@ dist-ssr
 *.sw?
 
 .env.local
-
 # chromatic
+.env
 build-storybook.log
 chromatic.log
 chromatic-build-*.xml
