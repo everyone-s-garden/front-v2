@@ -1,4 +1,4 @@
-import { ThemeOverride, extendTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 import TagStyleConfig from './components/tag';
 
 export const colors = {
@@ -74,7 +74,7 @@ export const chakraTheme = {
   components: {
     TagStyleConfig,
   },
-} satisfies ThemeOverride;
+};
 
 export const theme = extendTheme(chakraTheme);
 
