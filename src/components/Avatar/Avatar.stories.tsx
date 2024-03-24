@@ -1,5 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
-import AvatarComponent, { AvatarComponentProps } from './index';
+import AvatarComponent from './index';
+import { AvatarProps } from '@chakra-ui/react';
 
 const meta: Meta<typeof AvatarComponent> = {
   title: 'Components/Avatar',
@@ -9,8 +10,6 @@ const meta: Meta<typeof AvatarComponent> = {
 
 export default meta;
 
-const Template: StoryFn<AvatarComponentProps> = (args) => (
-  <AvatarComponent {...args} />
-);
+const Template: StoryFn<AvatarProps> = (args) => <AvatarComponent {...args} />;
 
 export const AvatarStory = Template.bind({});

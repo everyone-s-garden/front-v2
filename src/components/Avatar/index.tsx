@@ -1,27 +1,21 @@
-import { Avatar } from '@chakra-ui/react';
+import { Avatar, AvatarProps } from '@chakra-ui/react';
 import { DefaultProfile } from '@/assets/icons';
 
-export interface AvatarComponentProps {
-  size: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
-  name?: string;
-  src?: string;
-  iconLabel?: string;
-  loading?: 'eager' | 'lazy';
-}
-
-//유저 이미지 없을 경우 기본 농부 이미지
 const AvatarComponent = ({
   size,
   name,
-  src = DefaultProfile,
+  src,
   iconLabel,
   loading = 'lazy',
-}: AvatarComponentProps) => {
+}: AvatarProps) => {
+  //유저 이미지 없을 경우 기본 농부 이미지
+  const profileSrc = src || DefaultProfile;
+
   return (
     <Avatar
       size={size}
       name={name}
-      src={src}
+      src={profileSrc}
       iconLabel={iconLabel}
       loading={loading}
     />
