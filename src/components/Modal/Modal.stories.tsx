@@ -1,8 +1,7 @@
 import { Box, Button, Input, Text, useDisclosure } from '@chakra-ui/react';
 import { Meta, StoryObj } from '@storybook/react';
-import { PropsWithChildren } from 'react';
 import { LocationIcon, ModalPlusIcon } from '@/assets/icons';
-import Modal, { ModalProps } from './Modal';
+import Modal from './Modal';
 
 const meta = {
   title: 'Components/Modal',
@@ -12,7 +11,9 @@ const meta = {
 
 export default meta;
 
-export const 작물거래글쓰기: StoryObj<PropsWithChildren<ModalProps>> = {
+type Story = StoryObj<typeof meta>;
+
+export const 작물거래글쓰기: Story = {
   args: {
     isOpen: false,
     showExitIcon: false,
@@ -72,13 +73,14 @@ export const 작물거래글쓰기: StoryObj<PropsWithChildren<ModalProps>> = {
   },
 };
 
-export const 채팅거래완료: StoryObj<PropsWithChildren<ModalProps>> = {
+export const 채팅거래완료: Story = {
   args: {
     showExitIcon: true,
     showButton: true,
     buttonContent: '후기 작성하기',
     buttonColor: 'orange',
     buttonDisabled: false,
+    isOpen: false,
     children: (
       <Box
         w="450px"
@@ -111,13 +113,14 @@ export const 채팅거래완료: StoryObj<PropsWithChildren<ModalProps>> = {
   },
 };
 
-export const 마이페이지게시글삭제: StoryObj<PropsWithChildren<ModalProps>> = {
+export const 마이페이지게시글삭제: Story = {
   args: {
     showExitIcon: true,
     showButton: true,
     buttonContent: '삭제하기',
     buttonColor: 'green',
     buttonDisabled: false,
+    isOpen: false,
     children: (
       <Box
         w="470px"

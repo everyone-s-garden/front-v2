@@ -29,6 +29,7 @@ const Header = () => {
         alignItems="center"
         px="20px"
         hideBelow="tablet"
+        zIndex={10}
       >
         <Flex gap="36px" align="center">
           <Image
