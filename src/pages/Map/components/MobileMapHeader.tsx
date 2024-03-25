@@ -52,6 +52,7 @@ const MobileMapHeader = ({
             borderRadius="7px"
             bgColor="white"
             overflow="hidden"
+            zIndex="1"
           >
             {mapHeaderOptions.map((option, i) => (
               <Text
