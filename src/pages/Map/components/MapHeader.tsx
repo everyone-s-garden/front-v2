@@ -1,12 +1,13 @@
-import { Box, Flex, Input, Show, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Input, Show, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import { MobileMapArrow } from '@/assets/icons';
 
 const MapHeader = () => {
-  const [mapHeaderOption, setMapHeaderOption] = useState(3);
-
-  const handelActiveOption = (id: number) => {
-    setMapHeaderOption(id);
-  };
+  const mapHeaderOptions = ['공공', '개인', '둘다 표시'];
+  const [mobileHeaderOption, setMobileHeaderOption] = useState(
+    mapHeaderOptions[2],
+  );
+  const [showOption, setShowOption] = useState(false);
 
   return (
     <>
@@ -19,35 +20,39 @@ const MapHeader = () => {
             <Text
               cursor="pointer"
               fontSize="18px"
-              fontWeight={mapHeaderOption === 1 ? 'medium' : 'regular'}
-              color={mapHeaderOption === 1 ? undefined : 'gray.400'}
+              fontWeight={mobileHeaderOption === '공공' ? 'medium' : 'regular'}
+              color={mobileHeaderOption === '공공' ? undefined : 'gray.400'}
               onClick={() => {
-                handelActiveOption(1);
+                setMobileHeaderOption('공공');
               }}
             >
-              공공
+              {mapHeaderOptions[0]}
             </Text>
             <Text
               cursor="pointer"
               fontSize="18px"
-              fontWeight={mapHeaderOption === 2 ? 'medium' : 'regular'}
-              color={mapHeaderOption === 2 ? undefined : 'gray.400'}
+              fontWeight={mobileHeaderOption === '개인' ? 'medium' : 'regular'}
+              color={mobileHeaderOption === '개인' ? undefined : 'gray.400'}
               onClick={() => {
-                handelActiveOption(2);
+                setMobileHeaderOption('개인');
               }}
             >
-              개인
+              {mapHeaderOptions[1]}
             </Text>
             <Text
               cursor="pointer"
               fontSize="18px"
-              fontWeight={mapHeaderOption === 3 ? 'medium' : 'regular'}
-              color={mapHeaderOption === 3 ? undefined : 'gray.400'}
+              fontWeight={
+                mobileHeaderOption === '둘다 표시' ? 'medium' : 'regular'
+              }
+              color={
+                mobileHeaderOption === '둘다 표시' ? undefined : 'gray.400'
+              }
               onClick={() => {
-                handelActiveOption(3);
+                setMobileHeaderOption('둘다 표시');
               }}
             >
-              둘다 표시
+              {mapHeaderOptions[2]}
             </Text>
             <Input
               variant="unstyled"
@@ -61,6 +66,75 @@ const MapHeader = () => {
             />
           </Flex>
         </Box>
+      </Show>
+
+      <Show below="tablet">
+        <Flex h="67px" gap="8px" alignItems="center" padding="20px">
+          <Box position="relative">
+            <Button
+              borderRadius="7px"
+              w="100px"
+              h="36px"
+              bgColor="green.100"
+              color="green.700"
+              fontWeight="medium"
+              fontSize="14px"
+              _hover={{}}
+              _active={{}}
+              display="flex"
+              gap="5px"
+              onClick={() => {
+                setShowOption(!showOption);
+              }}
+            >
+              {mobileHeaderOption}
+              <Icon
+                as={MobileMapArrow}
+                w="9px"
+                h="8px"
+                transform={showOption ? 'rotate( 180deg )' : undefined}
+                transition="transform 0.3s ease"
+              />
+            </Button>
+            {showOption && (
+              <Box
+                position="absolute"
+                w="100%"
+                borderRadius="7px"
+                bgColor="white"
+                overflow="hidden"
+              >
+                {mapHeaderOptions.map((option, i) => (
+                  <Text
+                    padding="4px 16px"
+                    color="green.700"
+                    _hover={{
+                      bgColor: 'green.100',
+                    }}
+                    cursor="pointer"
+                    onClick={() => {
+                      setShowOption(!showOption);
+                      setMobileHeaderOption(option);
+                    }}
+                    key={i}
+                  >
+                    {option}
+                  </Text>
+                ))}
+              </Box>
+            )}
+          </Box>
+          <Input
+            w="calc(100% - 100px)"
+            variant="unstyled"
+            bgColor="gray.50"
+            border="none"
+            h="36px"
+            padding="0 12px"
+            fontSize="14px"
+            placeholder="지역명 검색"
+          />
+        </Flex>
       </Show>
     </>
   );
