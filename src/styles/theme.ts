@@ -1,4 +1,7 @@
-import { extendTheme } from '@chakra-ui/react';
+import { ThemeOverride, extendTheme } from '@chakra-ui/react';
+import Button from './components/button';
+import Menu from './components/menu';
+import Tabs from './components/tab';
 import TagStyleConfig from './components/tag';
 
 export const colors = {
@@ -72,9 +75,12 @@ export const chakraTheme = {
   breakpoints,
   fontWeights,
   components: {
+    Menu,
+    Button,
+    Tabs,
     TagStyleConfig,
   },
-};
+} satisfies ThemeOverride;
 
 export const theme = extendTheme(chakraTheme);
 

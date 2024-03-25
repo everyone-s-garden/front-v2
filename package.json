@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "theme": "chakra-cli tokens src/styles/theme.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -23,6 +24,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@stomp/stompjs": "^7.0.0",
+    "@storybook/icons": "^1.2.9",
     "@tanstack/react-query": "^5.22.2",
     "@tanstack/react-query-devtools": "^5.24.0",
     "axios": "^1.6.7",
@@ -40,6 +42,7 @@
     "zustand": "^4.5.1"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.4.1",
     "@chakra-ui/storybook-addon": "^5.1.0",
     "@commitlint/cli": "^18.0.0",
     "@commitlint/config-conventional": "^18.0.0",
@@ -47,6 +50,7 @@
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
     "@storybook/addon-onboarding": "^1.0.11",
+    "@storybook/addon-viewport": "^8.0.2",
     "@storybook/blocks": "^7.6.17",
     "@storybook/react": "^7.6.17",
     "@storybook/react-vite": "^7.6.17",

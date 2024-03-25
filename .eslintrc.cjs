@@ -19,6 +19,7 @@ module.exports = {
     ],
     'newline-before-return': 'error',
     'import/newline-after-import': 'error',
+    'storybook/prefer-pascal-case': 'off',
     'import/order': [
       'error',
       {
