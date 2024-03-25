@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const 작물거래글쓰기: Story = {
   args: {
+    onClose: () => {},
     isOpen: false,
     showExitIcon: false,
     showButton: true,
@@ -75,6 +76,7 @@ export const 작물거래글쓰기: Story = {
 
 export const 채팅거래완료: Story = {
   args: {
+    onClose: () => {},
     showExitIcon: true,
     showButton: true,
     buttonContent: '후기 작성하기',
@@ -115,6 +117,7 @@ export const 채팅거래완료: Story = {
 
 export const 마이페이지게시글삭제: Story = {
   args: {
+    onClose: () => {},
     showExitIcon: true,
     showButton: true,
     buttonContent: '삭제하기',

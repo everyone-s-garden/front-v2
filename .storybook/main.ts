@@ -8,7 +8,6 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
     '@chakra-ui/storybook-addon',
-    'storybook-addon-react-router-v6',
     '@storybook/addon-viewport',
   ],
   framework: {

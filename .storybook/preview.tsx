@@ -7,13 +7,16 @@ import {
   INITIAL_VIEWPORTS,
   MINIMAL_VIEWPORTS,
 } from '@storybook/addon-viewport';
+import { MemoryRouter } from 'react-router-dom';
 
 const preview: Preview = {
   decorators: [
     (Story) => (
       <>
         <Global styles={globalStyles} />
-        <Story />
+        <MemoryRouter>
+          <Story />
+        </MemoryRouter>
       </>
     ),
   ],

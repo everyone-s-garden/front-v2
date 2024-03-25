@@ -1,9 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Box } from '@chakra-ui/react';
-import {
-  reactRouterParameters,
-  withRouter,
-} from 'storybook-addon-react-router-v6';
 import { headerNavLinks } from '../Header/constants';
 import Tab from '../Tab/Tab';
 
@@ -11,7 +7,6 @@ const meta = {
   title: 'Components/Tab',
   component: Tab,
   tags: ['autodocs'],
-  decorators: [withRouter],
 } satisfies Meta<typeof Tab>;
 
 export default meta;
@@ -52,25 +47,29 @@ export const 기본: Story = {
     tabWidth: {
       control: 'radio',
       description: '탭의 너비를 설정합니다.',
-      options: ['full', 'fit', 100],
+      options: ['full', 'fit', 'fit-full'],
       defaultValue: 'fit',
     },
-  },
-  parameters: {
-    reactRouter: reactRouterParameters({
-      location: {
-        path: '/',
-      },
-      routing: { path: '/' },
-    }),
   },
   render: (args) => (
     <Box w={500}>
       <Tab {...args} />
     </Box>
   ),
+  parameters: {
+    viewport: {
+      defaultViewport: 'desktop',
+    },
+    layout: 'fullscreen',
+  },
 };
 
 export const Header: Story = {
-  args: { color: 'orange', tabsData: headerNavLinks, tabWidth: 'full' },
+  args: { color: 'orange', tabsData: headerNavLinks, tabWidth: 'fit-full' },
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+    layout: 'fullscreen',
+  },
 };

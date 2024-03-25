@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { withRouter } from 'storybook-addon-react-router-v6';
 import DatePicker from './DatePicker';
 
 const meta = {
@@ -7,7 +6,6 @@ const meta = {
   component: DatePicker,
   tags: ['autodocs'],
   parameters: {},
-  decorators: [withRouter],
   argTypes: {},
 } satisfies Meta<typeof DatePicker>;
 

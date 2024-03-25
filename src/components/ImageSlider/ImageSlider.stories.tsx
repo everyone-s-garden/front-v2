@@ -1,6 +1,5 @@
 import { Image } from '@chakra-ui/react';
 import { Meta, StoryObj } from '@storybook/react';
-import { withRouter } from 'storybook-addon-react-router-v6';
 import { Banner1, Banner2 } from '@/assets/images';
 import ImageSlider from './ImageSlider';
 
@@ -8,7 +7,6 @@ const meta: Meta<typeof ImageSlider> = {
   title: 'Components/ImageSlider',
   component: ImageSlider,
   tags: ['autodocs'],
-  decorators: [withRouter],
 };
 
 export default meta;

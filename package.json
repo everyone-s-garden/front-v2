@@ -76,7 +76,6 @@
     "msw": "^2.2.2",
     "prettier": "3.2.5",
     "storybook": "^8.0.4",
-    "storybook-addon-react-router-v6": "^2.0.11",
     "typescript": "^5.2.2",
     "vite": "^5.1.0",
     "vite-plugin-svgr": "^4.2.0"
