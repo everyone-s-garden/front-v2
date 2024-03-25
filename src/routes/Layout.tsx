@@ -8,7 +8,6 @@ const Layout = () => {
       <Box pos="sticky" top={0} bg="white">
         <Header />
       </Box>
-
       <Outlet />
     </>
   );
