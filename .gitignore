@@ -24,10 +24,16 @@ dist-ssr
 *.sln
 *.sw?
 
-.env.local
+# env
+.env*
+
+# storybook
+storybook-static
 
 # chromatic
+.env
 build-storybook.log
 chromatic.log
 chromatic-build-*.xml
 chromatic-diagnostics.json
+storybook-static

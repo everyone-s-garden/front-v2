@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { withRouter } from 'storybook-addon-react-router-v6';
-import Header from '.';
+import Header from './Header';
 
 // BUG: chakra-ui가 적용되지 않는 문제
 const meta = {

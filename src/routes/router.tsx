@@ -1,8 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { GardenEdit, Main } from '@/pages';
+import { GardenEdit, Main, MyGardenEdit } from '@/pages';
 import Layout from './Layout';
 import { PATH } from './constants';
-import MyGardenEdit from '@/pages/Create/MyGardenEdit';
 
 const router = createBrowserRouter([
   {

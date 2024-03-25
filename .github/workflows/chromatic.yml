@@ -17,7 +17,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Publish to Chromatic
+      - name: 크로마틱 배포 작업
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          autoAcceptChanges: true
