@@ -4,7 +4,7 @@
     "prefix": "!story",
     "body": [
       "import type { Meta, StoryObj } from '@storybook/react';",
-      "import ${1:${TM_FILENAME_BASE/\\\\..*$//}} from './$1';",
+      "import ${1:${TM_FILENAME_BASE/\\..*$//}} from './$1';",
       "",
       "const meta = {",
       "  title: '${2:${TM_DIRECTORY/.*\\\\([^\\\\]+)\\\\[^\\\\]+$/$1/}}/$1',",
