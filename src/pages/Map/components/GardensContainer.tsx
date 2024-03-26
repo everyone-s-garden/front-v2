@@ -21,6 +21,7 @@ const GardensContainer = ({ showGardens }: GardensContainer) => {
           bgColor="white"
           borderWidth="1px 0 0 1px"
           borderColor="gray.200"
+          initial={{ x: 379 }}
           animate={{
             x: showGardens ? 0 : 379,
             transition: { type: 'tween' },
