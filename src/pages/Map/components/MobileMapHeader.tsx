@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
-import { MobileMapArrow } from '@/assets/icons';
+import { MobileMapArrowIcon } from '@/assets/icons';
 
 interface MobileMapHeaderProps {
   showOption: boolean;
@@ -38,7 +38,7 @@ const MobileMapHeader = ({
         >
           {mobileHeaderOption}
           <Icon
-            as={MobileMapArrow}
+            as={MobileMapArrowIcon}
             w="9px"
             h="8px"
             transform={showOption ? 'rotate( 180deg )' : undefined}

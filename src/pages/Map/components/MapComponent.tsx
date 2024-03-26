@@ -1,5 +1,4 @@
 import { Box } from '@chakra-ui/react';
-import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import {
   Container as MapDiv,
@@ -26,7 +25,7 @@ function MapComponent() {
       bgColor="black"
     >
       <ShowGardensButton {...{ showGardens, setShowGardens }} />
-      <AnimatePresence>{showGardens && <GardensContainer />}</AnimatePresence>
+      <GardensContainer showGardens={showGardens} />
 
       <MapDiv style={{ width: '100%', height: '100%' }}>
         <NaverMap
