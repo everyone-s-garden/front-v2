@@ -24,6 +24,7 @@ const ShowGardensButton = ({
       bgColor="white"
       borderRadius="5px 0 0 5px"
       cursor="pointer"
+      initial={{ y: '-50%' }}
       animate={{
         x: showGardens ? -379 : 0,
         y: '-50%',
@@ -38,8 +39,6 @@ const ShowGardensButton = ({
         borderRadius="5px 0 0 5px"
         borderWidth="1px 0 1px 1px"
         borderColor="gray.200"
-        _hover={{}}
-        _active={{}}
         onClick={() => setShowGardens(!showGardens)}
       />
     </IconButtonContainer>
