@@ -6,7 +6,7 @@ import { TabData } from './types';
 
 interface TabProps {
   gap?: number;
-  tabWidth?: 'full' | 'fit' | number;
+  tabWidth?: 'full' | 'fit' | 'fit-full';
   color: 'green' | 'orange';
   tabsData: TabData[];
 }
@@ -17,20 +17,25 @@ const Tab = ({ gap = 0, tabWidth = 'fit', color, tabsData }: TabProps) => {
   const { pathname: currentPath } = useLocation();
   const navigate = useNavigate();
 
-  const calculateWidth = useCallback(
-    (tabWidth: 'full' | 'fit' | number): string => {
-      if (tabWidth === 'full') {
-        return '100%';
-      }
-
-      if (tabWidth === 'fit') {
-        return 'auto';
-      }
-
-      return `${tabWidth}px`;
-    },
-    [],
-  );
+  const getTabStyles = useCallback(() => {
+    switch (tabWidth) {
+      case 'full':
+        return {
+          flexGrow: 1,
+          width: '100%',
+        };
+      case 'fit':
+        return {
+          width: 'fit-content',
+        };
+      default:
+        return {
+          flexGrow: 1,
+          flexShrink: 0,
+          width: 'fit-content',
+        };
+    }
+  }, [tabWidth]);
 
   const handleClickTab = (index: number, href: string) => {
     if (currentPath === href) return;
@@ -60,17 +65,17 @@ const Tab = ({ gap = 0, tabWidth = 'fit', color, tabsData }: TabProps) => {
   return (
     <Tabs position="relative" index={tabIndex} bg="white">
       <TabList
-        gap={gap}
+        gap={`${gap}px`}
         borderBottom="2px solid"
         borderBottomColor="gray.200"
         justifyContent="center"
+        {...{ color: 'orange.100' }}
       >
         {tabsData.map(({ tabName, href }, index) => (
           <TabItem
             onClick={() => handleClickTab(index, href)}
             key={nanoid()}
-            flexGrow={tabWidth === 'full' ? 1 : 0}
-            w={calculateWidth(tabWidth)}
+            {...getTabStyles()}
           >
             {tabName}
           </TabItem>

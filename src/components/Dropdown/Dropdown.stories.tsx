@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button, Text } from '@chakra-ui/react';
-import { withRouter } from 'storybook-addon-react-router-v6';
 import { PlusIcon } from '@/assets/icons';
 import { postOptions } from '../Header/constants';
 import {
@@ -15,7 +14,6 @@ const meta = {
   component: Dropdown,
   tags: ['autodocs'],
   parameters: {},
-  decorators: [withRouter],
   argTypes: {},
 } satisfies Meta<typeof Dropdown>;
 

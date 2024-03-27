@@ -87,7 +87,7 @@ const MobileHeader = () => {
         />
         <ProfileIcon />
       </Flex>
-      <Tab tabsData={headerNavLinks} color="orange" tabWidth="full" />
+      <Tab tabsData={headerNavLinks} color="orange" tabWidth="fit-full" />
     </Box>
   );
 };
