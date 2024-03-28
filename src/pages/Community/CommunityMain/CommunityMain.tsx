@@ -1,9 +1,10 @@
 import { Box } from '@chakra-ui/react';
+import { PostList } from '@/components';
 import CommunityHeader from './components/CommunityHeader';
 import Order from './components/Order';
-import PostList from './components/PostList';
 import PostType from './components/PostType';
 import Search from './components/Search';
+import { DUMMY_POST } from '@/data/dummyData';
 
 const CommunityMain = () => {
   return (
@@ -24,7 +25,7 @@ const CommunityMain = () => {
           mt={{ mobile: '20px', tablet: '27px' }}
           mb={{ mobile: '20px', tablet: '60px' }}
         >
-          <PostList posts={[]} />
+          <PostList posts={DUMMY_POST} />
         </Box>
       </Box>
     </>
