@@ -89,6 +89,7 @@
     "description": "API 서비스 템플릿",
   },
   "query service": {
+    "scope": "typescript",
     "prefix": "!query",
     "body": [
       "import { queryOptions, useQuery } from '@tanstack/react-query';",
@@ -111,5 +112,11 @@
       "",
     ],
     "description": "쿼리 서비스 템플릿",
+  },
+  "chakraUI breakpoints": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "!bp",
+    "body": ["{ mobile: '$1', tablet: '$2' }"],
+    "description": "Chakra UI 브레이크포인트 속성 템플릿",
   },
 }
