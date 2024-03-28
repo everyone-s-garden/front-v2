@@ -27,9 +27,8 @@ const Header = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        px="20px"
+        px={{ mobile: '0', tablet: '20px' }}
         hideBelow="tablet"
-        zIndex={10}
       >
         <Flex gap="36px" align="center">
           <Image
