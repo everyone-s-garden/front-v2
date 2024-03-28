@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { CommunityMain, GardenEdit, Main, MyGardenEdit } from '@/pages';
+import CommunityDetail from '../pages/Community/CommunityDetail/CommunityDetail';
 import Layout from './Layout';
 import { PATH } from './constants';
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: PATH.COMMUNITY.MAIN,
         element: <CommunityMain />,
+      },
+      {
+        path: PATH.COMMUNITY.DETAIL,
+        element: <CommunityDetail />,
       },
     ],
   },

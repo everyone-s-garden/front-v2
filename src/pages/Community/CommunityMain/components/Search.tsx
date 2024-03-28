@@ -29,12 +29,13 @@ const Search = () => {
         />
         <Input
           placeholder="검색어를 작성하세요."
-          _placeholder={{ color: 'sub' }}
+          _placeholder={{ color: 'gray.400' }}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           p={0}
           borderRadius={0}
           variant="unstyled"
+          fontSize={{ mobile: '14px', tablet: '16px' }}
         />
       </Box>
     </>
