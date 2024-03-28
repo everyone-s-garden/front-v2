@@ -15,11 +15,12 @@ import {
 } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
 import { POST } from '../../constants';
+import { OrderByOptions } from '../../types';
 
-const OrderDropdown = () => {
+const Order = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const handleClickOrder = (order: keyof typeof POST.ORDER) => {
+  const handleClickOrder = (order: OrderByOptions) => {
     // TODO: params 변경
     console.log(order);
     onClose();
@@ -100,4 +101,4 @@ const OrderDropdown = () => {
   );
 };
 
-export default OrderDropdown;
+export default Order;

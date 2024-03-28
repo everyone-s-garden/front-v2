@@ -1,14 +1,13 @@
 import { Button, Flex, Tag } from '@chakra-ui/react';
 import { useState } from 'react';
 import { POST } from '../../constants';
+import { PostType } from '../../types';
 
 const PostType = () => {
-  const [selectedType, setSelectedType] = useState<keyof typeof POST.TYPE | ''>(
-    '',
-  );
+  const [selectedType, setSelectedType] = useState<PostType | ''>('');
 
   // TODO: params 변경
-  const handleClickType = (type: keyof typeof POST.TYPE) => {
+  const handleClickType = (type: PostType) => {
     if (selectedType === type) {
       setSelectedType('');
 

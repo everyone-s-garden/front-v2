@@ -13,7 +13,7 @@ const CommunityHeader = ({ children }: PropsWithChildren) => {
       alignItems={'center'}
     >
       <Show above="tablet">
-        <Heading as={'h3'} fontWeight={'bold'} fontSize={'24px'} mb={'12px'}>
+        <Heading as={'h1'} fontWeight={'bold'} fontSize={'24px'} mb={'12px'}>
           속닥속닥
         </Heading>
         <Text color={'sub'}>

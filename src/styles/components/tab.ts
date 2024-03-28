@@ -9,7 +9,7 @@ const Tabs: ComponentStyleConfig = defineStyleConfig({
     },
     tab: {
       _selected: {
-        fontWeight: 'semiBold',
+        fontWeight: 'bold',
         color: 'black',
       },
       color: 'gray.200',

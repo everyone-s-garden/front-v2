@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import CommunityHeader from './components/CommunityHeader';
-import OrderDropdown from './components/OrderDropdown';
+import Order from './components/Order';
+import PostList from './components/PostList';
 import PostType from './components/PostType';
 import Search from './components/Search';
 
@@ -18,7 +19,13 @@ const CommunityMain = () => {
         pt={{ mobile: '20px', tablet: '70px' }}
         px={'20px'}
       >
-        <OrderDropdown />
+        <Order />
+        <Box
+          mt={{ mobile: '20px', tablet: '27px' }}
+          mb={{ mobile: '20px', tablet: '60px' }}
+        >
+          <PostList posts={[]} />
+        </Box>
       </Box>
     </>
   );
