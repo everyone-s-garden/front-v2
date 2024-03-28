@@ -33,6 +33,23 @@
     "scope": "typescript,typescriptreact",
     "prefix": "!comp",
     "body": [
+      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "  return (",
+      "    <>",
+      "      $2",
+      "    </>",
+      "  );",
+      "};",
+      "",
+      "export default $1;",
+      "",
+    ],
+    "description": "기본 컴포넌트 템플릿",
+  },
+  "component with props": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "!compwp",
+    "body": [
       "interface $1Props {}",
       "",
       "const ${1:${TM_FILENAME_BASE}} = ({}: $1Props) => {",
@@ -46,7 +63,7 @@
       "export default $1;",
       "",
     ],
-    "description": "기본 컴포넌트 템플릿",
+    "description": "props가 있는 컴포넌트 템플릿",
   },
   "component with children": {
     "scope": "typescript,typescriptreact",
@@ -67,7 +84,7 @@
       "export default $1;",
       "",
     ],
-    "description": "children이 있는 컴포넌트 템플릿",
+    "description": "children props가 있는 컴포넌트 템플릿",
   },
   "api service": {
     "scope": "typescript",
