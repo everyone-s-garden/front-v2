@@ -1,18 +1,17 @@
 import { Image } from '@chakra-ui/react';
 import { Meta, StoryObj } from '@storybook/react';
-import { PropsWithChildren } from 'react';
-import { withRouter } from 'storybook-addon-react-router-v6';
 import { Banner1, Banner2 } from '@/assets/images';
-import ImageSlider, { ImageSliderProps } from './ImageSlider';
+import ImageSlider from './ImageSlider';
 
 const meta: Meta<typeof ImageSlider> = {
   title: 'Components/ImageSlider',
   component: ImageSlider,
   tags: ['autodocs'],
-  decorators: [withRouter],
 };
 
 export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const mainPageImageArray = [Banner1, Banner2];
 const communityPageImageArray = [
@@ -20,7 +19,7 @@ const communityPageImageArray = [
   'https://snvision.seongnam.go.kr/imgdata/snvision/201801/2018012807119336.jpg',
 ];
 
-export const MainPage: StoryObj<PropsWithChildren<ImageSliderProps>> = {
+export const MainPage: Story = {
   args: {
     arrowStyle: 'plain',
     numberOfSlides: mainPageImageArray.length,
@@ -30,7 +29,7 @@ export const MainPage: StoryObj<PropsWithChildren<ImageSliderProps>> = {
   },
 };
 
-export const AnotherPage: StoryObj<PropsWithChildren<ImageSliderProps>> = {
+export const AnotherPage: Story = {
   args: {
     arrowStyle: 'circle',
     numberOfSlides: communityPageImageArray.length,
