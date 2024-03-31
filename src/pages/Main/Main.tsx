@@ -1,10 +1,11 @@
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import Banner from './components/Banner';
 
 const Main = () => {
   return (
-    <div>
-      <Box height="300vh"></Box>
-    </div>
+    <Flex flexDir="column">
+      <Banner />
+    </Flex>
   );
 };
 
