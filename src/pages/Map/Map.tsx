@@ -1,5 +1,16 @@
+import { Suspense } from 'react';
+import MapComponent from './components/MapComponent';
+import MapHeader from './components/MapHeader';
+
 const Map = () => {
-  return <h1>Map 페이지</h1>;
+  return (
+    <>
+      <MapHeader />
+      <Suspense fallback={<div>Loading...</div>}>
+        <MapComponent />
+      </Suspense>
+    </>
+  );
 };
 
 export default Map;
