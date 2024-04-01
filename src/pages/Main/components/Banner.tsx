@@ -1,4 +1,4 @@
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Flex, Hide, Image, Show } from '@chakra-ui/react';
 import { ImageSlider } from '@/components';
 import {
   Banner1,
@@ -26,13 +26,24 @@ const Banner = () => {
       {BANNER_INFO.map(({ pc, bgColor }, idx) => (
         <>
           <Flex justifyContent="center" bg={bgColor}>
-            <Image
-              draggable={false}
-              maxW="1440px"
-              src={pc}
-              alt="main page banner"
-              key={idx}
-            />
+            <Show above="tablet">
+              <Image
+                hideFrom="mobile"
+                draggable={false}
+                src={pc}
+                alt="main page banner"
+                key={idx}
+              />
+            </Show>
+            <Hide above="tablet">
+              <Image
+                hideBelow={'tablet'}
+                draggable={false}
+                src={BANNER_INFO[idx].mobile}
+                alt="main page banner"
+                key={idx}
+              />
+            </Hide>
           </Flex>
         </>
       ))}
