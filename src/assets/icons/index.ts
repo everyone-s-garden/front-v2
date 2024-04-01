@@ -10,3 +10,4 @@ export { default as ArrowRightIcon } from './arrow-right.svg?react';
 export { default as ArrowDownIcon } from './arrow-down.svg?react';
 export { default as ModalPlusIcon } from './modal-plus-button.svg?react';
 export { default as LocationIcon } from './location-icon.svg?react';
+export { default as HeartIcon } from './heart.svg?react';
