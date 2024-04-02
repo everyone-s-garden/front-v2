@@ -1,0 +1,19 @@
+@keyframes growAndFade {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.myMarker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #f97700;
+  border: 2px solid #fff;
+  animation: growAndFade 2s infinite;
+}
