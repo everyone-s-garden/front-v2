@@ -11,6 +11,6 @@ interface Garden {
   gardenType: 'PUBLIC';
   price: string;
   size: string;
-  gardenStatus: 'ACTIVE';
+  gardenStatus: 'ACTIVE' | 'INACTIVE';
   images: string[];
 }

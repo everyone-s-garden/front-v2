@@ -52,11 +52,12 @@ const MapComponent = () => {
   return (
     <Box
       position="relative"
-      h={{ mobile: 'calc(100vh - 167px)', tablet: 'calc(100vh - 165px)' }}
+      overflow="hidden"
+      h={{ mobile: 'calc(100vh - 167px)', tablet: 'calc(100vh - 166px)' }}
       bgColor="black"
     >
       <ShowGardensButton {...{ showGardens, setShowGardens }} />
-      <GardensContainer showGardens={showGardens} />
+      <GardensContainer showGardens={showGardens} gardens={gardens} />
 
       <MapDiv style={{ width: '100%', height: '100%' }}>
         <NaverMap
@@ -72,6 +73,9 @@ const MapComponent = () => {
             <Marker
               position={new navermaps.LatLng(location.lat, location.lng)}
               key={location.id}
+              onClick={() => {
+                setShowGardens(true);
+              }}
             />
           ))}
           <CustomMarker navermaps={navermaps} position={position} />

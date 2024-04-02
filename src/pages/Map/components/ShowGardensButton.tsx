@@ -37,7 +37,7 @@ const ShowGardensButton = ({
           }}
           initial={{ y: '-50%' }}
           animate={{
-            x: showGardens ? -379 : 0,
+            x: showGardens ? -378 : 0,
             transition: { type: 'tween' },
           }}
           onClick={() => setShowGardens(!showGardens)}

@@ -1,19 +1,21 @@
-import { Box, Flex, Image, Show, Text, chakra } from '@chakra-ui/react';
+import { Show, chakra } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { MapNoGardenImg } from '@/assets/images';
+import MapGardens from './MapGardens';
+import MapNoGarden from './MapNoGarden';
 
 const GardenContainer = chakra(motion.div);
 
 interface GardensContainer {
   showGardens: boolean;
+  gardens: Garden[];
 }
 
-const GardensContainer = ({ showGardens }: GardensContainer) => {
+const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
   return (
     <>
       <Show above="tablet">
         <GardenContainer
-          w="379px"
+          w="378px"
           position="absolute"
           zIndex="1"
           h="100%"
@@ -27,24 +29,11 @@ const GardensContainer = ({ showGardens }: GardensContainer) => {
             transition: { type: 'tween' },
           }}
         >
-          <Flex
-            flexDir="column"
-            justifyContent="center"
-            alignItems="center"
-            gap="16px"
-            h="100%"
-          >
-            <Image src={MapNoGardenImg} w="66px" h="66px" />
-
-            <Box>
-              <Text fontWeight="semibold" fontSize="18px" color="#80AC49">
-                해당 지역에는 텃밭이 없어요!
-              </Text>
-              <Text fontWeight="regular" fontSize="16px" color="#80AC49">
-                지도를 다른 곳으로 움직여보세요.
-              </Text>
-            </Box>
-          </Flex>
+          {gardens.length === 0 ? (
+            <MapNoGarden />
+          ) : (
+            <MapGardens gardens={gardens} />
+          )}
         </GardenContainer>
       </Show>
 
@@ -65,24 +54,12 @@ const GardensContainer = ({ showGardens }: GardensContainer) => {
             transition: { type: 'tween' },
           }}
         >
-          <Flex
-            flexDir="column"
-            justifyContent="center"
-            alignItems="center"
-            gap="16px"
-            h="100%"
-          >
-            <Image src={MapNoGardenImg} w="66px" h="66px" />
-
-            <Box>
-              <Text fontWeight="semibold" fontSize="18px" color="#80AC49">
-                해당 지역에는 텃밭이 없어요!
-              </Text>
-              <Text fontWeight="regular" fontSize="16px" color="#80AC49">
-                지도를 다른 곳으로 움직여보세요.
-              </Text>
-            </Box>
-          </Flex>
+          {gardens.length === 0 ? (
+            <MapNoGarden />
+          ) : (
+            <MapGardens gardens={gardens} />
+          )}
+          <MapGardens gardens={gardens} />
         </GardenContainer>
       </Show>
     </>
