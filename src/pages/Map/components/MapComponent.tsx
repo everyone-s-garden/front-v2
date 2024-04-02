@@ -1,14 +1,16 @@
-import { Box, Spinner, Center } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import GardensContainer from './GardensContainer';
 import CustomMarker from './Marker/CustomMarker';
 import ShowGardensButton from './ShowGardensButton';
+import MapSpinner from './Spinner';
 import useGeolocation from '@/hooks/useGeolocation';
 
 const MapComponent = () => {
   const [showGardens, setShowGardens] = useState(false);
   const navermaps = useNavermaps();
+  console.log(navermaps);
   const geolocation = useGeolocation();
   const [loading, setLoading] = useState(true);
 
@@ -31,19 +33,7 @@ const MapComponent = () => {
   }
 
   if (loading) {
-    return (
-      <Center
-        h={{ mobile: 'calc(100vh - 167px)', tablet: 'calc(100vh - 165px)' }}
-      >
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="green.500"
-          size="xl"
-        />
-      </Center>
-    );
+    return <MapSpinner />;
   }
 
   return (

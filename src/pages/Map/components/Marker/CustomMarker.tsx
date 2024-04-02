@@ -2,8 +2,7 @@ import { Marker } from 'react-naver-maps';
 import styles from './CustomMarker.module.css';
 
 interface CustomMarkerProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  navermaps: any;
+  navermaps: typeof naver.maps;
   position: Position;
 }
 

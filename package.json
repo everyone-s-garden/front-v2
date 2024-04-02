@@ -58,6 +58,7 @@
     "@storybook/react-vite": "^8.0.4",
     "@storybook/test": "^8.0.4",
     "@tanstack/eslint-plugin-query": "^5.20.1",
+    "@types/navermaps": "^3.7.5",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/react-slick": "^0.23.13",
