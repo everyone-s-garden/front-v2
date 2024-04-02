@@ -150,7 +150,7 @@ const ImageSelector = ({
                 w={'100%'}
                 h={'100%'}
                 borderRadius={10}
-                bg={`${color}.100`}
+                bg={`white`}
               />
             </Box>
           </SwiperSlide>
