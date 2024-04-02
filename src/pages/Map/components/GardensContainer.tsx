@@ -42,15 +42,15 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
           w="100%"
           position="absolute"
           zIndex="1"
-          h="550"
+          h="475"
           bottom="0"
           bgColor="white"
           borderTop="1px"
           borderColor="gray.200"
           borderRadius="17px 17px 0 0"
-          initial={{ y: 520 }}
+          initial={{ y: 455 }}
           animate={{
-            y: showGardens ? 0 : 520,
+            y: showGardens ? 0 : 455,
             transition: { type: 'tween' },
           }}
         >

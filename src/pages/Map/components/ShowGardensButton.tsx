@@ -69,9 +69,9 @@ const ShowGardensButton = ({
             borderStyle: 'solid',
           }}
           cursor="pointer"
-          initial={{ x: '-50%', y: -30 }}
+          initial={{ x: '-50%', y: -20 }}
           animate={{
-            y: showGardens ? -550 : -30,
+            y: showGardens ? -475 : -20,
             transition: { type: 'tween' },
           }}
           onClick={() => setShowGardens(!showGardens)}
