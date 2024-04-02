@@ -49,6 +49,11 @@ const MapComponent = () => {
         <NaverMap
           defaultCenter={new navermaps.LatLng(position.lat, position.lng)}
           defaultZoom={10}
+          zoomControl
+          zoomControlOptions={{
+            style: naver.maps.ZoomControlStyle.SMALL,
+            position: navermaps.Position.TOP_LEFT,
+          }}
         >
           <CustomMarker navermaps={navermaps} position={position} />
         </NaverMap>
