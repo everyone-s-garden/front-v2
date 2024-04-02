@@ -1,6 +1,11 @@
 import { Box } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
+import {
+  Container as MapDiv,
+  Marker,
+  NaverMap,
+  useNavermaps,
+} from 'react-naver-maps';
 import GardensContainer from './GardensContainer';
 import CustomMarker from './Marker/CustomMarker';
 import ShowGardensButton from './ShowGardensButton';
@@ -15,7 +20,12 @@ const MapComponent = () => {
   const [loading, setLoading] = useState(true);
   const { data } = useGetEveryGardens();
   const gardens: Garden[] = data?.gardenGetAllResponses;
-  console.log(gardens);
+
+  const locations = gardens?.map((garden) => ({
+    id: garden.gardenId,
+    lat: garden.latitude,
+    lng: garden.longitude,
+  }));
 
   useEffect(() => {
     if (geolocation.loaded) {
@@ -58,6 +68,12 @@ const MapComponent = () => {
             position: navermaps.Position.TOP_LEFT,
           }}
         >
+          {locations.map((location) => (
+            <Marker
+              position={new navermaps.LatLng(location.lat, location.lng)}
+              key={location.id}
+            />
+          ))}
           <CustomMarker navermaps={navermaps} position={position} />
         </NaverMap>
       </MapDiv>
