@@ -6,13 +6,16 @@ import CustomMarker from './Marker/CustomMarker';
 import ShowGardensButton from './ShowGardensButton';
 import MapSpinner from './Spinner';
 import useGeolocation from '@/hooks/useGeolocation';
+import { useGetEveryGardens } from '@/services/gardens/query';
 
 const MapComponent = () => {
   const [showGardens, setShowGardens] = useState(false);
   const navermaps = useNavermaps();
-  console.log(navermaps);
   const geolocation = useGeolocation();
   const [loading, setLoading] = useState(true);
+  const { data } = useGetEveryGardens();
+  const gardens: Garden[] = data?.gardenGetAllResponses;
+  console.log(gardens);
 
   useEffect(() => {
     if (geolocation.loaded) {
