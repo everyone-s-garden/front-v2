@@ -1,5 +1,5 @@
-import { Flex, Image } from '@chakra-ui/react';
-import ItemTitle from './ItemTitle';
+import { Flex } from '@chakra-ui/react';
+import ItemTitle from '../ItemTitle';
 import RecentPostItem from './RecentPostItem';
 
 const MOCK = [
@@ -79,7 +79,7 @@ const MOCK = [
 
 const RecentPosts = () => {
   return (
-    <Flex flexDir="column">
+    <Flex flexDir="column" m="0 auto" px="20px">
       <ItemTitle>방금 등록된 따끈따끈한 게시글!</ItemTitle>
       <Flex
         gap={{ mobile: '12px', tablet: '30px' }}

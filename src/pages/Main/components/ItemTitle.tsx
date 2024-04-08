@@ -7,6 +7,7 @@ const ItemTitle = ({ children }: PropsWithChildren) => {
       mb={{ mobile: '20px', tablet: '30px' }}
       fontSize={{ mobile: '18px', tablet: '24px' }}
       fontWeight="bold"
+      wordBreak="keep-all"
     >
       {children}
     </Text>

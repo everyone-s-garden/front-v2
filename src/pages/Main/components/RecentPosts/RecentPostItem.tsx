@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Image, Text, chakra } from '@chakra-ui/react';
+import { Box, Flex, Image, Text, chakra } from '@chakra-ui/react';
 import { HeartIcon } from '@/assets/icons';
 
 const CHeartIcon = chakra(HeartIcon);

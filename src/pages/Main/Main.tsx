@@ -1,14 +1,14 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import Banner from './components/Banner';
-import RecentPosts from './components/RecentPosts';
+import MonthlyCrop from './components/MonthlyCrop';
+import RecentPosts from './components/RecentPosts/RecentPosts';
 
 const Main = () => {
   return (
     <Flex flexDir="column" gap={{ mobile: '36px', tablet: '80px' }}>
       <Banner />
-      <Box m="0 auto" flexDir="column" px="20px">
-        <RecentPosts />
-      </Box>
+      <RecentPosts />
+      <MonthlyCrop />
     </Flex>
   );
 };
