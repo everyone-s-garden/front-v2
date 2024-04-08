@@ -1,6 +1,4 @@
 import {
-  Box,
-  Icon,
   Image,
   Modal,
   ModalBody,
@@ -8,7 +6,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import { NextIcon, PrevIcon } from '@/assets/icons';
+import MapSliderArrow from './MapSliderArrow';
 
 const images = [
   {
@@ -37,38 +35,8 @@ const MapSliderModal = ({ isOpen, onClose }: MapSliderModalProps) => {
     slidesToShow: 1,
     slidesToScroll: 1,
 
-    nextArrow: (
-      <Box
-        position="fixed"
-        top="50%"
-        transform="translateY(-50%)"
-        right="50px"
-        zIndex="1"
-      >
-        <Icon
-          w="23px"
-          h="44px"
-          fill="rgba(255, 255, 255, 0.70);"
-          as={NextIcon}
-        />
-      </Box>
-    ),
-    prevArrow: (
-      <Box
-        position="fixed"
-        top="50%"
-        transform="translateY(-50%)"
-        left="50px"
-        zIndex="1"
-      >
-        <Icon
-          w="23px"
-          h="44px"
-          fill="rgba(255, 255, 255, 0.70);"
-          as={PrevIcon}
-        />
-      </Box>
-    ),
+    nextArrow: <MapSliderArrow dir="next" />,
+    prevArrow: <MapSliderArrow dir="prev" />,
   };
 
   return (
