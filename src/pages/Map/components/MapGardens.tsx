@@ -4,11 +4,11 @@ import GardenStatus from './GardenStatus';
 import MapGardenDetail from './MapGardenDetail';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
-interface MapGardens {
+interface MapGardensProps {
   gardens: Garden[];
 }
 
-const MapGardens = ({ gardens }: MapGardens) => {
+const MapGardens = ({ gardens }: MapGardensProps) => {
   const [showGardenDetail, setShowGardenDetail] = useState(false);
   const { setGardenId } = useMapGardenDetailIdStore();
 

@@ -1,5 +1,13 @@
-import { Box, Button, Flex, Icon, Image, Text } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Image,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Slider from 'react-slick';
 import {
   HeartIcon,
@@ -9,6 +17,7 @@ import {
   ReportIcon,
 } from '@/assets/icons';
 import GardenStatus from './GardenStatus';
+import MapSliderModal from './MapSliderModal';
 import { useGetIndividualGarden } from '@/services/gardens/query';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
@@ -16,9 +25,40 @@ interface MapGardenDetailProps {
   setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
 }
 
+const images = [
+  {
+    id: 1,
+    src: 'https://s3-alpha-sig.figma.com/img/260d/cf56/ae3a3e0756812f18eecb200f5aa341a3?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FTEevLd1T3lQmJjKqDh-MM4hY0E6GX1gWMgPFfVkUrYrYYgx0Id0zPioeQvrPp1Rkc~rOcZROBqGf0ElPJZnBFlURZ~okNw2XwgNTbFEF4f9JvDRGMpNSAcRrxbvRLSIYr9B~~SjOZDRKY5f5QMbbUvjgHxPpdSG~ctYqbet2qDhHeOFemrdicvTbDF5QimDqEZjpwBVmajBn6aIaz24YMte1mbGv~xoHheAZrne97oqvaUlIrnLlPL2df0j0dzbZCkr-3mJQczScxJwa~IN0iznuXuFDGqRa6vbTPaNbPmOLidJahLJIOkkE5J-ehNySgwMszDz2SWlVp0vZNAnPg__',
+  },
+  {
+    id: 2,
+    src: 'https://s3-alpha-sig.figma.com/img/260d/cf56/ae3a3e0756812f18eecb200f5aa341a3?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FTEevLd1T3lQmJjKqDh-MM4hY0E6GX1gWMgPFfVkUrYrYYgx0Id0zPioeQvrPp1Rkc~rOcZROBqGf0ElPJZnBFlURZ~okNw2XwgNTbFEF4f9JvDRGMpNSAcRrxbvRLSIYr9B~~SjOZDRKY5f5QMbbUvjgHxPpdSG~ctYqbet2qDhHeOFemrdicvTbDF5QimDqEZjpwBVmajBn6aIaz24YMte1mbGv~xoHheAZrne97oqvaUlIrnLlPL2df0j0dzbZCkr-3mJQczScxJwa~IN0iznuXuFDGqRa6vbTPaNbPmOLidJahLJIOkkE5J-ehNySgwMszDz2SWlVp0vZNAnPg__',
+  },
+  {
+    id: 3,
+    src: 'https://s3-alpha-sig.figma.com/img/260d/cf56/ae3a3e0756812f18eecb200f5aa341a3?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FTEevLd1T3lQmJjKqDh-MM4hY0E6GX1gWMgPFfVkUrYrYYgx0Id0zPioeQvrPp1Rkc~rOcZROBqGf0ElPJZnBFlURZ~okNw2XwgNTbFEF4f9JvDRGMpNSAcRrxbvRLSIYr9B~~SjOZDRKY5f5QMbbUvjgHxPpdSG~ctYqbet2qDhHeOFemrdicvTbDF5QimDqEZjpwBVmajBn6aIaz24YMte1mbGv~xoHheAZrne97oqvaUlIrnLlPL2df0j0dzbZCkr-3mJQczScxJwa~IN0iznuXuFDGqRa6vbTPaNbPmOLidJahLJIOkkE5J-ehNySgwMszDz2SWlVp0vZNAnPg__',
+  },
+];
+
 const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
   const { gardenId } = useMapGardenDetailIdStore();
   const { data } = useGetIndividualGarden(gardenId);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [dragging, setDragging] = useState(false);
+
+  const handleBeforeChange = () => {
+    setDragging(true);
+  };
+
+  const handleAfterChange = () => {
+    setDragging(false);
+  };
+
+  const handleClickImage = () => {
+    if (!dragging) {
+      onOpen();
+    }
+  };
 
   console.log(data);
 
@@ -27,6 +67,9 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
+
     nextArrow: (
       <Box
         position="absolute"
@@ -81,21 +124,18 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
 
       <Box h="327px" position="relative">
         <Slider {...settings}>
-          <Image
-            w="100%"
-            h="327px"
-            src="https://s3-alpha-sig.figma.com/img/260d/cf56/ae3a3e0756812f18eecb200f5aa341a3?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FTEevLd1T3lQmJjKqDh-MM4hY0E6GX1gWMgPFfVkUrYrYYgx0Id0zPioeQvrPp1Rkc~rOcZROBqGf0ElPJZnBFlURZ~okNw2XwgNTbFEF4f9JvDRGMpNSAcRrxbvRLSIYr9B~~SjOZDRKY5f5QMbbUvjgHxPpdSG~ctYqbet2qDhHeOFemrdicvTbDF5QimDqEZjpwBVmajBn6aIaz24YMte1mbGv~xoHheAZrne97oqvaUlIrnLlPL2df0j0dzbZCkr-3mJQczScxJwa~IN0iznuXuFDGqRa6vbTPaNbPmOLidJahLJIOkkE5J-ehNySgwMszDz2SWlVp0vZNAnPg__"
-          />
-          <Image
-            w="100%"
-            h="327px"
-            src="https://s3-alpha-sig.figma.com/img/260d/cf56/ae3a3e0756812f18eecb200f5aa341a3?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FTEevLd1T3lQmJjKqDh-MM4hY0E6GX1gWMgPFfVkUrYrYYgx0Id0zPioeQvrPp1Rkc~rOcZROBqGf0ElPJZnBFlURZ~okNw2XwgNTbFEF4f9JvDRGMpNSAcRrxbvRLSIYr9B~~SjOZDRKY5f5QMbbUvjgHxPpdSG~ctYqbet2qDhHeOFemrdicvTbDF5QimDqEZjpwBVmajBn6aIaz24YMte1mbGv~xoHheAZrne97oqvaUlIrnLlPL2df0j0dzbZCkr-3mJQczScxJwa~IN0iznuXuFDGqRa6vbTPaNbPmOLidJahLJIOkkE5J-ehNySgwMszDz2SWlVp0vZNAnPg__"
-          />
-          <Image
-            w="100%"
-            h="327px"
-            src="https://s3-alpha-sig.figma.com/img/260d/cf56/ae3a3e0756812f18eecb200f5aa341a3?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FTEevLd1T3lQmJjKqDh-MM4hY0E6GX1gWMgPFfVkUrYrYYgx0Id0zPioeQvrPp1Rkc~rOcZROBqGf0ElPJZnBFlURZ~okNw2XwgNTbFEF4f9JvDRGMpNSAcRrxbvRLSIYr9B~~SjOZDRKY5f5QMbbUvjgHxPpdSG~ctYqbet2qDhHeOFemrdicvTbDF5QimDqEZjpwBVmajBn6aIaz24YMte1mbGv~xoHheAZrne97oqvaUlIrnLlPL2df0j0dzbZCkr-3mJQczScxJwa~IN0iznuXuFDGqRa6vbTPaNbPmOLidJahLJIOkkE5J-ehNySgwMszDz2SWlVp0vZNAnPg__"
-          />
+          {images.map((image) => (
+            <>
+              <Image
+                w="100%"
+                h="327px"
+                cursor="pointer"
+                src={image.src}
+                key={image.id}
+                onClick={handleClickImage}
+              />
+            </>
+          ))}
         </Slider>
       </Box>
       <Box padding="30px">
@@ -121,6 +161,12 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
               면적
             </Text>
             <Text fontWeight="regular">16.5㎡(9평)</Text>
+          </Flex>
+          <Flex>
+            <Text minW="25%" fontWeight="medium">
+              연락처
+            </Text>
+            <Text fontWeight="regular">010-2001-3000</Text>
           </Flex>
         </Flex>
 
@@ -208,6 +254,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
           </Flex>
         </Box>
       </Box>
+      {isOpen && <MapSliderModal isOpen={isOpen} onClose={onClose} />}
     </Box>
   );
 };
