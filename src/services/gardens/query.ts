@@ -3,14 +3,25 @@ import cropsApi from './api';
 
 export const gardensQuery = {
   all: () => ['crops'] as const,
+  datails: () => [...gardensQuery.all(), 'detail'],
 
-  everyCrops: () =>
+  everyGarden: () =>
     queryOptions({
       queryKey: [...gardensQuery.all()],
-      queryFn: () => cropsApi.getEveryCrops(),
+      queryFn: () => cropsApi.getEveryGardens(),
+    }),
+
+  individualGarden: (id: number | null) =>
+    queryOptions({
+      queryKey: [...gardensQuery.datails(), id],
+      queryFn: () => cropsApi.getIndividualGarden(id),
     }),
 };
 
 export const useGetEveryGardens = () => {
-  return useQuery(gardensQuery.everyCrops());
+  return useQuery(gardensQuery.everyGarden());
+};
+
+export const useGetIndividualGarden = (id: number | null) => {
+  return useQuery(gardensQuery.individualGarden(id));
 };

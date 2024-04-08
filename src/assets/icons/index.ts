@@ -20,3 +20,4 @@ export { default as CommentIcon } from './comment.svg?react';
 export { default as MapGardenDetailLeftIcon } from './map-garden-detail-left-icon.svg?react';
 export { default as MapSliderRightIcon } from './map-slider-right-arrow.svg?react';
 export { default as MapSliderLeftIcon } from './map-slider-left-icon.svg?react';
+export { default as ReportIcon } from './report.svg?react';
