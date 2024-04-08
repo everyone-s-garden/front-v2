@@ -42,7 +42,7 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
           w="100%"
           position="absolute"
           zIndex="1"
-          h="475"
+          h="475px"
           bottom="0"
           bgColor="white"
           borderTop="1px"

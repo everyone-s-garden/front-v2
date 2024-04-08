@@ -15,7 +15,7 @@ const MapGardens = ({ gardens }: MapGardens) => {
   return (
     <Box position="relative">
       <Box
-        h={{ mobile: '550px', tablet: 'calc(100vh - 166px)' }}
+        h={{ mobile: '475px', tablet: 'calc(100vh - 166px)' }}
         overflow={showGardenDetail ? 'hidden' : 'auto'}
       >
         {gardens?.map((garden) => (

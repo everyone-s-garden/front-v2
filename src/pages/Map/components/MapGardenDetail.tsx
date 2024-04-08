@@ -105,19 +105,19 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
 
         <Flex flexDir="column" gap="21px" marginBottom="40px">
           <Flex>
-            <Text w="25%" fontWeight="medium">
+            <Text minW="25%" fontWeight="medium">
               신청기간
             </Text>
             <Text fontWeight="medium">2023. 04. 20 ~ 04.30</Text>
           </Flex>
           <Flex>
-            <Text w="25%" fontWeight="medium">
+            <Text minW="25%" fontWeight="medium">
               가격
             </Text>
             <Text fontWeight="regular">1구획 당 16000원</Text>
           </Flex>
           <Flex>
-            <Text w="25%" fontWeight="medium">
+            <Text minW="25%" fontWeight="medium">
               면적
             </Text>
             <Text fontWeight="regular">16.5㎡(9평)</Text>
@@ -126,7 +126,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
 
         <Flex flexDir="column" gap="21px">
           <Flex alignItems="center">
-            <Text w="25%" fontWeight="medium">
+            <Text minW="25%" fontWeight="medium">
               부대 시설
             </Text>
             <Flex gap="12px">
@@ -162,7 +162,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
           </Flex>
 
           <Flex>
-            <Text w="25%" fontWeight="medium">
+            <Text minW="25%" fontWeight="medium">
               세부 사항
             </Text>
             <Text fontWeight="regular">양주시민들만 참여가 가능합니다.</Text>
