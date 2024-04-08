@@ -79,13 +79,9 @@ const MOCK = [
 
 const RecentPosts = () => {
   return (
-    <Flex flexDir="column" m="0 auto" px="20px">
+    <Flex flexDir="column" m="0 auto" px="20px" maxW="1194px">
       <ItemTitle>방금 등록된 따끈따끈한 게시글!</ItemTitle>
-      <Flex
-        gap={{ mobile: '12px', tablet: '30px' }}
-        maxW="1194px"
-        overflowY="auto"
-      >
+      <Flex gap={{ mobile: '12px', tablet: '30px' }} overflowY="auto">
         {MOCK.map((postData) => (
           <RecentPostItem key={postData.gardenId} postData={postData} />
         ))}

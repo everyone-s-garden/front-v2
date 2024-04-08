@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import Banner from './components/Banner';
 import MonthlyCrop from './components/MonthlyCrop';
 import RecentPosts from './components/RecentPosts/RecentPosts';
+import Weather from './components/Weather/Weather';
 
 const Main = () => {
   return (
@@ -9,6 +10,7 @@ const Main = () => {
       <Banner />
       <RecentPosts />
       <MonthlyCrop />
+      <Weather />
     </Flex>
   );
 };
