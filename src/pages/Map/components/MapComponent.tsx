@@ -1,13 +1,9 @@
 import { Box } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import {
-  Container as MapDiv,
-  Marker,
-  NaverMap,
-  useNavermaps,
-} from 'react-naver-maps';
+import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import GardensContainer from './GardensContainer';
-import CustomMarker from './Marker/CustomMarker';
+import GardenMarker from './Marker/GardenMarker';
+import MyMarker from './Marker/MyMarker';
 import ShowGardensButton from './ShowGardensButton';
 import MapSpinner from './Spinner';
 import useGeolocation from '@/hooks/useGeolocation';
@@ -70,7 +66,8 @@ const MapComponent = () => {
           }}
         >
           {locations.map((location) => (
-            <Marker
+            <GardenMarker
+              navermaps={navermaps}
               position={new navermaps.LatLng(location.lat, location.lng)}
               key={location.id}
               onClick={() => {
@@ -78,7 +75,7 @@ const MapComponent = () => {
               }}
             />
           ))}
-          <CustomMarker navermaps={navermaps} position={position} />
+          <MyMarker navermaps={navermaps} position={position} />
         </NaverMap>
       </MapDiv>
     </Box>

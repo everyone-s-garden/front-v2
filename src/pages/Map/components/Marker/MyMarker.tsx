@@ -11,7 +11,7 @@ interface Position {
   lng: number;
 }
 
-const CustomMarker = ({ navermaps, position }: CustomMarkerProps) => {
+const MyMarker = ({ navermaps, position }: CustomMarkerProps) => {
   const markerHtml = `<div class="${styles.myMarker}"></div>`;
   const anchor = new navermaps.Point(10, 10);
 
@@ -26,4 +26,4 @@ const CustomMarker = ({ navermaps, position }: CustomMarkerProps) => {
   );
 };
 
-export default CustomMarker;
+export default MyMarker;
