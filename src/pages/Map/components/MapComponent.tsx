@@ -54,7 +54,7 @@ const MapComponent = () => {
       position="relative"
       overflow="hidden"
       h={{ mobile: 'calc(100vh - 167px)', tablet: 'calc(100vh - 166px)' }}
-      bgColor="black"
+      zIndex="0"
     >
       <ShowGardensButton {...{ showGardens, setShowGardens }} />
       <GardensContainer showGardens={showGardens} gardens={gardens} />

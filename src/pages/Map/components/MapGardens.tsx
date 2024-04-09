@@ -12,6 +12,8 @@ const MapGardens = ({ gardens }: MapGardensProps) => {
   const [showGardenDetail, setShowGardenDetail] = useState(false);
   const { setGardenId } = useMapGardenDetailIdStore();
 
+  console.log('ren');
+
   return (
     <Box position="relative">
       <Box

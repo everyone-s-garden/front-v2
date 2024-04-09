@@ -4,6 +4,7 @@ import {
   Flex,
   Icon,
   Image,
+  Show,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -96,47 +97,79 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
 
   return (
     <Box
-      position="absolute"
+      position={{ mobile: 'fixed', tablet: 'absolute' }}
       top="0"
       left="0"
       w="100%"
       h="100%"
       bgColor="white"
       overflowY="auto"
-      zIndex="1"
+      zIndex="3"
     >
-      <Icon
-        position="absolute"
-        left="21px"
-        top="34.41px"
-        fill="none"
-        minW="auto"
-        minH="auto"
-        stroke="white"
-        padding="0"
-        cursor="pointer"
-        zIndex="1"
-        onClick={() => setShowGardenDetail(false)}
-        as={MapGardenDetailLeftIcon}
-      />
+      <Show below="tablet">
+        <Box position="relative" bgColor="white" h="60px">
+          <Icon
+            position="absolute"
+            left="20px"
+            top="50%"
+            transform="translateY(-50%)"
+            fill="none"
+            stroke="black"
+            padding="0"
+            cursor="pointer"
+            w="20px"
+            h="20px"
+            onClick={() => setShowGardenDetail(false)}
+            as={MapGardenDetailLeftIcon}
+          />
+          <Text
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            fontSize="18px"
+            fontWeight="semibold"
+          >
+            텃밭 상세보기
+          </Text>
+        </Box>
+      </Show>
+      <Box position="relative">
+        <Show above="tablet">
+          <Icon
+            position="absolute"
+            left="21px"
+            top="34.41px"
+            fill="none"
+            minW="auto"
+            minH="auto"
+            stroke="white"
+            padding="0"
+            cursor="pointer"
+            zIndex="1"
+            onClick={() => setShowGardenDetail(false)}
+            as={MapGardenDetailLeftIcon}
+          />
+        </Show>
 
-      <GardenStatus garden={undefined} type="detail" />
+        <GardenStatus garden={undefined} type="detail" />
 
-      <Box h="327px" position="relative">
-        <Slider {...settings}>
-          {images.map((image) => (
-            <>
-              <Image
-                w="100%"
-                h="327px"
-                cursor="pointer"
-                src={image.src}
-                key={image.id}
-                onClick={handleClickImage}
-              />
-            </>
-          ))}
-        </Slider>
+        <Box h="327px" position="relative">
+          <Slider {...settings}>
+            {images.map((image) => (
+              <>
+                <Image
+                  w="100%"
+                  h="327px"
+                  cursor="pointer"
+                  src={image.src}
+                  key={image.id}
+                  onClick={handleClickImage}
+                />
+              </>
+            ))}
+          </Slider>
+        </Box>
       </Box>
       <Box padding="30px">
         <Text fontSize="20px" fontWeight="semibold" marginBottom="30px">

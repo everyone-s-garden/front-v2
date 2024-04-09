@@ -17,7 +17,7 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
         <GardenContainer
           w="378px"
           position="absolute"
-          zIndex="1"
+          zIndex="3"
           h="100%"
           right="0"
           bgColor="white"
@@ -41,7 +41,7 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
         <GardenContainer
           w="100%"
           position="absolute"
-          zIndex="1"
+          zIndex="3"
           h="475px"
           bottom="0"
           bgColor="white"
@@ -59,7 +59,6 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
           ) : (
             <MapGardens gardens={gardens} />
           )}
-          <MapGardens gardens={gardens} />
         </GardenContainer>
       </Show>
     </>
