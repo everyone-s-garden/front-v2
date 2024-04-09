@@ -1,16 +1,24 @@
-import { Show, chakra } from '@chakra-ui/react';
+import { Icon, Show, chakra } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { Dispatch, SetStateAction } from 'react';
+import { MapArrowBottomIcon, MapArrowLeftIcon } from '@/assets/icons';
 import MapGardens from './MapGardens';
 import MapNoGarden from './MapNoGarden';
 
+const Button = chakra(motion.button);
 const GardenContainer = chakra(motion.div);
 
-interface GardensContainer {
-  showGardens: boolean;
+interface GardensContainerProps {
   gardens: Garden[];
+  showGardens: boolean;
+  setShowGardens: Dispatch<SetStateAction<boolean>>;
 }
 
-const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
+const GardensContainer = ({
+  gardens,
+  showGardens,
+  setShowGardens,
+}: GardensContainerProps) => {
   return (
     <>
       <Show above="tablet">
@@ -23,7 +31,7 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
           bgColor="white"
           borderWidth="1px 0 0 1px"
           borderColor="gray.200"
-          initial={{ x: 379 }}
+          initial={{ x: showGardens ? 0 : 379 }}
           animate={{
             x: showGardens ? 0 : 379,
             transition: { type: 'tween' },
@@ -34,6 +42,35 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
           ) : (
             <MapGardens gardens={gardens} />
           )}
+          <Button
+            position="absolute"
+            left="-22px"
+            top="50%"
+            bgColor="white"
+            cursor="pointer"
+            minW="21px"
+            h="55px"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            sx={{
+              borderRadius: '5px 0 0 5px',
+              borderWidth: '1px 0 1px 1px',
+              borderColor: 'gray.200',
+              borderStyle: 'solid',
+            }}
+            initial={{ y: '-50%' }}
+            animate={{
+              transition: { type: 'tween' },
+            }}
+            onClick={() => setShowGardens(!showGardens)}
+          >
+            {showGardens ? (
+              <Icon as={MapArrowLeftIcon} transform="rotate(180deg)" />
+            ) : (
+              <Icon as={MapArrowLeftIcon} />
+            )}
+          </Button>
         </GardenContainer>
       </Show>
 
@@ -48,7 +85,7 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
           borderTop="1px"
           borderColor="gray.200"
           borderRadius="17px 17px 0 0"
-          initial={{ y: 455 }}
+          initial={{ y: showGardens ? 0 : 455 }}
           animate={{
             y: showGardens ? 0 : 455,
             transition: { type: 'tween' },
@@ -59,6 +96,35 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
           ) : (
             <MapGardens gardens={gardens} />
           )}
+          <Button
+            position="absolute"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            w="55px"
+            h="21px"
+            left="50%"
+            top="-22px"
+            bgColor="white"
+            sx={{
+              borderRadius: '5px 5px 0 0',
+              borderWidth: '1px 1px 0 1px',
+              borderColor: 'gray.200',
+              borderStyle: 'solid',
+            }}
+            cursor="pointer"
+            initial={{ x: '-50%' }}
+            animate={{
+              transition: { type: 'tween' },
+            }}
+            onClick={() => setShowGardens(!showGardens)}
+          >
+            {showGardens ? (
+              <Icon as={MapArrowBottomIcon} />
+            ) : (
+              <Icon as={MapArrowBottomIcon} transform="rotate(180deg)" />
+            )}
+          </Button>
         </GardenContainer>
       </Show>
     </>

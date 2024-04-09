@@ -4,7 +4,6 @@ import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import GardensContainer from './GardensContainer';
 import GardenMarker from './Marker/GardenMarker';
 import MyMarker from './Marker/MyMarker';
-import ShowGardensButton from './ShowGardensButton';
 import MapSpinner from './Spinner';
 import useGeolocation from '@/hooks/useGeolocation';
 import { useGetEveryGardens } from '@/services/gardens/query';
@@ -45,8 +44,11 @@ const MapComponent = () => {
       h={{ mobile: 'calc(100vh - 167px)', tablet: 'calc(100vh - 166px)' }}
       zIndex="0"
     >
-      <ShowGardensButton {...{ showGardens, setShowGardens }} />
-      <GardensContainer showGardens={showGardens} gardens={gardens} />
+      <GardensContainer
+        showGardens={showGardens}
+        setShowGardens={setShowGardens}
+        gardens={gardens}
+      />
 
       <MapDiv style={{ width: '100%', height: '100%' }}>
         <NaverMap
