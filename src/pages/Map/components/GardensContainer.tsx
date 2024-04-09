@@ -46,6 +46,7 @@ const GardensContainer = ({
             position="absolute"
             left="-22px"
             top="50%"
+            transform="translateY(-50%)"
             bgColor="white"
             cursor="pointer"
             minW="21px"
@@ -58,10 +59,6 @@ const GardensContainer = ({
               borderWidth: '1px 0 1px 1px',
               borderColor: 'gray.200',
               borderStyle: 'solid',
-            }}
-            initial={{ y: '-50%' }}
-            animate={{
-              transition: { type: 'tween' },
             }}
             onClick={() => setShowGardens(!showGardens)}
           >
@@ -104,6 +101,7 @@ const GardensContainer = ({
             w="55px"
             h="21px"
             left="50%"
+            transform="translateX(-50%)"
             top="-22px"
             bgColor="white"
             sx={{
@@ -113,10 +111,6 @@ const GardensContainer = ({
               borderStyle: 'solid',
             }}
             cursor="pointer"
-            initial={{ x: '-50%' }}
-            animate={{
-              transition: { type: 'tween' },
-            }}
             onClick={() => setShowGardens(!showGardens)}
           >
             {showGardens ? (

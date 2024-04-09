@@ -130,6 +130,14 @@ const globalStyles = css`
     line-height: 0;
     text-indent: -9999px;
   } /* 대체 텍스트가 아닌 접근성을 위한 숨김 텍스트를 제공할 때 */
+
+  .slick-dots li button:before {
+    opacity: 0.25;
+    color: white;
+  }
+  .slick-dots li.slick-active button:before {
+    color: white;
+  }
 `;
 
 export default globalStyles;

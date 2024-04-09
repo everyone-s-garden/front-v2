@@ -19,6 +19,7 @@ import {
 } from '@/assets/icons';
 import GardenStatus from './GardenStatus';
 import MapSliderModal from './MapSliderModal';
+import MobileMapSlider from './MobileMapSlider';
 import { useGetIndividualGarden } from '@/services/gardens/query';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
@@ -287,7 +288,12 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
           </Flex>
         </Box>
       </Box>
-      {isOpen && <MapSliderModal isOpen={isOpen} onClose={onClose} />}
+      <Show above="tablet">
+        {isOpen && <MapSliderModal isOpen={isOpen} onClose={onClose} />}
+      </Show>
+      <Show below="tablet">
+        {isOpen && <MobileMapSlider isOpen={isOpen} onClose={onClose} />}
+      </Show>
     </Box>
   );
 };

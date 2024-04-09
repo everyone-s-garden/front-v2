@@ -25,8 +25,8 @@ const MapSliderArrow = ({
       onClick={onClick}
     >
       <Icon
-        w="23px"
-        h="44px"
+        w="28px"
+        h="48px"
         fill="rgba(255, 255, 255, 0.70);"
         as={arrowIcon}
       />
