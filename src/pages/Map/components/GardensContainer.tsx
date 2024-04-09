@@ -29,7 +29,7 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
             transition: { type: 'tween' },
           }}
         >
-          {gardens.length === 0 ? (
+          {gardens?.length === 0 ? (
             <MapNoGarden />
           ) : (
             <MapGardens gardens={gardens} />
@@ -54,7 +54,7 @@ const GardensContainer = ({ showGardens, gardens }: GardensContainer) => {
             transition: { type: 'tween' },
           }}
         >
-          {gardens.length === 0 ? (
+          {gardens?.length === 0 ? (
             <MapNoGarden />
           ) : (
             <MapGardens gardens={gardens} />
