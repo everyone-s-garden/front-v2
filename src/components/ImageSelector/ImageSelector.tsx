@@ -99,6 +99,7 @@ const ImageSelector = ({
         flexDir="column"
         flexShrink={0}
         mr={'10px'}
+        mb={0}
         _hover={{ bg: `${color}.100` }}
         _active={{ bg: `${color}.100` }}
       >
@@ -149,7 +150,7 @@ const ImageSelector = ({
                 w={'100%'}
                 h={'100%'}
                 borderRadius={10}
-                bg={`${color}.100`}
+                bg={`white`}
               />
             </Box>
           </SwiperSlide>
