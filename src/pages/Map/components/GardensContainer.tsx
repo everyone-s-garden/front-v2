@@ -12,12 +12,16 @@ interface GardensContainerProps {
   gardens: Garden[];
   showGardens: boolean;
   setShowGardens: Dispatch<SetStateAction<boolean>>;
+  showGardenDetail: boolean;
+  setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
 }
 
 const GardensContainer = ({
   gardens,
   showGardens,
   setShowGardens,
+  showGardenDetail,
+  setShowGardenDetail,
 }: GardensContainerProps) => {
   return (
     <>
@@ -31,7 +35,9 @@ const GardensContainer = ({
           bgColor="white"
           borderWidth="1px 0 0 1px"
           borderColor="gray.200"
-          initial={{ x: showGardens ? 0 : 379 }}
+          initial={{
+            x: showGardens ? 0 : 379,
+          }}
           animate={{
             x: showGardens ? 0 : 379,
             transition: { type: 'tween' },
@@ -40,7 +46,9 @@ const GardensContainer = ({
           {gardens?.length === 0 ? (
             <MapNoGarden />
           ) : (
-            <MapGardens gardens={gardens} />
+            <MapGardens
+              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+            />
           )}
           <Button
             position="absolute"
@@ -91,7 +99,9 @@ const GardensContainer = ({
           {gardens?.length === 0 ? (
             <MapNoGarden />
           ) : (
-            <MapGardens gardens={gardens} />
+            <MapGardens
+              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+            />
           )}
           <Button
             position="absolute"

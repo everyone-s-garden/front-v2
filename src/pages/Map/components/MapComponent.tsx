@@ -9,12 +9,15 @@ import MapSpinner from './Spinner';
 import useGeolocation from '@/hooks/useGeolocation';
 import gardensApi from '@/services/gardens/api';
 import { gardensQuery } from '@/services/gardens/query';
+import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
 const MapComponent = () => {
   const [showGardens, setShowGardens] = useState(false);
+  const [showGardenDetail, setShowGardenDetail] = useState(false);
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
   const [map, setMap] = useState<naver.maps.Map | null>(null);
+  const { setGardenId } = useMapGardenDetailIdStore();
 
   const fetchGardnesInBounds = () =>
     gardensApi.getGardensInBounds('PUBLIC', map);
@@ -29,6 +32,8 @@ const MapComponent = () => {
 
   useEffect(() => {
     if (map) {
+      refetch();
+
       const handleMapUpdate = () => {
         refetch();
       };
@@ -76,10 +81,15 @@ const MapComponent = () => {
       zIndex="0"
     >
       <GardensContainer
-        showGardens={showGardens}
-        setShowGardens={setShowGardens}
-        gardens={gardens}
+        {...{
+          showGardens,
+          setShowGardens,
+          showGardenDetail,
+          setShowGardenDetail,
+          gardens,
+        }}
       />
+
       <MapDiv style={{ width: '100%', height: '100%' }}>
         <NaverMap
           ref={setMap}
@@ -98,6 +108,8 @@ const MapComponent = () => {
               key={garden.gardenId}
               onClick={() => {
                 setShowGardens(true);
+                setShowGardenDetail(true);
+                setGardenId(garden.gardenId);
               }}
             />
           ))}

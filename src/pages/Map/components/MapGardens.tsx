@@ -1,15 +1,20 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import GardenStatus from './GardenStatus';
 import MapGardenDetail from './MapGardenDetail';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
 interface MapGardensProps {
   gardens: Garden[];
+  showGardenDetail: boolean;
+  setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
 }
 
-const MapGardens = ({ gardens }: MapGardensProps) => {
-  const [showGardenDetail, setShowGardenDetail] = useState(false);
+const MapGardens = ({
+  gardens,
+  showGardenDetail,
+  setShowGardenDetail,
+}: MapGardensProps) => {
   const { setGardenId } = useMapGardenDetailIdStore();
 
   console.log('ren');
