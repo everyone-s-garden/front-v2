@@ -10,8 +10,6 @@ const SearchRegionsList = ({
   regions,
   isInputFocused,
 }: SearchRegionListProps) => {
-  console.log(regions);
-
   return (
     <Box
       pos="absolute"

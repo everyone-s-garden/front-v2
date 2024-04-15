@@ -1,6 +1,9 @@
 import { Box, Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { MobileMapArrowIcon } from '@/assets/icons';
+import SearchRegionsList from './SearchRegionsList';
+import useDebounce from '@/hooks/useDebounce';
+import { useGetSearchRegions } from '@/services/regions/query';
 
 interface MobileMapHeaderProps {
   showOption: boolean;
@@ -17,6 +20,14 @@ const MobileMapHeader = ({
   mapHeaderOptions,
   setMobileHeaderOption,
 }: MobileMapHeaderProps) => {
+  const [address, setAddress] = useState('');
+  const debouncedValue = useDebounce(address, 500);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  const { data } = useGetSearchRegions(debouncedValue);
+
+  const regions: SearchRegions[] = data?.locationSearchResponses;
+
   return (
     <Flex h="67px" gap="8px" alignItems="center" padding="20px">
       <Box position="relative">
@@ -74,16 +85,27 @@ const MobileMapHeader = ({
           </Box>
         )}
       </Box>
-      <Input
-        w="calc(100% - 100px)"
-        variant="unstyled"
-        bgColor="gray.50"
-        border="none"
-        h="36px"
-        padding="0 12px"
-        fontSize="14px"
-        placeholder="지역명 검색"
-      />
+      <Box pos="relative" w="calc(100% - 100px)">
+        <Input
+          w="100%"
+          h="36px"
+          variant="unstyled"
+          bgColor="gray.50"
+          border="none"
+          padding="0 12px"
+          fontSize="14px"
+          placeholder="지역명 검색"
+          value={address}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setAddress(e.target.value)
+          }
+          onFocus={() => {
+            setIsInputFocused(true);
+          }}
+          onBlur={() => setIsInputFocused(false)}
+        />
+        <SearchRegionsList regions={regions} isInputFocused={isInputFocused} />
+      </Box>
     </Flex>
   );
 };

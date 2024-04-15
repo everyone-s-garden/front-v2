@@ -17,7 +17,7 @@ const MapHeader = () => {
 
   const { data } = useGetSearchRegions(debouncedValue);
 
-  const regions = data?.locationSearchResponses;
+  const regions: SearchRegions[] = data?.locationSearchResponses;
 
   return (
     <>
