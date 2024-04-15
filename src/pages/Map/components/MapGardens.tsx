@@ -18,8 +18,6 @@ const MapGardens = ({
 }: MapGardensProps) => {
   const { setGardenId } = useMapGardenDetailIdStore();
 
-  console.log('gardens', gardens);
-
   return (
     <Box position="relative">
       <Box

@@ -1,8 +1,9 @@
 import { Box, Flex, Input, Show, Text } from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
 import MobileMapHeader from './MobileMapHeader';
+import SearchRegionsList from './SearchRegionsList';
 import useDebounce from '@/hooks/useDebounce';
-import { useGetSearchRegions } from '@/services/region/query';
+import { useGetSearchRegions } from '@/services/regions/query';
 
 const MapHeader = () => {
   const mapHeaderOptions = ['공공', '개인', '둘다 표시'];
@@ -12,10 +13,11 @@ const MapHeader = () => {
   const [showOption, setShowOption] = useState(false);
   const [address, setAddress] = useState('');
   const debouncedValue = useDebounce(address, 500);
+  const [isInputFocused, setIsInputFocused] = useState(false);
 
   const { data } = useGetSearchRegions(debouncedValue);
 
-  console.log(data);
+  const regions = data?.locationSearchResponses;
 
   return (
     <>
@@ -62,20 +64,27 @@ const MapHeader = () => {
             >
               {mapHeaderOptions[2]}
             </Text>
-            <Input
-              variant="unstyled"
-              bgColor="gray.50"
-              border="none"
-              maxW="330px"
-              h="100%"
-              padding="0 12px"
-              fontSize="14px"
-              placeholder="지역명 검색"
-              value={address}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setAddress(e.target.value)
-              }
-            />
+            <Box pos="relative" w="330px" h="100%">
+              <Input
+                variant="unstyled"
+                bgColor="gray.50"
+                border="none"
+                h="100%"
+                padding="0 12px"
+                fontSize="14px"
+                placeholder="지역명 검색"
+                value={address}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setAddress(e.target.value)
+                }
+                onFocus={() => setIsInputFocused(true)}
+                onBlur={() => setIsInputFocused(false)}
+              />
+              <SearchRegionsList
+                regions={regions}
+                isInputFocused={isInputFocused}
+              />
+            </Box>
           </Flex>
         </Box>
       </Show>
