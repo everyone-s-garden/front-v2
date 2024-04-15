@@ -159,16 +159,14 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
         <Box h="327px" position="relative">
           <Slider {...settings}>
             {images.map((image) => (
-              <>
-                <Image
-                  w="100%"
-                  h="327px"
-                  cursor="pointer"
-                  src={image.src}
-                  key={image.id}
-                  onClick={handleClickImage}
-                />
-              </>
+              <Image
+                w="100%"
+                h="327px"
+                cursor="pointer"
+                src={image.src}
+                key={image.id}
+                onClick={handleClickImage}
+              />
             ))}
           </Slider>
         </Box>
