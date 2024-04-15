@@ -1,5 +1,6 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
+import { MapGardenNoImg } from '@/assets/images';
 import GardenStatus from './GardenStatus';
 import MapGardenDetail from './MapGardenDetail';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
@@ -17,7 +18,7 @@ const MapGardens = ({
 }: MapGardensProps) => {
   const { setGardenId } = useMapGardenDetailIdStore();
 
-  console.log('ren');
+  console.log('gardens', gardens);
 
   return (
     <Box position="relative">
@@ -46,8 +47,7 @@ const MapGardens = ({
                   setShowGardenDetail(true);
                 }}
                 src={
-                  // 예시 이미지
-                  'https://s3-alpha-sig.figma.com/img/260d/cf56/ae3a3e0756812f18eecb200f5aa341a3?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FTEevLd1T3lQmJjKqDh-MM4hY0E6GX1gWMgPFfVkUrYrYYgx0Id0zPioeQvrPp1Rkc~rOcZROBqGf0ElPJZnBFlURZ~okNw2XwgNTbFEF4f9JvDRGMpNSAcRrxbvRLSIYr9B~~SjOZDRKY5f5QMbbUvjgHxPpdSG~ctYqbet2qDhHeOFemrdicvTbDF5QimDqEZjpwBVmajBn6aIaz24YMte1mbGv~xoHheAZrne97oqvaUlIrnLlPL2df0j0dzbZCkr-3mJQczScxJwa~IN0iznuXuFDGqRa6vbTPaNbPmOLidJahLJIOkkE5J-ehNySgwMszDz2SWlVp0vZNAnPg__'
+                  garden.images[0] === null ? MapGardenNoImg : garden.images[0]
                 }
                 alt={garden.gardenName}
               />
