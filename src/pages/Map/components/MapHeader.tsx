@@ -1,6 +1,8 @@
 import { Box, Flex, Input, Show, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import MobileMapHeader from './MobileMapHeader';
+import useDebounce from '@/hooks/useDebounce';
+import { useGetSearchRegions } from '@/services/region/query';
 
 const MapHeader = () => {
   const mapHeaderOptions = ['공공', '개인', '둘다 표시'];
@@ -8,6 +10,12 @@ const MapHeader = () => {
     mapHeaderOptions[2],
   );
   const [showOption, setShowOption] = useState(false);
+  const [address, setAddress] = useState('');
+  const debouncedValue = useDebounce(address, 500);
+
+  const { data } = useGetSearchRegions(debouncedValue);
+
+  console.log(data);
 
   return (
     <>
@@ -63,6 +71,10 @@ const MapHeader = () => {
               padding="0 12px"
               fontSize="14px"
               placeholder="지역명 검색"
+              value={address}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setAddress(e.target.value)
+              }
             />
           </Flex>
         </Box>
