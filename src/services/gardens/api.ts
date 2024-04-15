@@ -12,6 +12,20 @@ const gardensApi = {
 
     return response.data;
   },
+
+  getGardensInBounds: async (
+    type: 'All' | 'PUBLIC' | 'PRIVATE',
+    map: naver.maps.Map | null,
+  ) => {
+    if (!map) return;
+    const bounds = map.getBounds();
+
+    const response = await apiClient.get(
+      `/v2/gardens/by-complexes?gardenType=${type}&pageNumber=0&startLat=${bounds.minY()}&startLong=${bounds.minX()}&endLat=${bounds.maxY()}&endLong=${bounds.maxX()}`,
+    );
+
+    return response.data;
+  },
 };
 
 export default gardensApi;

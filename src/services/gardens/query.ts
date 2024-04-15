@@ -1,20 +1,20 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
-import cropsApi from './api';
+import gardensApi from './api';
 
 export const gardensQuery = {
-  all: () => ['crops'] as const,
+  all: () => ['gardens'] as const,
   datails: () => [...gardensQuery.all(), 'detail'],
 
   everyGarden: () =>
     queryOptions({
       queryKey: [...gardensQuery.all()],
-      queryFn: () => cropsApi.getEveryGardens(),
+      queryFn: () => gardensApi.getEveryGardens(),
     }),
 
   individualGarden: (id: number | null) =>
     queryOptions({
       queryKey: [...gardensQuery.datails(), id],
-      queryFn: () => cropsApi.getIndividualGarden(id),
+      queryFn: () => gardensApi.getIndividualGarden(id),
     }),
 };
 

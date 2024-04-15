@@ -1,25 +1,56 @@
 import { Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import GardensContainer from './GardensContainer';
 import GardenMarker from './Marker/GardenMarker';
 import MyMarker from './Marker/MyMarker';
 import MapSpinner from './Spinner';
 import useGeolocation from '@/hooks/useGeolocation';
-import { useGetEveryGardens } from '@/services/gardens/query';
+import gardensApi from '@/services/gardens/api';
+import { gardensQuery } from '@/services/gardens/query';
 
 const MapComponent = () => {
   const [showGardens, setShowGardens] = useState(false);
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
-  const { data } = useGetEveryGardens();
-  const gardens: Garden[] = data?.gardenGetAllResponses;
+  const [map, setMap] = useState<naver.maps.Map | null>(null);
 
-  const locations = gardens?.map((garden) => ({
-    id: garden.gardenId,
-    lat: garden.latitude,
-    lng: garden.longitude,
-  }));
+  const fetchGardnesInBounds = () =>
+    gardensApi.getGardensInBounds('PUBLIC', map);
+
+  const { data, refetch } = useQuery({
+    queryKey: [...gardensQuery.all()],
+    queryFn: fetchGardnesInBounds,
+    enabled: map !== null,
+  });
+
+  const gardens: Garden[] = data?.gardenByComplexesResponses;
+
+  useEffect(() => {
+    if (map) {
+      const handleMapUpdate = () => {
+        refetch();
+      };
+
+      const dragEndListener = naver.maps.Event.addListener(
+        map,
+        'dragend',
+        handleMapUpdate,
+      );
+
+      const zoomChangedListener = naver.maps.Event.addListener(
+        map,
+        'zoom_changed',
+        handleMapUpdate,
+      );
+
+      return () => {
+        naver.maps.Event.removeListener(dragEndListener);
+        naver.maps.Event.removeListener(zoomChangedListener);
+      };
+    }
+  }, [map, refetch]);
 
   let position = {
     lat: 37.3595704,
@@ -49,9 +80,9 @@ const MapComponent = () => {
         setShowGardens={setShowGardens}
         gardens={gardens}
       />
-
       <MapDiv style={{ width: '100%', height: '100%' }}>
         <NaverMap
+          ref={setMap}
           defaultCenter={new navermaps.LatLng(position.lat, position.lng)}
           defaultZoom={10}
           zoomControl
@@ -60,11 +91,11 @@ const MapComponent = () => {
             position: navermaps.Position.TOP_LEFT,
           }}
         >
-          {locations?.map((location) => (
+          {gardens?.map((garden) => (
             <GardenMarker
               navermaps={navermaps}
-              position={new navermaps.LatLng(location.lat, location.lng)}
-              key={location.id}
+              position={new navermaps.LatLng(garden.latitude, garden.longitude)}
+              key={garden.gardenId}
               onClick={() => {
                 setShowGardens(true);
               }}
