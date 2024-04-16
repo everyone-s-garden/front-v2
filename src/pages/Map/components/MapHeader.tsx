@@ -4,19 +4,25 @@ import MobileMapHeader from './MobileMapHeader';
 import SearchRegionsList from './SearchRegionsList';
 import useDebounce from '@/hooks/useDebounce';
 import { useGetSearchRegions } from '@/services/regions/query';
+import useSearchRegionsInputValue from '@/stores/useSearchRegionsInputValueStore';
 
-const MapHeader = () => {
+interface MapHeaderProps {
+  map: naver.maps.Map | null;
+}
+
+const MapHeader = ({ map }: MapHeaderProps) => {
   const mapHeaderOptions = ['공공', '개인', '둘다 표시'];
   const [mobileHeaderOption, setMobileHeaderOption] = useState(
     mapHeaderOptions[2],
   );
   const [showOption, setShowOption] = useState(false);
-  const [address, setAddress] = useState('');
-  const debouncedValue = useDebounce(address, 500);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const { data } = useGetSearchRegions(debouncedValue);
+  const { searchRegionsInputValue, setSearchRegionsInputValue } =
+    useSearchRegionsInputValue();
+  const debouncedValue = useDebounce(searchRegionsInputValue, 500);
 
+  const { data } = useGetSearchRegions(debouncedValue);
   const regions: SearchRegions[] = data?.locationSearchResponses;
 
   return (
@@ -73,14 +79,15 @@ const MapHeader = () => {
                 padding="0 12px"
                 fontSize="14px"
                 placeholder="지역명 검색"
-                value={address}
+                value={searchRegionsInputValue}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setAddress(e.target.value)
+                  setSearchRegionsInputValue(e.target.value)
                 }
                 onFocus={() => setIsInputFocused(true)}
                 onBlur={() => setIsInputFocused(false)}
               />
               <SearchRegionsList
+                map={map}
                 regions={regions}
                 isInputFocused={isInputFocused}
               />
@@ -92,6 +99,7 @@ const MapHeader = () => {
       <Show below="tablet">
         <MobileMapHeader
           {...{
+            map,
             showOption,
             setShowOption,
             mobileHeaderOption,

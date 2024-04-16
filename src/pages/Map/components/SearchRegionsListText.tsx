@@ -1,14 +1,31 @@
 import { Text } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
+import { useNavermaps } from 'react-naver-maps';
+import useSearchRegionsInputValue from '@/stores/useSearchRegionsInputValueStore';
 
 interface SearchRegionsListTextProps {
+  region?: SearchRegions;
+  map?: naver.maps.Map | null;
   hasRegions: boolean;
 }
 
 const SearchRegionsListText = ({
-  children,
+  region,
+  map,
   hasRegions,
+  children,
 }: PropsWithChildren<SearchRegionsListTextProps>) => {
+  const navermaps = useNavermaps();
+  const { setSearchRegionsInputValue } = useSearchRegionsInputValue();
+
+  const handleClickList = () => {
+    if (hasRegions && region && map) {
+      map.setZoom(16);
+      map.panTo(new navermaps.LatLng(region.latitude, region.longitude));
+      setSearchRegionsInputValue(region.position);
+    }
+  };
+
   return (
     <Text
       h="45px"
@@ -25,6 +42,7 @@ const SearchRegionsListText = ({
         bgColor: 'gray.50',
       }}
       overflow="hidden"
+      onClick={handleClickList}
     >
       {children}
     </Text>

@@ -2,11 +2,13 @@ import { Box } from '@chakra-ui/react';
 import SearchRegionsListText from './SearchRegionsListText';
 
 interface SearchRegionListProps {
+  map: naver.maps.Map | null;
   regions: SearchRegions[];
   isInputFocused: boolean;
 }
 
 const SearchRegionsList = ({
+  map,
   regions,
   isInputFocused,
 }: SearchRegionListProps) => {
@@ -27,7 +29,12 @@ const SearchRegionsList = ({
         </SearchRegionsListText>
       )}
       {regions?.map((region, i) => (
-        <SearchRegionsListText hasRegions={true} key={i}>
+        <SearchRegionsListText
+          region={region}
+          hasRegions={true}
+          key={i}
+          map={map}
+        >
           {region.position}
         </SearchRegionsListText>
       ))}

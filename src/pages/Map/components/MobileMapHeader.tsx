@@ -4,8 +4,10 @@ import { MobileMapArrowIcon } from '@/assets/icons';
 import SearchRegionsList from './SearchRegionsList';
 import useDebounce from '@/hooks/useDebounce';
 import { useGetSearchRegions } from '@/services/regions/query';
+import useSearchRegionsInputValueStroe from '@/stores/useSearchRegionsInputValueStore';
 
 interface MobileMapHeaderProps {
+  map: naver.maps.Map | null;
   showOption: boolean;
   setShowOption: Dispatch<SetStateAction<boolean>>;
   mobileHeaderOption: string;
@@ -14,14 +16,16 @@ interface MobileMapHeaderProps {
 }
 
 const MobileMapHeader = ({
+  map,
   showOption,
   setShowOption,
   mobileHeaderOption,
   mapHeaderOptions,
   setMobileHeaderOption,
 }: MobileMapHeaderProps) => {
-  const [address, setAddress] = useState('');
-  const debouncedValue = useDebounce(address, 500);
+  const { searchRegionsInputValue, setSearchRegionsInputValue } =
+    useSearchRegionsInputValueStroe();
+  const debouncedValue = useDebounce(searchRegionsInputValue, 500);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const { data } = useGetSearchRegions(debouncedValue);
@@ -95,16 +99,20 @@ const MobileMapHeader = ({
           padding="0 12px"
           fontSize="14px"
           placeholder="지역명 검색"
-          value={address}
+          value={searchRegionsInputValue}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setAddress(e.target.value)
+            setSearchRegionsInputValue(e.target.value)
           }
           onFocus={() => {
             setIsInputFocused(true);
           }}
           onBlur={() => setIsInputFocused(false)}
         />
-        <SearchRegionsList regions={regions} isInputFocused={isInputFocused} />
+        <SearchRegionsList
+          map={map}
+          regions={regions}
+          isInputFocused={isInputFocused}
+        />
       </Box>
     </Flex>
   );

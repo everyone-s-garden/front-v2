@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import GardensContainer from './GardensContainer';
 import GardenMarker from './Marker/GardenMarker';
@@ -11,12 +11,16 @@ import gardensApi from '@/services/gardens/api';
 import { gardensQuery } from '@/services/gardens/query';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
-const MapComponent = () => {
+interface MapComponentProps {
+  map: naver.maps.Map | null;
+  setMap: Dispatch<SetStateAction<naver.maps.Map | null>>;
+}
+
+const MapComponent = ({ map, setMap }: MapComponentProps) => {
   const [showGardens, setShowGardens] = useState(false);
   const [showGardenDetail, setShowGardenDetail] = useState(false);
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
-  const [map, setMap] = useState<naver.maps.Map | null>(null);
   const { setGardenId } = useMapGardenDetailIdStore();
 
   const fetchGardnesInBounds = () =>
