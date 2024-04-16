@@ -1,5 +1,5 @@
 import { Box, Flex, Input, Show, Text } from '@chakra-ui/react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import MobileMapHeader from './MobileMapHeader';
 import SearchRegionsList from './SearchRegionsList';
 import useDebounce from '@/hooks/useDebounce';
@@ -8,13 +8,17 @@ import useSearchRegionsInputValue from '@/stores/useSearchRegionsInputValueStore
 
 interface MapHeaderProps {
   map: naver.maps.Map | null;
+  mapHeaderOptionsArray: string[];
+  headerOption: string;
+  setHeaderOption: Dispatch<SetStateAction<string>>;
 }
 
-const MapHeader = ({ map }: MapHeaderProps) => {
-  const mapHeaderOptions = ['공공', '개인', '둘다 표시'];
-  const [mobileHeaderOption, setMobileHeaderOption] = useState(
-    mapHeaderOptions[2],
-  );
+const MapHeader = ({
+  map,
+  mapHeaderOptionsArray,
+  headerOption,
+  setHeaderOption,
+}: MapHeaderProps) => {
   const [showOption, setShowOption] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -36,39 +40,35 @@ const MapHeader = ({ map }: MapHeaderProps) => {
             <Text
               cursor="pointer"
               fontSize="18px"
-              fontWeight={mobileHeaderOption === '공공' ? 'medium' : 'regular'}
-              color={mobileHeaderOption === '공공' ? undefined : 'gray.400'}
+              fontWeight={headerOption === '공공' ? 'medium' : 'regular'}
+              color={headerOption === '공공' ? undefined : 'gray.400'}
               onClick={() => {
-                setMobileHeaderOption('공공');
+                setHeaderOption('공공');
               }}
             >
-              {mapHeaderOptions[0]}
+              {mapHeaderOptionsArray[0]}
             </Text>
             <Text
               cursor="pointer"
               fontSize="18px"
-              fontWeight={mobileHeaderOption === '개인' ? 'medium' : 'regular'}
-              color={mobileHeaderOption === '개인' ? undefined : 'gray.400'}
+              fontWeight={headerOption === '개인' ? 'medium' : 'regular'}
+              color={headerOption === '개인' ? undefined : 'gray.400'}
               onClick={() => {
-                setMobileHeaderOption('개인');
+                setHeaderOption('개인');
               }}
             >
-              {mapHeaderOptions[1]}
+              {mapHeaderOptionsArray[1]}
             </Text>
             <Text
               cursor="pointer"
               fontSize="18px"
-              fontWeight={
-                mobileHeaderOption === '둘다 표시' ? 'medium' : 'regular'
-              }
-              color={
-                mobileHeaderOption === '둘다 표시' ? undefined : 'gray.400'
-              }
+              fontWeight={headerOption === '둘다 표시' ? 'medium' : 'regular'}
+              color={headerOption === '둘다 표시' ? undefined : 'gray.400'}
               onClick={() => {
-                setMobileHeaderOption('둘다 표시');
+                setHeaderOption('둘다 표시');
               }}
             >
-              {mapHeaderOptions[2]}
+              {mapHeaderOptionsArray[2]}
             </Text>
             <Box pos="relative" w="330px" h="100%">
               <Input
@@ -102,9 +102,9 @@ const MapHeader = ({ map }: MapHeaderProps) => {
             map,
             showOption,
             setShowOption,
-            mobileHeaderOption,
-            mapHeaderOptions,
-            setMobileHeaderOption,
+            headerOption,
+            mapHeaderOptionsArray,
+            setHeaderOption,
           }}
         />
       </Show>

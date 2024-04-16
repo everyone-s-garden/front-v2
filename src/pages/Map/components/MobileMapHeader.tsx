@@ -10,18 +10,18 @@ interface MobileMapHeaderProps {
   map: naver.maps.Map | null;
   showOption: boolean;
   setShowOption: Dispatch<SetStateAction<boolean>>;
-  mobileHeaderOption: string;
-  mapHeaderOptions: string[];
-  setMobileHeaderOption: Dispatch<SetStateAction<string>>;
+  headerOption: string;
+  mapHeaderOptionsArray: string[];
+  setHeaderOption: Dispatch<SetStateAction<string>>;
 }
 
 const MobileMapHeader = ({
   map,
   showOption,
   setShowOption,
-  mobileHeaderOption,
-  mapHeaderOptions,
-  setMobileHeaderOption,
+  headerOption,
+  mapHeaderOptionsArray,
+  setHeaderOption,
 }: MobileMapHeaderProps) => {
   const { searchRegionsInputValue, setSearchRegionsInputValue } =
     useSearchRegionsInputValueStroe();
@@ -51,7 +51,7 @@ const MobileMapHeader = ({
             setShowOption(!showOption);
           }}
         >
-          {mobileHeaderOption}
+          {headerOption}
           <Icon
             as={MobileMapArrowIcon}
             w="9px"
@@ -69,7 +69,7 @@ const MobileMapHeader = ({
             overflow="hidden"
             zIndex="1"
           >
-            {mapHeaderOptions.map((option, i) => (
+            {mapHeaderOptionsArray.map((option, i) => (
               <Text
                 padding="4px 16px"
                 color="green.700"
@@ -79,7 +79,7 @@ const MobileMapHeader = ({
                 cursor="pointer"
                 onClick={() => {
                   setShowOption(!showOption);
-                  setMobileHeaderOption(option);
+                  setHeaderOption(option);
                 }}
                 key={i}
               >

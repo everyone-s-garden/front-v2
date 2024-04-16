@@ -14,7 +14,7 @@ const gardensApi = {
   },
 
   getGardensInBounds: async (
-    type: 'All' | 'PUBLIC' | 'PRIVATE',
+    type: 'ALL' | 'PUBLIC' | 'PRIVATE',
     map: naver.maps.Map | null,
   ) => {
     if (!map) return;

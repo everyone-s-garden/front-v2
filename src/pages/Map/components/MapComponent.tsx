@@ -14,17 +14,37 @@ import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 interface MapComponentProps {
   map: naver.maps.Map | null;
   setMap: Dispatch<SetStateAction<naver.maps.Map | null>>;
+  headerOption: string;
 }
 
-const MapComponent = ({ map, setMap }: MapComponentProps) => {
+const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   const [showGardens, setShowGardens] = useState(false);
   const [showGardenDetail, setShowGardenDetail] = useState(false);
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
   const { setGardenId } = useMapGardenDetailIdStore();
 
+  let gardenType: 'PUBLIC' | 'PRIVATE' | 'ALL';
+
+  switch (headerOption) {
+    case '공공':
+      gardenType = 'PUBLIC';
+      break;
+
+    case '개인':
+      gardenType = 'PRIVATE';
+      break;
+
+    case '둘다 표시':
+      gardenType = 'ALL';
+      break;
+
+    default:
+      break;
+  }
+
   const fetchGardnesInBounds = () =>
-    gardensApi.getGardensInBounds('PUBLIC', map);
+    gardensApi.getGardensInBounds(gardenType, map);
 
   const { data, refetch } = useQuery({
     queryKey: [...gardensQuery.all()],
@@ -59,7 +79,7 @@ const MapComponent = ({ map, setMap }: MapComponentProps) => {
         naver.maps.Event.removeListener(zoomChangedListener);
       };
     }
-  }, [map, refetch]);
+  }, [map, refetch, headerOption]);
 
   let position = {
     lat: 37.3595704,
