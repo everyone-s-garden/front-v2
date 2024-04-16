@@ -36,7 +36,7 @@ const MapGardens = ({
           >
             <Flex gap="17px">
               <Image
-                minW={{ mobile: '148px', tablet: '176px' }}
+                w={{ mobile: '148px', tablet: '176px' }}
                 h={{ mobile: '115px', tablet: '138px' }}
                 borderRadius="8px"
                 cursor="pointer"
