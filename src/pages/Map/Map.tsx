@@ -1,7 +1,7 @@
 import { Suspense, useState } from 'react';
 import MapComponent from './components/MapComponent';
 import MapHeader from './components/MapHeader';
-import MapSpinner from './components/Spinner';
+import MapSpinner from './components/MapSpinner';
 
 const Map = () => {
   const mapHeaderOptionsArray = ['공공', '개인', '둘다 표시'];
