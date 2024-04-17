@@ -69,7 +69,7 @@ const globalStyles = css`
   select,
   option,
   textarea {
-    word-break: break-all;
+    word-break: keep-all;
     white-space: pre-line;
   }
 
