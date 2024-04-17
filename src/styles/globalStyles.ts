@@ -69,6 +69,7 @@ const globalStyles = css`
   select,
   option,
   textarea {
+    // 단어 기준 줄바꿈
     word-break: keep-all;
     white-space: pre-line;
   }
