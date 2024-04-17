@@ -9,27 +9,13 @@ import Slider from 'react-slick';
 import { MapGardenNoImg } from '@/assets/images';
 import MapSliderArrow from './MapSliderArrow';
 
-const images = [
-  {
-    id: 1,
-    src: MapGardenNoImg,
-  },
-  {
-    id: 2,
-    src: MapGardenNoImg,
-  },
-  {
-    id: 3,
-    src: MapGardenNoImg,
-  },
-];
-
 interface MapSliderModalProps {
+  images: (string | null)[];
   isOpen: boolean;
   onClose: () => void;
 }
 
-const MapSliderModal = ({ isOpen, onClose }: MapSliderModalProps) => {
+const MapSliderModal = ({ images, isOpen, onClose }: MapSliderModalProps) => {
   const settings = {
     infinite: false,
     speed: 500,
@@ -47,14 +33,13 @@ const MapSliderModal = ({ isOpen, onClose }: MapSliderModalProps) => {
       <ModalContent maxWidth="fit-content">
         <ModalBody w="768px" maxH="567px" padding="0">
           <Slider {...settings}>
-            {images.map((image) => (
-              <Image
-                h="567px"
-                cursor="pointer"
-                src={image.src}
-                key={image.id}
-              />
-            ))}
+            {images.map((image, i) => {
+              let src;
+              if (!image) src = MapGardenNoImg;
+              else src = image;
+
+              return <Image h="567px" cursor="pointer" src={src} key={i} />;
+            })}
           </Slider>
         </ModalBody>
       </ModalContent>

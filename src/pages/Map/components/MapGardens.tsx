@@ -51,7 +51,10 @@ const MapGardens = ({
               />
 
               <Box w={{ mobile: '50%', tablet: '42.5%' }}>
-                <GardenStatus type="normal" garden={garden} />
+                <GardenStatus
+                  type="normal"
+                  gardenStatus={garden.gardenStatus}
+                />
                 <Flex flexDir="column" gap={{ mobile: '0px', tablet: '6px' }}>
                   <Text fontWeight="medium" fontSize="18px" isTruncated>
                     {garden.gardenName}

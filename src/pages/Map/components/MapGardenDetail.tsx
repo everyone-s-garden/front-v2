@@ -28,26 +28,13 @@ interface MapGardenDetailProps {
   setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
 }
 
-const images = [
-  {
-    id: 1,
-    src: MapGardenNoImg,
-  },
-  {
-    id: 2,
-    src: MapGardenNoImg,
-  },
-  {
-    id: 3,
-    src: MapGardenNoImg,
-  },
-];
-
 const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
   const { gardenId } = useMapGardenDetailIdStore();
   const { data } = useGetIndividualGarden(gardenId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dragging, setDragging] = useState(false);
+  const garden: GardenDetail = data;
+  if (!garden) return;
 
   const handleBeforeChange = () => {
     setDragging(true);
@@ -62,8 +49,6 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
       onOpen();
     }
   };
-
-  console.log(data);
 
   const settings = {
     infinite: false,
@@ -96,6 +81,11 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
       </Box>
     ),
   };
+
+  const hasNoFacility =
+    !garden.gardenFacility.isEquipment &&
+    !garden.gardenFacility.isToilet &&
+    !garden.gardenFacility.isWaterway;
 
   return (
     <Box
@@ -154,26 +144,32 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
           />
         </Show>
 
-        <GardenStatus garden={undefined} type="detail" />
+        <GardenStatus gardenStatus={garden.gardenStatus} type="detail" />
 
         <Box h="327px" position="relative">
           <Slider {...settings}>
-            {images.map((image) => (
-              <Image
-                w="100%"
-                h="327px"
-                cursor="pointer"
-                src={image.src}
-                key={image.id}
-                onClick={handleClickImage}
-              />
-            ))}
+            {garden.images.map((image, i) => {
+              let src;
+              if (!image) src = MapGardenNoImg;
+              else src = image;
+
+              return (
+                <Image
+                  w="100%"
+                  h="327px"
+                  cursor="pointer"
+                  src={src}
+                  key={i}
+                  onClick={handleClickImage}
+                />
+              );
+            })}
           </Slider>
         </Box>
       </Box>
       <Box padding="30px">
         <Text fontSize="20px" fontWeight="semibold" marginBottom="30px">
-          양주 공공텃밭
+          {garden.gardenName}
         </Text>
 
         <Flex flexDir="column" gap="21px" marginBottom="40px">
@@ -181,70 +177,100 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
             <Text minW="25%" fontWeight="medium">
               신청기간
             </Text>
-            <Text fontWeight="medium">2023. 04. 20 ~ 04.30</Text>
+            <Text fontWeight="medium">
+              {garden.recruitEndDate} ~ {garden.recruitStartDate}
+            </Text>
           </Flex>
           <Flex>
             <Text minW="25%" fontWeight="medium">
               가격
             </Text>
-            <Text fontWeight="regular">1구획 당 16000원</Text>
+            <Text fontWeight="regular">
+              평 당 {Number(garden.price).toLocaleString()}원
+            </Text>
           </Flex>
           <Flex>
             <Text minW="25%" fontWeight="medium">
               면적
             </Text>
-            <Text fontWeight="regular">16.5㎡(9평)</Text>
+            <Text fontWeight="regular">{garden.size}평</Text>
           </Flex>
           <Flex>
             <Text minW="25%" fontWeight="medium">
               연락처
             </Text>
-            <Text fontWeight="regular">010-2001-3000</Text>
+            <Text fontWeight="regular">{garden.contact}</Text>
           </Flex>
         </Flex>
 
         <Flex flexDir="column" gap="21px">
-          <Flex alignItems="center">
-            <Text minW="25%" fontWeight="medium">
-              부대 시설
-            </Text>
-            <Flex gap="12px">
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                bgColor="green.100"
-                border="1px solid"
-                borderColor="green.500"
-                fontWeight="medium"
-                borderRadius="10px"
-                height="32px"
-                padding="0 5px"
-              >
-                거래가능
-              </Box>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                bgColor="green.100"
-                border="1px solid"
-                borderColor="green.500"
-                fontWeight="medium"
-                borderRadius="10px"
-                height="32px"
-                padding="0 5px"
-              >
-                농기구
-              </Box>
-            </Flex>
-          </Flex>
+          {!hasNoFacility && (
+            <>
+              <Flex alignItems="center">
+                <Text minW="25%" fontWeight="medium">
+                  부대 시설
+                </Text>
+                <Flex gap="12px">
+                  {garden.gardenFacility.isToilet && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      bgColor="green.100"
+                      border="1px solid"
+                      borderColor="green.500"
+                      fontWeight="medium"
+                      borderRadius="10px"
+                      height="32px"
+                      padding="0 5px"
+                    >
+                      화장실
+                    </Box>
+                  )}
+
+                  {garden.gardenFacility.isEquipment && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      bgColor="green.100"
+                      border="1px solid"
+                      borderColor="green.500"
+                      fontWeight="medium"
+                      borderRadius="10px"
+                      height="32px"
+                      padding="0 5px"
+                    >
+                      농기구
+                    </Box>
+                  )}
+
+                  {garden.gardenFacility.isWaterway && (
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      bgColor="green.100"
+                      border="1px solid"
+                      borderColor="green.500"
+                      fontWeight="medium"
+                      borderRadius="10px"
+                      height="32px"
+                      padding="0 5px"
+                    >
+                      수로
+                    </Box>
+                  )}
+                </Flex>
+              </Flex>
+            </>
+          )}
 
           <Flex>
             <Text minW="25%" fontWeight="medium">
               세부 사항
             </Text>
-            <Text fontWeight="regular">양주시민들만 참여가 가능합니다.</Text>
+            <Text fontWeight="regular">{garden.gardenDescription}</Text>
           </Flex>
         </Flex>
         <Box marginTop="40px" cursor="pointer">
@@ -288,10 +314,22 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
         </Box>
       </Box>
       <Show above="tablet">
-        {isOpen && <MapSliderModal isOpen={isOpen} onClose={onClose} />}
+        {isOpen && (
+          <MapSliderModal
+            images={garden.images}
+            isOpen={isOpen}
+            onClose={onClose}
+          />
+        )}
       </Show>
       <Show below="tablet">
-        {isOpen && <MobileMapSlider isOpen={isOpen} onClose={onClose} />}
+        {isOpen && (
+          <MobileMapSlider
+            images={garden.images}
+            isOpen={isOpen}
+            onClose={onClose}
+          />
+        )}
       </Show>
     </Box>
   );

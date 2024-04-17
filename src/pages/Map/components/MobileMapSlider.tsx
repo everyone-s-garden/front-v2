@@ -11,27 +11,13 @@ import Slider from 'react-slick';
 import { CloseIcon } from '@/assets/icons';
 import { MapGardenNoImg } from '@/assets/images';
 
-const images = [
-  {
-    id: 1,
-    src: MapGardenNoImg,
-  },
-  {
-    id: 2,
-    src: MapGardenNoImg,
-  },
-  {
-    id: 3,
-    src: MapGardenNoImg,
-  },
-];
-
 interface MapSliderModalProps {
+  images: (string | null)[];
   isOpen: boolean;
   onClose: () => void;
 }
 
-const MobileMapSlider = ({ isOpen, onClose }: MapSliderModalProps) => {
+const MobileMapSlider = ({ images, isOpen, onClose }: MapSliderModalProps) => {
   const settings = {
     dots: images.length > 1,
     arrows: images.length > 1,
@@ -63,15 +49,15 @@ const MobileMapSlider = ({ isOpen, onClose }: MapSliderModalProps) => {
         />
         <ModalBody w="100%" padding="0">
           <Slider {...settings}>
-            {images.map((image) => (
-              <Image
-                w="100%"
-                h="287px"
-                cursor="pointer"
-                src={image.src}
-                key={image.id}
-              />
-            ))}
+            {images.map((image, i) => {
+              let src;
+              if (!image) src = MapGardenNoImg;
+              else src = image;
+
+              return (
+                <Image w="100%" h="287px" cursor="pointer" src={src} key={i} />
+              );
+            })}
           </Slider>
         </ModalBody>
       </ModalContent>

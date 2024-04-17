@@ -1,11 +1,11 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 interface GardenStatusProps {
-  garden?: Garden;
+  gardenStatus?: 'ACTIVE' | 'INACTIVE';
   type: 'normal' | 'detail';
 }
 
-const GardenStatus = ({ garden, type }: GardenStatusProps) => {
+const GardenStatus = ({ gardenStatus, type }: GardenStatusProps) => {
   return (
     <Flex
       position={type === 'detail' ? 'absolute' : undefined}
@@ -23,12 +23,12 @@ const GardenStatus = ({ garden, type }: GardenStatusProps) => {
       border="1px solid"
       borderColor="green.500"
     >
-      {garden?.gardenStatus === 'ACTIVE' && (
+      {gardenStatus === 'ACTIVE' && (
         <Box w="9px" h="9px" bgColor="orange.500" borderRadius="50%" />
       )}
 
       <Text fontSize={type === 'normal' ? '14px' : '16px'}>
-        {garden?.gardenStatus === 'ACTIVE' ? '모집중' : '마감'}
+        {gardenStatus === 'ACTIVE' ? '모집중' : '마감'}
       </Text>
     </Flex>
   );

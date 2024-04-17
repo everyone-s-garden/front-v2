@@ -14,3 +14,30 @@ interface Garden {
   gardenStatus: 'ACTIVE' | 'INACTIVE';
   images: string[];
 }
+
+interface GardenFacility {
+  isToilet: boolean;
+  isWaterway: boolean;
+  isEquipment: boolean;
+}
+
+interface GardenDetail {
+  address: string;
+  contact: string;
+  gardenDescription: string;
+  gardenFacility: GardenFacility;
+  gardenId: number;
+  gardenName: string;
+  gardenStatus: 'ACTIVE' | 'INACTIVE';
+  gardenType: 'PRIVATE' | 'PUBLIC';
+  images: (string | null)[];
+  isLiked: boolean;
+  latitude: number;
+  longitude: number;
+  price: string;
+  recruitEndDate: string;
+  recruitStartDate: string;
+  roomId: number;
+  size: string;
+  writerId: number;
+}
