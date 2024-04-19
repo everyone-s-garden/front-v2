@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   Icon,
   Image,
@@ -11,14 +10,13 @@ import {
 import { Dispatch, SetStateAction, useState } from 'react';
 import Slider from 'react-slick';
 import {
-  HeartIcon,
   MapGardenDetailLeftIcon,
   MapSliderLeftIcon,
   MapSliderRightIcon,
-  ReportIcon,
 } from '@/assets/icons';
 import { MapGardenNoImg } from '@/assets/images';
 import GardenStatus from './GardenStatus';
+import MapGardenDetailBottomSection from './MapGardenDetailBottomSection';
 import MapSliderModal from './MapSliderModal';
 import MobileMapSlider from './MobileMapSlider';
 import { useGetIndividualGarden } from '@/services/gardens/query';
@@ -273,46 +271,9 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
             <Text fontWeight="regular">{garden.gardenDescription}</Text>
           </Flex>
         </Flex>
-        <Box marginTop="40px" cursor="pointer">
-          <Flex marginBottom="20px" alignItems="center" gap="6px">
-            <Icon as={ReportIcon} />
-            <Text fontSize="12px" color="gray.400" fontWeight="regular">
-              신고하기
-            </Text>
-          </Flex>
-
-          <Flex w="fit-content" margin="0 auto" gap="14px">
-            <Button
-              border="1px solid"
-              borderColor="gray.100"
-              padding="14px"
-              bgColor="white"
-              _hover={{}}
-              _active={{}}
-            >
-              <Icon
-                w="24px"
-                h="24px"
-                as={HeartIcon}
-                fill="gray.300"
-                marginRight="6px"
-              />
-              <Text color="gray.300" fontWeight="medium">
-                찜하기
-              </Text>
-            </Button>
-            <Button
-              color="white"
-              padding="14px 52px"
-              bgColor="green.500"
-              _hover={{}}
-              _active={{}}
-            >
-              신청하기
-            </Button>
-          </Flex>
-        </Box>
+        <MapGardenDetailBottomSection garden={garden} />
       </Box>
+
       <Show above="tablet">
         {isOpen && (
           <MapSliderModal

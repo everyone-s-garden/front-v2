@@ -21,3 +21,6 @@ export { default as MapGardenDetailLeftIcon } from './map-garden-detail-left-ico
 export { default as MapSliderRightIcon } from './map-slider-right-arrow.svg?react';
 export { default as MapSliderLeftIcon } from './map-slider-left-icon.svg?react';
 export { default as ReportIcon } from './report.svg?react';
+export { default as CopyNumberIcon } from './copy-number.svg?react';
+export { default as PhoneIcon } from './phone.svg?react';
+export { default as ChatIcon } from './chat.svg?react';

@@ -1,13 +1,12 @@
 import { Box, Icon } from '@chakra-ui/react';
 import { NextIcon, PrevIcon } from '@/assets/icons';
 
-const MapSliderArrow = ({
-  dir,
-  onClick,
-}: {
+interface MapSliderArrowProps {
   dir: 'prev' | 'next';
   onClick?: () => void;
-}) => {
+}
+
+const MapSliderArrow = ({ dir, onClick }: MapSliderArrowProps) => {
   let arrowIcon;
 
   if (dir === 'next') arrowIcon = NextIcon;
