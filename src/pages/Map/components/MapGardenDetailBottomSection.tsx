@@ -8,7 +8,7 @@ import {
   chakra,
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ChatIcon,
   CopyNumberIcon,
@@ -29,6 +29,19 @@ const MapGardenDetailBottomSection = ({
 }: MapGardenDetailBottomSectionProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [copied, setCopied] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+  const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
+
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        userAgent,
+      );
+
+    setIsMobile(isMobile);
+  }, []);
 
   const handleCopyClipBoard = async (text: string) => {
     try {
@@ -41,6 +54,13 @@ const MapGardenDetailBottomSection = ({
     } catch (e) {
       alert('복사에 실패하였습니다');
     }
+  };
+
+  const handleClickCall = () => {
+    if (!isMobile) setIsClickedCallInWeb(true);
+    setTimeout(() => {
+      setIsClickedCallInWeb(false);
+    }, 3000);
   };
 
   return (
@@ -124,6 +144,7 @@ const MapGardenDetailBottomSection = ({
               paddingRight="24px"
               borderRadius="9px"
               cursor="pointer"
+              onClick={handleClickCall}
             >
               <Icon as={PhoneIcon} w="24px" h="24px" />
               <Text fontWeight="semiBold">연락하기</Text>
@@ -147,7 +168,8 @@ const MapGardenDetailBottomSection = ({
           <Text
             fontSize="12px"
             fontWeight="regular"
-            color="gray.400"
+            color={isClickedCallInWeb ? '#D80C18' : 'gray.400'}
+            transition="color 0.3s ease"
             textAlign="center"
             marginTop="12px"
           >
