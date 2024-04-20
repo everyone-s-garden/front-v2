@@ -84,13 +84,19 @@ const MapHeader = ({
                   setSearchRegionsInputValue(e.target.value)
                 }
                 onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setIsInputFocused(false)}
+                onBlur={() => {
+                  setTimeout(() => {
+                    setIsInputFocused(false);
+                  }, 250);
+                }}
               />
-              <SearchRegionsList
-                map={map}
-                regions={regions}
-                isInputFocused={isInputFocused}
-              />
+              {isInputFocused && (
+                <SearchRegionsList
+                  map={map}
+                  regions={regions}
+                  isInputFocused={isInputFocused}
+                />
+              )}
             </Box>
           </Flex>
         </Box>
