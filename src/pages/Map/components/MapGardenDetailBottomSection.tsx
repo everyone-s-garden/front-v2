@@ -17,6 +17,7 @@ import {
   ReportIcon,
 } from '@/assets/icons';
 import Modal from '@/components/Modal/Modal';
+import { useLikeGarden } from '@/services/gardens/mutations';
 
 interface MapGardenDetailBottomSectionProps {
   garden: GardenDetail;
@@ -31,6 +32,8 @@ const MapGardenDetailBottomSection = ({
   const [copied, setCopied] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
+
+  const { mutateLikeGarden } = useLikeGarden(garden.gardenId);
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -80,6 +83,7 @@ const MapGardenDetailBottomSection = ({
           bgColor="white"
           _hover={{}}
           _active={{}}
+          onClick={() => mutateLikeGarden()}
         >
           <Icon
             w="24px"

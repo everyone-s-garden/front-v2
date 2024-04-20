@@ -26,6 +26,12 @@ const gardensApi = {
 
     return response.data;
   },
+
+  likeGarden: async (id: number | null) => {
+    const response = await apiClient.post('/v2/gardens/likes', id);
+
+    return response.data;
+  },
 };
 
 export default gardensApi;
