@@ -9,6 +9,7 @@ import {
 import CommunityDetail from '../pages/Community/CommunityDetail/CommunityDetail';
 import Layout from './Layout';
 import { PATH } from './constants';
+import Login from '@/pages/Login/Login';
 import Map from '@/pages/Map/Map';
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: PATH.ERROR,
         element: <div>에러</div>,
+      },
+      {
+        path: PATH.LOGIN,
+        element: <Login />,
       },
       {
         path: PATH.MAP.MAIN,
