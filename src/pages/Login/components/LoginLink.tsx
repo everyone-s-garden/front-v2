@@ -5,11 +5,13 @@ interface LoginLinkProps {
   icon?: As | undefined;
   img?: string;
   content: '카카오로 로그인하기' | '네이버로 로그인하기';
+  link: string;
 }
 
-const LoginLink = ({ type, icon, content }: LoginLinkProps) => {
+const LoginLink = ({ type, icon, content, link }: LoginLinkProps) => {
   return (
     <Link
+      href={link}
       pos="relative"
       display="flex"
       justifyContent="center"

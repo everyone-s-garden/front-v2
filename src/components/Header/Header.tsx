@@ -58,7 +58,7 @@ const Header = () => {
             fontWeight="regular"
             bg="none"
             _hover={{ bg: 'none' }}
-            onClick={() => navigate(PATH.LOGIN)}
+            onClick={() => navigate(PATH.LOGIN.MAIN)}
           >
             로그인 / 회원가입
           </Button>
