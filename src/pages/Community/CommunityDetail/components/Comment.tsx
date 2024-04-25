@@ -131,7 +131,9 @@ const Comment = ({
           subComments.map((subComment) => (
             <Comment key={subComment.commentId} {...subComment} mt={'15px'} />
           ))}
-        {subCommentView && <CommentInput parentId={commentId} mt={'2px'} />}
+        {subCommentView && (
+          <CommentInput parentId={commentId} mt={'2px'} autoFocus={true} />
+        )}
       </Flex>
     </Flex>
   );

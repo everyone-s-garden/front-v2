@@ -5,9 +5,10 @@ import { DUMMY_MY_INFO } from '@/data/dummyData';
 
 interface CommentInputProps extends FlexProps {
   parentId?: number;
+  autoFocus?: boolean;
 }
 
-const CommentInput = ({ parentId, ...rest }: CommentInputProps) => {
+const CommentInput = ({ parentId, autoFocus, ...rest }: CommentInputProps) => {
   const [focus, setFocus] = useState(false);
   const [comment, setComment] = useState('');
 
@@ -47,6 +48,7 @@ const CommentInput = ({ parentId, ...rest }: CommentInputProps) => {
           onKeyDown={(e) => {
             e.key === 'Enter' && handleSubmitComment();
           }}
+          autoFocus={autoFocus}
         />
         <Text
           fontSize={{ mobile: '14px', tablet: '16px' }}
