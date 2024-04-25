@@ -1,4 +1,5 @@
-import { Box, Center, Heading } from '@chakra-ui/react';
+import { Box, Center, Divider, Heading } from '@chakra-ui/react';
+import { useRef } from 'react';
 import { PostList } from '@/components';
 import CommentSection from './components/CommentSection';
 import Content from './components/Content';
@@ -6,6 +7,12 @@ import Interaction from './components/Interaction';
 import { DUMMY_POST } from '@/data/dummyData';
 
 const CommunityDetail = () => {
+  const commentRef = useRef<HTMLDivElement>(null);
+
+  const moveToComment = () => {
+    commentRef.current?.scrollIntoView();
+  };
+
   return (
     <Box
       maxW={1234}
@@ -14,7 +21,13 @@ const CommunityDetail = () => {
       pt={{ mobile: '20px', tablet: '40px' }}
     >
       <Content />
-      <CommentSection />
+      <CommentSection ref={commentRef} />
+
+      <Divider
+        borderColor={'gray.100'}
+        w={{ mobile: 'calc(100% + 40px)', tablet: 'auto' }}
+        m={{ mobile: '24px -20px', tablet: '32px 0' }}
+      />
 
       <Box mb={6}>
         <Heading
@@ -37,11 +50,16 @@ const CommunityDetail = () => {
         bottom={{ mobile: 0, tablet: 'auto' }}
         top={{ mobile: 'auto', tablet: '50%' }}
         right={{ mobile: 'auto', tablet: '5%' }}
-        zIndex={3}
+        zIndex={10}
         borderTop={{ mobile: '1px solid', tablet: 'none' }}
         borderColor={'gray.100'}
       >
-        <Interaction likeCount={7} commentCount={7} isLikeClick={false} />
+        <Interaction
+          likeCount={7}
+          commentCount={7}
+          isLikeClick={false}
+          handleClickComment={moveToComment}
+        />
       </Center>
     </Box>
   );

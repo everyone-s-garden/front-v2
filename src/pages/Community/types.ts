@@ -41,3 +41,16 @@ export interface PostDetail extends Omit<Post, 'preview' | 'postId'> {
   images: string[];
   isLikeClick: boolean;
 }
+
+export interface Comment {
+  commentId: number;
+  likeCount: number;
+  content: string;
+  userInfo: User;
+  isLikeClick: boolean;
+  createdDate: string;
+}
+
+export interface Comments {
+  parents: (Comment & { subComments: Comment[] })[];
+}

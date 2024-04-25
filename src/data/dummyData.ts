@@ -1,4 +1,4 @@
-import { Post, PostDetail } from '@/pages/Community/types';
+import { Comments, Post, PostDetail, User } from '@/pages/Community/types';
 
 export const DUMMY_POST: Post[] = [
   {
@@ -145,5 +145,61 @@ export const DUMMY_POST_DETAIL: PostDetail = {
     'https://www.durenature.co.kr/data/editor/2104/thumb-85ad254c2972c9943bd748aaa69c0420_1617861428_3653_1024x683.jpg',
     'https://mblogthumb-phinf.pstatic.net/MjAyMTA0MTVfMjYg/MDAxNjE4NDUxNjQ5Nzk1.AaQFwqEsO8n644Ylx4oqZkcZ66H8kpy6LjhcynNk2AUg.CvvmVq1qacvh_rF6y74tSQUy0qA4I1epXYp4S0LZASUg.JPEG.rda2448/SE-53f9d894-8f9f-4bd5-949b-d0ea75fa461a.jpg?type=w800',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuj7hUjquBEjADfQFOA7IeYJcIxYG0ug5tLz513wAXkA&s',
+  ],
+};
+
+export const DUMMY_MY_INFO: User = {
+  userId: 1,
+  name: '김코딩',
+  profile: 'https://www.studiopeople.kr/common/img/default_profile.png',
+  memberMannerGrade: 'SEED',
+};
+
+export const DUMMY_COMMENT: Comments = {
+  parents: [
+    {
+      commentId: 1,
+      likeCount: 2,
+      content: '와우 대단해요!',
+      createdDate: '2021-08-01',
+      userInfo: {
+        userId: 2,
+        name: '이코딩',
+        profile: 'https://www.studiopeople.kr/common/img/default_profile.png',
+        memberMannerGrade: 'SEED',
+      },
+      isLikeClick: false,
+      subComments: [
+        {
+          commentId: 2,
+          likeCount: 1,
+          content:
+            '와 토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 ! 와 토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !',
+          createdDate: '2021-08-01',
+          userInfo: {
+            userId: 3,
+            name: '박코딩',
+            profile:
+              'https://www.studiopeople.kr/common/img/default_profile.png',
+            memberMannerGrade: 'SEED',
+          },
+          isLikeClick: false,
+        },
+      ],
+    },
+    {
+      commentId: 3,
+      likeCount: 1,
+      content: '주말농장 너무 멋있네요  : >',
+      createdDate: '2024-03-01',
+      userInfo: {
+        userId: 4,
+        name: '최코딩',
+        profile: 'https://www.studiopeople.kr/common/img/default_profile.png',
+        memberMannerGrade: 'SEED',
+      },
+      isLikeClick: false,
+      subComments: [],
+    },
   ],
 };

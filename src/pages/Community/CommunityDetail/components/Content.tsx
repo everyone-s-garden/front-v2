@@ -1,4 +1,5 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { nanoid } from 'nanoid';
 import { ImageSlider, TagComponent } from '@/components';
 import getRelativeTime from '../../../../utils/getRelativeTime';
 import { POST } from '../../constants';
@@ -42,7 +43,7 @@ const Content = () => {
       >
         <ImageSlider arrowStyle="circle" numberOfSlides={images.length}>
           {images.map((image) => (
-            <Image src={image} alt="게시글 이미지" />
+            <Image src={image} alt="게시글 이미지" key={nanoid()} />
           ))}
         </ImageSlider>
       </Box>

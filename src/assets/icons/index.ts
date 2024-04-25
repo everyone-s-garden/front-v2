@@ -17,6 +17,7 @@ export { default as SearchIcon } from './search.svg?react';
 export { default as HeartIcon } from './heart.svg?react';
 export { default as ShareIcon } from './share.svg?react';
 export { default as CommentIcon } from './comment.svg?react';
+export { default as CommentPlusIcon } from './comment-plus.svg?react';
 export { default as BoldIcon } from './bold.svg?react';
 export { default as ItalicIcon } from './italic.svg?react';
 export { default as UnderlineIcon } from './underline.svg?react';

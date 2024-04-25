@@ -48,6 +48,18 @@ const GRADE_TYPE_KO = {
   '씨앗 등급': 'SEED',
 } as const;
 
+const COMMENT_ORDER_BY_OPTIONS = {
+  RECENT_DATE: '최신 댓글순',
+  OLDER_DATE: '오래된 댓글순',
+  LIKE_COUNT: '좋아요 순',
+} as const;
+
+const COMMENT_ORDER_BY_OPTIONS_KO = {
+  '최신 댓글순': 'RECENT_DATE',
+  '오래된 댓글순': 'OLDER_DATE',
+  '좋아요 순': 'LIKE_COUNT',
+} as const;
+
 export const POST = {
   TYPE: POST_TYPE,
   TYPE_KO: POST_TYPE_KO,
@@ -63,4 +75,9 @@ export const EDITOR = {
 export const GRADE = {
   TYPE: GRADE_TYPE,
   TYPE_KO: GRADE_TYPE_KO,
+};
+
+export const COMMENT = {
+  ORDER: COMMENT_ORDER_BY_OPTIONS,
+  ORDER_KO: COMMENT_ORDER_BY_OPTIONS_KO,
 };
