@@ -40,6 +40,14 @@ const TEXT_SIZE_TYPE_KO = {
   서브: 'header-three',
 } as const;
 
+const GRADE_TYPE = {
+  SEED: '씨앗 등급',
+} as const;
+
+const GRADE_TYPE_KO = {
+  '씨앗 등급': 'SEED',
+} as const;
+
 export const POST = {
   TYPE: POST_TYPE,
   TYPE_KO: POST_TYPE_KO,
@@ -50,4 +58,9 @@ export const POST = {
 export const EDITOR = {
   SIZE: TEXT_SIZE_TYPE,
   SIZE_KO: TEXT_SIZE_TYPE_KO,
+};
+
+export const GRADE = {
+  TYPE: GRADE_TYPE,
+  TYPE_KO: GRADE_TYPE_KO,
 };

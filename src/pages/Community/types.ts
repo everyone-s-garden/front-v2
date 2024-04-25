@@ -18,6 +18,13 @@ export interface PostParams {
   orderBy: OrderByOptions;
 }
 
+export interface User {
+  userId: number;
+  name: string;
+  profile: string | null;
+  memberMannerGrade: 'SEED';
+}
+
 export interface Post {
   postId: number;
   title: string;
@@ -25,12 +32,12 @@ export interface Post {
   commentCount: number;
   content: string;
   preview: string | null;
-  userInfo: {
-    userId: number;
-    profile: string | null;
-    name: string;
-    memberMannerGrade: string;
-  };
+  userInfo: User;
   postType: PostType;
   createdDate: string;
+}
+
+export interface PostDetail extends Omit<Post, 'preview' | 'postId'> {
+  images: string[];
+  isLikeClick: boolean;
 }
