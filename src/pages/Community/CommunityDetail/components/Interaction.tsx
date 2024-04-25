@@ -2,9 +2,19 @@ import { Box, Icon, IconButton, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { CommentIcon, HeartIcon, ShareIcon } from '@/assets/icons';
 
-const Interaction = () => {
-  const [heartClicked, setHeartClicked] = useState(false);
-  const [heartCount, setHeartCount] = useState(7);
+interface InteractionProps {
+  likeCount: number;
+  commentCount: number;
+  isLikeClick: boolean;
+}
+
+const Interaction = ({
+  likeCount,
+  commentCount,
+  isLikeClick,
+}: InteractionProps) => {
+  const [heartClicked, setHeartClicked] = useState(isLikeClick);
+  const [heartCount, setHeartCount] = useState(likeCount);
 
   return (
     <Box
@@ -73,7 +83,7 @@ const Interaction = () => {
           shadow={'md'}
         />
         <Text fontSize={'12px'} fontWeight={'medium'} color={'sub'} minW={2}>
-          7
+          {commentCount}
         </Text>
       </Box>
 
