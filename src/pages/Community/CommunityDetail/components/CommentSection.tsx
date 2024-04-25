@@ -9,7 +9,7 @@ const CommentSection = forwardRef<HTMLDivElement, BoxProps>((props, ref) => {
   {
     return (
       <Box mb={{ mobile: '24px', tablet: '32px' }} {...props} ref={ref}>
-        <CommentInput mt={'24px'} mb={'32px'} />
+        <CommentInput mt={'24px'} mb={{ mobile: '22px', tablet: '28px' }} />
         <Flex justify={'space-between'} align={'center'}>
           <Text
             fontWeight={'medium'}

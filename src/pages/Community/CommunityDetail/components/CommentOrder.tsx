@@ -40,6 +40,7 @@ const CommentOrder = () => {
             _active={{ bg: 'none' }}
             p={0}
             w={'90px'}
+            h={'fit-content'}
           >
             <Text fontWeight={'medium'} textAlign={'right'}>
               정렬
@@ -71,6 +72,7 @@ const CommentOrder = () => {
           rightIcon={
             <Icon as={ArrowDownIcon} w={'12px'} h={'12px'} stroke={'black'} />
           }
+          h={'fit-content'}
           bg={'none'}
           _hover={{ bg: 'none' }}
           _active={{ bg: 'none' }}

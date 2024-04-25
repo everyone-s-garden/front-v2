@@ -77,7 +77,12 @@ const Comment = ({
             minW={'20px'}
             onClick={handleClickLike}
           />
-          <Text fontSize={'14px'} fontWeight={'medium'} color={'sub'} w={2}>
+          <Text
+            fontSize={'14px'}
+            fontWeight={'medium'}
+            color={'sub'}
+            minW={2.5}
+          >
             {likeCountState}
           </Text>
           {subComments && (

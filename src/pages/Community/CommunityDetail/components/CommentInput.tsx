@@ -40,6 +40,7 @@ const CommentInput = ({ parentId, ...rest }: CommentInputProps) => {
           borderRadius={0}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
+          fontSize={{ mobile: '14px', tablet: '16px' }}
           fontWeight={'medium'}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
