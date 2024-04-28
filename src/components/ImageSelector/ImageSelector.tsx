@@ -11,7 +11,7 @@ import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { CameraIcon, CloseIcon } from '@/assets/icons';
+import { CameraIcon, ClosePrimaryIcon } from '@/assets/icons';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { ALERT_MESSAGE, MAX_IMAGE_LENGTH } from './constants';
@@ -128,7 +128,7 @@ const ImageSelector = ({
                 bg="white"
                 border="1px solid"
                 borderColor="gray.400"
-                icon={<CloseIcon />}
+                icon={<ClosePrimaryIcon />}
                 aria-label="close button"
                 w={'24px'}
                 h={'24px'}

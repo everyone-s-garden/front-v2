@@ -7,11 +7,22 @@ import { TabData } from './types';
 interface TabProps {
   gap?: number;
   tabWidth?: 'full' | 'fit' | 'fit-full';
-  color: 'green' | 'orange';
+  color: 'green' | 'orange' | 'white';
   tabsData: TabData[];
+  paddingVertical?: number;
+  borderTop?: boolean;
+  textStyle?: React.CSSProperties;
 }
 
-const Tab = ({ gap = 0, tabWidth = 'fit', color, tabsData }: TabProps) => {
+const Tab = ({
+  gap = 0,
+  tabWidth = 'fit',
+  color,
+  tabsData,
+  paddingVertical,
+  borderTop = false,
+  textStyle,
+}: TabProps) => {
   const [tabIndex, setTabIndex] = useState(-1);
 
   const { pathname: currentPath } = useLocation();
@@ -58,23 +69,29 @@ const Tab = ({ gap = 0, tabWidth = 'fit', color, tabsData }: TabProps) => {
     };
 
     if (calculateSelectedIndex() === tabIndex) return;
-
     setTabIndex(calculateSelectedIndex());
   }, [currentPath, tabIndex, tabsData]);
 
   return (
     <Tabs position="relative" index={tabIndex} bg="white">
       <TabList
+        py={paddingVertical}
         gap={`${gap}px`}
-        borderBottom="2px solid"
+        borderBottom={'2px solid'}
         borderBottomColor="gray.200"
         justifyContent="center"
+        borderTop={borderTop ? '2px solid' : ''}
+        borderTopColor={borderTop ? 'gray.200' : ''}
         {...{ color: 'orange.100' }}
       >
         {tabsData.map(({ tabName, href }, index) => (
           <TabItem
             onClick={() => handleClickTab(index, href)}
             key={nanoid()}
+            _selected={{
+              color: textStyle?.color || 'black',
+            }}
+            fontWeight={textStyle?.fontWeight}
             {...getTabStyles()}
           >
             {tabName}
