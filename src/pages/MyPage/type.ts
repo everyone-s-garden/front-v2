@@ -6,7 +6,7 @@ export interface IMainRoute {
   icon: React.FunctionComponent;
 }
 
-export type ISubRoute = Omit<IMainRoute, 'des'>;
+export type ISubRoute = Omit<IMainRoute, 'des' | 'icon'>;
 
 interface IBaseItem {
   id: number;
