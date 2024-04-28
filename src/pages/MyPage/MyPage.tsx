@@ -78,22 +78,40 @@ const GridComponent = ({ item }: { item: IMainRoute }) => {
       bg="#F5F5F5"
       borderRadius="10px"
       px="20px"
-      py="20px"
+      pt="47px"
+      pb="20px"
       h="132px"
       display="flex"
       border="1px"
       borderColor="gray.200"
       as="button"
+      aria-label={item.tabName}
       onClick={() => nav(item.href)}
+      pos="relative"
     >
-      <Box mt="auto" display="flex" flexDir="column" alignItems="flex-start">
-        <Text fontSize="18px" fontWeight="semiBold" color="black">
+      <Flex flexDir="column">
+        <Text
+          fontSize="18px"
+          fontWeight="semiBold"
+          color="black"
+          textAlign="start"
+          zIndex={2}
+        >
           {item.tabName}
         </Text>
-        <Text fontSize="12px" noOfLines={1} color="black">
+        <Text
+          fontSize="12px"
+          noOfLines={2}
+          textAlign="start"
+          color="black"
+          zIndex={2}
+        >
           {item.des}
         </Text>
-      </Box>
+        <Box pos="absolute" right={0} top="50%" transform="translateY(-50%)">
+          <item.icon />
+        </Box>
+      </Flex>
     </GridItem>
   );
 };

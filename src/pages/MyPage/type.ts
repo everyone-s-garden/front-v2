@@ -3,6 +3,7 @@ export interface IMainRoute {
   tabName: string;
   keyword: string;
   des: string;
+  icon: React.FunctionComponent;
 }
 
 export type ISubRoute = Omit<IMainRoute, 'des'>;

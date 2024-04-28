@@ -1,3 +1,11 @@
+import {
+  NearbyGardenMyPageIcon,
+  WhisperMyPageIcon,
+  CropTradeMyPageIcon,
+  SettingsMyPageIcon,
+  GardenManagementMyPageIcon,
+  UserFeedBackMyPageIcon,
+} from '@/assets/icons';
 import { PATH } from '@/routes/constants';
 
 const { NEARBY_GARDENS_INFO, CROP_TRADE, GARDEN_MANAGEMENT, WHISPERS } =
@@ -8,37 +16,43 @@ export const mainRoute = [
     tabName: '내 주변 분양',
     keyword: NEARBY_GARDENS_INFO.MAIN,
     href: NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
-    des: '내 주변 분양에서 활동한 내역을 볼 수 있어요.',
+    des: '내 주변 분양에서 활동한 내역을\n볼 수 있어요.',
+    icon: NearbyGardenMyPageIcon,
   },
   {
     tabName: '작물 거래',
     keyword: CROP_TRADE.MAIN,
     href: CROP_TRADE.VERIFY_LOCATION,
-    des: '작물거래에서 판매하고 구매한 내역을 볼 수 있어요.',
+    des: '작물거래에서 판매하고 구매한\n내역을 볼 수 있어요.',
+    icon: CropTradeMyPageIcon,
   },
   {
     tabName: '텃밭 관리',
     keyword: GARDEN_MANAGEMENT.MY_GARDEN,
     href: GARDEN_MANAGEMENT.MY_GARDEN,
     des: '나의 텃밭을 관리할 수 있어요.',
+    icon: GardenManagementMyPageIcon,
   },
   {
     tabName: '속닥 속닥',
     keyword: WHISPERS.MAIN,
     href: WHISPERS.WRITTEN_POSTS,
-    des: '속닥속닥에서 활동한 내역을 볼 수 있어요.',
+    des: '속닥속닥에서 활동한 내역을\n볼 수 있어요.',
+    icon: WhisperMyPageIcon,
   },
   {
     tabName: '설정',
     keyword: '*',
     href: PATH.SETTINGS,
-    des: '고객센터 및 회원정보를 수정할 수 있어요.',
+    des: '고객센터 및 회원정보를 수정할\n수 있어요.',
+    icon: SettingsMyPageIcon,
   },
   {
     href: '/',
     tabName: '유저의 소리함',
-    des: '모두의 텃밭에 의견을 추가할 수 있어요.',
+    des: '모두의 텃밭에 의견을 추가할 수\n있어요.',
     keyword: '하이',
+    icon: UserFeedBackMyPageIcon,
   },
 ];
 
