@@ -1,6 +1,4 @@
 export { default as Main } from './Main/Main';
-export { default as GardenEdit } from './Create/GardenEdit/GardenEdit';
-export { default as MyGardenEdit } from './Create/MyGardenEdit/MyGardenEdit';
 export { default as MyPage } from './MyPage/MyPage';
 export { default as CropTrade } from './MyPage/CropTrade/CropTrade';
 export { default as PurchaseHistory } from './MyPage/CropTrade/PurchaseHistory/PurchaseHistory';
@@ -18,3 +16,8 @@ export { default as LikedPosts } from './MyPage/Whispers/LikedPosts/LikedPosts';
 export { default as Whispers } from './MyPage/Whispers/Whispers';
 export { default as WrittenPosts } from './MyPage/Whispers/WrittenPosts/WrittenPosts';
 export { default as Settings } from './Settings/Settings';
+export { default as GardenEdit } from './Garden/GardenEdit/GardenEdit';
+export { default as MyGardenEdit } from './Garden/MyGardenEdit/MyGardenEdit';
+export { default as CommunityMain } from './Community/CommunityMain/CommunityMain';
+export { default as CommunityDetail } from './Community/CommunityDetail/CommunityDetail';
+export { default as CommunityEdit } from './Community/CommunityEdit/CommunityEdit';

@@ -16,7 +16,7 @@ const Settings = () => {
 
       <Box alignSelf="center" mt="56px" w="full" maxW="662px">
         {mainRoute.map((route) => (
-          <Box>
+          <Box key={route.listHeader}>
             <Box
               pl="33.95px"
               bg="green.100"

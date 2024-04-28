@@ -20,9 +20,13 @@ import {
   Whispers,
   WishList,
   WrittenPosts,
+  CommunityDetail,
+  CommunityEdit,
+  CommunityMain,
 } from '@/pages';
 import Layout from './Layout';
 import { PATH } from './constants';
+import Map from '@/pages/Map/Map';
 
 const { NEARBY_GARDENS_INFO, CROP_TRADE, WHISPERS, GARDEN_MANAGEMENT } =
   PATH.MYPAGE;
@@ -38,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: PATH.ERROR,
         element: <div>에러</div>,
+      },
+      {
+        path: PATH.MAP.MAIN,
+        element: <Map />,
       },
       {
         path: PATH.MAP.CREATE_GARDEN,
@@ -122,6 +130,18 @@ const router = createBrowserRouter([
             element: <WrittenPosts />,
           },
         ],
+      },
+      {
+        path: PATH.COMMUNITY.MAIN,
+        element: <CommunityMain />,
+      },
+      {
+        path: PATH.COMMUNITY.DETAIL,
+        element: <CommunityDetail />,
+      },
+      {
+        path: PATH.COMMUNITY.CREATE,
+        element: <CommunityEdit />,
       },
     ],
   },

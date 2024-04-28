@@ -1,15 +1,26 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '@/components';
 
 const Layout = () => {
   return (
-    <>
-      <Box pos="sticky" top={0} bg="white">
+    <Container
+      minH={'100svh'}
+      maxW={'auto'}
+      px={0}
+      display={'flex'}
+      flexDir={'column'}
+    >
+      <Box pos="sticky" top={0} bg="white" zIndex={10}>
         <Header />
       </Box>
-      <Outlet />
-    </>
+      <Box
+        overflow={'auto'}
+        h={{ mobile: 'calc(100svh - 100px)', tablet: 'calc(100svh - 108px)' }}
+      >
+        <Outlet />
+      </Box>
+    </Container>
   );
 };
 

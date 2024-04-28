@@ -29,3 +29,14 @@ export { default as NearbyGardenMyPageIcon } from './mypage/nearby-garden.svg?re
 export { default as SettingsMyPageIcon } from './mypage/settings.svg?react';
 export { default as UserFeedBackMyPageIcon } from './mypage/user-feedback.svg?react';
 export { default as WhisperMyPageIcon } from './mypage/whisper.svg?react';
+export { default as MobileMapArrowIcon } from './mobile-map-arrow.svg?react';
+export { default as MapArrowLeftIcon } from './map-arrow-left.svg?react';
+export { default as MapArrowBottomIcon } from './map-arrow-bottom.svg?react';
+export { default as CommentIcon } from './comment.svg?react';
+export { default as BoldIcon } from './bold.svg?react';
+export { default as ItalicIcon } from './italic.svg?react';
+export { default as UnderlineIcon } from './underline.svg?react';
+export { default as AlignLeftIcon } from './align-left.svg?react';
+export { default as AlignCenterIcon } from './align-center.svg?react';
+export { default as AlignRightIcon } from './align-right.svg?react';
+export { default as SearchIcon } from './search.svg?react';
