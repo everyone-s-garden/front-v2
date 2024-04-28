@@ -1,4 +1,4 @@
-import { List, TabList, Tabs, Tab } from '@chakra-ui/react';
+import { List, TabList, Tabs, Tab, TabIndicator, Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import GardenItem from '../../components/GardenItem';
 import MobileEditButton from '../../components/MobileEditButton';
@@ -14,40 +14,48 @@ const SalesHistory = () => {
   const [checkboxOpen, setCheckboxOpen] = useState(false);
 
   return (
-    <List
-      w="100%"
-      px={{ mobile: '20px', tablet: '0px' }}
-      mt={{ mobile: '20px', tablet: '0' }}
-    >
+    <List w="100%" mt={{ mobile: '20px', tablet: '0' }}>
       <Tabs>
         <TabList
           pb={{ mobile: '10px', tablet: '16px' }}
-          borderBottom="1px solid"
-          borderColor="gray.100"
-          gap="70px"
+          borderBottom={{ mobile: '2px', tablet: '1px' }}
+          borderColor={{ mobile: 'gray.100', tablet: 'gray.100' }}
+          gap={{ mobile: '0', tablet: '70px' }}
           mb={{ mobile: '16px', tablet: '28px' }}
         >
           {tabList.map((item) => (
-            <Tab p="0" key={item.tabName}>
+            <Tab
+              p="0"
+              key={item.tabName}
+              w={{ mobile: 'full', tablet: 'fit-content' }}
+            >
               {item.tabName}
             </Tab>
           ))}
         </TabList>
-      </Tabs>
-      <MobileEditButton
-        checkboxOpen={checkboxOpen}
-        setCheckboxOpen={setCheckboxOpen}
-      />
-
-      {cropMockData.map((item, idx) => (
-        <GardenItem
-          key={item.id}
-          item={item}
-          idx={idx}
-          menu
-          checkboxOpen={checkboxOpen}
+        <TabIndicator
+          display={{ mobile: 'box', tablet: 'none' }}
+          bottom={0}
+          height="2px"
+          bg={`green.500`}
         />
-      ))}
+      </Tabs>
+      <Box px={{ mobile: '20px', tablet: '0' }}>
+        <MobileEditButton
+          checkboxOpen={checkboxOpen}
+          setCheckboxOpen={setCheckboxOpen}
+        />
+
+        {cropMockData.map((item, idx) => (
+          <GardenItem
+            key={item.id}
+            item={item}
+            idx={idx}
+            menu
+            checkboxOpen={checkboxOpen}
+          />
+        ))}
+      </Box>
     </List>
   );
 };
