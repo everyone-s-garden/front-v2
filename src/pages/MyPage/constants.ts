@@ -110,5 +110,32 @@ export const whispersRoute = [
   },
 ];
 
+export const settingsRoute = [
+  {
+    tabName: '공지사항',
+    href: '*',
+  },
+  {
+    tabName: '자주 묻는 질문',
+    href: '*',
+  },
+  {
+    tabName: '1:1 문의하기',
+    href: '*',
+  },
+  {
+    tabName: '개인정보수정',
+    href: '*',
+  },
+  {
+    tabName: '로그아웃',
+    href: '*',
+  },
+  {
+    tabName: '회원탈퇴',
+    href: '*',
+  },
+];
+
 export const TAB_GAP = 106;
 export const TAB_PADDING_VERTICAL = 13;

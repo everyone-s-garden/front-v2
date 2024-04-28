@@ -32,7 +32,7 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
 
   return (
     <ListItem cursor="pointer" mb="32px" mt={{ mobile: '16px', tablet: '0' }}>
-      <Flex>
+      <Flex flex={1}>
         <Box
           w={{ mobile: '114px', tablet: '234px' }}
           h={{ mobile: '118px', tablet: '122px' }}
@@ -67,7 +67,7 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
             checkboxOpen={checkboxOpen}
           />
         </Box>
-        <Box>
+        <Box flex={1}>
           <Flex
             align={{ mobile: 'center', tablet: 'flex-start' }}
             mb="8px"
@@ -124,7 +124,12 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
             display={{ mobile: 'block', tablet: 'none' }}
             bg="green.500"
             color="white"
+            h="32px"
+            maxW="223px"
+            borderRadius="6px"
             isDisabled={report}
+            fontSize="14px"
+            fontWeight="semiBold"
             onClick={() => alert(`수정하기 click${idx}`)}
             _hover={{ bg: 'green.500' }}
           >

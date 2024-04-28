@@ -19,12 +19,13 @@ import {
   gardenManagementRoute,
   mainRoute,
   nearByRoute,
+  settingsRoute,
   whispersRoute,
 } from './constants';
 import { IMainRoute } from './type';
 
 interface Routes {
-  [key: string]: { tabName: string; keyword: string; href: string }[];
+  [key: string]: { tabName: string; keyword?: string; href: string }[];
 }
 
 const Panel = ({ tabName }: { tabName: string }) => {
@@ -36,6 +37,7 @@ const Panel = ({ tabName }: { tabName: string }) => {
       '작물 거래': cropTradeRoute,
       '텃밭 관리': gardenManagementRoute,
       '속닥 속닥': whispersRoute,
+      설정: settingsRoute,
     }),
     [],
   );
@@ -55,7 +57,8 @@ const Panel = ({ tabName }: { tabName: string }) => {
           <Text
             as="button"
             onClick={() => nav(item.href)}
-            color="gray.700"
+            color="#9e9e9e"
+            fontWeight="semiBold"
             aria-label={item.tabName}
           >
             {item.tabName}
