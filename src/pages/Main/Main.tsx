@@ -6,7 +6,11 @@ import Weather from './components/Weather/Weather';
 
 const Main = () => {
   return (
-    <Flex flexDir="column" gap={{ mobile: '36px', tablet: '80px' }}>
+    <Flex
+      flexDir="column"
+      pb={{ mobile: '50px', tablet: '120px' }}
+      gap={{ mobile: '36px', tablet: '80px' }}
+    >
       <Banner />
       <RecentPosts />
       <MonthlyCrop />

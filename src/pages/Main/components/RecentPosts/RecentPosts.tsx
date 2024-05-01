@@ -1,92 +1,26 @@
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import ItemTitle from '../ItemTitle';
 import RecentPostItem from './RecentPostItem';
-
-const MOCK = [
-  {
-    address: '강남구 역삼동',
-    gardenName: '강남역삼동 텃밭',
-    imageUrl: 'https://via.placeholder.com/150',
-    isLiked: false,
-    price: 100000,
-    recruitEndDate: '2021-10-10',
-    recruitStartDate: '2021-10-01',
-    gardenId: 1,
-    latitude: 37.495,
-    longitude: 127.036,
-  },
-  {
-    address: '강남구 역삼동',
-    gardenName: '강남역삼동 텃밭',
-    imageUrl: 'https://via.placeholder.com/150',
-    isLiked: true,
-    price: 1000000,
-    recruitEndDate: '2021-10-10',
-    recruitStartDate: '2021-10-01',
-    gardenId: 1,
-    latitude: 37.495,
-    longitude: 127.036,
-  },
-  {
-    address: '강남구 역삼동',
-    gardenName: '강남역삼동 텃밭',
-    imageUrl: 'https://via.placeholder.com/150',
-    isLiked: true,
-    price: 1000000,
-    recruitEndDate: '2021-10-10',
-    recruitStartDate: '2021-10-01',
-    gardenId: 1,
-    latitude: 37.495,
-    longitude: 127.036,
-  },
-  {
-    address: '강남구 역삼동',
-    gardenName: '강남역삼동 텃밭',
-    imageUrl: 'https://via.placeholder.com/150',
-    isLiked: true,
-    price: 1000000,
-    recruitEndDate: '2021-10-10',
-    recruitStartDate: '2021-10-01',
-    gardenId: 1,
-    latitude: 37.495,
-    longitude: 127.036,
-  },
-  {
-    address: '강남구 역삼동',
-    gardenName: '강남역삼동 텃밭',
-    imageUrl: 'https://via.placeholder.com/150',
-    isLiked: true,
-    price: 1000000,
-    recruitEndDate: '2021-10-10',
-    recruitStartDate: '2021-10-01',
-    gardenId: 1,
-    latitude: 37.495,
-    longitude: 127.036,
-  },
-  {
-    address: '강남구 역삼동',
-    gardenName: '강남역삼동 텃밭',
-    imageUrl: 'https://via.placeholder.com/150',
-    isLiked: true,
-    price: 1000000,
-    recruitEndDate: '2021-10-10',
-    recruitStartDate: '2021-10-01',
-    gardenId: 1,
-    latitude: 37.495,
-    longitude: 127.036,
-  },
-];
+import { useGetRecentGardenPosts } from '@/services/gardenPost/query';
 
 const RecentPosts = () => {
+  const { data: recentGardenPosts } = useGetRecentGardenPosts();
+
+  if (!recentGardenPosts) {
+    return null;
+  }
+
   return (
-    <Flex flexDir="column" m="0 auto" px="20px" maxW="1194px">
-      <ItemTitle>방금 등록된 따끈따끈한 게시글!</ItemTitle>
-      <Flex gap={{ mobile: '12px', tablet: '30px' }} overflowY="auto">
-        {MOCK.map((postData) => (
-          <RecentPostItem key={postData.gardenId} postData={postData} />
-        ))}
+    <Box px="20px">
+      <Flex flexDir="column" m="0 auto" maxW="1194px">
+        <ItemTitle>방금 등록된 따끈따끈한 게시글!</ItemTitle>
+        <Flex gap={{ mobile: '12px', tablet: '30px' }} overflowY="auto">
+          {recentGardenPosts.map((postData, idx) => (
+            <RecentPostItem key={idx} postData={postData} />
+          ))}
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 

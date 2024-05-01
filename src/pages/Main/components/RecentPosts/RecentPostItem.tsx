@@ -1,9 +1,10 @@
 import { Box, Flex, Image, Text, chakra } from '@chakra-ui/react';
 import { HeartIcon } from '@/assets/icons';
+import { GardenPost } from '@/services/gardenPost/types';
 
 const CHeartIcon = chakra(HeartIcon);
 
-const RecentPostItem = ({ postData }) => {
+const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
   const { imageUrl, gardenName, address, price, recruitEndDate } = postData;
 
   const endDate = new Date(recruitEndDate);
@@ -24,6 +25,7 @@ const RecentPostItem = ({ postData }) => {
     <Flex flexDir="column" flexShrink="0" gap="12px">
       <Box position="relative">
         <Image
+          draggable="false"
           w={{ mobile: '190px', tablet: '276px' }}
           h={{ mobile: '129px', tablet: '168px' }}
           rounded="10px"

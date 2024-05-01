@@ -1,4 +1,7 @@
-import { Button, Flex, Text, createIcon } from '@chakra-ui/react';
+import { Button, Flex, Spinner, Text, createIcon } from '@chakra-ui/react';
+import { useState } from 'react';
+import { useMyLocationStore } from '@/stores/myLocationStore';
+import getMyLocation from '@/utils/getMyLocation';
 
 const LocationIcon = createIcon({
   displayName: 'LocationIcon',
@@ -7,6 +10,31 @@ const LocationIcon = createIcon({
 });
 
 const WeatherHeader = () => {
+  const [isLocationLoading, setIsLocationLoading] = useState(false);
+  const myLocation = useMyLocationStore((state) => state.myLocation);
+  const setMyLatLng = useMyLocationStore((state) => state.setMyLatLng);
+
+  const handleGetLocationButtonClick = async () => {
+    setIsLocationLoading(true);
+    const res = await getMyLocation();
+    if (!res.errMsg) {
+      setMyLatLng({
+        lat: res.location.lat,
+        lng: res.location.lng,
+      });
+    } else {
+      alert(res.errMsg);
+    }
+    setIsLocationLoading(false);
+  };
+
+  const currentDate = new Date();
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  const amOrPm = hours >= 12 ? 'PM' : 'AM';
+  const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+  const formattedTime = `${formattedHours}:${minutes.toString().padStart(2, '0')} ${amOrPm}`;
+
   return (
     <Flex
       alignItems="center"
@@ -18,30 +46,37 @@ const WeatherHeader = () => {
           fontSize={{ mobile: '16px', tablet: '20px' }}
           fontWeight="semiBold"
         >
-          서울특별시
+          {myLocation.position}
         </Text>
         <Text
           fontSize={{ mobile: '14px', tablet: '18px' }}
           fontWeight="regular"
         >
-          12:15 PM
+          {formattedTime}
         </Text>
       </Flex>
-      <Button
-        leftIcon={
-          <LocationIcon
-            w={{ mobile: '18px', tablet: '24px' }}
-            h={{ mobile: '18px', tablet: '24px' }}
-          />
-        }
-        p="0"
-        bg="none"
-        fontSize={{ mobile: '14px', tablet: '18px' }}
-        fontWeight="regular"
-        _hover={{}}
-      >
-        내 위치 찾기
-      </Button>
+      {isLocationLoading ? (
+        <Spinner size="md" color="orange.500" />
+      ) : (
+        <Button
+          leftIcon={
+            <LocationIcon
+              w={{ mobile: '18px', tablet: '24px' }}
+              h={{ mobile: '18px', tablet: '24px' }}
+            />
+          }
+          p="0"
+          h="fit-content"
+          bg="none"
+          fontSize={{ mobile: '14px', tablet: '18px' }}
+          fontWeight="regular"
+          _hover={{}}
+          _active={{}}
+          onClick={handleGetLocationButtonClick}
+        >
+          내 위치 찾기
+        </Button>
+      )}
     </Flex>
   );
 };

@@ -11,6 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import ItemTitle from './ItemTitle';
+import { useGetMonthCrops } from '@/services/crop/query';
 
 const MONTH_TITLE = [
   '1월 추운 겨울 심기 좋은 작물 추천 해드려요!',
@@ -27,29 +28,11 @@ const MONTH_TITLE = [
   '12월 추운 겨울에도 잘 자라는 심기 좋은 작물 추천해요!',
 ];
 
-const mock = [
-  {
-    description:
-      '대한민국에서는 8-9월에 모판에 파종하여 10월에 어린 모종을 밭에 정식하고, 다음 해 6월 무렵에 수확하는 가을뿌림재배가 대부분을 차지하고 있다. 봄에 파종하여 가을에 수확하는 봄뿌림재배를 하면 다음 해 1월 상순까지는 싹이 나지 않고, 그 뒤에 냉장하면 4월까지 저장할 수 있다. 봄뿌리재배는 강원도 대관령·인제등지의 고랭지에서 하고 있다. 이 밖에 3-4월에 파종하여 5월 중순경에 작은 알(球)을 수확하고 건조시켰다가 8월 무렵 밭에 심어 겨울부터 이른 봄에 수확하는 세트 재배방식도 있다.',
-    link: 'https://ko.wikipedia.org/wiki/%EB%B0%B0%EC%9A%B0',
-    name: '마늘',
-  },
-  {
-    description:
-      '대한민국에서는 8-9월에 모판에 파종하여 10월에 어린 모종을 밭에 정식하고, 다음 해 6월 무렵에 수확하는 가을뿌림재배가 대부분을 차지하고 있다. 봄에 파종하여 가을에 수확하는 봄뿌림재배를 하면 다음 해 1월 상순까지는 싹이 나지 않고, 그 뒤에 냉장하면 4월까지 저장할 수 있다. 봄뿌리재배는 강원도 대관령·인제등지의 고랭지에서 하고 있다. 이 밖에 3-4월에 파종하여 5월 중순경에 작은 알(球)을 수확하고 건조시켰다가 8월 무렵 밭에 심어 겨울부터 이른 봄에 수확하는 세트 재배방식도 있다.',
-    link: 'https://ko.wikipedia.org/wiki/%EB%B0%B0%EC%9A%B0',
-    name: '마늘',
-  },
-  {
-    description:
-      '대한민국에서는 8-9월에 모판에 파종하여 10월에 어린 모종을 밭에 정식하고, 다음 해 6월 무렵에 수확하는 가을뿌림재배가 대부분을 차지하고 있다. 봄에 파종하여 가을에 수확하는 봄뿌림재배를 하면 다음 해 1월 상순까지는 싹이 나지 않고, 그 뒤에 냉장하면 4월까지 저장할 수 있다. 봄뿌리재배는 강원도 대관령·인제등지의 고랭지에서 하고 있다. 이 밖에 3-4월에 파종하여 5월 중순경에 작은 알(球)을 수확하고 건조시켰다가 8월 무렵 밭에 심어 겨울부터 이른 봄에 수확하는 세트 재배방식도 있다.',
-    link: 'https://ko.wikipedia.org/wiki/%EB%B0%B0%EC%9A%B0',
-    name: '마늘',
-  },
-];
-
 const MonthlyCrop = () => {
+  const { data: monthCrops } = useGetMonthCrops();
   const currentMonth = new Date().getMonth();
+
+  if (!monthCrops) return null;
 
   return (
     <Box bgColor="#fff7ee" py={{ mobile: '45px', tablet: '90px' }} px="20px">
@@ -81,7 +64,7 @@ const MonthlyCrop = () => {
             overflowY="auto"
             w="100%"
           >
-            {mock.map((item, index) => (
+            {monthCrops[currentMonth].cropInfos.map((item, index) => (
               <AccordionItem key={index}>
                 <AccordionButton px="7.5px">
                   <Text
