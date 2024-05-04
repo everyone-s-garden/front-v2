@@ -12,4 +12,8 @@ export const PATH = {
     CREATE_MY_GARDEN: '/map/create-my-garden',
     CREATE_GARDEN: '/map/create-garden',
   },
+  CHAT: {
+    MAIN: '/chat',
+    ROOM: '/chat/:id',
+  },
 };
