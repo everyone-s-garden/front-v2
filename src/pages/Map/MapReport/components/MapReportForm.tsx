@@ -4,13 +4,17 @@ import MapReportCategory from './MapReportCategory';
 import MapReportContents from './MapReportContents';
 import MapReportNotice from './MapReportNotice';
 
+interface FormValues {
+  data: string;
+}
+
 const MapReportForm = () => {
   const {
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
+  } = useForm<FormValues>();
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: FormValues) => {
     return new Promise<void>((resolve) => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
