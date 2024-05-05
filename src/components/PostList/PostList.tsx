@@ -48,17 +48,6 @@ const PostList = ({ posts }: PostListProps) => {
             pb={{ mobile: '20px', tablet: '24px' }}
             borderBottom={'1px solid'}
             borderBottomColor={'gray.100'}
-            __css={{
-              h2: {
-                display: '-webkit-box',
-                WebkitLineClamp: {
-                  mobile: 2,
-                  tablet: 1,
-                },
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              },
-            }}
           >
             <Flex justify={'space-between'}>
               <Flex flexDir={'column'} gap={'8px'}>
@@ -83,6 +72,7 @@ const PostList = ({ posts }: PostListProps) => {
                     fontSize={{ mobile: '16px', tablet: '20px' }}
                     fontWeight={'semiBold'}
                     h={{ mobile: '48px', tablet: 'fit-content' }}
+                    lineHeight={'24px'}
                     noOfLines={{ mobile: 2, tablet: 1 }}
                     onClick={() => handleClickItem(postId)}
                     cursor={'pointer'}

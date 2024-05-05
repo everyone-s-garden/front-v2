@@ -35,6 +35,10 @@ const globalStyles = css`
     border-radius: 7px;
   }
 
+  body {
+    overflow: hidden;
+  }
+
   #root {
     width: 100%;
     height: 100%;
