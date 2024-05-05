@@ -6,6 +6,7 @@ import {
   Button,
   useDisclosure,
   chakra,
+  Link,
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -70,9 +71,14 @@ const MapGardenDetailBottomSection = ({
     <Box marginTop="40px" cursor="pointer">
       <Flex marginBottom="20px" alignItems="center" gap="6px">
         <Icon as={ReportIcon} />
-        <Text fontSize="12px" color="gray.400" fontWeight="regular">
+        <Link
+          href={`/map/report/${garden.gardenId}`}
+          fontSize="12px"
+          color="gray.400"
+          fontWeight="regular"
+        >
           신고하기
-        </Text>
+        </Link>
       </Flex>
 
       <Flex w="fit-content" margin="0 auto" gap="14px">
