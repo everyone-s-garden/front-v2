@@ -52,5 +52,5 @@ export interface Comment {
 }
 
 export interface Comments {
-  parents: (Comment & { subComments: Comment[] })[];
+  mainComment: (Comment & { subComments: Comment[] })[];
 }

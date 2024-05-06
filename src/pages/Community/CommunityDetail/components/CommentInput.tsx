@@ -4,18 +4,18 @@ import { AvatarComponent } from '@/components';
 import { DUMMY_MY_INFO } from '@/data/dummyData';
 
 interface CommentInputProps extends FlexProps {
-  parentId?: number;
+  commentId?: number;
   autoFocus?: boolean;
 }
 
-const CommentInput = ({ parentId, autoFocus, ...rest }: CommentInputProps) => {
+const CommentInput = ({ commentId, autoFocus, ...rest }: CommentInputProps) => {
   const [focus, setFocus] = useState(false);
   const [comment, setComment] = useState('');
 
   const handleSubmitComment = () => {
     if (comment.trim() === '') return;
 
-    alert(`댓글 입력: ${comment}, parentId: ${parentId ?? '없음'}`);
+    alert(`댓글 입력: ${comment}, commentId: ${commentId ?? '없음'}`);
   };
 
   return (

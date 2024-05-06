@@ -70,7 +70,7 @@ export const useGetComments = (id: number) => {
     getNextPageParam: (...pages) => {
       const [data, , params] = pages;
 
-      if (data.parents.length < 6) {
+      if (data.mainComment.length < 6) {
         return undefined;
       }
 
@@ -81,7 +81,7 @@ export const useGetComments = (id: number) => {
     },
     select(data) {
       const comments = data.pages.reduce<Comment[]>(
-        (acc, item) => acc.concat(item.parents),
+        (acc, item) => acc.concat(item.mainComment),
         [],
       );
 

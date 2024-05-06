@@ -24,8 +24,6 @@ const whisperAPI = {
       params: { ...pageParam, orderBy },
     });
 
-    console.log(response.data);
-
     return response.data;
   },
   getPost: async (postId: number): Promise<PostDetail> => {
