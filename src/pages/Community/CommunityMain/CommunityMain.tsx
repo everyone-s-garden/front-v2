@@ -4,9 +4,18 @@ import CommunityHeader from './components/CommunityHeader';
 import Order from './components/Order';
 import PostType from './components/PostType';
 import Search from './components/Search';
-import { DUMMY_POST } from '@/data/dummyData';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { useGetAllPosts } from '@/services/whisper/query';
 
 const CommunityMain = () => {
+  const { data, fetchNextPage, hasNextPage } = useGetAllPosts();
+  const { ref } = useInfiniteScroll<HTMLDivElement>({
+    fetchData: () => {
+      fetchNextPage();
+    },
+    hasNextPage,
+  });
+
   return (
     <>
       <CommunityHeader>
@@ -25,7 +34,8 @@ const CommunityMain = () => {
           mt={{ mobile: '20px', tablet: '27px' }}
           mb={{ mobile: '20px', tablet: '60px' }}
         >
-          <PostList posts={DUMMY_POST} />
+          <PostList posts={data ?? []} />
+          <div ref={ref} />
         </Box>
       </Box>
     </>
