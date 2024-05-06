@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Heading,
   Icon,
   Image,
   List,
@@ -9,6 +8,7 @@ import {
   Tag,
   Text,
 } from '@chakra-ui/react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { CommentIcon, HeartIcon } from '@/assets/icons';
@@ -21,6 +21,13 @@ interface PostListProps {
 
 const PostList = ({ posts }: PostListProps) => {
   const navigate = useNavigate();
+
+  const getPlainText = useCallback((content: string) => {
+    const $div = document.createElement('div');
+    $div.innerHTML = content;
+
+    return $div.textContent || $div.innerText || '';
+  }, []);
 
   const handleClickItem = (postId: number) => {
     navigate(`/community/${postId}`);
@@ -67,7 +74,7 @@ const PostList = ({ posts }: PostListProps) => {
                   >
                     {POST.TYPE[postType]}
                   </Tag>
-                  <Heading
+                  <Text
                     as={'h2'}
                     fontSize={{ mobile: '16px', tablet: '20px' }}
                     fontWeight={'semiBold'}
@@ -78,15 +85,16 @@ const PostList = ({ posts }: PostListProps) => {
                     cursor={'pointer'}
                   >
                     {title}
-                  </Heading>
+                  </Text>
                 </Flex>
                 <Text
                   hideBelow={'tablet'}
                   noOfLines={2}
                   fontSize={18}
                   height={'54px'}
+                  whiteSpace={'normal'}
                 >
-                  {content.replaceAll('\n', ' ')}
+                  {getPlainText(content)}
                 </Text>
                 <Flex align={'center'}>
                   <AvatarComponent
