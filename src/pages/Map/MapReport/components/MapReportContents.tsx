@@ -1,13 +1,20 @@
 import { Box, FormLabel, Textarea } from '@chakra-ui/react';
+import { UseFormRegister } from 'react-hook-form';
+import { FormValues } from './MapReportForm';
 
-const MapReportContents = () => {
+interface MapReportContentsProps {
+  register: UseFormRegister<FormValues>;
+}
+
+const MapReportContents = ({ register }: MapReportContentsProps) => {
   return (
     <Box>
-      <FormLabel htmlFor="name" mb="20px">
-        First name
+      <FormLabel htmlFor="content" mb="20px">
+        문의 내용
       </FormLabel>
       <Textarea
-        id="name"
+        id="content"
+        {...register('content')}
         placeholder="문의내용을 자세하게 입력해주세요."
         resize="none"
         h="119px"

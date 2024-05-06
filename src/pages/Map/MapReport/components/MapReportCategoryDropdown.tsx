@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 interface MapReportCategoryDropdownProps {
   categoryArr: string[];
-  setCategory: Dispatch<SetStateAction<string>>;
+  setCategory: (...event: string[]) => void;
   setShowCategory: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -30,6 +30,11 @@ const MapReportCategoryDropdown = ({
           p="15px 27.97px"
           fontWeight="medium"
           cursor="pointer"
+          borderBottom={
+            i !== categoryArr.slice(1).length - 1 ? '1px solid' : 'none'
+          }
+          borderColor="gray.200"
+          _hover={{ bgColor: 'green.100' }}
           key={i}
           onClick={() => {
             setCategory(category);
