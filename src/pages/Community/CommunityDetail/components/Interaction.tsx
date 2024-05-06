@@ -110,6 +110,7 @@ const Interaction = ({
         variant={'unstyled'}
         display={'flex'}
         shadow={'md'}
+        onClick={() => alert('공유하기 기능은 준비 중입니다.')}
       />
     </Box>
   );
