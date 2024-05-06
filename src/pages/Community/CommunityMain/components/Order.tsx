@@ -16,13 +16,15 @@ import {
 import { ArrowDownIcon } from '@/assets/icons';
 import { POST } from '../../constants';
 import { OrderByOptions } from '../../types';
+import { useWhisperStore } from '@/stores/whisperStore';
 
 const Order = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const orderBy = useWhisperStore((state) => state.params.orderBy);
+  const setOrderBy = useWhisperStore((state) => state.setOrderBy);
 
   const handleClickOrder = (order: OrderByOptions) => {
-    // TODO: params 변경
-    console.log(order);
+    setOrderBy(order);
     onClose();
   };
 
@@ -41,7 +43,7 @@ const Order = () => {
             p={0}
           >
             <Text color={'sub'} fontSize={'18px'}>
-              정렬
+              {orderBy ? POST.ORDER[orderBy] : '정렬'}
             </Text>
           </DropdownTrigger>
 

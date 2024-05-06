@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Heading,
   Icon,
   Image,
   List,
@@ -75,7 +74,7 @@ const PostList = ({ posts }: PostListProps) => {
                   >
                     {POST.TYPE[postType]}
                   </Tag>
-                  <Heading
+                  <Text
                     as={'h2'}
                     fontSize={{ mobile: '16px', tablet: '20px' }}
                     fontWeight={'semiBold'}
@@ -86,7 +85,7 @@ const PostList = ({ posts }: PostListProps) => {
                     cursor={'pointer'}
                   >
                     {title}
-                  </Heading>
+                  </Text>
                 </Flex>
                 <Text
                   hideBelow={'tablet'}

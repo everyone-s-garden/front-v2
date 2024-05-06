@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react';
 const CommunityHeader = ({ children }: PropsWithChildren) => {
   return (
     <Box
+      h={{ mobile: '131px', tablet: '230px' }}
       bg={'orange.100'}
       pt={{ mobile: '23px', tablet: '28px' }}
       px={'20px'}

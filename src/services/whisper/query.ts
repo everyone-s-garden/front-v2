@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-query';
 import whisperAPI from './api';
 import { Post } from '@/pages/Community/types';
+import { useWhisperStore } from '@/stores/whisperStore';
 
 export const whisperQueries = {
   all: () => ['whisper'] as const,
@@ -17,9 +18,13 @@ export const whisperQueries = {
 };
 
 export const useGetAllPosts = () => {
+  const params = useWhisperStore((state) => state.params);
+  console.log(params);
+
   return useInfiniteQuery({
-    queryKey: whisperQueries.all(),
-    queryFn: ({ pageParam }) => whisperAPI.getAllPosts({ ...pageParam }),
+    queryKey: [whisperQueries.all(), params],
+    queryFn: ({ pageParam }) =>
+      whisperAPI.getAllPosts({ ...pageParam, ...params }),
     initialPageParam: {
       offset: 0,
       limit: 6,

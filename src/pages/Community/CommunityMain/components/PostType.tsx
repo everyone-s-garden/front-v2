@@ -1,20 +1,20 @@
 import { Button, Flex, Tag } from '@chakra-ui/react';
-import { useState } from 'react';
 import { POST } from '../../constants';
 import { PostType } from '../../types';
+import { useWhisperStore } from '@/stores/whisperStore';
 
 const PostType = () => {
-  const [selectedType, setSelectedType] = useState<PostType | ''>('');
+  const postType = useWhisperStore((state) => state.params.postType);
+  const setPostType = useWhisperStore((state) => state.setPostType);
 
-  // TODO: params 변경
   const handleClickType = (type: PostType) => {
-    if (selectedType === type) {
-      setSelectedType('');
+    if (postType === type) {
+      setPostType('');
 
       return;
     }
 
-    setSelectedType(type);
+    setPostType(type);
   };
 
   return (
@@ -23,14 +23,14 @@ const PostType = () => {
         <Tag
           key={type}
           as={Button}
-          bg={selectedType === POST.TYPE_KO[type] ? 'orange.300' : 'orange.200'}
+          bg={postType === POST.TYPE_KO[type] ? 'orange.300' : 'orange.200'}
           _hover={
-            selectedType === POST.TYPE_KO[type]
+            postType === POST.TYPE_KO[type]
               ? { bg: 'orange.300' }
               : { bg: 'orange.200' }
           }
           _active={
-            selectedType === POST.TYPE_KO[type]
+            postType === POST.TYPE_KO[type]
               ? { bg: 'orange.300' }
               : { bg: 'orange.200' }
           }
