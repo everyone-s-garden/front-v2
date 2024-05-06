@@ -52,13 +52,19 @@ const MapReportForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl
-        w="606px"
+        w={{ mobile: '', tablet: '606px' }}
+        mx={{ mobile: '20px', tablet: 'none' }}
         display="flex"
         flexDir="column"
         gap="30px"
         mb="100px"
+        mt={{ mobile: '24px', tablet: '' }}
       >
-        <Text fontSize="18px" fontWeight="semibold">
+        <Text
+          fontSize="18px"
+          mb={{ mobile: '-4px', tablet: '' }}
+          fontWeight="semibold"
+        >
           내 주변 분양 신고
         </Text>
         <Controller
@@ -72,18 +78,27 @@ const MapReportForm = () => {
         <MapReportNotice />
       </FormControl>
 
-      <Box display="flex" justifyContent="center" mb="166px">
+      <Box
+        w="full"
+        pos={{ mobile: 'absolute', tablet: 'static' }}
+        bottom={{ mobile: '0', tablet: '' }}
+        display="flex"
+        justifyContent="center"
+        mb={{ mobile: '', tablet: '166px' }}
+      >
         <Button
+          w={{ mobile: 'full', tablet: 'fit-content' }}
           isDisabled={buttonDisabled}
           isLoading={isSubmitting}
           type="submit"
           _hover={{}}
           _active={{}}
           textColor="white"
-          p="19px 144px"
+          p={{ mobile: '21px', tablet: '19px 144px' }}
           bgColor="green.500"
-          borderRadius="10px"
+          borderRadius={{ mobile: '', tablet: '10px' }}
           opacity={buttonDisabled ? '0.3' : '1'}
+          fontWeight="semiBold"
         >
           신고하기
         </Button>

@@ -9,7 +9,7 @@ interface MapReportContentsProps {
 const MapReportContents = ({ register }: MapReportContentsProps) => {
   return (
     <Box>
-      <FormLabel htmlFor="content" mb="20px">
+      <FormLabel htmlFor="content" mb={{ mobile: '14px', tablet: '20px' }}>
         문의 내용
       </FormLabel>
       <Textarea
@@ -21,6 +21,7 @@ const MapReportContents = ({ register }: MapReportContentsProps) => {
         borderRadius="10px"
         border="1px"
         borderColor="gray.200"
+        fontSize={{ mobile: '14px', tablet: '16px' }}
       />
     </Box>
   );

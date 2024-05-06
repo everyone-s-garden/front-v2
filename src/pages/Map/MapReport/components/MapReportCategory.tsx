@@ -38,13 +38,15 @@ const MapReportCategory = ({
 
   return (
     <Box pos="relative" ref={containerRef}>
-      <FormLabel mb="20px">상세 유형 선택</FormLabel>
+      <FormLabel htmlFor="category" mb={{ mobile: '14px', tablet: '20px' }}>
+        상세 유형 선택
+      </FormLabel>
       <Box
         w="100%"
         borderRadius="10px"
         border="1px"
         borderColor="gray.200"
-        p="16px 24px"
+        p={{ mobile: '12px 16px', tablet: '16px 24px' }}
         cursor="pointer"
         display="flex"
         justifyContent="space-between"
@@ -53,7 +55,7 @@ const MapReportCategory = ({
       >
         <Text
           textColor={value === categoryArr[0] ? 'gray.400' : '#282828'}
-          fontSize="18px"
+          fontSize={{ mobile: '16px', tablet: '18px' }}
         >
           {value}
         </Text>
