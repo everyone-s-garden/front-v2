@@ -2,7 +2,7 @@ import { QueryClient, useMutation } from '@tanstack/react-query';
 import gardensApi from './api';
 import { gardensQuery } from './query';
 
-export const useLikeGarden = (id: number | null) => {
+export const useLikeGarden = (id: number | undefined) => {
   const queryClient = new QueryClient();
   const likeGardenMutation = useMutation({
     mutationFn: () => gardensApi.likeGarden(id),

@@ -21,7 +21,7 @@ import Modal from '@/components/Modal/Modal';
 import { useLikeGarden } from '@/services/gardens/mutations';
 
 interface MapGardenDetailBottomSectionProps {
-  garden: GardenDetail;
+  garden?: GardenDetail;
 }
 
 const CopyBox = chakra(motion.div);
@@ -34,7 +34,7 @@ const MapGardenDetailBottomSection = ({
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
 
-  const { mutateLikeGarden } = useLikeGarden(garden.gardenId);
+  const { mutateLikeGarden } = useLikeGarden(garden?.gardenId);
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -47,9 +47,9 @@ const MapGardenDetailBottomSection = ({
     setIsMobile(isMobile);
   }, []);
 
-  const handleCopyClipBoard = async (text: string) => {
+  const handleCopyClipBoard = async (text: string | undefined) => {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text as string);
       setCopied(true);
 
       setTimeout(() => {
@@ -72,7 +72,7 @@ const MapGardenDetailBottomSection = ({
       <Flex marginBottom="20px" alignItems="center" gap="6px">
         <Icon as={ReportIcon} />
         <Link
-          href={`/map/report/${garden.gardenId}`}
+          href={`/map/report/${garden?.gardenId}`}
           fontSize="12px"
           color="gray.400"
           fontWeight="regular"
@@ -133,13 +133,13 @@ const MapGardenDetailBottomSection = ({
             justifyContent="space-between"
             marginBottom="12px"
           >
-            <Text fontWeight="semiBold">{garden.contact}</Text>
+            <Text fontWeight="semiBold">{garden?.contact}</Text>
             <Icon
               w="24px"
               h="24px"
               cursor="pointer"
               as={CopyNumberIcon}
-              onClick={() => handleCopyClipBoard(garden.contact)}
+              onClick={() => handleCopyClipBoard(garden?.contact)}
             />
           </Flex>
           <Flex gap="17.5px">

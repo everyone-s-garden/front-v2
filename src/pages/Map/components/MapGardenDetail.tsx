@@ -32,7 +32,6 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dragging, setDragging] = useState(false);
   const garden: GardenDetail = data;
-  if (!garden) return;
 
   const handleBeforeChange = () => {
     setDragging(true);
@@ -81,9 +80,9 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
   };
 
   const hasNoFacility =
-    !garden.gardenFacility.isEquipment &&
-    !garden.gardenFacility.isToilet &&
-    !garden.gardenFacility.isWaterway;
+    !garden?.gardenFacility.isEquipment &&
+    !garden?.gardenFacility.isToilet &&
+    !garden?.gardenFacility.isWaterway;
 
   return (
     <Box
@@ -142,11 +141,11 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
           />
         </Show>
 
-        <GardenStatus gardenStatus={garden.gardenStatus} type="detail" />
+        <GardenStatus gardenStatus={garden?.gardenStatus} type="detail" />
 
         <Box h="327px" position="relative">
           <Slider {...settings}>
-            {garden.images.map((image, i) => {
+            {garden?.images.map((image, i) => {
               let src;
               if (!image) src = MapGardenNoImg;
               else src = image;
@@ -167,7 +166,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
       </Box>
       <Box padding="30px">
         <Text fontSize="20px" fontWeight="semibold" marginBottom="30px">
-          {garden.gardenName}
+          {garden?.gardenName}
         </Text>
 
         <Flex flexDir="column" gap="21px" marginBottom="40px">
@@ -176,7 +175,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
               신청기간
             </Text>
             <Text fontWeight="medium">
-              {garden.recruitEndDate} ~ {garden.recruitStartDate}
+              {garden?.recruitEndDate} ~ {garden?.recruitStartDate}
             </Text>
           </Flex>
           <Flex>
@@ -184,20 +183,20 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
               가격
             </Text>
             <Text fontWeight="regular">
-              평 당 {Number(garden.price).toLocaleString()}원
+              평 당 {Number(garden?.price).toLocaleString()}원
             </Text>
           </Flex>
           <Flex>
             <Text minW="25%" fontWeight="medium">
               면적
             </Text>
-            <Text fontWeight="regular">{garden.size}평</Text>
+            <Text fontWeight="regular">{garden?.size}평</Text>
           </Flex>
           <Flex>
             <Text minW="25%" fontWeight="medium">
               연락처
             </Text>
-            <Text fontWeight="regular">{garden.contact}</Text>
+            <Text fontWeight="regular">{garden?.contact}</Text>
           </Flex>
         </Flex>
 
@@ -209,7 +208,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
                   부대 시설
                 </Text>
                 <Flex gap="12px">
-                  {garden.gardenFacility.isToilet && (
+                  {garden?.gardenFacility.isToilet && (
                     <Box
                       display="flex"
                       alignItems="center"
@@ -226,7 +225,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
                     </Box>
                   )}
 
-                  {garden.gardenFacility.isEquipment && (
+                  {garden?.gardenFacility.isEquipment && (
                     <Box
                       display="flex"
                       alignItems="center"
@@ -243,7 +242,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
                     </Box>
                   )}
 
-                  {garden.gardenFacility.isWaterway && (
+                  {garden?.gardenFacility.isWaterway && (
                     <Box
                       display="flex"
                       alignItems="center"
@@ -268,7 +267,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
             <Text minW="25%" fontWeight="medium">
               세부 사항
             </Text>
-            <Text fontWeight="regular">{garden.gardenDescription}</Text>
+            <Text fontWeight="regular">{garden?.gardenDescription}</Text>
           </Flex>
         </Flex>
         <MapGardenDetailBottomSection garden={garden} />
@@ -277,7 +276,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
       <Show above="tablet">
         {isOpen && (
           <MapSliderModal
-            images={garden.images}
+            images={garden?.images}
             isOpen={isOpen}
             onClose={onClose}
           />
@@ -286,7 +285,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
       <Show below="tablet">
         {isOpen && (
           <MobileMapSlider
-            images={garden.images}
+            images={garden?.images}
             isOpen={isOpen}
             onClose={onClose}
           />
