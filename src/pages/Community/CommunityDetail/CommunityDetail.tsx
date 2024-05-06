@@ -1,12 +1,16 @@
 import { Box, Center, Divider, Heading } from '@chakra-ui/react';
 import { useRef } from 'react';
+import { useLocation } from 'react-router';
 import { PostList } from '@/components';
 import CommentSection from './components/CommentSection';
 import Content from './components/Content';
 import Interaction from './components/Interaction';
 import { DUMMY_POST } from '@/data/dummyData';
+import { useGetPost } from '@/services/whisper/query';
 
 const CommunityDetail = () => {
+  const postId = useLocation().pathname.split('/').pop();
+  const { data } = useGetPost(Number(postId));
   const commentRef = useRef<HTMLDivElement>(null);
 
   const moveToComment = () => {
@@ -55,8 +59,8 @@ const CommunityDetail = () => {
         borderColor={'gray.100'}
       >
         <Interaction
-          likeCount={7}
-          commentCount={7}
+          likeCount={data?.likeCount ?? 0}
+          commentCount={data?.commentCount ?? 0}
           isLikeClick={false}
           handleClickComment={moveToComment}
         />

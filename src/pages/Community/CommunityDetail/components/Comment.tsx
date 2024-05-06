@@ -146,7 +146,7 @@ const Comment = ({
             />
           ))}
         {subCommentView && (
-          <CommentInput parentId={commentId} mt={'2px'} autoFocus={true} />
+          <CommentInput commentId={commentId} mt={'2px'} autoFocus={true} />
         )}
       </Flex>
     </Flex>
