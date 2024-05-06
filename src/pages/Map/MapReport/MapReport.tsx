@@ -9,7 +9,7 @@ const MapReport = () => {
 
   return (
     <Box
-      zIndex="99"
+      zIndex={{ mobile: '99', tablet: '0' }}
       bgColor="white"
       minW={{ mobile: '100vw', tablet: 'fit-content' }}
       minH={{ mobile: '100vh', tablet: 'fit-content' }}
@@ -21,8 +21,8 @@ const MapReport = () => {
       <Text
         margin={{ mobile: 'none', tablet: '56px 0 66px 0' }}
         p={{ mobile: '16px 0', tablet: 'none' }}
-        fontWeight="bold"
-        fontSize="20px"
+        fontWeight={{ mobile: 'medium', tablet: 'bold' }}
+        fontSize={{ mobile: '18px', tablet: '20px' }}
         textAlign="center"
         borderBottom={{ mobile: '1px', tablet: 'none' }}
         borderBottomColor={{ mobile: 'gray.100', tablet: 'none' }}

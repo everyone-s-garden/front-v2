@@ -1,21 +1,26 @@
-import { Box, FormLabel, Icon, Text } from '@chakra-ui/react';
+import {
+  Box,
+  FormLabel,
+  Icon,
+  Show,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { useState, useRef, useEffect, MouseEvent } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import MapReportCategoryDropdown from './MapReportCategoryDropdown';
+import MobileReportBottomMenu from './MobileReportBottomMenu';
+import { categoryArr } from './categoryArr';
 
 interface MapReportCategoryProps {
   onChange: (...event: string[]) => void;
   value: string;
-  categoryArr: string[];
 }
 
-const MapReportCategory = ({
-  onChange,
-  value,
-  categoryArr,
-}: MapReportCategoryProps) => {
+const MapReportCategory = ({ onChange, value }: MapReportCategoryProps) => {
   const [showCategory, setShowCategory] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent): void => {
@@ -51,7 +56,11 @@ const MapReportCategory = ({
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        onClick={() => setShowCategory(!showCategory)}
+        userSelect="none"
+        onClick={() => {
+          onOpen();
+          setShowCategory(!showCategory);
+        }}
       >
         <Text
           textColor={value === categoryArr[0] ? 'gray.400' : '#282828'}
@@ -62,11 +71,22 @@ const MapReportCategory = ({
         <Icon as={ArrowDownIcon} w="24px" h="24px" />
       </Box>
       {showCategory && (
-        <MapReportCategoryDropdown
-          categoryArr={categoryArr}
-          setCategory={onChange}
-          setShowCategory={setShowCategory}
-        />
+        <>
+          <Show above="tablet">
+            <MapReportCategoryDropdown
+              setCategory={onChange}
+              setShowCategory={setShowCategory}
+            />
+          </Show>
+          <Show below="tablet">
+            <MobileReportBottomMenu
+              setCategory={onChange}
+              setShowCategory={setShowCategory}
+              isOpen={isOpen}
+              onClose={onClose}
+            />
+          </Show>
+        </>
       )}
     </Box>
   );

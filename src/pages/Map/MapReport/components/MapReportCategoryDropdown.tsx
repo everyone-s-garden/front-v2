@@ -1,14 +1,13 @@
 import { List, ListItem } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
+import { categoryArr } from './categoryArr';
 
 interface MapReportCategoryDropdownProps {
-  categoryArr: string[];
   setCategory: (...event: string[]) => void;
   setShowCategory: Dispatch<SetStateAction<boolean>>;
 }
 
 const MapReportCategoryDropdown = ({
-  categoryArr,
   setCategory,
   setShowCategory,
 }: MapReportCategoryDropdownProps) => {
