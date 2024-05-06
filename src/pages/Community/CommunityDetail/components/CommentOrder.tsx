@@ -16,13 +16,14 @@ import {
 import { ArrowDownIcon } from '@/assets/icons';
 import { COMMENT } from '../../constants';
 import { OrderByOptions } from '../../types';
+import { useWhisperStore } from '@/stores/whisperStore';
 
 const CommentOrder = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const setOrderBy = useWhisperStore((state) => state.setCommentsOrderBy);
 
   const handleClickOrder = (order: OrderByOptions) => {
-    // TODO: params 변경
-    console.log(order);
+    setOrderBy(order);
     onClose();
   };
 

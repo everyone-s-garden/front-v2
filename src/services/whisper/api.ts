@@ -1,17 +1,20 @@
 import apiClient from '@/api/apiClient';
-import { Post } from '@/pages/Community/types';
+import { Comments, Post, PostDetail } from '@/pages/Community/types';
 
 interface PostList {
   postInfos: Post[];
 }
 
-interface PageParam {
-  searchContent?: string;
+interface Param {
   offset?: number;
   limit?: number;
+  orderBy?: 'COMMENT_COUNT' | 'RECENT_DATE' | 'LIKE_COUNT' | 'OLDER_DATE' | '';
+}
+
+interface PageParam extends Param {
+  searchContent?: string;
   hour?: number;
   postType?: 'INFORMATION_SHARE' | 'GARDEN_SHOWCASE' | 'QUESTION' | 'ETC' | '';
-  orderBy?: 'COMMENT_COUNT' | 'RECENT_DATE' | 'LIKE_COUNT' | 'OLDER_DATE' | '';
 }
 
 const whisperAPI = {
@@ -21,10 +24,20 @@ const whisperAPI = {
       params: { ...pageParam, orderBy },
     });
 
+    console.log(response.data);
+
     return response.data;
   },
-  getPost: async (postId: number): Promise<Post> => {
+  getPost: async (postId: number): Promise<PostDetail> => {
     const response = await apiClient.get(`/v1/posts/${postId}`);
+
+    return response.data;
+  },
+  getComments: async (postId: number, params: Param): Promise<Comments> => {
+    const orderBy = params.orderBy || 'RECENT_DATE';
+    const response = await apiClient.get(`/v1/posts/${postId}/comments`, {
+      params: { ...params, orderBy },
+    });
 
     return response.data;
   },

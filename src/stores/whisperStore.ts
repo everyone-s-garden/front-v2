@@ -7,16 +7,23 @@ interface WhisperState {
     postType: PostType | '';
     orderBy: OrderByOptions | '';
   };
+  commentsParam: {
+    orderBy: OrderByOptions | '';
+  };
   resetParams: () => void;
   setSearchContent: (searchContent: string) => void;
   setPostType: (postType: PostType | '') => void;
   setOrderBy: (orderBy: OrderByOptions | '') => void;
+  setCommentsOrderBy: (orderBy: OrderByOptions | '') => void;
 }
 
 export const useWhisperStore = create<WhisperState>((set) => ({
   params: {
     searchContent: '',
     postType: '',
+    orderBy: '',
+  },
+  commentsParam: {
     orderBy: '',
   },
   resetParams: () =>
@@ -27,4 +34,5 @@ export const useWhisperStore = create<WhisperState>((set) => ({
     set((state) => ({ params: { ...state.params, postType } })),
   setOrderBy: (orderBy) =>
     set((state) => ({ params: { ...state.params, orderBy } })),
+  setCommentsOrderBy: (orderBy) => set(() => ({ commentsParam: { orderBy } })),
 }));

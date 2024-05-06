@@ -14,7 +14,7 @@ import CommentInput from './CommentInput';
 import getRelativeTime from '@/utils/getRelativeTime';
 
 interface CommentProps extends CommentType {
-  subComments?: CommentType[];
+  child?: CommentType[];
 }
 
 const Comment = ({
@@ -24,7 +24,7 @@ const Comment = ({
   likeCount,
   userInfo,
   createdDate,
-  subComments,
+  child,
   ...rest
 }: CommentProps & FlexProps) => {
   const [isLikeClicked, setIsLikeClicked] = useState(isLikeClick);
@@ -41,11 +41,16 @@ const Comment = ({
   };
 
   return (
-    <Flex key={commentId} gap={'8px'} {...rest}>
+    <Flex
+      key={commentId}
+      pr={{ mobile: 0, tablet: child ? '100px' : 0 }}
+      gap={'8px'}
+      {...rest}
+    >
       <AvatarComponent
         src={userInfo.profile ?? ''}
-        w={subComments ? '36px' : '30px'}
-        h={subComments ? '36px' : '30px'}
+        w={child ? '36px' : '30px'}
+        h={child ? '36px' : '30px'}
       />
       <Flex flexDir={'column'} gap={'8px'} flexGrow={1}>
         <Text
@@ -85,7 +90,7 @@ const Comment = ({
           >
             {likeCountState}
           </Text>
-          {subComments && (
+          {child && (
             <>
               <IconButton
                 aria-label="대댓글 버튼"
@@ -104,7 +109,7 @@ const Comment = ({
                 onClick={() => setSubCommentView(!subCommentView)}
               />
               <Text fontSize={'14px'} fontWeight={'medium'} color={'sub'}>
-                {subComments.length}
+                {child.length}
               </Text>
             </>
           )}
@@ -127,9 +132,9 @@ const Comment = ({
             {getRelativeTime(createdDate)}
           </Text>
         </Flex>
-        {subComments &&
-          subComments.map((subComment) => (
-            <Comment key={subComment.commentId} {...subComment} mt={'15px'} />
+        {child &&
+          child.map((subComment) => (
+            <Comment key={subComment.commentId} mt={'15px'} {...subComment} />
           ))}
         {subCommentView && (
           <CommentInput parentId={commentId} mt={'2px'} autoFocus={true} />

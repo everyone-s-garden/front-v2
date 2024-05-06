@@ -4,7 +4,7 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import whisperAPI from './api';
-import { Post } from '@/pages/Community/types';
+import { Comment, Post } from '@/pages/Community/types';
 import { useWhisperStore } from '@/stores/whisperStore';
 
 export const whisperQueries = {
@@ -15,11 +15,11 @@ export const whisperQueries = {
       queryKey: [...whisperQueries.details(), id],
       queryFn: () => whisperAPI.getPost(id),
     }),
+  comments: (id: number) => [...whisperQueries.all(), id, 'comments'],
 };
 
 export const useGetAllPosts = () => {
   const params = useWhisperStore((state) => state.params);
-  console.log(params);
 
   return useInfiniteQuery({
     queryKey: [whisperQueries.all(), params],
@@ -54,4 +54,38 @@ export const useGetAllPosts = () => {
 
 export const useGetPost = (id: number) => {
   return useQuery(whisperQueries.detail(id));
+};
+
+export const useGetComments = (id: number) => {
+  const params = useWhisperStore((state) => state.commentsParam);
+
+  return useInfiniteQuery({
+    queryKey: [whisperQueries.comments(id), params],
+    queryFn: ({ pageParam }) =>
+      whisperAPI.getComments(id, { ...pageParam, ...params }),
+    initialPageParam: {
+      offset: 0,
+      limit: 6,
+    },
+    getNextPageParam: (...pages) => {
+      const [data, , params] = pages;
+
+      if (data.parents.length < 6) {
+        return undefined;
+      }
+
+      return {
+        ...params,
+        offset: (params.offset || 0) + 6,
+      };
+    },
+    select(data) {
+      const comments = data.pages.reduce<Comment[]>(
+        (acc, item) => acc.concat(item.parents),
+        [],
+      );
+
+      return comments;
+    },
+  });
 };
