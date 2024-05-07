@@ -21,6 +21,7 @@ const MapReportCategoryDropdown = ({
       borderColor="gray.200"
       bgColor="white"
       zIndex="1"
+      overflow="hidden"
     >
       {categoryArr.slice(1).map((category, i) => (
         <ListItem
