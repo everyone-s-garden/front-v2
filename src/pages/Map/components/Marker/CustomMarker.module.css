@@ -31,3 +31,17 @@
 .gardenMarker:hover {
   transform: translateY(-4px);
 }
+
+.cluster_marker {
+  width: 120px;
+  height: 120px;
+  background-color: #9ec646;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  border-radius: 50%;
+  color: white;
+  font-size: 30px;
+  font-weight: 400;
+}

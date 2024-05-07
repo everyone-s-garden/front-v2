@@ -4,12 +4,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import GardensContainer from './GardensContainer';
 import MapSpinner from './MapSpinner';
-import GardenMarker from './Marker/GardenMarker';
+import MarkerCluster from './Marker/MarkerCluster';
 import MyMarker from './Marker/MyMarker';
 import useGeolocation from '@/hooks/useGeolocation';
 import gardensApi from '@/services/gardens/api';
 import { gardensQuery } from '@/services/gardens/query';
-import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
 interface MapComponentProps {
   map: naver.maps.Map | null;
@@ -22,7 +21,6 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   const [showGardenDetail, setShowGardenDetail] = useState(false);
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
-  const { setGardenId } = useMapGardenDetailIdStore();
 
   let gardenType: 'PUBLIC' | 'PRIVATE' | 'ALL';
 
@@ -125,18 +123,9 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
             position: navermaps.Position.TOP_LEFT,
           }}
         >
-          {gardens?.map((garden) => (
-            <GardenMarker
-              navermaps={navermaps}
-              position={new navermaps.LatLng(garden.latitude, garden.longitude)}
-              key={garden.gardenId}
-              onClick={() => {
-                setShowGardens(true);
-                setShowGardenDetail(true);
-                setGardenId(garden.gardenId);
-              }}
-            />
-          ))}
+          <MarkerCluster
+            {...{ gardens, setShowGardens, setShowGardenDetail }}
+          />
           <MyMarker navermaps={navermaps} position={position} />
         </NaverMap>
       </MapDiv>
