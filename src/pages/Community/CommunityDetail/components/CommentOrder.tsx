@@ -20,9 +20,10 @@ import { useWhisperStore } from '@/stores/whisperStore';
 
 const CommentOrder = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const orderBy = useWhisperStore((state) => state.params.orderBy);
   const setOrderBy = useWhisperStore((state) => state.setCommentsOrderBy);
 
-  const handleClickOrder = (order: OrderByOptions) => {
+  const handleClickOrder = (order: Omit<OrderByOptions, 'COMMENT_COUNT'>) => {
     setOrderBy(order);
     onClose();
   };
@@ -44,7 +45,7 @@ const CommentOrder = () => {
             h={'fit-content'}
           >
             <Text fontWeight={'medium'} textAlign={'right'}>
-              정렬
+              {orderBy ? COMMENT.ORDER[orderBy] : '정렬'}
             </Text>
           </DropdownTrigger>
 

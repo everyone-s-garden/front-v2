@@ -8,13 +8,15 @@ interface WhisperState {
     orderBy: OrderByOptions | '';
   };
   commentsParam: {
-    orderBy: OrderByOptions | '';
+    orderBy: Omit<OrderByOptions, 'COMMENT_COUNT'> | '';
   };
   resetParams: () => void;
   setSearchContent: (searchContent: string) => void;
   setPostType: (postType: PostType | '') => void;
   setOrderBy: (orderBy: OrderByOptions | '') => void;
-  setCommentsOrderBy: (orderBy: OrderByOptions | '') => void;
+  setCommentsOrderBy: (
+    orderBy: Omit<OrderByOptions, 'COMMENT_COUNT'> | '',
+  ) => void;
 }
 
 export const useWhisperStore = create<WhisperState>((set) => ({
