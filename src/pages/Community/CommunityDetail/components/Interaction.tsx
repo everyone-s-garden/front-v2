@@ -1,5 +1,5 @@
 import { Box, BoxProps, Icon, IconButton, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CommentIcon, HeartIcon, ShareIcon } from '@/assets/icons';
 
 interface InteractionProps extends BoxProps {
@@ -18,6 +18,22 @@ const Interaction = ({
 }: InteractionProps) => {
   const [heartClicked, setHeartClicked] = useState(isLikeClick);
   const [heartCount, setHeartCount] = useState(likeCount);
+
+  const handleClickShare = useCallback(() => {
+    if (!navigator.canShare()) {
+      alert('이 브라우저에서는 공유 기능을 지원하지 않습니다.');
+
+      return;
+    }
+
+    navigator
+      .share({
+        title: '모두의 텃밭 속닥속닥',
+        url: window.location.href,
+      })
+      .then(() => console.log('공유 성공'))
+      .catch((error) => console.error('공유 실패: ', error));
+  }, []);
 
   return (
     <Box
@@ -110,7 +126,7 @@ const Interaction = ({
         variant={'unstyled'}
         display={'flex'}
         shadow={'md'}
-        onClick={() => alert('공유하기 기능은 준비 중입니다.')}
+        onClick={handleClickShare}
       />
     </Box>
   );
