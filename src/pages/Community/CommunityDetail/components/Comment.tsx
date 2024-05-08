@@ -23,7 +23,7 @@ const Comment = ({
   isLikeClick,
   likeCount,
   userInfo,
-  createdDate,
+  createdAt,
   subComments,
   ...rest
 }: CommentProps & FlexProps) => {
@@ -129,7 +129,7 @@ const Comment = ({
             fontWeight={'medium'}
             color={'sub'}
           >
-            {getRelativeTime(createdDate)}
+            {getRelativeTime(createdAt)}
           </Text>
         </Flex>
         {subComments &&
@@ -142,7 +142,7 @@ const Comment = ({
               isLikeClick={subComment.isLikeClick}
               likeCount={subComment.likeCount}
               userInfo={subComment.userInfo}
-              createdDate={subComment.createdDate}
+              createdAt={subComment.createdAt}
             />
           ))}
         {subCommentView && (

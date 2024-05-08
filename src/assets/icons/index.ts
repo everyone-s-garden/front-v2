@@ -24,3 +24,5 @@ export { default as UnderlineIcon } from './underline.svg?react';
 export { default as AlignLeftIcon } from './align-left.svg?react';
 export { default as AlignCenterIcon } from './align-center.svg?react';
 export { default as AlignRightIcon } from './align-right.svg?react';
+export { default as ParagraphIcon } from './paragraph.svg?react';
+export { default as PostIcon } from './post.svg?react';

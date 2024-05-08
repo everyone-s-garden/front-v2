@@ -48,7 +48,7 @@ export interface Comment {
   content: string;
   userInfo: User;
   isLikeClick: boolean;
-  createdDate: string;
+  createdAt: string;
 }
 
 export interface Comments {
