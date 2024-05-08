@@ -13,8 +13,9 @@ function KakaoRedirection() {
   useEffect(() => {
     async function fetchLogin() {
       try {
-        await loginApi.kakaoLogin(code, kakaoRedirectUri);
+        const data = await loginApi.kakaoLogin(code, kakaoRedirectUri);
 
+        loginApi.onLoginSuccess(data);
         navigate(PATH.MAIN);
       } catch (error) {
         console.error('Failed to login with Kakao:', error);
