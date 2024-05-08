@@ -2,15 +2,29 @@ import { Box, Center, Divider, Heading } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 import { PostList } from '@/components';
+import { ParagraphIcon } from '@/assets/icons';
 import CommentSection from './components/CommentSection';
 import Content from './components/Content';
 import Interaction from './components/Interaction';
-import { DUMMY_POST } from '@/data/dummyData';
-import { useGetPost } from '@/services/whisper/query';
+import Empty from '@/components/Empty/Empty';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { useGetPopularPosts, useGetPost } from '@/services/whisper/query';
 
 const CommunityDetail = () => {
   const postId = useLocation().pathname.split('/').pop();
-  const { data } = useGetPost(Number(postId));
+  const { data: post } = useGetPost(Number(postId));
+  const {
+    data: popularPosts,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetPopularPosts();
+
+  const { ref } = useInfiniteScroll<HTMLDivElement>({
+    fetchData: () => {
+      fetchNextPage();
+    },
+    hasNextPage,
+  });
 
   const commentRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
@@ -49,7 +63,17 @@ const CommunityDetail = () => {
           >
             지금 인기글을 소개합니다
           </Heading>
-          <PostList posts={DUMMY_POST} />
+          {popularPosts && popularPosts.length > 0 ? (
+            <PostList posts={popularPosts} />
+          ) : (
+            <Empty
+              src={ParagraphIcon}
+              iconFill={true}
+              description={`인기글이 없습니다.
+글을 작성하여 인기글이 되어보세요 !`}
+              py={{ mobile: '50px', tablet: '150px' }}
+            />
+          )}
         </Box>
 
         <Center
@@ -67,13 +91,14 @@ const CommunityDetail = () => {
           borderColor={'gray.100'}
         >
           <Interaction
-            likeCount={data?.likeCount ?? 0}
-            commentCount={data?.commentCount ?? 0}
+            likeCount={post?.likeCount ?? 0}
+            commentCount={post?.commentCount ?? 0}
             isLikeClick={false}
             handleClickComment={moveToComment}
           />
         </Center>
       </Box>
+      <div ref={ref} />
     </>
   );
 };

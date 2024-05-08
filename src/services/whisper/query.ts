@@ -16,6 +16,7 @@ export const whisperQueries = {
       queryFn: () => whisperAPI.getPost(id),
     }),
   comments: (id: number) => [...whisperQueries.all(), id, 'comments'],
+  popular: () => [...whisperQueries.all(), 'popular'],
 };
 
 export const useGetAllPosts = () => {
@@ -25,6 +26,37 @@ export const useGetAllPosts = () => {
     queryKey: [whisperQueries.all(), params],
     queryFn: ({ pageParam }) =>
       whisperAPI.getAllPosts({ ...pageParam, ...params }),
+    initialPageParam: {
+      offset: 0,
+      limit: 6,
+    },
+    getNextPageParam: (...pages) => {
+      const [data, , params] = pages;
+
+      if (data.postInfos.length < 6) {
+        return undefined;
+      }
+
+      return {
+        ...params,
+        offset: (params.offset || 0) + 6,
+      };
+    },
+    select(data) {
+      const posts = data.pages.reduce<Post[]>(
+        (acc, item) => acc.concat(item.postInfos),
+        [],
+      );
+
+      return posts;
+    },
+  });
+};
+
+export const useGetPopularPosts = () => {
+  return useInfiniteQuery({
+    queryKey: [whisperQueries.popular()],
+    queryFn: ({ pageParam }) => whisperAPI.getAllPopularPosts(pageParam),
     initialPageParam: {
       offset: 0,
       limit: 6,

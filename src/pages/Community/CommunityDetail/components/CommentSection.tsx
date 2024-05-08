@@ -54,6 +54,7 @@ const CommentSection = forwardRef<HTMLDivElement, BoxProps>((props, ref) => {
             description={`아직 댓글이 없습니다.
       댓글을 남겨보세요.`}
             src={CommentIcon}
+            size="small"
             iconFill={true}
             py={'40px'}
           />

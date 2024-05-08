@@ -10,9 +10,8 @@ interface Param {
   limit?: number;
 }
 
-interface PageParam extends Param {
+interface PostParam extends Param {
   searchContent?: string;
-  hour?: number;
   postType?: 'INFORMATION_SHARE' | 'GARDEN_SHOWCASE' | 'QUESTION' | 'ETC' | '';
   orderBy?: 'COMMENT_COUNT' | 'RECENT_DATE' | 'LIKE_COUNT' | 'OLDER_DATE' | '';
 }
@@ -22,10 +21,17 @@ interface CommentParam extends Param {
 }
 
 const whisperAPI = {
-  getAllPosts: async (pageParam: PageParam): Promise<PostList> => {
+  getAllPosts: async (pageParam: PostParam): Promise<PostList> => {
     const orderBy = pageParam.orderBy || 'RECENT_DATE';
     const response = await apiClient.get(`/v1/posts`, {
       params: { ...pageParam, orderBy },
+    });
+
+    return response.data;
+  },
+  getAllPopularPosts: async (pageParam: Param): Promise<PostList> => {
+    const response = await apiClient.get(`/v1/posts/popular`, {
+      params: { ...pageParam, hour: 24 },
     });
 
     return response.data;
