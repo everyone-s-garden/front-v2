@@ -15,6 +15,7 @@ interface WhisperState {
     orderBy: CommentOrderByOptions | '';
   };
   resetParams: () => void;
+  resetCommentsParam: () => void;
   setSearchContent: (searchContent: string) => void;
   setPostType: (postType: PostType | '') => void;
   setOrderBy: (orderBy: OrderByOptions | '') => void;
@@ -32,6 +33,7 @@ export const useWhisperStore = create<WhisperState>((set) => ({
   },
   resetParams: () =>
     set({ params: { searchContent: '', postType: '', orderBy: '' } }),
+  resetCommentsParam: () => set({ commentsParam: { orderBy: '' } }),
   setSearchContent: (searchContent) =>
     set((state) => ({ params: { ...state.params, searchContent } })),
   setPostType: (postType) =>

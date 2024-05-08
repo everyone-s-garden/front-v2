@@ -1,7 +1,7 @@
-import { As, Center, Icon, Text } from '@chakra-ui/react';
+import { As, Center, CenterProps, Icon, Text } from '@chakra-ui/react';
 import { FONT_SIZE, IMAGE_SIZE } from './constants';
 
-interface EmptyProps {
+interface EmptyProps extends CenterProps {
   size?: 'small' | 'medium' | 'large';
   src?: As;
   iconFill?: boolean;
@@ -15,9 +15,10 @@ const Empty = ({
   iconStroke = false,
   src,
   description = '',
+  ...rest
 }: EmptyProps) => {
   return (
-    <Center flexDir={'column'} gap={'10px'}>
+    <Center flexDir={'column'} gap={'10px'} {...rest}>
       {src && (
         <Icon
           as={src}
