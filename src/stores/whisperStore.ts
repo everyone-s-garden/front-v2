@@ -1,5 +1,9 @@
 import { create } from 'zustand';
-import { OrderByOptions, PostType } from '@/pages/Community/types';
+import {
+  CommentOrderByOptions,
+  OrderByOptions,
+  PostType,
+} from '@/pages/Community/types';
 
 interface WhisperState {
   params: {
@@ -8,15 +12,13 @@ interface WhisperState {
     orderBy: OrderByOptions | '';
   };
   commentsParam: {
-    orderBy: Omit<OrderByOptions, 'COMMENT_COUNT'> | '';
+    orderBy: CommentOrderByOptions | '';
   };
   resetParams: () => void;
   setSearchContent: (searchContent: string) => void;
   setPostType: (postType: PostType | '') => void;
   setOrderBy: (orderBy: OrderByOptions | '') => void;
-  setCommentsOrderBy: (
-    orderBy: Omit<OrderByOptions, 'COMMENT_COUNT'> | '',
-  ) => void;
+  setCommentsOrderBy: (orderBy: CommentOrderByOptions | '') => void;
 }
 
 export const useWhisperStore = create<WhisperState>((set) => ({

@@ -15,15 +15,15 @@ import {
 } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
 import { COMMENT } from '../../constants';
-import { OrderByOptions } from '../../types';
+import { CommentOrderByOptions } from '../../types';
 import { useWhisperStore } from '@/stores/whisperStore';
 
 const CommentOrder = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const orderBy = useWhisperStore((state) => state.params.orderBy);
+  const orderBy = useWhisperStore((state) => state.commentsParam.orderBy);
   const setOrderBy = useWhisperStore((state) => state.setCommentsOrderBy);
 
-  const handleClickOrder = (order: Omit<OrderByOptions, 'COMMENT_COUNT'>) => {
+  const handleClickOrder = (order: CommentOrderByOptions) => {
     setOrderBy(order);
     onClose();
   };

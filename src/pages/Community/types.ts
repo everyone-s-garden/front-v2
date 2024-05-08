@@ -10,6 +10,8 @@ export type OrderByOptions =
   | 'LIKE_COUNT'
   | 'OLDER_DATE';
 
+export type CommentOrderByOptions = 'RECENT_DATE' | 'LIKE_COUNT' | 'OLDER_DATE';
+
 export interface PostParams {
   searchContent: string;
   offset: number;
