@@ -19,12 +19,7 @@ import {
   DropdownList,
   DropdownTrigger,
 } from '@/components';
-import {
-  ArrowDownIcon,
-  BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-} from '@/assets/icons';
+import { ArrowDownIcon } from '@/assets/icons';
 import { POST } from '../../constants';
 import { BLOCK_LABEL, INLINE_STYLE, TEXT_BLOCK_STYLE } from '../constants';
 import { Post } from '../schema';
@@ -123,7 +118,12 @@ const ToolBar = ({
                 });
               }}
             >
-              <Text w={'100%'} textAlign={'center'} {...styles}>
+              <Text
+                w={'100%'}
+                fontWeight={'medium'}
+                textAlign={'center'}
+                {...styles}
+              >
                 {label}
               </Text>
             </DropdownItem>
@@ -131,13 +131,14 @@ const ToolBar = ({
         </DropdownList>
       </Dropdown>
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
-      <Flex align={'center'} gap={'5px'} px={'36px'}>
+      <Flex align={'center'} gap={'34px'} px={'36px'}>
         {INLINE_STYLE.map(({ label, name, Icon }) => (
           <IconButton
             key={name}
             aria-label={label}
             icon={<Icon />}
-            minW={'40px'}
+            minW={'28px'}
+            h={'28px'}
             variant={'unstyled'}
             display={'flex'}
             onClick={() => {
@@ -187,109 +188,65 @@ const MobileToolBar = ({
         _active={{ bg: 'none' }}
         px={'30px'}
         onClick={onOpen}
+        gap={'2px'}
       >
-        <Text flexShrink={0}>본문</Text>
+        <Text flexShrink={0}>
+          {BLOCK_LABEL[BlockUtils.getBlockStyles(value)]}
+        </Text>
       </Button>
       <BottomMenu isOpen={isOpen} onClose={onClose}>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'medium'}
-          h={'60px'}
-          borderTopRadius={20}
-          borderBottomRadius={0}
-          borderBottom={'1px solid'}
-          borderColor={'gray.100'}
-          onClick={onClose}
-        >
-          본문
-        </Center>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'bold'}
-          h={'60px'}
-          borderRadius={0}
-          fontSize={'20'}
-          borderBottom={'1px solid'}
-          borderColor={'gray.100'}
-          onClick={onClose}
-        >
-          제목 1
-        </Center>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'semiBold'}
-          h={'60px'}
-          borderRadius={0}
-          fontSize={'18'}
-          borderBottom={'1px solid'}
-          borderColor={'gray.100'}
-          onClick={onClose}
-        >
-          제목 2
-        </Center>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'medium'}
-          h={'60px'}
-          borderRadius={0}
-          fontSize={'14'}
-          onClick={onClose}
-        >
-          서브
-        </Center>
+        {TEXT_BLOCK_STYLE.map(({ label, name, styles }) => (
+          <Center
+            key={name}
+            as={Button}
+            variant="unstyled"
+            _hover={{ bg: 'orange.100' }}
+            fontWeight={'medium'}
+            h={'60px'}
+            borderTopRadius={20}
+            borderBottomRadius={0}
+            borderBottom={'1px solid'}
+            borderColor={'gray.100'}
+            onClick={() => {
+              BlockUtils.setBlockStyles({
+                editorState: value,
+                setEditorState: onChange,
+                type: name,
+              });
+              onClose();
+            }}
+            {...styles}
+          >
+            {label}
+          </Center>
+        ))}
       </BottomMenu>
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.200'} />
-      <Flex align={'center'} px={'30px'}>
-        <IconButton
-          aria-label="볼드"
-          icon={<BoldIcon />}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-          onClick={() => {
-            inlineUtils.setInlineStyles({
-              editorState: value,
-              setEditorState: onChange,
-              type: 'BOLD',
-            });
-          }}
-        />
-        <IconButton
-          aria-label="이탤릭"
-          icon={<ItalicIcon />}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-          onClick={() => {
-            inlineUtils.setInlineStyles({
-              editorState: value,
-              setEditorState: onChange,
-              type: 'ITALIC',
-            });
-          }}
-        />
-        <IconButton
-          aria-label="언더라인"
-          icon={<UnderlineIcon />}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-          onClick={() => {
-            inlineUtils.setInlineStyles({
-              editorState: value,
-              setEditorState: onChange,
-              type: 'UNDERLINE',
-            });
-          }}
-        />
+      <Flex align={'center'} px={'36px'} gap={'26px'}>
+        {INLINE_STYLE.map(({ label, name, Icon }) => (
+          <IconButton
+            key={name}
+            aria-label={label}
+            display={'flex'}
+            icon={<Icon />}
+            variant={'unstyled'}
+            minW={'28px'}
+            h={'28px'}
+            borderRadius={'6px'}
+            bg={
+              inlineUtils.getInlineStyles(value).includes(name)
+                ? 'orange.100'
+                : 'none'
+            }
+            onClick={() => {
+              inlineUtils.setInlineStyles({
+                editorState: value,
+                setEditorState: onChange,
+                type: name,
+              });
+            }}
+          />
+        ))}
       </Flex>
     </Center>
   );
@@ -300,6 +257,8 @@ const PostType = () => {
   const {
     formState: { errors },
     clearErrors,
+    getValues,
+    setValue,
   } = useFormContext<Post>();
 
   return (
@@ -308,18 +267,21 @@ const PostType = () => {
         rightIcon={
           <Icon as={ArrowDownIcon} stroke={'black'} w={'12px'} h={'12px'} />
         }
-        bg={'orange.100'}
-        _hover={{ bg: 'orange.100' }}
-        _active={{ bg: 'orange.100' }}
+        bg={getValues('postType') ? 'orange.200' : 'orange.100'}
+        _hover={{ bg: 'orange.200' }}
+        _active={{ bg: 'orange.200' }}
         borderRadius={8}
         onClick={onOpen}
-        w={'70px'}
+        w={'fit-content'}
         h={'30px'}
-        p={0}
+        py={0}
+        px={'10px'}
         border={errors.postType?.message ? '1px solid' : 'none'}
         borderColor={errors.postType?.message ? 'error' : 'none'}
       >
-        <Text fontWeight={'medium'}>주제</Text>
+        <Text fontWeight={'medium'} flexShrink={0}>
+          {getValues('postType') ?? '주제'}
+        </Text>
       </Button>
 
       <BottomMenu isOpen={isOpen} onClose={onClose}>
@@ -330,6 +292,7 @@ const PostType = () => {
             variant="unstyled"
             _hover={{ bg: 'orange.100' }}
             onClick={() => {
+              setValue('postType', type);
               clearErrors('postType');
               onClose();
             }}
