@@ -50,19 +50,6 @@ const Editor = ({ value, onChange }: Partial<ControllerRenderProps>) => {
         )}
       </Box>
 
-      {/* <Textarea
-        p={0}
-        fontWeight={'medium'}
-        variant={'unstyled'}
-        borderRadius={0}
-        h={{
-          mobile: `calc(100% - ${TOOL_BAR + SUBMIT_BUTTON + IMAGE + IMAGE_GAP * 2 + EDITOR_GAP * 2}px)`,
-          tablet: '554px',
-        }}
-        lineHeight={{ mobile: '24px', tablet: '27px' }}
-        overflow={'auto'}
-        px={'20px'}
-      /> */}
       <Box __css={styles} pos={'relative'}>
         <Box
           as={DraftEditor}
