@@ -27,6 +27,7 @@ import {
 } from '@/assets/icons';
 import { POST } from '../../constants';
 import { BLOCK_LABEL, INLINE_STYLE, TEXT_BLOCK_STYLE } from '../constants';
+import { Post } from '../schema';
 import BlockUtils from '../utils/BlockUtils';
 import inlineUtils from '../utils/InlineUtils';
 
@@ -37,7 +38,13 @@ const ToolBar = ({
   value: EditorState;
   onChange: Dispatch<SetStateAction<EditorState>>;
 }) => {
-  const { getValues, setValue, watch } = useFormContext();
+  const {
+    getValues,
+    setValue,
+    watch,
+    formState: { errors },
+    clearErrors,
+  } = useFormContext<Post>();
 
   watch('postType');
 
@@ -53,14 +60,21 @@ const ToolBar = ({
         <DropdownTrigger
           as={Button}
           rightIcon={
-            <Icon as={ArrowDownIcon} w={'12px'} h={'12px'} stroke={'black'} />
+            <Icon
+              as={ArrowDownIcon}
+              w={'12px'}
+              h={'12px'}
+              stroke={errors.postType?.message ? 'error' : 'black'}
+            />
           }
           bg={'none'}
           _hover={{ bg: 'none' }}
           _active={{ bg: 'none' }}
           px={'36px'}
         >
-          <Text>{getValues('postType') ?? '주제'}</Text>
+          <Text color={errors.postType?.message ? 'error' : 'black'}>
+            {getValues('postType') ?? '주제'}
+          </Text>
         </DropdownTrigger>
         <DropdownList
           minW={getValues('postType')?.length > 3 ? '140px' : '120px'}
@@ -70,6 +84,7 @@ const ToolBar = ({
               key={type}
               height={'48px'}
               onClick={() => {
+                clearErrors('postType');
                 setValue('postType', type);
               }}
             >
@@ -282,6 +297,10 @@ const MobileToolBar = ({
 
 const PostType = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    formState: { errors },
+    clearErrors,
+  } = useFormContext<Post>();
 
   return (
     <Box hideFrom={'tablet'} mt={'18px'} mb={'10px'}>
@@ -297,6 +316,8 @@ const PostType = () => {
         w={'70px'}
         h={'30px'}
         p={0}
+        border={errors.postType?.message ? '1px solid' : 'none'}
+        borderColor={errors.postType?.message ? 'error' : 'none'}
       >
         <Text fontWeight={'medium'}>주제</Text>
       </Button>
@@ -308,7 +329,10 @@ const PostType = () => {
             key={type}
             variant="unstyled"
             _hover={{ bg: 'orange.100' }}
-            onClick={onClose}
+            onClick={() => {
+              clearErrors('postType');
+              onClose();
+            }}
             h={'60px'}
             fontWeight={'medium'}
             _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}

@@ -1,14 +1,15 @@
 import { Box, Divider, Flex } from '@chakra-ui/react';
 import { convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import { Controller, FormProvider, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ImageSelector } from '@/components';
+import { POST } from '../constants';
 import Editor from './components/Editor';
 import SubmitButton from './components/SubmitButton';
 import { MobileToolBar, PostType, ToolBar } from './components/ToolBar';
 import { MOBILE_HEIGHT } from './constants';
 import { Post, usePostForm } from './schema';
-import convertToHtml from './utils/convertToHtml';
 import { useCreatePost } from '@/services/whisper/query';
 import { useImageStore } from '@/stores/imageStore';
 
@@ -23,14 +24,10 @@ const CommunityEdit = () => {
   const methods = usePostForm();
 
   const onSubmit: SubmitHandler<Post> = ({ postType, content, title }) => {
-    console.log('제출!');
-
-    postType;
-
     const formData = new FormData();
 
     const rawContentState = convertToRaw(content.getCurrentContent());
-    const markup = convertToHtml(rawContentState.blocks);
+    const markup = draftToHtml(rawContentState);
 
     /** 속닥속닥 게시글 blob */
     const jsonBlob = new Blob(
@@ -38,7 +35,7 @@ const CommunityEdit = () => {
         JSON.stringify({
           title,
           content: markup,
-          postType: '',
+          postType: POST.TYPE_KO[postType],
         }),
       ],
       {
@@ -68,9 +65,9 @@ const CommunityEdit = () => {
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <Controller
-          render={({ field }) => (
+          render={({ field: { value, onChange } }) => (
             <>
-              <ToolBar {...field} />
+              <ToolBar value={value} onChange={onChange} />
 
               <Box
                 maxW={1228}
@@ -82,7 +79,7 @@ const CommunityEdit = () => {
                 mb={{ mobile: '0', tablet: '34px' }}
               >
                 <PostType />
-                <Editor {...field} />
+                <Editor value={value} onChange={onChange} />
               </Box>
 
               <Box
@@ -113,7 +110,7 @@ const CommunityEdit = () => {
               </Box>
 
               <Box px={{ mobile: '0', tablet: '20px' }}>
-                <MobileToolBar {...field} />
+                <MobileToolBar value={value} onChange={onChange} />
                 <SubmitButton />
               </Box>
             </>

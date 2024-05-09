@@ -28,6 +28,7 @@ const SubmitButton = () => {
         bottom={0}
         color={'white'}
         borderRadius={0}
+        type="submit"
       >
         등록하기
       </Button>

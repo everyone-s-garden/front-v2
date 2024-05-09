@@ -33,7 +33,6 @@ type Post = z.infer<typeof FormSchema>;
 const usePostForm = () => {
   return useForm<Post>({
     resolver: zodResolver(FormSchema),
-    mode: 'onChange',
     defaultValues: {
       postType: undefined,
       title: '',

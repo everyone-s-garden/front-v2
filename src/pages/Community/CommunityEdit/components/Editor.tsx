@@ -4,17 +4,21 @@ import { ControllerRenderProps, useFormContext } from 'react-hook-form';
 // import { MOBILE_HEIGHT } from '../constants';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Post } from '../schema';
+import isEditorEmpty from '../utils/isEditorEmpty';
 import styles from './editorStyles';
 import { editorLabels, toolbar } from './toolData';
 
-const Editor = ({ value, onChange }: ControllerRenderProps) => {
+const Editor = ({ value, onChange }: Partial<ControllerRenderProps>) => {
   // const { IMAGE, IMAGE_GAP, TOOL_BAR, SUBMIT_BUTTON, EDITOR_GAP } =
   //   MOBILE_HEIGHT;
 
   const {
     register,
     formState: { errors },
+    watch,
   } = useFormContext<Post>();
+
+  const content = watch('content');
 
   return (
     <>
@@ -70,10 +74,10 @@ const Editor = ({ value, onChange }: ControllerRenderProps) => {
           onEditorStateChange={onChange}
           toolbar={toolbar}
           toolbarHidden={true}
-          localization={{ locale: 'en', translations: editorLabels }}
+          localization={{ locale: 'ko', translations: editorLabels }}
           placeholder="질문, 자랑, 공유 등 다양한 글을 작성해보세요."
         />
-        {errors.content?.message && (
+        {errors.content?.message && isEditorEmpty(content) && (
           <Text
             pos={'absolute'}
             top={{ mobile: '24px', tablet: '25px' }}
