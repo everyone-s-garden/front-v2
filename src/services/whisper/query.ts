@@ -1,6 +1,7 @@
 import {
   queryOptions,
   useInfiniteQuery,
+  useMutation,
   useQuery,
 } from '@tanstack/react-query';
 import whisperAPI from './api';
@@ -19,7 +20,6 @@ export const whisperQueries = {
 
 export const useGetAllPosts = () => {
   const params = useWhisperStore((state) => state.params);
-  console.log(params);
 
   return useInfiniteQuery({
     queryKey: [whisperQueries.all(), params],
@@ -54,4 +54,8 @@ export const useGetAllPosts = () => {
 
 export const useGetPost = (id: number) => {
   return useQuery(whisperQueries.detail(id));
+};
+
+export const useCreatePost = () => {
+  return useMutation({ mutationFn: whisperAPI.createPost });
 };

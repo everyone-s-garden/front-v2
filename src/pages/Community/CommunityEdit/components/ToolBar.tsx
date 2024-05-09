@@ -9,6 +9,9 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { EditorState } from 'draft-js';
+import { Dispatch, SetStateAction } from 'react';
+import { useFormContext } from 'react-hook-form';
 import {
   BottomMenu,
   Dropdown,
@@ -17,17 +20,27 @@ import {
   DropdownTrigger,
 } from '@/components';
 import {
-  AlignCenterIcon,
-  AlignLeftIcon,
-  AlignRightIcon,
   ArrowDownIcon,
   BoldIcon,
   ItalicIcon,
   UnderlineIcon,
 } from '@/assets/icons';
 import { POST } from '../../constants';
+import { BLOCK_LABEL, INLINE_STYLE, TEXT_BLOCK_STYLE } from '../constants';
+import BlockUtils from '../utils/BlockUtils';
+import inlineUtils from '../utils/InlineUtils';
 
-const ToolBar = () => {
+const ToolBar = ({
+  value,
+  onChange,
+}: {
+  value: EditorState;
+  onChange: Dispatch<SetStateAction<EditorState>>;
+}) => {
+  const { getValues, setValue, watch } = useFormContext();
+
+  watch('postType');
+
   return (
     <Center
       hideBelow={'tablet'}
@@ -47,11 +60,19 @@ const ToolBar = () => {
           _active={{ bg: 'none' }}
           px={'36px'}
         >
-          <Text>주제</Text>
+          <Text>{getValues('postType') ?? '주제'}</Text>
         </DropdownTrigger>
-        <DropdownList minW={'120px'}>
+        <DropdownList
+          minW={getValues('postType')?.length > 3 ? '140px' : '120px'}
+        >
           {Object.values(POST.TYPE).map((type) => (
-            <DropdownItem key={type} height={'48px'}>
+            <DropdownItem
+              key={type}
+              height={'48px'}
+              onClick={() => {
+                setValue('postType', type);
+              }}
+            >
               <Text w={'100%'} textAlign={'center'} fontWeight={'medium'}>
                 {type}
               </Text>
@@ -71,104 +92,65 @@ const ToolBar = () => {
           _active={{ bg: 'none' }}
           px={'36px'}
         >
-          <Text>본문</Text>
+          {BLOCK_LABEL[BlockUtils.getBlockStyles(value)] ?? '본문'}
         </DropdownTrigger>
         <DropdownList minW={'120px'}>
-          <DropdownItem height={'48px'}>
-            <Text w={'100%'} textAlign={'center'} fontWeight={'medium'}>
-              본문
-            </Text>
-          </DropdownItem>
-          <DropdownItem height={'48px'}>
-            <Text
-              w={'100%'}
-              textAlign={'center'}
-              fontWeight={'bold'}
-              fontSize={'20px'}
+          {TEXT_BLOCK_STYLE.map(({ label, name, styles }) => (
+            <DropdownItem
+              key={name}
+              height={'48px'}
+              onClick={(e) => {
+                e.preventDefault();
+                BlockUtils.setBlockStyles({
+                  editorState: value,
+                  setEditorState: onChange,
+                  type: name,
+                });
+              }}
             >
-              제목 1
-            </Text>
-          </DropdownItem>
-          <DropdownItem height={'48px'}>
-            <Text
-              w={'100%'}
-              textAlign={'center'}
-              fontWeight={'semiBold'}
-              fontSize={'18px'}
-            >
-              제목 2
-            </Text>
-          </DropdownItem>
-          <DropdownItem height={'48px'}>
-            <Text
-              w={'100%'}
-              textAlign={'center'}
-              fontWeight={'medium'}
-              fontSize={'14px'}
-            >
-              서브
-            </Text>
-          </DropdownItem>
+              <Text w={'100%'} textAlign={'center'} {...styles}>
+                {label}
+              </Text>
+            </DropdownItem>
+          ))}
         </DropdownList>
       </Dropdown>
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
-      <Flex align={'center'} gap={'36px'} px={'36px'}>
-        <IconButton
-          aria-label="볼드"
-          icon={<BoldIcon />}
-          minW={'fit-content'}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
-        <IconButton
-          aria-label="이탤릭"
-          icon={<ItalicIcon />}
-          minW={'fit-content'}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
-        <IconButton
-          aria-label="언더라인"
-          icon={<UnderlineIcon />}
-          minW={'fit-content'}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
+      <Flex align={'center'} gap={'5px'} px={'36px'}>
+        {INLINE_STYLE.map(({ label, name, Icon }) => (
+          <IconButton
+            key={name}
+            aria-label={label}
+            icon={<Icon />}
+            minW={'40px'}
+            variant={'unstyled'}
+            display={'flex'}
+            onClick={() => {
+              inlineUtils.setInlineStyles({
+                editorState: value,
+                setEditorState: onChange,
+                type: name,
+              });
+            }}
+            bg={
+              inlineUtils.getInlineStyles(value).includes(name)
+                ? 'orange.100'
+                : 'none'
+            }
+          />
+        ))}
       </Flex>
-      <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
-      <Dropdown colorScheme="orange" variant={'none'}>
-        <DropdownTrigger
-          as={Button}
-          rightIcon={
-            <Icon as={ArrowDownIcon} w={'12px'} h={'12px'} stroke={'black'} />
-          }
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-          px={'36px'}
-        >
-          <Icon as={AlignLeftIcon} display={'flex'} />
-        </DropdownTrigger>
-        <DropdownList minW={'120px'}>
-          <DropdownItem height={'48px'} justifyContent={'center'}>
-            <Icon as={AlignLeftIcon} w={'24px'} h={'24px'} />
-          </DropdownItem>
-          <DropdownItem height={'48px'} justifyContent={'center'}>
-            <Icon as={AlignRightIcon} w={'24px'} h={'24px'} />
-          </DropdownItem>
-          <DropdownItem height={'48px'} justifyContent={'center'}>
-            <Icon as={AlignCenterIcon} w={'24px'} h={'24px'} />
-          </DropdownItem>
-        </DropdownList>
-      </Dropdown>
     </Center>
   );
 };
 
-const MobileToolBar = () => {
+const MobileToolBar = ({
+  value,
+  onChange,
+}: {
+  value: EditorState;
+  onChange: Dispatch<SetStateAction<EditorState>>;
+}) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -257,6 +239,13 @@ const MobileToolBar = () => {
           bg={'none'}
           _hover={{ bg: 'none' }}
           _active={{ bg: 'none' }}
+          onClick={() => {
+            inlineUtils.setInlineStyles({
+              editorState: value,
+              setEditorState: onChange,
+              type: 'BOLD',
+            });
+          }}
         />
         <IconButton
           aria-label="이탤릭"
@@ -264,6 +253,13 @@ const MobileToolBar = () => {
           bg={'none'}
           _hover={{ bg: 'none' }}
           _active={{ bg: 'none' }}
+          onClick={() => {
+            inlineUtils.setInlineStyles({
+              editorState: value,
+              setEditorState: onChange,
+              type: 'ITALIC',
+            });
+          }}
         />
         <IconButton
           aria-label="언더라인"
@@ -271,12 +267,15 @@ const MobileToolBar = () => {
           bg={'none'}
           _hover={{ bg: 'none' }}
           _active={{ bg: 'none' }}
+          onClick={() => {
+            inlineUtils.setInlineStyles({
+              editorState: value,
+              setEditorState: onChange,
+              type: 'UNDERLINE',
+            });
+          }}
         />
       </Flex>
-      <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
-      <Button variant={'unstyled'} px={'30px'}>
-        <Icon as={AlignLeftIcon} display={'flex'} />
-      </Button>
     </Center>
   );
 };

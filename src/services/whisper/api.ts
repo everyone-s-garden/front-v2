@@ -28,6 +28,11 @@ const whisperAPI = {
 
     return response.data;
   },
+  createPost: async (data: FormData): Promise<unknown> => {
+    const res = await apiClient.post(`v1/posts`, data);
+
+    return res;
+  },
 };
 
 export default whisperAPI;
