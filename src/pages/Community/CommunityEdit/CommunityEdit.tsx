@@ -76,7 +76,6 @@ const CommunityEdit = () => {
                 flexGrow={1}
                 pb={{ mobile: '32px', tablet: '48px' }}
                 px={'20px'}
-                mb={{ mobile: '0', tablet: '34px' }}
               >
                 <PostType />
                 <Editor value={value} onChange={onChange} />
@@ -90,7 +89,7 @@ const CommunityEdit = () => {
                 position={{ mobile: 'absolute', tablet: 'static' }}
                 bottom={SUBMIT_BUTTON + TOOL_BAR + IMAGE_GAP}
               >
-                <Divider borderColor={'gray.100'} />
+                <Divider opacity={1} borderColor={'gray.100'} />
                 <Box mt={{ mobile: '16px', tablet: '35px' }}>
                   <ImageSelector
                     breakPoints={{

@@ -18,10 +18,21 @@ const editorStyle: SystemStyleObject = {
   '.public-DraftStyleDefault-block': {
     margin: 0,
   },
+  /** 에디터 전체 */
+  '.rdw-editor-wrapper': {
+    h: {
+      mobile: 'calc(100svh - 532px)',
+      tablet: '554px',
+    },
+    overflow: 'auto',
+  },
   '.public-DraftEditor-content': {
     'h1 *': BLOCK_STYLE['header-one'],
     'h2 *': BLOCK_STYLE['header-two'],
     'h3 *': BLOCK_STYLE['header-three'],
+    '*': {
+      lineHeight: { mobile: '24px', tablet: '27px' },
+    },
   },
 };
 

@@ -1,7 +1,6 @@
 import { Box, Input, Text } from '@chakra-ui/react';
 import { Editor as DraftEditor } from 'react-draft-wysiwyg';
 import { ControllerRenderProps, useFormContext } from 'react-hook-form';
-// import { MOBILE_HEIGHT } from '../constants';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Post } from '../schema';
 import isEditorEmpty from '../utils/isEditorEmpty';
@@ -9,9 +8,6 @@ import styles from './editorStyles';
 import { editorLabels, toolbar } from './toolData';
 
 const Editor = ({ value, onChange }: Partial<ControllerRenderProps>) => {
-  // const { IMAGE, IMAGE_GAP, TOOL_BAR, SUBMIT_BUTTON, EDITOR_GAP } =
-  //   MOBILE_HEIGHT;
-
   const {
     register,
     formState: { errors },
