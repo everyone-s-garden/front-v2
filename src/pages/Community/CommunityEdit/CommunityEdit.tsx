@@ -82,7 +82,7 @@ const CommunityEdit = () => {
               </Box>
 
               <Box
-                maxW={1096}
+                maxW={1228}
                 w={'100%'}
                 mx={'auto'}
                 px={'20px'}
@@ -94,11 +94,15 @@ const CommunityEdit = () => {
                   <ImageSelector
                     breakPoints={{
                       0: {
-                        slidesPerView: 2.5,
+                        slidesPerView: 2.2,
+                        spaceBetween: 12,
+                      },
+                      768: {
+                        slidesPerView: 4,
                         spaceBetween: 12,
                       },
                       1024: {
-                        slidesPerView: 6,
+                        slidesPerView: 7,
                         spaceBetween: 14,
                       },
                     }}
