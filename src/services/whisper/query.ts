@@ -3,6 +3,7 @@ import {
   useInfiniteQuery,
   useMutation,
   useQuery,
+  useQueryClient,
 } from '@tanstack/react-query';
 import whisperAPI from './api';
 import { Post } from '@/pages/Community/types';
@@ -57,5 +58,12 @@ export const useGetPost = (id: number) => {
 };
 
 export const useCreatePost = () => {
-  return useMutation({ mutationFn: whisperAPI.createPost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: whisperAPI.createPost,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: whisperQueries.all() });
+    },
+  });
 };
