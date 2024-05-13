@@ -3,22 +3,21 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/routes/constants';
 import loginAPI from '@/services/login/api';
-import useIsLoggedInStore from '@/stores/useIsLoggedInStore';
+import useLoginStore from '@/stores/useLoginStore';
 
 function KakaoRedirection() {
   const navigate = useNavigate();
   const serachParams = new URLSearchParams(window.location.search);
   const code = serachParams.get('code');
   const kakaoRedirectUri = import.meta.env.VITE_KAKAO_REDIRECT_URI;
-  const { setIsLoggedIn } = useIsLoggedInStore();
+  const { setIsLoggedIn } = useLoginStore();
 
   useEffect(() => {
     async function fetchLogin() {
       try {
-        const data = await loginAPI.login('kakao', code, kakaoRedirectUri);
-
-        loginAPI.onLoginSuccess(data);
+        await loginAPI.login('kakao', code, kakaoRedirectUri);
         setIsLoggedIn(true);
+
         navigate(PATH.MAIN);
       } catch (error) {
         console.error('Failed to login with Kakao:', error);

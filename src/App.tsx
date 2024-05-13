@@ -7,21 +7,21 @@ import { NavermapsProvider } from 'react-naver-maps';
 import { RouterProvider } from 'react-router-dom';
 import router from './routes/router';
 import loginAPI from './services/login/api';
-import useIsLoggedInStore from './stores/useIsLoggedInStore';
+import useLoginStore from './stores/useLoginStore';
 import globalStyles from './styles/globalStyles';
 import { emotionTheme, theme } from './styles/theme';
 
 const App = () => {
   const queryClient = new QueryClient();
-  const { isLoggedIn } = useIsLoggedInStore();
+  const { isLoggedIn } = useLoginStore();
+  const nineMinutes = 9 * 60 * 1000;
 
   useEffect(() => {
-    const refresh = async () => {
-      const data = await loginAPI.refresh();
-      loginAPI.onLoginSuccess(data);
-    };
-
-    if (isLoggedIn) refresh();
+    if (isLoggedIn) {
+      setInterval(() => {
+        loginAPI.refresh();
+      }, nineMinutes);
+    }
   }, []);
 
   return (
