@@ -44,7 +44,8 @@
     "slick-carousel": "^1.8.1",
     "swiper": "^11.0.7",
     "zod": "^3.22.4",
-    "zustand": "^4.5.1"
+    "zustand": "^4.5.1",
+    "zustand-persist": "^0.4.0"
   },
   "devDependencies": {
     "@chakra-ui/cli": "^2.4.1",

@@ -15,14 +15,16 @@ import {
 } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
 import { COMMENT } from '../../constants';
-import { OrderByOptions } from '../../types';
+import { CommentOrderByOptions } from '../../types';
+import { useWhisperStore } from '@/stores/whisperStore';
 
 const CommentOrder = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const orderBy = useWhisperStore((state) => state.commentsParam.orderBy);
+  const setOrderBy = useWhisperStore((state) => state.setCommentsOrderBy);
 
-  const handleClickOrder = (order: OrderByOptions) => {
-    // TODO: params 변경
-    console.log(order);
+  const handleClickOrder = (order: CommentOrderByOptions) => {
+    setOrderBy(order);
     onClose();
   };
 
@@ -39,12 +41,21 @@ const CommentOrder = () => {
             _hover={{ bg: 'none' }}
             _active={{ bg: 'none' }}
             p={0}
-            w={'90px'}
+            display={'flex'}
+            alignItems={'center'}
+            w={'115px'}
             h={'fit-content'}
+            fontWeight={'medium'}
+            textAlign={'right'}
+            __css={{
+              span: {
+                _first: {
+                  flexShrink: 0,
+                },
+              },
+            }}
           >
-            <Text fontWeight={'medium'} textAlign={'right'}>
-              정렬
-            </Text>
+            {orderBy ? COMMENT.ORDER[orderBy] : '정렬'}
           </DropdownTrigger>
 
           <DropdownList minW={'fit-content'}>
@@ -80,7 +91,7 @@ const CommentOrder = () => {
           onClick={onOpen}
         >
           <Text fontSize={'14px'} fontWeight={'medium'}>
-            정렬
+            {orderBy ? COMMENT.ORDER[orderBy] : '정렬'}
           </Text>
         </Button>
         <BottomMenu isOpen={isOpen} onClose={onClose}>

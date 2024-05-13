@@ -156,12 +156,12 @@ export const DUMMY_MY_INFO: User = {
 };
 
 export const DUMMY_COMMENT: Comments = {
-  parents: [
+  mainComment: [
     {
       commentId: 1,
       likeCount: 2,
       content: '와우 대단해요!',
-      createdDate: '2021-08-01',
+      createdAt: '2021-08-01',
       userInfo: {
         userId: 2,
         name: '이코딩',
@@ -175,7 +175,7 @@ export const DUMMY_COMMENT: Comments = {
           likeCount: 1,
           content:
             '와 토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 ! 와 토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !  토마토 정말 대박이에요 !',
-          createdDate: '2021-08-01',
+          createdAt: '2021-08-01',
           userInfo: {
             userId: 3,
             name: '박코딩',
@@ -191,7 +191,7 @@ export const DUMMY_COMMENT: Comments = {
       commentId: 3,
       likeCount: 1,
       content: '주말농장 너무 멋있네요  : >',
-      createdDate: '2024-03-01',
+      createdAt: '2024-03-01',
       userInfo: {
         userId: 4,
         name: '최코딩',

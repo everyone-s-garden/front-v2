@@ -1,14 +1,19 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
+import { useLocation } from 'react-router';
 import { ImageSlider, TagComponent } from '@/components';
 import getRelativeTime from '../../../../utils/getRelativeTime';
 import { POST } from '../../constants';
 import AuthorInfo from './AuthorInfo';
-import { DUMMY_POST_DETAIL } from '@/data/dummyData';
+import { useGetPost } from '@/services/whisper/query';
 
 const Content = () => {
-  const { title, content, images, userInfo, createdDate, postType } =
-    DUMMY_POST_DETAIL;
+  const postId = useLocation().pathname.split('/').pop();
+  const { data } = useGetPost(Number(postId));
+
+  if (!data) return null;
+
+  const { title, content, images, userInfo, createdDate, postType } = data;
 
   return (
     <Box>
@@ -36,25 +41,53 @@ const Content = () => {
         </Text>
       </Flex>
 
-      <Box
-        maxW={988}
-        w={'calc(100% + 40px)'}
-        m={{ mobile: '20px 0 20px -20px', tablet: '0 auto 0 auto' }}
-      >
-        <ImageSlider arrowStyle="circle" numberOfSlides={images.length}>
-          {images.map((image) => (
-            <Image src={image} alt="게시글 이미지" key={nanoid()} />
-          ))}
-        </ImageSlider>
-      </Box>
+      {images.length > 0 && (
+        <Box
+          maxW={988}
+          w={'calc(100% + 40px)'}
+          m={{ mobile: '20px 0 20px -20px', tablet: '26px auto 0 auto' }}
+        >
+          <ImageSlider arrowStyle="circle" numberOfSlides={images.length}>
+            {images.map((image) => (
+              <Image src={image} alt="게시글 이미지" key={nanoid()} />
+            ))}
+          </ImageSlider>
+        </Box>
+      )}
 
-      <Text
-        lineHeight={'24px'}
+      <Box
         fontWeight={'medium'}
+        mt={{ mobile: '20px', tablet: '24px' }}
         mb={{ mobile: '28px', tablet: '50px' }}
-      >
-        {content}
-      </Text>
+        dangerouslySetInnerHTML={{ __html: content }}
+        __css={{
+          '.align-right': {
+            textAlign: 'right',
+          },
+          '.align-center': {
+            textAlign: 'center',
+          },
+          fontWeight: 'medium',
+          'h1 *': {
+            fontSize: '20px',
+            fontWeight: 'bold',
+          },
+          'h2 *': {
+            fontSize: '18px',
+            fontWeight: 'semiBold',
+          },
+          'h3 *': {
+            fontSize: '14px',
+            fontWeight: 'medium',
+          },
+          '& > div': {
+            h: '24px',
+          },
+          em: {
+            fontStyle: 'italic',
+          },
+        }}
+      />
 
       <Flex justify={'flex-end'}>
         <Text
