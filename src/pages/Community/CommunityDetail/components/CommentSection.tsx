@@ -10,59 +10,75 @@ import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { useGetComments, useGetPost } from '@/services/whisper/query';
 import { useWhisperStore } from '@/stores/whisperStore';
 
-const CommentSection = forwardRef<HTMLDivElement, BoxProps>((props, ref) => {
-  const postId = useLocation().pathname.split('/').pop();
-  const { data, fetchNextPage, hasNextPage } = useGetComments(Number(postId));
-  const { data: post } = useGetPost(Number(postId));
+interface CommentSectionProps extends BoxProps {
+  handleClickLikeComment: (commentId: number) => void;
+  handleSubmitComment: (content: string, parentCommentId?: number) => void;
+}
 
-  const { ref: commentRef } = useInfiniteScroll<HTMLDivElement>({
-    fetchData: () => {
-      fetchNextPage();
-    },
-    hasNextPage,
-  });
+const CommentSection = forwardRef<HTMLDivElement, CommentSectionProps>(
+  ({ handleClickLikeComment, handleSubmitComment, ...rest }, ref) => {
+    const postId = useLocation().pathname.split('/').pop();
+    const { data, fetchNextPage, hasNextPage } = useGetComments(Number(postId));
+    const { data: post } = useGetPost(Number(postId));
 
-  const resetCommentsParam = useWhisperStore(
-    (state) => state.resetCommentsParam,
-  );
+    const { ref: commentRef } = useInfiniteScroll<HTMLDivElement>({
+      fetchData: () => {
+        fetchNextPage();
+      },
+      hasNextPage,
+    });
 
-  useEffect(() => {
-    resetCommentsParam();
-  }, [resetCommentsParam, postId]);
+    const resetCommentsParam = useWhisperStore(
+      (state) => state.resetCommentsParam,
+    );
 
-  return (
-    <Box mb={{ mobile: '24px', tablet: '32px' }} {...props} ref={ref}>
-      <CommentInput mt={'24px'} mb={{ mobile: '22px', tablet: '28px' }} />
-      <Flex justify={'space-between'} align={'center'}>
-        <Text
-          fontWeight={'medium'}
-          color={'sub'}
-          fontSize={{ mobile: '14px', tablet: '16px' }}
-        >
-          댓글 {post?.commentCount || 0}
-        </Text>
-        <CommentOrder />
-      </Flex>
+    useEffect(() => {
+      resetCommentsParam();
+    }, [resetCommentsParam, postId]);
 
-      <List display={'flex'} flexDir={'column'} gap={'30px'} mt={'14px'}>
-        {data && data.length > 0 ? (
-          data.map((comment) => (
-            <Comment {...comment} key={comment.commentId} />
-          ))
-        ) : (
-          <Empty
-            description={`아직 댓글이 없습니다.
+    return (
+      <Box mb={{ mobile: '24px', tablet: '32px' }} {...rest} ref={ref}>
+        <CommentInput
+          mt={'24px'}
+          mb={{ mobile: '22px', tablet: '28px' }}
+          handleSubmitComment={handleSubmitComment}
+        />
+        <Flex justify={'space-between'} align={'center'}>
+          <Text
+            fontWeight={'medium'}
+            color={'sub'}
+            fontSize={{ mobile: '14px', tablet: '16px' }}
+          >
+            댓글 {post?.commentCount || 0}
+          </Text>
+          <CommentOrder />
+        </Flex>
+
+        <List display={'flex'} flexDir={'column'} gap={'30px'} mt={'14px'}>
+          {data && data.length > 0 ? (
+            data.map((comment) => (
+              <Comment
+                {...comment}
+                handleClickLikeComment={handleClickLikeComment}
+                handleSubmitComment={handleSubmitComment}
+                key={comment.commentId}
+              />
+            ))
+          ) : (
+            <Empty
+              description={`아직 댓글이 없습니다.
       댓글을 남겨보세요.`}
-            src={CommentIcon}
-            size="small"
-            iconFill={true}
-            py={'40px'}
-          />
-        )}
-      </List>
-      <div ref={commentRef} />
-    </Box>
-  );
-});
+              src={CommentIcon}
+              size="small"
+              iconFill={true}
+              py={'40px'}
+            />
+          )}
+        </List>
+        <div ref={commentRef} />
+      </Box>
+    );
+  },
+);
 
 export default CommentSection;

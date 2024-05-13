@@ -1,22 +1,22 @@
 import { Flex, FlexProps, Input, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { AvatarComponent } from '@/components';
 import { DUMMY_MY_INFO } from '@/data/dummyData';
 
 interface CommentInputProps extends FlexProps {
   commentId?: number;
   autoFocus?: boolean;
+  handleSubmitComment: (content: string, parentCommentId?: number) => void;
 }
 
-const CommentInput = ({ commentId, autoFocus, ...rest }: CommentInputProps) => {
+const CommentInput = ({
+  commentId,
+  autoFocus,
+  handleSubmitComment,
+  ...rest
+}: CommentInputProps) => {
   const [focus, setFocus] = useState(false);
-  const [comment, setComment] = useState('');
-
-  const handleSubmitComment = () => {
-    if (comment.trim() === '') return;
-
-    alert(`댓글 입력: ${comment}, commentId: ${commentId ?? '없음'}`);
-  };
+  const commentRef = useRef<HTMLInputElement>(null);
 
   return (
     <Flex gap={{ mobile: '12px', tablet: '16px' }} align={'center'} {...rest}>
@@ -43,10 +43,10 @@ const CommentInput = ({ commentId, autoFocus, ...rest }: CommentInputProps) => {
           onBlur={() => setFocus(false)}
           fontSize={{ mobile: '14px', tablet: '16px' }}
           fontWeight={'medium'}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          ref={commentRef}
           onKeyDown={(e) => {
-            e.key === 'Enter' && handleSubmitComment();
+            e.key === 'Enter' &&
+              handleSubmitComment(commentRef.current?.value ?? '', commentId);
           }}
           autoFocus={autoFocus}
         />
@@ -56,7 +56,9 @@ const CommentInput = ({ commentId, autoFocus, ...rest }: CommentInputProps) => {
           color={'gray.400'}
           flexShrink={0}
           cursor={'pointer'}
-          onClick={handleSubmitComment}
+          onClick={() =>
+            handleSubmitComment(commentRef.current?.value ?? '', commentId)
+          }
         >
           입력
         </Text>

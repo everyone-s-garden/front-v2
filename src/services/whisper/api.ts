@@ -52,6 +52,26 @@ const whisperAPI = {
 
     return response.data;
   },
+  createLikePost: async (postId: number): Promise<void> => {
+    return await apiClient.post(`/v1/posts/${postId}/likes`);
+  },
+  createLikeComment: async (commentId: number): Promise<void> => {
+    return await apiClient.post(`/v1/posts/comments/${commentId}/likes`);
+  },
+  createComment: async ({
+    postId,
+    content,
+    parentCommentId,
+  }: {
+    postId: number;
+    content: string;
+    parentCommentId: number;
+  }): Promise<void> => {
+    return await apiClient.post(`/v1/posts/${postId}/comments`, {
+      content,
+      parentCommentId,
+    });
+  },
 };
 
 export default whisperAPI;

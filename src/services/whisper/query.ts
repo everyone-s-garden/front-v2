@@ -1,6 +1,7 @@
 import {
   queryOptions,
   useInfiniteQuery,
+  useMutation,
   useQuery,
 } from '@tanstack/react-query';
 import whisperAPI from './api';
@@ -120,4 +121,16 @@ export const useGetComments = (id: number) => {
       return comments;
     },
   });
+};
+
+export const useCreateLikePost = () => {
+  return useMutation({ mutationFn: whisperAPI.createLikePost });
+};
+
+export const useCreateLikeComment = () => {
+  return useMutation({ mutationFn: whisperAPI.createLikeComment });
+};
+
+export const useCreateComment = () => {
+  return useMutation({ mutationFn: whisperAPI.createComment });
 };

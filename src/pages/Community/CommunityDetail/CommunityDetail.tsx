@@ -8,7 +8,13 @@ import Content from './components/Content';
 import Interaction from './components/Interaction';
 import Empty from '@/components/Empty/Empty';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useGetPopularPosts, useGetPost } from '@/services/whisper/query';
+import {
+  useCreateComment,
+  useCreateLikeComment,
+  useCreateLikePost,
+  useGetPopularPosts,
+  useGetPost,
+} from '@/services/whisper/query';
 
 const CommunityDetail = () => {
   const postId = useLocation().pathname.split('/').pop();
@@ -19,6 +25,10 @@ const CommunityDetail = () => {
     hasNextPage,
   } = useGetPopularPosts();
 
+  const { mutate: createComment } = useCreateComment();
+  const { mutate: createLikePost } = useCreateLikePost();
+  const { mutate: createLikeComment } = useCreateLikeComment();
+
   const { ref } = useInfiniteScroll<HTMLDivElement>({
     fetchData: () => {
       fetchNextPage();
@@ -28,6 +38,24 @@ const CommunityDetail = () => {
 
   const commentRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
+
+  const handleClickLikePost = () => {
+    createLikePost(Number(postId));
+  };
+
+  const handleClickLikeComment = (commentId: number) => {
+    createLikeComment(commentId);
+  };
+
+  const handleSubmitComment = (content: string, parentCommentId?: number) => {
+    if (content.trim() === '') return;
+
+    createComment({
+      postId: Number(postId),
+      content: content ?? '',
+      parentCommentId: parentCommentId ?? null,
+    });
+  };
 
   const moveToComment = () => {
     commentRef.current?.scrollIntoView();
@@ -47,7 +75,11 @@ const CommunityDetail = () => {
         pt={{ mobile: '20px', tablet: '40px' }}
       >
         <Content />
-        <CommentSection ref={commentRef} />
+        <CommentSection
+          ref={commentRef}
+          handleClickLikeComment={handleClickLikeComment}
+          handleSubmitComment={handleSubmitComment}
+        />
 
         <Divider
           borderColor={'gray.100'}
@@ -94,6 +126,7 @@ const CommunityDetail = () => {
             likeCount={post?.likeCount ?? 0}
             commentCount={post?.commentCount ?? 0}
             isLikeClick={false}
+            handleClickLikePost={handleClickLikePost}
             handleClickComment={moveToComment}
           />
         </Center>

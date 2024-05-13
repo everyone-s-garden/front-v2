@@ -1,11 +1,12 @@
 import { Box, BoxProps, Icon, IconButton, Text } from '@chakra-ui/react';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { CommentIcon, HeartIcon, ShareIcon } from '@/assets/icons';
 
 interface InteractionProps extends BoxProps {
   likeCount: number;
   commentCount: number;
   isLikeClick: boolean;
+  handleClickLikePost: () => void;
   handleClickComment: () => void;
 }
 
@@ -13,12 +14,10 @@ const Interaction = ({
   likeCount,
   commentCount,
   isLikeClick,
+  handleClickLikePost,
   handleClickComment,
   ...rest
 }: InteractionProps) => {
-  const [heartClicked, setHeartClicked] = useState(isLikeClick);
-  const [heartCount, setHeartCount] = useState(likeCount);
-
   const handleClickShare = useCallback(() => {
     if (!navigator.canShare()) {
       alert('이 브라우저에서는 공유 기능을 지원하지 않습니다.');
@@ -59,8 +58,8 @@ const Interaction = ({
           icon={
             <Icon
               as={HeartIcon}
-              fill={heartClicked ? 'orange.500' : 'none'}
-              stroke={heartClicked ? 'orange.500' : 'gray.200'}
+              fill={isLikeClick ? 'orange.500' : 'none'}
+              stroke={isLikeClick ? 'orange.500' : 'gray.200'}
               strokeWidth={2}
               w={'24px'}
               h={'24px'}
@@ -73,13 +72,10 @@ const Interaction = ({
           variant={'unstyled'}
           display={'flex'}
           shadow={'md'}
-          onClick={() => {
-            setHeartClicked(!heartClicked);
-            setHeartCount(heartClicked ? heartCount - 1 : heartCount + 1);
-          }}
+          onClick={handleClickLikePost}
         />
         <Text fontSize={'12px'} fontWeight={'medium'} color={'sub'} minW={2}>
-          {heartCount}
+          {likeCount}
         </Text>
       </Box>
 
