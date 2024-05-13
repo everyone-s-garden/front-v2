@@ -4,28 +4,32 @@ import { useNavigate } from 'react-router-dom';
 import loginAPI from '@/services/login/api';
 import useLoginStore from '@/stores/useLoginStore';
 
-function KakaoRedirection() {
+interface RedirectionProps {
+  type: 'kakao' | 'naver';
+}
+
+function Redirection({ type }: RedirectionProps) {
   const origin = window.location.origin;
   const navigate = useNavigate();
   const serachParams = new URLSearchParams(window.location.search);
   const code = serachParams.get('code');
-  const kakaoRedirectUri = `${origin}/login/oauth2/naver`;
+  const kakaoRedirectUri = `${origin}/login/oauth2/${type}`;
   const { setIsLoggedIn } = useLoginStore();
 
   useEffect(() => {
     async function fetchLogin() {
       try {
-        await loginAPI.login('naver', code, kakaoRedirectUri);
+        await loginAPI.login(type, code, kakaoRedirectUri);
         setIsLoggedIn(true);
 
         navigate(-2);
       } catch (error) {
-        console.error('Failed to login with Naver:', error);
+        console.error(`Failed to login with ${type}:`, error);
       }
     }
 
     if (code) fetchLogin();
-  }, [code, kakaoRedirectUri, navigate, setIsLoggedIn]);
+  }, [code, kakaoRedirectUri, navigate, setIsLoggedIn, type]);
 
   return (
     <Box
@@ -47,4 +51,4 @@ function KakaoRedirection() {
   );
 }
 
-export default KakaoRedirection;
+export default Redirection;

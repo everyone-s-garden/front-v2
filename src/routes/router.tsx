@@ -11,9 +11,7 @@ import Layout from './Layout';
 import { PATH } from './constants';
 import Login from '@/pages/Login/Login';
 import Map from '@/pages/Map/Map';
-import KakaoRedirection from '@/pages/Redirection/KakaoRedirection';
-import NaverRedirection from '@/pages/Redirection/NaverRedirection';
-// import NaverRedirection from '@/pages/Redirection/NaverRedirection';
+import Redirection from '@/pages/Redirection/Redirection';
 
 const router = createBrowserRouter([
   {
@@ -33,11 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: PATH.LOGIN.REDIRECT_URI_KAKAO,
-        element: <KakaoRedirection />,
+        element: <Redirection type="kakao" />,
       },
       {
         path: PATH.LOGIN.REDIRECT_URI_NAVER,
-        element: <NaverRedirection />,
+        element: <Redirection type="naver" />,
       },
       {
         path: PATH.MAP.MAIN,
