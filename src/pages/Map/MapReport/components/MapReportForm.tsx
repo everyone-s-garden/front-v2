@@ -3,21 +3,22 @@ import { useForm, Controller } from 'react-hook-form';
 import MapReportCategory from './MapReportCategory';
 import MapReportContents from './MapReportContents';
 import MapReportNotice from './MapReportNotice';
-import { categoryArr } from './categoryArr';
+import { categoryArr, categorySubmitArr } from './categoryArr';
+import reportAPI from '@/services/report/api';
 
-export interface FormValues {
-  content: string;
-  category: string;
+interface MapReportFormProps {
+  id: string | undefined;
 }
 
-const MapReportForm = () => {
+const MapReportForm = ({ id }: MapReportFormProps) => {
   const {
     handleSubmit,
     register,
     control,
     watch,
+    reset,
     formState: { isSubmitting },
-  } = useForm<FormValues>({
+  } = useForm<MapReportValues>({
     defaultValues: {
       content: '',
       category: categoryArr[0],
@@ -27,13 +28,36 @@ const MapReportForm = () => {
   const category = watch('category');
   const content = watch('content');
 
-  const onSubmit = (values: FormValues) => {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
+  const transformCategoryToSubmitFormat = (userCategory: string) => {
+    const index = categoryArr.indexOf(userCategory);
+
+    return categorySubmitArr[index - 1];
+  };
+
+  const onSubmit = async (values: MapReportValues) => {
+    if (!values.category) return;
+    const transformedCategory = transformCategoryToSubmitFormat(
+      values.category,
+    );
+    const submissionValues = {
+      content: values.content,
+      reportType: transformedCategory,
+    };
+
+    try {
+      const res = await reportAPI.mapReport(id, submissionValues);
+      if (res.status === 201) alert('신고가 완료되었습니다.');
+      reset({
+        content: '',
+        category: categoryArr[0],
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        alert('동일한 텃밭에 대해서는 신고가 한번만 가능합니다.');
+      }
+    }
   };
 
   const buttonDisabled = category === categoryArr[0] || !content;

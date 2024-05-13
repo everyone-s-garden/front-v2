@@ -14,7 +14,7 @@ import { categoryArr } from './categoryArr';
 
 interface MapReportCategoryProps {
   onChange: (...event: string[]) => void;
-  value: string;
+  value?: string;
 }
 
 const MapReportCategory = ({ onChange, value }: MapReportCategoryProps) => {

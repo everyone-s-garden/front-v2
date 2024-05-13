@@ -10,3 +10,15 @@ export const categoryArr: string[] = [
   '개인정보 노출',
   '기타',
 ];
+
+export const categorySubmitArr: string[] = [
+  'OFF_TRACK',
+  'INACCURATE_INFORMATION',
+  'FAKED_SALE',
+  'ADVERTISING',
+  'SPAMMING',
+  'SWEAR_WORD',
+  'SENSATIONAL',
+  'PERSONAL_INFORMATION_EXPOSURE',
+  'COMMENTS',
+];

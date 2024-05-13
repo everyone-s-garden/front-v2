@@ -5,8 +5,6 @@ import MapReportForm from './components/MapReportForm';
 const MapReport = () => {
   const { id } = useParams();
 
-  console.log(id);
-
   return (
     <Box
       zIndex={{ mobile: '99', tablet: '0' }}
@@ -30,7 +28,7 @@ const MapReport = () => {
         신고하기
       </Text>
 
-      <MapReportForm />
+      <MapReportForm id={id} />
     </Box>
   );
 };

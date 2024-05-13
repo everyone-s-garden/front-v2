@@ -1,9 +1,8 @@
 import { Box, FormLabel, Textarea } from '@chakra-ui/react';
 import { UseFormRegister } from 'react-hook-form';
-import { FormValues } from './MapReportForm';
 
 interface MapReportContentsProps {
-  register: UseFormRegister<FormValues>;
+  register: UseFormRegister<MapReportValues>;
 }
 
 const MapReportContents = ({ register }: MapReportContentsProps) => {
