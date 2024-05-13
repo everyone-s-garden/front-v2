@@ -68,11 +68,11 @@ const MapGardens = ({
                 </Flex>
               </Box>
             </Flex>
-            {showGardenDetail && (
-              <MapGardenDetail setShowGardenDetail={setShowGardenDetail} />
-            )}
           </Box>
         ))}
+        {showGardenDetail && (
+          <MapGardenDetail setShowGardenDetail={setShowGardenDetail} />
+        )}
       </Box>
     </Box>
   );

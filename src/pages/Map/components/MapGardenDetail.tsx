@@ -4,6 +4,7 @@ import {
   Icon,
   Image,
   Show,
+  Spinner,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -32,6 +33,29 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dragging, setDragging] = useState(false);
   const garden: GardenDetail = data;
+
+  if (!garden)
+    return (
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        pos="absolute"
+        top="0"
+        left="0"
+        w="full"
+        h="full"
+        bgColor="rgba(0,0,0,0.2)"
+        zIndex="9999"
+      >
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="green.500"
+          size="xl"
+        />
+      </Flex>
+    );
 
   const handleBeforeChange = () => {
     setDragging(true);

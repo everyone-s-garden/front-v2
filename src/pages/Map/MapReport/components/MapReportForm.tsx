@@ -46,11 +46,13 @@ const MapReportForm = ({ id }: MapReportFormProps) => {
 
     try {
       const res = await reportAPI.mapReport(id, submissionValues);
-      if (res.status === 201) alert('신고가 완료되었습니다.');
-      reset({
-        content: '',
-        category: categoryArr[0],
-      });
+      if (res.status === 201) {
+        alert('신고가 완료되었습니다.');
+        reset({
+          content: '',
+          category: categoryArr[0],
+        });
+      }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
