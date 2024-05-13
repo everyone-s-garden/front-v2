@@ -19,7 +19,6 @@ const App = () => {
   useEffect(() => {
     if (isLoggedIn) {
       loginAPI.refresh();
-
       setInterval(() => {
         loginAPI.refresh();
       }, nineMinutes);

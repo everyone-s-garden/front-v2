@@ -24,5 +24,9 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    port: 3000,
+  },
+  define: {
+    global: 'window',
   },
 });

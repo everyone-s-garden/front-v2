@@ -10,6 +10,8 @@ export type OrderByOptions =
   | 'LIKE_COUNT'
   | 'OLDER_DATE';
 
+export type CommentOrderByOptions = 'RECENT_DATE' | 'LIKE_COUNT' | 'OLDER_DATE';
+
 export interface PostParams {
   searchContent: string;
   offset: number;
@@ -48,9 +50,9 @@ export interface Comment {
   content: string;
   userInfo: User;
   isLikeClick: boolean;
-  createdDate: string;
+  createdAt: string;
 }
 
 export interface Comments {
-  parents: (Comment & { subComments: Comment[] })[];
+  mainComment: (Comment & { subComments: Comment[] })[];
 }
