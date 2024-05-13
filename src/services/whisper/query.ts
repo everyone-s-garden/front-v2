@@ -91,6 +91,17 @@ export const useGetPost = (id: number) => {
   return useQuery(whisperQueries.detail(id));
 };
 
+export const useCreatePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: whisperAPI.createPost,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: whisperQueries.all() });
+    },
+  });
+};
+
 export const useGetComments = (id: number) => {
   const params = useWhisperStore((state) => state.commentsParam);
 
