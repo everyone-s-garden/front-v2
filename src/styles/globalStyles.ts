@@ -30,6 +30,13 @@ const globalStyles = css`
     height: 7px;
   }
 
+  @media screen and (max-width: 1024px) {
+    *::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+  }
+
   *::-webkit-scrollbar-thumb {
     background-color: #bebebe;
     border-radius: 7px;
