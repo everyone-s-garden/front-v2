@@ -1,23 +1,26 @@
 import { QueryClient, useMutation } from '@tanstack/react-query';
 import { Dispatch, SetStateAction } from 'react';
-import gardensApi from './api';
+import gardensAPI from './api';
 import { gardensQuery } from './query';
 
 export const useLikeGarden = (
+  liked: boolean | undefined,
   id: number | undefined,
-  setLiked: Dispatch<SetStateAction<boolean>>,
+  setLiked: Dispatch<SetStateAction<boolean | undefined>>,
 ) => {
   const queryClient = new QueryClient();
   const likeGardenMutation = useMutation({
-    mutationFn: () => gardensApi.likeGarden(id),
-    onMutate: async () => {
-      setLiked(true);
+    mutationFn: (type: 'like' | 'cancel') => gardensAPI.likeGarden(type, id),
+    onMutate: () => {
+      if (liked) setLiked(false);
+      else setLiked(true);
     },
-    onError: (error) => {
-      setLiked(false);
-      console.error('Error liking garden:', error);
+    onError: () => {
+      if (liked) setLiked(false);
+      else setLiked(true);
+      alert('찜하기가 실패했습니다.');
     },
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: [...gardensQuery.details(), id],
       });

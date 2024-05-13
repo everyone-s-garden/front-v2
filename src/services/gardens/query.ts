@@ -1,5 +1,5 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
-import gardensApi from './api';
+import gardensAPI from './api';
 
 export const gardensQuery = {
   all: () => ['gardens'] as const,
@@ -8,13 +8,13 @@ export const gardensQuery = {
   everyGarden: () =>
     queryOptions({
       queryKey: [...gardensQuery.all()],
-      queryFn: () => gardensApi.getEveryGardens(),
+      queryFn: () => gardensAPI.getEveryGardens(),
     }),
 
   individualGarden: (id: number | null) =>
     queryOptions({
       queryKey: [...gardensQuery.details(), id],
-      queryFn: () => gardensApi.getIndividualGarden(id),
+      queryFn: () => gardensAPI.getIndividualGarden(id),
     }),
 };
 

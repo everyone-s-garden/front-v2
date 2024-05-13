@@ -1,6 +1,6 @@
 import apiClient from '@/api/apiClient';
 
-const gardensApi = {
+const gardensAPI = {
   getEveryGardens: async () => {
     const response = await apiClient.get('/v2/gardens/all?pageNumber=0');
 
@@ -27,21 +27,32 @@ const gardensApi = {
     return response.data;
   },
 
-  likeGarden: async (id: number | undefined) => {
-    const response = await apiClient.post(
-      '/v2/gardens/likes',
-      {
-        gardenId: id,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
+  likeGarden: async (type: 'like' | 'cancel', id: number | undefined) => {
+    if (!id) return;
 
-    return response.data;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    if (type === 'like') {
+      const response = await apiClient.post(
+        '/v2/gardens/likes',
+        { gardenId: id },
+        config,
+      );
+
+      return response.data;
+    } else {
+      const response = await apiClient.delete(
+        `/v2/gardens/likes/${id}`,
+        config,
+      );
+
+      return response.data;
+    }
   },
 };
 
-export default gardensApi;
+export default gardensAPI;

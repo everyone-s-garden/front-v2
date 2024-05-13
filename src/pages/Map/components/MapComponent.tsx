@@ -7,7 +7,7 @@ import MapSpinner from './MapSpinner';
 import MarkerCluster from './Marker/MarkerCluster';
 import MyMarker from './Marker/MyMarker';
 import useGeolocation from '@/hooks/useGeolocation';
-import gardensApi from '@/services/gardens/api';
+import gardensAPI from '@/services/gardens/api';
 import { gardensQuery } from '@/services/gardens/query';
 
 interface MapComponentProps {
@@ -42,7 +42,7 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   }
 
   const fetchGardnesInBounds = () =>
-    gardensApi.getGardensInBounds(gardenType, map);
+    gardensAPI.getGardensInBounds(gardenType, map);
 
   const { data, refetch } = useQuery({
     queryKey: [...gardensQuery.all()],
