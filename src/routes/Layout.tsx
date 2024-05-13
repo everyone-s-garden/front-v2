@@ -16,7 +16,12 @@ const Layout = () => {
       >
         <Header />
       </Box>
-      <Outlet />
+      <Box
+        overflow={'auto'}
+        h={{ mobile: 'calc(100svh - 100px)', tablet: 'calc(100svh - 108px)' }}
+      >
+        <Outlet />
+      </Box>
     </Container>
   );
 };

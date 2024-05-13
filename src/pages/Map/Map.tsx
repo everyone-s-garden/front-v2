@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import { Suspense, useState } from 'react';
 import MapComponent from './components/MapComponent';
 import MapHeader from './components/MapHeader';
@@ -9,14 +10,14 @@ const Map = () => {
   const [map, setMap] = useState<naver.maps.Map | null>(null);
 
   return (
-    <>
+    <Box>
       <MapHeader
         {...{ map, mapHeaderOptionsArray, headerOption, setHeaderOption }}
       />
       <Suspense fallback={<MapSpinner />}>
         <MapComponent {...{ map, setMap, headerOption }} />
       </Suspense>
-    </>
+    </Box>
   );
 };
 

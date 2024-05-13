@@ -26,7 +26,17 @@ const globalStyles = css`
   }
 
   *::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+    width: 7px;
+    height: 7px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #bebebe;
+    border-radius: 7px;
+  }
+
+  body {
+    overflow: hidden;
   }
 
   #root {
