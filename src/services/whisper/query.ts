@@ -3,7 +3,9 @@ import {
   useInfiniteQuery,
   useMutation,
   useQuery,
+  useQueryClient,
 } from '@tanstack/react-query';
+import { useLocation } from 'react-router-dom';
 import whisperAPI from './api';
 import { Comment, Post } from '@/pages/Community/types';
 import { useWhisperStore } from '@/stores/whisperStore';
@@ -24,7 +26,7 @@ export const useGetAllPosts = () => {
   const params = useWhisperStore((state) => state.params);
 
   return useInfiniteQuery({
-    queryKey: [whisperQueries.all(), params],
+    queryKey: [...whisperQueries.all(), params],
     queryFn: ({ pageParam }) =>
       whisperAPI.getAllPosts({ ...pageParam, ...params }),
     initialPageParam: {
@@ -56,7 +58,7 @@ export const useGetAllPosts = () => {
 
 export const useGetPopularPosts = () => {
   return useInfiniteQuery({
-    queryKey: [whisperQueries.popular()],
+    queryKey: whisperQueries.popular(),
     queryFn: ({ pageParam }) => whisperAPI.getAllPopularPosts(pageParam),
     initialPageParam: {
       offset: 0,
@@ -93,7 +95,7 @@ export const useGetComments = (id: number) => {
   const params = useWhisperStore((state) => state.commentsParam);
 
   return useInfiniteQuery({
-    queryKey: [whisperQueries.comments(id), params],
+    queryKey: [...whisperQueries.comments(id), params],
     queryFn: ({ pageParam }) =>
       whisperAPI.getComments(id, { ...pageParam, ...params }),
     initialPageParam: {
@@ -124,13 +126,52 @@ export const useGetComments = (id: number) => {
 };
 
 export const useCreateLikePost = () => {
-  return useMutation({ mutationFn: whisperAPI.createLikePost });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: whisperAPI.createLikePost,
+    onSuccess(_, postId) {
+      queryClient.setQueryData(
+        whisperQueries.detail(postId).queryKey,
+        (oldData) => {
+          if (!oldData) return;
+
+          return {
+            ...oldData,
+            isLikeClick: !oldData.isLikeClick,
+            likeCount: oldData.isLikeClick
+              ? oldData.likeCount - 1
+              : oldData.likeCount + 1,
+          };
+        },
+      );
+
+      queryClient.invalidateQueries({ queryKey: whisperQueries.all() });
+    },
+  });
 };
 
 export const useCreateLikeComment = () => {
-  return useMutation({ mutationFn: whisperAPI.createLikeComment });
+  const queryClient = useQueryClient();
+  const postId = useLocation().pathname.split('/').pop();
+
+  return useMutation({
+    mutationFn: whisperAPI.createLikeComment,
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: whisperQueries.comments(Number(postId)),
+      });
+    },
+  });
 };
 
 export const useCreateComment = () => {
-  return useMutation({ mutationFn: whisperAPI.createComment });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: whisperAPI.createComment,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: whisperQueries.all() });
+    },
+  });
 };

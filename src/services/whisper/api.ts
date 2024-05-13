@@ -65,7 +65,7 @@ const whisperAPI = {
   }: {
     postId: number;
     content: string;
-    parentCommentId: number;
+    parentCommentId: number | null;
   }): Promise<void> => {
     return await apiClient.post(`/v1/posts/${postId}/comments`, {
       content,
