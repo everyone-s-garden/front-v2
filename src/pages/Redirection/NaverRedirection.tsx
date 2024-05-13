@@ -1,47 +1,51 @@
-// import { Box, Spinner } from '@chakra-ui/react';
-// import { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { PATH } from '@/routes/constants';
-// import loginApi from '@/services/login/api';
+import { Box, Spinner } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/routes/constants';
+import loginAPI from '@/services/login/api';
+import useIsLoggedInStore from '@/stores/useIsLoggedInStore';
 
-// function NaverRedirection() {
-//   const navigate = useNavigate();
-//   const serachParams = new URLSearchParams(window.location.search);
-//   const code = serachParams.get('code');
-//   const naverRedirectUri = import.meta.env.VITE_NAVER_REDIRECT_URI;
+function KakaoRedirection() {
+  const navigate = useNavigate();
+  const serachParams = new URLSearchParams(window.location.search);
+  const code = serachParams.get('code');
+  const kakaoRedirectUri = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+  const { setIsLoggedIn } = useIsLoggedInStore();
 
-//   useEffect(() => {
-//     async function fetchLogin() {
-//       try {
-//         const data = await loginApi.kakaoLogin(code, naverRedirectUri);
-//         console.log('Login data:', data);
-//         navigate(PATH.MAIN);
-//       } catch (error) {
-//         console.error('Failed to login with Kakao:', error);
-//       }
-//     }
+  useEffect(() => {
+    async function fetchLogin() {
+      try {
+        const data = await loginAPI.login('naver', code, kakaoRedirectUri);
 
-//     if (code) fetchLogin();
-//   }, [code, naverRedirectUri, navigate]);
+        loginAPI.onLoginSuccess(data);
+        setIsLoggedIn(true);
+        navigate(PATH.MAIN);
+      } catch (error) {
+        console.error('Failed to login with Naver:', error);
+      }
+    }
 
-//   return (
-//     <Box
-//       w="full"
-//       h="full"
-//       display="flex"
-//       justifyContent="center"
-//       alignItems="center"
-//     >
-//       <Spinner
-//         mb="75px"
-//         thickness="4px"
-//         speed="0.65s"
-//         emptyColor="gray.200"
-//         color="green.500"
-//         size="xl"
-//       />
-//     </Box>
-//   );
-// }
+    if (code) fetchLogin();
+  }, []);
 
-// export default NaverRedirection;
+  return (
+    <Box
+      w="full"
+      h="full"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Spinner
+        mb="75px"
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="green.500"
+        size="xl"
+      />
+    </Box>
+  );
+}
+
+export default KakaoRedirection;

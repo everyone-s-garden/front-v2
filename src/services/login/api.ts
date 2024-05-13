@@ -10,8 +10,12 @@ interface LoginData {
 }
 
 const loginAPI = {
-  kakaoLogin: async (code: string | null, redirectUri: string) => {
-    const response = await apiClient.post('/v1/auth/kakao', {
+  login: async (
+    type: 'kakao' | 'naver',
+    code: string | null,
+    redirectUri: string,
+  ) => {
+    const response = await apiClient.post(`/v1/auth/${type}`, {
       code: code,
       redirectUri: redirectUri,
     });

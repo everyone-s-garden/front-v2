@@ -19,8 +19,6 @@ const App = () => {
     const refresh = async () => {
       const data = await loginAPI.refresh();
       loginAPI.onLoginSuccess(data);
-
-      return data;
     };
 
     if (isLoggedIn) refresh();

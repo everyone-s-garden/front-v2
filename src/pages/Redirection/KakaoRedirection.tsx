@@ -15,7 +15,7 @@ function KakaoRedirection() {
   useEffect(() => {
     async function fetchLogin() {
       try {
-        const data = await loginAPI.kakaoLogin(code, kakaoRedirectUri);
+        const data = await loginAPI.login('kakao', code, kakaoRedirectUri);
 
         loginAPI.onLoginSuccess(data);
         setIsLoggedIn(true);
