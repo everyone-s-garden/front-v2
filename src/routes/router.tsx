@@ -9,7 +9,10 @@ import {
 import CommunityDetail from '../pages/Community/CommunityDetail/CommunityDetail';
 import Layout from './Layout';
 import { PATH } from './constants';
+import Login from '@/pages/Login/Login';
 import Map from '@/pages/Map/Map';
+import KakaoRedirection from '@/pages/Redirection/KakaoRedirection';
+// import NaverRedirection from '@/pages/Redirection/NaverRedirection';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +26,18 @@ const router = createBrowserRouter([
         path: PATH.ERROR,
         element: <div>에러</div>,
       },
+      {
+        path: PATH.LOGIN.MAIN,
+        element: <Login />,
+      },
+      {
+        path: PATH.LOGIN.REDIRECT_URI_KAKAO,
+        element: <KakaoRedirection />,
+      },
+      // {
+      //   path: PATH.LOGIN.REDIRECT_URI_NAVER,
+      //   element: <NaverRedirection />,
+      // },
       {
         path: PATH.MAP.MAIN,
         element: <Map />,
