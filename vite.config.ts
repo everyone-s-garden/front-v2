@@ -12,8 +12,6 @@ export default defineConfig({
     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
   },
   server: {
-    port: 3000,
-
     proxy: {
       '/api': {
         target: env.VITE_API_URL,
@@ -24,5 +22,6 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    port: 3000,
   },
 });

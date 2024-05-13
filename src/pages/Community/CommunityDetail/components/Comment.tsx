@@ -15,6 +15,8 @@ import getRelativeTime from '@/utils/getRelativeTime';
 
 interface CommentProps extends CommentType {
   subComments?: CommentType[];
+  handleClickLikeComment: (commentId: number) => void;
+  handleSubmitComment: (content: string, parentCommentId?: number) => void;
 }
 
 const Comment = ({
@@ -23,25 +25,25 @@ const Comment = ({
   isLikeClick,
   likeCount,
   userInfo,
-  createdDate,
+  createdAt,
   subComments,
+  handleClickLikeComment,
+  handleSubmitComment,
   ...rest
 }: CommentProps & FlexProps) => {
-  const [isLikeClicked, setIsLikeClicked] = useState(isLikeClick);
-  const [likeCountState, setLikeCountState] = useState(likeCount);
   const [subCommentView, setSubCommentView] = useState(false);
 
   const handleClickReport = () => {
     alert(`댓글 ${commentId} 신고하기`);
   };
 
-  const handleClickLike = () => {
-    setIsLikeClicked(!isLikeClicked);
-    setLikeCountState(isLikeClicked ? likeCountState - 1 : likeCountState + 1);
-  };
-
   return (
-    <Flex key={commentId} gap={'8px'} {...rest}>
+    <Flex
+      key={commentId}
+      pr={{ mobile: 0, tablet: subComments ? '100px' : 0 }}
+      gap={'8px'}
+      {...rest}
+    >
       <AvatarComponent
         src={userInfo.profile ?? ''}
         w={subComments ? '36px' : '30px'}
@@ -66,7 +68,7 @@ const Comment = ({
             icon={
               <Icon
                 as={HeartIcon}
-                fill={isLikeClicked ? 'sub' : 'none'}
+                fill={isLikeClick ? 'sub' : 'none'}
                 w={'20px'}
                 h={'20px'}
                 stroke={'sub'}
@@ -75,7 +77,7 @@ const Comment = ({
             variant={'unstyled'}
             display={'flex'}
             minW={'20px'}
-            onClick={handleClickLike}
+            onClick={() => handleClickLikeComment(commentId)}
           />
           <Text
             fontSize={'14px'}
@@ -83,7 +85,7 @@ const Comment = ({
             color={'sub'}
             minW={2.5}
           >
-            {likeCountState}
+            {likeCount}
           </Text>
           {subComments && (
             <>
@@ -124,15 +126,31 @@ const Comment = ({
             fontWeight={'medium'}
             color={'sub'}
           >
-            {getRelativeTime(createdDate)}
+            {getRelativeTime(createdAt)}
           </Text>
         </Flex>
         {subComments &&
           subComments.map((subComment) => (
-            <Comment key={subComment.commentId} {...subComment} mt={'15px'} />
+            <Comment
+              key={subComment.commentId}
+              mt={'15px'}
+              commentId={subComment.commentId}
+              content={subComment.content}
+              isLikeClick={subComment.isLikeClick}
+              likeCount={subComment.likeCount}
+              userInfo={subComment.userInfo}
+              createdAt={subComment.createdAt}
+              handleClickLikeComment={handleClickLikeComment}
+              handleSubmitComment={handleSubmitComment}
+            />
           ))}
         {subCommentView && (
-          <CommentInput parentId={commentId} mt={'2px'} autoFocus={true} />
+          <CommentInput
+            commentId={commentId}
+            handleSubmitComment={handleSubmitComment}
+            mt={'2px'}
+            autoFocus={true}
+          />
         )}
       </Flex>
     </Flex>
