@@ -143,22 +143,46 @@ const MapGardenDetailBottomSection = ({
             />
           </Flex>
           <Flex gap="17.5px">
-            <Flex
-              w="50%"
-              h="50px"
-              gap="14px"
-              justifyContent="center"
-              alignItems="center"
-              bgColor="green.100"
-              paddingLeft="16px"
-              paddingRight="24px"
-              borderRadius="9px"
-              cursor="pointer"
-              onClick={handleClickCall}
-            >
-              <Icon as={PhoneIcon} w="24px" h="24px" />
-              <Text fontWeight="semiBold">연락하기</Text>
-            </Flex>
+            {isMobile ? (
+              <Link
+                display="flex"
+                w="50%"
+                h="50px"
+                gap="14px"
+                justifyContent="center"
+                alignItems="center"
+                bgColor="green.100"
+                paddingLeft="16px"
+                paddingRight="24px"
+                borderRadius="9px"
+                cursor="pointer"
+                href={`tel:${garden?.contact}`}
+                isExternal
+              >
+                <Icon as={PhoneIcon} w="24px" h="24px" />
+                <Text fontWeight="semiBold">연락하기</Text>
+              </Link>
+            ) : (
+              <Button
+                display="flex"
+                w="50%"
+                h="50px"
+                gap="14px"
+                justifyContent="center"
+                alignItems="center"
+                bgColor="green.100"
+                paddingLeft="16px"
+                paddingRight="24px"
+                borderRadius="9px"
+                cursor="pointer"
+                onClick={handleClickCall}
+                _hover={{}}
+                _active={{}}
+              >
+                <Icon as={PhoneIcon} w="24px" h="24px" />
+                <Text fontWeight="semiBold">연락하기</Text>
+              </Button>
+            )}
             <Flex
               w="50%"
               h="50px"
