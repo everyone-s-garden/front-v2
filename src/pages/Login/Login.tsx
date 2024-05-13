@@ -1,6 +1,6 @@
-import { Box, Flex, Icon, Img } from '@chakra-ui/react';
+import { Box, Flex, Icon, Img, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeftIcon, KakaoLogo } from '@/assets/icons';
+import { ArrowLeftIcon, KakaoLogo, LoginLogo } from '@/assets/icons';
 import { LogoHorizon } from '@/assets/images';
 import LoginLink from './components/LoginLink';
 
@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <Box
-      pos={{ mobile: 'relative', tablet: 'fixed' }}
+      pos="fixed"
       top="0"
       left="0"
       zIndex="10"
@@ -30,18 +30,37 @@ const Login = () => {
       alignItems="center"
     >
       <Icon
-        display={{ mobile: 'none', tablet: 'block' }}
         pos="absolute"
-        top="75px"
-        left="50px"
+        top={{ mobile: '23px', tablet: '75px' }}
+        left={{ mobile: '20px', tablet: '50px' }}
         w="30px"
         h="30px"
         cursor="pointer"
+        fill={{ mobile: '#bec8b3', tablet: '#414C38' }}
         as={ArrowLeftIcon}
         onClick={() => navigate(-1)}
       />
       <Box w={{ mobile: '258px', tablet: '532px' }}>
         <Flex flexDir="column">
+          <Flex justifyContent="center" alignItems="center">
+            <Box pos="relative" w="113px" h="46px" mb="13.38px">
+              <Icon as={LoginLogo} w="full" h="full" />
+              <Text
+                pos="absolute"
+                top="9px"
+                left="50%"
+                transform="translateX(-50%)"
+                color="#414c38"
+                fontSize="12px"
+                fontWeight="medium"
+                whiteSpace="none"
+                w="full"
+                textAlign="center"
+              >
+                3초만에 로그인
+              </Text>
+            </Box>
+          </Flex>
           <Img
             w={{ mobile: '200px', tablet: '270px' }}
             h={{ mobile: '34px', tablet: '40px' }}

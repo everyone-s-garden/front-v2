@@ -18,11 +18,12 @@ const App = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
+      loginAPI.refresh();
       setInterval(() => {
         loginAPI.refresh();
       }, nineMinutes);
     }
-  }, []);
+  }, [isLoggedIn, nineMinutes]);
 
   return (
     <QueryClientProvider client={queryClient}>
