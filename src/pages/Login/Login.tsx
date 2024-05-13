@@ -6,7 +6,6 @@ import LoginLink from './components/LoginLink';
 
 const Login = () => {
   const navigate = useNavigate();
-
   const origin = window.location.origin;
 
   const KAKAO_REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
@@ -19,7 +18,7 @@ const Login = () => {
 
   return (
     <Box
-      pos={{ mobile: 'relative', tablet: 'fixed' }}
+      pos="fixed"
       top="0"
       left="0"
       zIndex="10"
@@ -31,13 +30,13 @@ const Login = () => {
       alignItems="center"
     >
       <Icon
-        display={{ mobile: 'none', tablet: 'block' }}
         pos="absolute"
-        top="75px"
-        left="50px"
+        top={{ mobile: '23px', tablet: '75px' }}
+        left={{ mobile: '20px', tablet: '50px' }}
         w="30px"
         h="30px"
         cursor="pointer"
+        fill={{ mobile: '#bec8b3', tablet: '#414C38' }}
         as={ArrowLeftIcon}
         onClick={() => navigate(-1)}
       />
