@@ -3,7 +3,7 @@ import gardensApi from './api';
 
 export const gardensQuery = {
   all: () => ['gardens'] as const,
-  datails: () => [...gardensQuery.all(), 'detail'],
+  details: () => [...gardensQuery.all(), 'detail'],
 
   everyGarden: () =>
     queryOptions({
@@ -13,7 +13,7 @@ export const gardensQuery = {
 
   individualGarden: (id: number | null) =>
     queryOptions({
-      queryKey: [...gardensQuery.datails(), id],
+      queryKey: [...gardensQuery.details(), id],
       queryFn: () => gardensApi.getIndividualGarden(id),
     }),
 };

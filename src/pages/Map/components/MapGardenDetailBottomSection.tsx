@@ -29,12 +29,13 @@ const CopyBox = chakra(motion.div);
 const MapGardenDetailBottomSection = ({
   garden,
 }: MapGardenDetailBottomSectionProps) => {
+  const [liked, setLiked] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [copied, setCopied] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
 
-  const { mutateLikeGarden } = useLikeGarden(garden?.gardenId);
+  const { mutateLikeGarden } = useLikeGarden(garden?.gardenId, setLiked);
 
   useEffect(() => {
     const userAgent = navigator.userAgent;
@@ -83,12 +84,12 @@ const MapGardenDetailBottomSection = ({
 
       <Flex w="fit-content" margin="0 auto" gap="14px">
         <Button
+          bgColor={liked ? 'red.500' : 'white'}
+          _hover={{ bgColor: 'red.500' }}
+          _active={{ bgColor: 'red.600' }}
           border="1px solid"
           borderColor="gray.100"
           padding="14px"
-          bgColor="white"
-          _hover={{}}
-          _active={{}}
           onClick={() => mutateLikeGarden()}
         >
           <Icon

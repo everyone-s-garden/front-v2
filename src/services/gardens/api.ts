@@ -28,7 +28,17 @@ const gardensApi = {
   },
 
   likeGarden: async (id: number | undefined) => {
-    const response = await apiClient.post('/v2/gardens/likes', id);
+    const response = await apiClient.post(
+      '/v2/gardens/likes',
+      {
+        gardenId: id,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
 
     return response.data;
   },
