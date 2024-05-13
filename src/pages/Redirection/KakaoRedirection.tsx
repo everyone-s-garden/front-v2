@@ -2,20 +2,23 @@ import { Box, Spinner } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/routes/constants';
-import loginApi from '@/services/login/api';
+import loginAPI from '@/services/login/api';
+import useIsLoggedInStore from '@/stores/useIsLoggedInStore';
 
 function KakaoRedirection() {
   const navigate = useNavigate();
   const serachParams = new URLSearchParams(window.location.search);
   const code = serachParams.get('code');
   const kakaoRedirectUri = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+  const { setIsLoggedIn } = useIsLoggedInStore();
 
   useEffect(() => {
     async function fetchLogin() {
       try {
-        const data = await loginApi.kakaoLogin(code, kakaoRedirectUri);
+        const data = await loginAPI.kakaoLogin(code, kakaoRedirectUri);
 
-        loginApi.onLoginSuccess(data);
+        loginAPI.onLoginSuccess(data);
+        setIsLoggedIn(true);
         navigate(PATH.MAIN);
       } catch (error) {
         console.error('Failed to login with Kakao:', error);
@@ -23,7 +26,7 @@ function KakaoRedirection() {
     }
 
     if (code) fetchLogin();
-  }, [code, kakaoRedirectUri, navigate]);
+  }, []);
 
   return (
     <Box

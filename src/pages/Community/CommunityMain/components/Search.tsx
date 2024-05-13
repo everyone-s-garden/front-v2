@@ -1,11 +1,17 @@
 import { Box, Icon, Input } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchIcon } from '@/assets/icons';
+import useDebounce from '@/hooks/useDebounce';
+import { useWhisperStore } from '@/stores/whisperStore';
 
 const Search = () => {
   const [value, setValue] = useState('');
+  const setSearchContent = useWhisperStore((state) => state.setSearchContent);
+  const searchContent = useDebounce(value, 500);
 
-  // TODO: params 변경
+  useEffect(() => {
+    setSearchContent(searchContent);
+  }, [searchContent, setSearchContent]);
 
   return (
     <>

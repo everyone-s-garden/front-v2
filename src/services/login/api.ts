@@ -9,12 +9,18 @@ interface LoginData {
   memberId: number;
 }
 
-const loginApi = {
+const loginAPI = {
   kakaoLogin: async (code: string | null, redirectUri: string) => {
     const response = await apiClient.post('/v1/auth/kakao', {
       code: code,
       redirectUri: redirectUri,
     });
+
+    return response.data;
+  },
+
+  refresh: async () => {
+    const response = await apiClient.post('/v1/auth/refresh');
 
     return response.data;
   },
@@ -34,4 +40,4 @@ const loginApi = {
   },
 };
 
-export default loginApi;
+export default loginAPI;

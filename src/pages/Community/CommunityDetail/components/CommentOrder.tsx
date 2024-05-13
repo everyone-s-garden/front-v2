@@ -14,17 +14,15 @@ import {
   DropdownTrigger,
 } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
-import { POST } from '../../constants';
+import { COMMENT } from '../../constants';
 import { OrderByOptions } from '../../types';
-import { useWhisperStore } from '@/stores/whisperStore';
 
-const Order = () => {
+const CommentOrder = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const orderBy = useWhisperStore((state) => state.params.orderBy);
-  const setOrderBy = useWhisperStore((state) => state.setOrderBy);
 
   const handleClickOrder = (order: OrderByOptions) => {
-    setOrderBy(order);
+    // TODO: params 변경
+    console.log(order);
     onClose();
   };
 
@@ -41,18 +39,20 @@ const Order = () => {
             _hover={{ bg: 'none' }}
             _active={{ bg: 'none' }}
             p={0}
+            w={'90px'}
+            h={'fit-content'}
           >
-            <Text color={'sub'} fontSize={'18px'}>
-              {orderBy ? POST.ORDER[orderBy] : '정렬'}
+            <Text fontWeight={'medium'} textAlign={'right'}>
+              정렬
             </Text>
           </DropdownTrigger>
 
           <DropdownList minW={'fit-content'}>
-            {Object.values(POST.ORDER).map((order) => (
+            {Object.values(COMMENT.ORDER).map((order) => (
               <DropdownItem
                 key={order}
                 px={'12px'}
-                onClick={() => handleClickOrder(POST.ORDER_KO[order])}
+                onClick={() => handleClickOrder(COMMENT.ORDER_KO[order])}
               >
                 <Text
                   color={'sub'}
@@ -72,18 +72,19 @@ const Order = () => {
           rightIcon={
             <Icon as={ArrowDownIcon} w={'12px'} h={'12px'} stroke={'black'} />
           }
+          h={'fit-content'}
           bg={'none'}
           _hover={{ bg: 'none' }}
           _active={{ bg: 'none' }}
           p={0}
           onClick={onOpen}
         >
-          <Text color={'sub'} fontSize={'14px'}>
+          <Text fontSize={'14px'} fontWeight={'medium'}>
             정렬
           </Text>
         </Button>
         <BottomMenu isOpen={isOpen} onClose={onClose}>
-          {Object.values(POST.ORDER).map((order) => (
+          {Object.values(COMMENT.ORDER).map((order) => (
             <Center
               as={Button}
               key={order}
@@ -91,7 +92,7 @@ const Order = () => {
               _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
               _notFirst={{ borderRadius: 0 }}
               _hover={{ bg: 'orange.100' }}
-              onClick={() => handleClickOrder(POST.ORDER_KO[order])}
+              onClick={() => handleClickOrder(COMMENT.ORDER_KO[order])}
               h={'60px'}
             >
               {order}
@@ -103,4 +104,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default CommentOrder;
