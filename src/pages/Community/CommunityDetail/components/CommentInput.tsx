@@ -18,6 +18,7 @@ const CommentInput = ({
   const [focus, setFocus] = useState(false);
   const commentRef = useRef<HTMLInputElement>(null);
 
+  // TODO: 등록 성공해야 빈 값 되도록 변경
   return (
     <Flex gap={{ mobile: '12px', tablet: '16px' }} align={'center'} {...rest}>
       <AvatarComponent
@@ -45,8 +46,10 @@ const CommentInput = ({
           fontWeight={'medium'}
           ref={commentRef}
           onKeyDown={(e) => {
-            e.key === 'Enter' &&
+            if (e.key === 'Enter') {
               handleSubmitComment(commentRef.current?.value ?? '', commentId);
+              commentRef.current!.value = '';
+            }
           }}
           autoFocus={autoFocus}
         />
@@ -56,9 +59,10 @@ const CommentInput = ({
           color={'gray.400'}
           flexShrink={0}
           cursor={'pointer'}
-          onClick={() =>
-            handleSubmitComment(commentRef.current?.value ?? '', commentId)
-          }
+          onClick={() => {
+            handleSubmitComment(commentRef.current?.value ?? '', commentId);
+            commentRef.current!.value = '';
+          }}
         >
           입력
         </Text>
