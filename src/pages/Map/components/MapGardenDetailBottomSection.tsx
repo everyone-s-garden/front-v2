@@ -89,22 +89,22 @@ const MapGardenDetailBottomSection = ({
 
       <Flex w="fit-content" margin="0 auto" gap="14px">
         <Button
-          bgColor={liked ? 'red.500' : 'white'}
-          _hover={{ bgColor: 'red.500' }}
-          _active={{ bgColor: 'red.600' }}
+          bgColor="white"
           border="1px solid"
-          borderColor="gray.100"
+          borderColor={liked ? 'orange.500' : 'gray.100'}
           padding="14px"
+          _hover={{}}
+          _active={{}}
           onClick={handleClickLike}
         >
           <Icon
             w="24px"
             h="24px"
             as={HeartIcon}
-            fill="gray.300"
+            fill={liked ? 'orange.500' : 'gray.300'}
             marginRight="6px"
           />
-          <Text color="gray.300" fontWeight="medium">
+          <Text color={liked ? 'orange.500' : 'gray.300'} fontWeight="medium">
             찜하기
           </Text>
         </Button>
