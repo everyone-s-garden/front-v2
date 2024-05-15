@@ -94,6 +94,7 @@ const GardenEdit = () => {
 
     createGarden(formData, {
       onSuccess() {
+        // TODO: 분양 텃밭 등록 성공 시 처리
         navigate(PATH.MAP.MAIN);
       },
       onError() {
@@ -209,13 +210,12 @@ const GardenEdit = () => {
                       return;
                     }
 
-                    clearErrors('recruitStartDate');
+                    clearErrors(['recruitStartDate', 'recruitEndDate']);
                   }}
                 />
                 <DatePicker
                   onChange={(date: string) => {
                     setValue('recruitEndDate', date);
-                    clearErrors('recruitEndDate');
 
                     if (!validateRecruitEndDate(date)) {
                       alert('모집 종료일은 모집 시작일보다 늦어야 합니다.');
@@ -227,7 +227,7 @@ const GardenEdit = () => {
                       return;
                     }
 
-                    clearErrors('recruitEndDate');
+                    clearErrors(['recruitStartDate', 'recruitEndDate']);
                   }}
                   placeholder="사용 종료일"
                 />
@@ -272,7 +272,7 @@ const GardenEdit = () => {
                         borderRadius={10}
                         border={'1px solid'}
                         borderColor={'gray.200'}
-                        h={{ mobile: '235px', tablet: '217px' }}
+                        maxH={{ mobile: '235px', tablet: '217px' }}
                         overflow={'auto'}
                       >
                         {results.locationSearchResponses.map(
