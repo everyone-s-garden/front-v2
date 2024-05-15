@@ -7,6 +7,7 @@ import {
   MyGardenEdit,
 } from '@/pages';
 import CommunityDetail from '../pages/Community/CommunityDetail/CommunityDetail';
+import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
 import Login from '@/pages/Login/Login';
@@ -42,10 +43,6 @@ const router = createBrowserRouter([
         element: <Map />,
       },
       {
-        path: PATH.MAP.CREATE_GARDEN,
-        element: <GardenEdit />,
-      },
-      {
         path: PATH.MAP.CREATE_MY_GARDEN,
         element: <MyGardenEdit />,
       },
@@ -60,6 +57,15 @@ const router = createBrowserRouter([
       {
         path: PATH.COMMUNITY.CREATE,
         element: <CommunityEdit />,
+      },
+    ],
+  },
+  {
+    element: <HiddenHeaderLayout />,
+    children: [
+      {
+        path: PATH.MAP.CREATE_GARDEN,
+        element: <GardenEdit />,
       },
     ],
   },

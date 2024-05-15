@@ -7,5 +7,7 @@ export { default as Tab } from './Tab/Tab';
 export { default as TagComponent } from './Tag/Tag';
 export { default as AvatarComponent } from './Avatar/Avatar';
 export { default as PostList } from './PostList/PostList';
+export { default as Content } from './Content/Content';
+export { default as DatePicker } from './DatePicker/DatePicker';
 
 export * from './Dropdown/Dropdown';
