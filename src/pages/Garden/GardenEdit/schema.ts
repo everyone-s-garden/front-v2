@@ -29,7 +29,7 @@ const FormSchema = z.object({
   isToilet: z.boolean(),
   isWaterway: z.boolean(),
   isEquipment: z.boolean(),
-  gardenDescription: z.string(),
+  gardenDescription: z.string().min(10, '10글자 이상 입력해주세요.'),
 });
 
 type Garden = z.infer<typeof FormSchema>;
