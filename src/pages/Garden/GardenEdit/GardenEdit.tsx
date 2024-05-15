@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Content, DatePicker } from '@/components';
+import { BlockerModal, Content, DatePicker } from '@/components';
 import FlexInput from '../components/FlexInput';
 import FormButton from '../components/FormButton';
 import Input from '../components/Input';
@@ -364,6 +364,8 @@ const GardenEdit = () => {
           </Box>
         </FormProvider>
       </Content>
+
+      <BlockerModal color="green" />
     </>
   );
 };

@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Content, DatePicker, ImageSelector } from '@/components';
+import { BlockerModal, Content, DatePicker, ImageSelector } from '@/components';
 import FlexInput from '../components/FlexInput';
 import MobileHeader from '../components/MobileHeader';
 import SearchBar from '../components/SearchBar';
@@ -329,6 +329,8 @@ const MyGardenCreate = () => {
           </Box>
         </FormProvider>
       </Content>
+
+      <BlockerModal color="green" />
     </>
   );
 };
