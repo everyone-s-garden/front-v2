@@ -20,15 +20,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           minH={'56px'}
           borderBottom={'1px solid'}
           borderColor={'gray.100'}
+          borderRadius={0}
           variant={'unstyled'}
           ref={ref}
           {...props}
-          mb={'28px'}
         />
         {errorMessage && (
           <Text
             pos={'absolute'}
-            top={'62px'}
+            top={'60px'}
             color={'error'}
             fontSize={'14px'}
             fontWeight={'medium'}
