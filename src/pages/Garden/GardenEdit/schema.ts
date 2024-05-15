@@ -29,7 +29,7 @@ const FormSchema = z.object({
   isToilet: z.boolean(),
   isWaterway: z.boolean(),
   isEquipment: z.boolean(),
-  gardenDescription: z.string().min(1, '필수 입력 항목입니다.'),
+  gardenDescription: z.string(),
 });
 
 type Garden = z.infer<typeof FormSchema>;

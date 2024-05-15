@@ -4,13 +4,15 @@ import { PropsWithChildren } from 'react';
 interface FlexInputProps extends FlexProps {
   label: string;
   errorMessage?: string;
-  errorTop?: number;
+  errorTop?: { mobile: string; tablet: string } | string;
+  divider?: boolean;
 }
 
 const FlexInput = ({
   label,
   errorMessage,
-  errorTop = 60,
+  errorTop = '60px',
+  divider = false,
   children,
   ...props
 }: PropsWithChildren<FlexInputProps>) => {
@@ -20,8 +22,10 @@ const FlexInput = ({
       pos={'relative'}
       gap={{ mobile: '20px', tablet: '24px' }}
       minH={'56px'}
+      borderBottom={divider ? '1px solid' : undefined}
+      borderColor={'gray.100'}
     >
-      <FormLabel fontWeight={'medium'} flexShrink={0} margin={0}>
+      <FormLabel fontWeight={'semiBold'} flexShrink={0} margin={0}>
         {label}
       </FormLabel>
       <Flex align={'center'} {...props}>
@@ -30,7 +34,7 @@ const FlexInput = ({
       {errorMessage && (
         <Text
           pos={'absolute'}
-          top={`${errorTop}px`}
+          top={errorTop}
           color={'error'}
           fontSize={'14px'}
           fontWeight={'medium'}

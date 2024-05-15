@@ -1,6 +1,10 @@
 import { Center, Text } from '@chakra-ui/react';
 
-const MobileHeader = () => {
+interface MobileHeaderProps {
+  name: string;
+}
+
+const MobileHeader = ({ name }: MobileHeaderProps) => {
   return (
     <Center
       as={'header'}
@@ -14,7 +18,7 @@ const MobileHeader = () => {
       hideFrom={'tablet'}
     >
       <Text fontSize={'18px'} fontWeight={'semiBold'} textAlign={'center'}>
-        분양 텃밭 등록하기
+        {name}
       </Text>
     </Center>
   );

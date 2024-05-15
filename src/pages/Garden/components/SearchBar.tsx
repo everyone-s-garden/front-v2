@@ -16,6 +16,7 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
           align={'center'}
           gap={'10px'}
           p={'14px 11px'}
+          h={'40px'}
         >
           <Input
             placeholder={placeholder}

@@ -30,7 +30,7 @@ const GardenEdit = () => {
 
   return (
     <>
-      <MobileHeader />
+      <MobileHeader name="분양 텃밭 등록하기" />
       <Content heightWithoutContent={113}>
         <Box
           as={'form'}
@@ -109,7 +109,7 @@ const GardenEdit = () => {
                   ? '필수 선택 항목입니다.'
                   : ''
               }
-              errorTop={72}
+              errorTop={{ mobile: '72px', tablet: '60px' }}
             >
               <DatePicker onChange={() => {}} />
               <DatePicker onChange={() => {}} placeholder="사용 종료일" />
