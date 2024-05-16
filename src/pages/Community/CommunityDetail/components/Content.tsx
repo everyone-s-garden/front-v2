@@ -46,6 +46,16 @@ const Content = () => {
           maxW={988}
           w={'calc(100% + 40px)'}
           m={{ mobile: '20px 0 20px -20px', tablet: '26px auto 0 auto' }}
+          __css={{
+            '.slick-slide img': {
+              objectFit: 'scale-down',
+              maxH: '600px',
+            },
+            '.slick-track': {
+              display: 'flex',
+              alignItems: 'center',
+            },
+          }}
         >
           <ImageSlider arrowStyle="circle" numberOfSlides={images.length}>
             {images.map((image) => (
