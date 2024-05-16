@@ -60,8 +60,14 @@ const whisperAPI = {
   createLikePost: async (postId: number): Promise<void> => {
     return await apiClient.post(`/v1/posts/${postId}/likes`);
   },
+  deleteLikePost: async (postId: number): Promise<void> => {
+    return await apiClient.delete(`/v1/posts/${postId}/likes`);
+  },
   createLikeComment: async (commentId: number): Promise<void> => {
     return await apiClient.post(`/v1/posts/comments/${commentId}/likes`);
+  },
+  deleteLikeComment: async (commentId: number): Promise<void> => {
+    return await apiClient.delete(`/v1/posts/comments/${commentId}/likes`);
   },
   createComment: async ({
     postId,

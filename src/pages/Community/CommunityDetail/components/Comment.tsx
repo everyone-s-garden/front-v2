@@ -15,7 +15,7 @@ import getRelativeTime from '@/utils/getRelativeTime';
 
 interface CommentProps extends CommentType {
   subComments?: CommentType[];
-  handleClickLikeComment: (commentId: number) => void;
+  handleClickLikeComment: (isLike: boolean, commentId: number) => void;
   handleSubmitComment: (content: string, parentCommentId?: number) => void;
 }
 
@@ -77,7 +77,7 @@ const Comment = ({
             variant={'unstyled'}
             display={'flex'}
             minW={'20px'}
-            onClick={() => handleClickLikeComment(commentId)}
+            onClick={() => handleClickLikeComment(isLikeClick, commentId)}
           />
           <Text
             fontSize={'14px'}

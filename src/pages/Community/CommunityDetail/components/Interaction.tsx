@@ -6,7 +6,7 @@ interface InteractionProps extends BoxProps {
   likeCount: number;
   commentCount: number;
   isLikeClick: boolean;
-  handleClickLikePost: () => void;
+  handleClickLikePost: (isLike: boolean) => void;
   handleClickComment: () => void;
 }
 
@@ -72,7 +72,7 @@ const Interaction = ({
           variant={'unstyled'}
           display={'flex'}
           shadow={'md'}
-          onClick={handleClickLikePost}
+          onClick={() => handleClickLikePost(isLikeClick)}
         />
         <Text fontSize={'12px'} fontWeight={'medium'} color={'sub'} minW={2}>
           {likeCount}
