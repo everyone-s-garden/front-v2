@@ -9,6 +9,8 @@ import {
 } from '@storybook/addon-viewport';
 import { MemoryRouter } from 'react-router-dom';
 
+globalStyles.styles += `body {overflow:auto;}`;
+
 const preview: Preview = {
   decorators: [
     (Story) => (

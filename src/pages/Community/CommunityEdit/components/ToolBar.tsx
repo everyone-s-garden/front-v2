@@ -9,6 +9,9 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { EditorState } from 'draft-js';
+import { Dispatch, SetStateAction } from 'react';
+import { useFormContext } from 'react-hook-form';
 import {
   BottomMenu,
   Dropdown,
@@ -16,18 +19,30 @@ import {
   DropdownList,
   DropdownTrigger,
 } from '@/components';
-import {
-  AlignCenterIcon,
-  AlignLeftIcon,
-  AlignRightIcon,
-  ArrowDownIcon,
-  BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-} from '@/assets/icons';
+import { ArrowDownIcon } from '@/assets/icons';
 import { POST } from '../../constants';
+import { BLOCK_LABEL, INLINE_STYLE, TEXT_BLOCK_STYLE } from '../constants';
+import { Post } from '../schema';
+import BlockUtils from '../utils/BlockUtils';
+import inlineUtils from '../utils/InlineUtils';
 
-const ToolBar = () => {
+const ToolBar = ({
+  value,
+  onChange,
+}: {
+  value: EditorState;
+  onChange: Dispatch<SetStateAction<EditorState>>;
+}) => {
+  const {
+    getValues,
+    setValue,
+    watch,
+    formState: { errors },
+    clearErrors,
+  } = useFormContext<Post>();
+
+  watch('postType');
+
   return (
     <Center
       hideBelow={'tablet'}
@@ -40,18 +55,34 @@ const ToolBar = () => {
         <DropdownTrigger
           as={Button}
           rightIcon={
-            <Icon as={ArrowDownIcon} w={'12px'} h={'12px'} stroke={'black'} />
+            <Icon
+              as={ArrowDownIcon}
+              w={'12px'}
+              h={'12px'}
+              stroke={errors.postType?.message ? 'error' : 'black'}
+            />
           }
           bg={'none'}
           _hover={{ bg: 'none' }}
           _active={{ bg: 'none' }}
           px={'36px'}
         >
-          <Text>주제</Text>
+          <Text color={errors.postType?.message ? 'error' : 'black'}>
+            {getValues('postType') ?? '주제'}
+          </Text>
         </DropdownTrigger>
-        <DropdownList minW={'120px'}>
+        <DropdownList
+          minW={getValues('postType')?.length > 3 ? '140px' : '120px'}
+        >
           {Object.values(POST.TYPE).map((type) => (
-            <DropdownItem key={type} height={'48px'}>
+            <DropdownItem
+              key={type}
+              height={'48px'}
+              onClick={() => {
+                clearErrors('postType');
+                setValue('postType', type);
+              }}
+            >
               <Text w={'100%'} textAlign={'center'} fontWeight={'medium'}>
                 {type}
               </Text>
@@ -71,104 +102,71 @@ const ToolBar = () => {
           _active={{ bg: 'none' }}
           px={'36px'}
         >
-          <Text>본문</Text>
+          {BLOCK_LABEL[BlockUtils.getBlockStyles(value)] ?? '본문'}
         </DropdownTrigger>
         <DropdownList minW={'120px'}>
-          <DropdownItem height={'48px'}>
-            <Text w={'100%'} textAlign={'center'} fontWeight={'medium'}>
-              본문
-            </Text>
-          </DropdownItem>
-          <DropdownItem height={'48px'}>
-            <Text
-              w={'100%'}
-              textAlign={'center'}
-              fontWeight={'bold'}
-              fontSize={'20px'}
+          {TEXT_BLOCK_STYLE.map(({ label, name, styles }) => (
+            <DropdownItem
+              key={name}
+              height={'48px'}
+              onClick={(e) => {
+                e.preventDefault();
+                BlockUtils.setBlockStyles({
+                  editorState: value,
+                  setEditorState: onChange,
+                  type: name,
+                });
+              }}
             >
-              제목 1
-            </Text>
-          </DropdownItem>
-          <DropdownItem height={'48px'}>
-            <Text
-              w={'100%'}
-              textAlign={'center'}
-              fontWeight={'semiBold'}
-              fontSize={'18px'}
-            >
-              제목 2
-            </Text>
-          </DropdownItem>
-          <DropdownItem height={'48px'}>
-            <Text
-              w={'100%'}
-              textAlign={'center'}
-              fontWeight={'medium'}
-              fontSize={'14px'}
-            >
-              서브
-            </Text>
-          </DropdownItem>
+              <Text
+                w={'100%'}
+                fontWeight={'medium'}
+                textAlign={'center'}
+                {...styles}
+              >
+                {label}
+              </Text>
+            </DropdownItem>
+          ))}
         </DropdownList>
       </Dropdown>
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
-      <Flex align={'center'} gap={'36px'} px={'36px'}>
-        <IconButton
-          aria-label="볼드"
-          icon={<BoldIcon />}
-          minW={'fit-content'}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
-        <IconButton
-          aria-label="이탤릭"
-          icon={<ItalicIcon />}
-          minW={'fit-content'}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
-        <IconButton
-          aria-label="언더라인"
-          icon={<UnderlineIcon />}
-          minW={'fit-content'}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
+      <Flex align={'center'} gap={'34px'} px={'36px'}>
+        {INLINE_STYLE.map(({ label, name, Icon }) => (
+          <IconButton
+            key={name}
+            aria-label={label}
+            icon={<Icon />}
+            minW={'28px'}
+            h={'28px'}
+            variant={'unstyled'}
+            display={'flex'}
+            onClick={() => {
+              inlineUtils.setInlineStyles({
+                editorState: value,
+                setEditorState: onChange,
+                type: name,
+              });
+            }}
+            bg={
+              inlineUtils.getInlineStyles(value).includes(name)
+                ? 'orange.100'
+                : 'none'
+            }
+          />
+        ))}
       </Flex>
-      <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
-      <Dropdown colorScheme="orange" variant={'none'}>
-        <DropdownTrigger
-          as={Button}
-          rightIcon={
-            <Icon as={ArrowDownIcon} w={'12px'} h={'12px'} stroke={'black'} />
-          }
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-          px={'36px'}
-        >
-          <Icon as={AlignLeftIcon} display={'flex'} />
-        </DropdownTrigger>
-        <DropdownList minW={'120px'}>
-          <DropdownItem height={'48px'} justifyContent={'center'}>
-            <Icon as={AlignLeftIcon} w={'24px'} h={'24px'} />
-          </DropdownItem>
-          <DropdownItem height={'48px'} justifyContent={'center'}>
-            <Icon as={AlignRightIcon} w={'24px'} h={'24px'} />
-          </DropdownItem>
-          <DropdownItem height={'48px'} justifyContent={'center'}>
-            <Icon as={AlignCenterIcon} w={'24px'} h={'24px'} />
-          </DropdownItem>
-        </DropdownList>
-      </Dropdown>
     </Center>
   );
 };
 
-const MobileToolBar = () => {
+const MobileToolBar = ({
+  value,
+  onChange,
+}: {
+  value: EditorState;
+  onChange: Dispatch<SetStateAction<EditorState>>;
+}) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -190,99 +188,78 @@ const MobileToolBar = () => {
         _active={{ bg: 'none' }}
         px={'30px'}
         onClick={onOpen}
+        gap={'2px'}
       >
-        <Text flexShrink={0}>본문</Text>
+        <Text flexShrink={0}>
+          {BLOCK_LABEL[BlockUtils.getBlockStyles(value)]}
+        </Text>
       </Button>
       <BottomMenu isOpen={isOpen} onClose={onClose}>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'medium'}
-          h={'60px'}
-          borderTopRadius={20}
-          borderBottomRadius={0}
-          borderBottom={'1px solid'}
-          borderColor={'gray.100'}
-          onClick={onClose}
-        >
-          본문
-        </Center>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'bold'}
-          h={'60px'}
-          borderRadius={0}
-          fontSize={'20'}
-          borderBottom={'1px solid'}
-          borderColor={'gray.100'}
-          onClick={onClose}
-        >
-          제목 1
-        </Center>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'semiBold'}
-          h={'60px'}
-          borderRadius={0}
-          fontSize={'18'}
-          borderBottom={'1px solid'}
-          borderColor={'gray.100'}
-          onClick={onClose}
-        >
-          제목 2
-        </Center>
-        <Center
-          as={Button}
-          variant="unstyled"
-          _hover={{ bg: 'orange.100' }}
-          fontWeight={'medium'}
-          h={'60px'}
-          borderRadius={0}
-          fontSize={'14'}
-          onClick={onClose}
-        >
-          서브
-        </Center>
+        {TEXT_BLOCK_STYLE.map(({ label, name, styles }) => (
+          <Center
+            key={name}
+            as={Button}
+            variant="unstyled"
+            _hover={{ bg: 'orange.100' }}
+            fontWeight={'medium'}
+            h={'60px'}
+            borderTopRadius={20}
+            borderBottomRadius={0}
+            borderBottom={'1px solid'}
+            borderColor={'gray.100'}
+            onClick={() => {
+              BlockUtils.setBlockStyles({
+                editorState: value,
+                setEditorState: onChange,
+                type: name,
+              });
+              onClose();
+            }}
+            {...styles}
+          >
+            {label}
+          </Center>
+        ))}
       </BottomMenu>
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.200'} />
-      <Flex align={'center'} px={'30px'}>
-        <IconButton
-          aria-label="볼드"
-          icon={<BoldIcon />}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
-        <IconButton
-          aria-label="이탤릭"
-          icon={<ItalicIcon />}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
-        <IconButton
-          aria-label="언더라인"
-          icon={<UnderlineIcon />}
-          bg={'none'}
-          _hover={{ bg: 'none' }}
-          _active={{ bg: 'none' }}
-        />
+      <Flex align={'center'} px={'36px'} gap={'26px'}>
+        {INLINE_STYLE.map(({ label, name, Icon }) => (
+          <IconButton
+            key={name}
+            aria-label={label}
+            display={'flex'}
+            icon={<Icon />}
+            variant={'unstyled'}
+            minW={'28px'}
+            h={'28px'}
+            borderRadius={'6px'}
+            bg={
+              inlineUtils.getInlineStyles(value).includes(name)
+                ? 'orange.100'
+                : 'none'
+            }
+            onClick={() => {
+              inlineUtils.setInlineStyles({
+                editorState: value,
+                setEditorState: onChange,
+                type: name,
+              });
+            }}
+          />
+        ))}
       </Flex>
-      <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
-      <Button variant={'unstyled'} px={'30px'}>
-        <Icon as={AlignLeftIcon} display={'flex'} />
-      </Button>
     </Center>
   );
 };
 
 const PostType = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    formState: { errors },
+    clearErrors,
+    getValues,
+    setValue,
+  } = useFormContext<Post>();
 
   return (
     <Box hideFrom={'tablet'} mt={'18px'} mb={'10px'}>
@@ -290,16 +267,21 @@ const PostType = () => {
         rightIcon={
           <Icon as={ArrowDownIcon} stroke={'black'} w={'12px'} h={'12px'} />
         }
-        bg={'orange.100'}
-        _hover={{ bg: 'orange.100' }}
-        _active={{ bg: 'orange.100' }}
+        bg={getValues('postType') ? 'orange.200' : 'orange.100'}
+        _hover={{ bg: 'orange.200' }}
+        _active={{ bg: 'orange.200' }}
         borderRadius={8}
         onClick={onOpen}
-        w={'70px'}
+        w={'fit-content'}
         h={'30px'}
-        p={0}
+        py={0}
+        px={'10px'}
+        border={errors.postType?.message ? '1px solid' : 'none'}
+        borderColor={errors.postType?.message ? 'error' : 'none'}
       >
-        <Text fontWeight={'medium'}>주제</Text>
+        <Text fontWeight={'medium'} flexShrink={0}>
+          {getValues('postType') ?? '주제'}
+        </Text>
       </Button>
 
       <BottomMenu isOpen={isOpen} onClose={onClose}>
@@ -309,7 +291,11 @@ const PostType = () => {
             key={type}
             variant="unstyled"
             _hover={{ bg: 'orange.100' }}
-            onClick={onClose}
+            onClick={() => {
+              setValue('postType', type);
+              clearErrors('postType');
+              onClose();
+            }}
             h={'60px'}
             fontWeight={'medium'}
             _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}

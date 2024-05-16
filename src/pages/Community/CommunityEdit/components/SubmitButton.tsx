@@ -12,6 +12,7 @@ const SubmitButton = () => {
           bg={'orange.500'}
           color={'white'}
           mt={'130px'}
+          type="submit"
         >
           등록하기
         </Button>
@@ -27,6 +28,7 @@ const SubmitButton = () => {
         bottom={0}
         color={'white'}
         borderRadius={0}
+        type="submit"
       >
         등록하기
       </Button>
