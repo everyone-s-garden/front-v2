@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Flex, Img, styled } from '@chakra-ui/react';
 import { LineChart, Line, XAxis, ResponsiveContainer } from 'recharts';
 import getWeatherIcon from '../../utils/getWeatherIcon';

@@ -25,7 +25,7 @@ function KakaoRedirection() {
     }
 
     if (code) fetchLogin();
-  }, []);
+  }, [code, kakaoRedirectUri, navigate, setIsLoggedIn]);
 
   return (
     <Box
