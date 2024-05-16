@@ -34,7 +34,7 @@ const Comment = ({
   const [subCommentView, setSubCommentView] = useState(false);
 
   const handleClickReport = () => {
-    alert(`댓글 ${commentId} 신고하기`);
+    alert(`준비 중인 기능입니다.`);
   };
 
   return (
