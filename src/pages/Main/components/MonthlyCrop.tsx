@@ -52,18 +52,14 @@ const MonthlyCrop = () => {
             rounded="10px"
             hideBelow="desktop"
             src={`/src/assets/images/month/pc/${currentMonth + 1}.png`}
+            height={'min-content'}
           />
           <Image
             rounded="10px"
             hideFrom="desktop"
             src={`/src/assets/images/month/mobile/${currentMonth + 1}.png`}
           />
-          <Accordion
-            allowToggle
-            maxH={{ tablet: '177px', desktop: '225px' }}
-            overflowY="auto"
-            w="100%"
-          >
+          <Accordion allowToggle w="100%">
             {monthCrops[currentMonth].cropInfos.map((item, index) => (
               <AccordionItem key={index}>
                 <AccordionButton px="7.5px">

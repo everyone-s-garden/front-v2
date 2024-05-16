@@ -5,7 +5,8 @@ import { GardenPost } from '@/services/gardenPost/types';
 const CHeartIcon = chakra(HeartIcon);
 
 const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
-  const { imageUrl, gardenName, address, price, recruitEndDate } = postData;
+  const { imageUrl, gardenName, address, price, recruitEndDate, isLiked } =
+    postData;
 
   const endDate = new Date(recruitEndDate);
   const currentDate = new Date();
@@ -33,10 +34,12 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
           alt="recent post"
         />
         <CHeartIcon
-          cursor="pointer"
           position="absolute"
           top="12px"
           left="12px"
+          fill={isLiked ? 'white' : 'transparent'}
+          stroke={'white'}
+          strokeWidth={1.5}
         />
       </Box>
       <Flex flexDir="column" gap="3px">
