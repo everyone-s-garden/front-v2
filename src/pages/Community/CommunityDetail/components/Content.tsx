@@ -56,7 +56,6 @@ const Content = () => {
       )}
 
       <Box
-        fontWeight={'medium'}
         mt={{ mobile: '20px', tablet: '24px' }}
         mb={{ mobile: '28px', tablet: '50px' }}
         dangerouslySetInnerHTML={{ __html: content }}
@@ -68,15 +67,15 @@ const Content = () => {
             textAlign: 'center',
           },
           fontWeight: 'medium',
-          'h1 *': {
+          h1: {
             fontSize: '20px',
             fontWeight: 'bold',
           },
-          'h2 *': {
+          h2: {
             fontSize: '18px',
             fontWeight: 'semiBold',
           },
-          'h3 *': {
+          h3: {
             fontSize: '14px',
             fontWeight: 'medium',
           },
