@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "theme:watch",
+      "group": "build",
+      "problemMatcher": [],
+      "label": "npm: theme:watch",
+      "detail": "chakra-cli tokens src/styles/theme.ts --watch",
+      "isBackground": true,
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}

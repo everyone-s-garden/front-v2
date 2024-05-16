@@ -11,10 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
 
 # Editor directories and files
-.vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
@@ -25,7 +23,8 @@ dist-ssr
 *.sw?
 
 # env
-.env*
+.env
+.env.local
 
 # storybook
 storybook-static
@@ -37,3 +36,4 @@ chromatic.log
 chromatic-build-*.xml
 chromatic-diagnostics.json
 storybook-static
+.vercel

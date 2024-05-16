@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Container,
   FormLabel,
   Icon,
   IconButton,
@@ -9,158 +8,123 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
-import { useEffect, useRef, useState } from 'react';
-import Slider, { Settings } from 'react-slick';
+import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { CameraIcon, CloseIcon } from '@/assets/icons';
-import Arrow from './Arrow';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { ALERT_MESSAGE, MAX_IMAGE_LENGTH } from './constants';
+import { useImageStore } from '@/stores/imageStore';
 
 interface ImageSelectorProps {
+  breakPoints: Record<number, { slidesPerView: number; spaceBetween?: number }>;
   color: 'green' | 'orange';
-  h?: {
-    mobile?: number;
-    tablet?: number;
-  };
-  gap?: number;
-  slides?: {
-    mobile?: number;
-    tablet?: number;
-    desktop?: number;
+  size: {
+    mobile: number;
+    tablet: number;
+    desktop: number;
   };
 }
 
 const ImageSelector = ({
-  color,
-  h = { mobile: 110, tablet: 136 },
-  gap = 10,
-  slides = { mobile: 2.2, tablet: 4, desktop: 6 },
+  breakPoints,
+  color = 'green',
+  size,
 }: ImageSelectorProps) => {
-  const [images, setImages] = useState<{ file: File; url: string }[]>([]);
-  const sliderRef = useRef<Slider>(null);
+  const images = useImageStore((state) => state.images);
+  const setImages = useImageStore((state) => state.setImages);
 
-  const settings: Settings = {
-    dots: false,
-    infinite: false,
-    slidesToShow: slides.desktop,
-    slidesToScroll: 1,
-    prevArrow: <Arrow dir="left" color={color} />,
-    nextArrow: <Arrow dir="right" color={color} />,
-    swipeToSlide: true,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: slides.tablet,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: slides.mobile,
-        },
-      },
-    ],
-  };
-
-  const resetTrack = () => {
-    setTimeout(() => {
-      document
-        .querySelector('.slick-track')
-        ?.setAttribute('style', 'transform: translate3d(0px, 0px, 0px);');
-    }, 100);
-  };
-
-  useEffect(() => {
-    if (images.length === 0) {
-      resetTrack();
-    }
-  }, [images.length]);
-
-  const handleFileChange = ({
-    target,
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageAdd = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (!target.files) return;
-    if (images.length + target.files.length > 10)
-      return alert('이미지는 최대 10개까지 등록 가능합니다.');
+
+    if (images.length + target.files.length > MAX_IMAGE_LENGTH)
+      return alert(ALERT_MESSAGE.MAX_IMAGE);
 
     const files = Array.from(target.files);
     const urls = files.map((file) => URL.createObjectURL(file));
-    setImages((prev) => [
-      ...prev,
-      ...files.map((file, i) => ({ file, url: urls[i] })),
+    setImages([
+      ...images,
+      ...files.map((file, index) => ({ file, url: urls[index] })),
     ]);
   };
 
-  const handleDeleteImage = (url: string) => {
-    setImages((prev) => prev.filter((image) => image.url !== url));
+  const handleImageRemove = (urlToRemove: string) => {
+    const updatedImages = images.filter(({ url }) => url !== urlToRemove);
+    setImages(updatedImages);
   };
 
   return (
-    <Container display="flex" alignItems="center">
+    <Box
+      display={'flex'}
+      flexShrink={0}
+      __css={{
+        '.swiper-button-prev, .swiper-button-next': {
+          w: '40px',
+          h: '40px',
+          borderRadius: '50%',
+          bg: 'white',
+          color: 'gray.300',
+          border: '1px solid',
+          borderColor: 'gray.300',
+          display: { mobile: 'none', tablet: 'flex' },
+        },
+        '.swiper-button-prev::after, .swiper-button-next::after': {
+          fontSize: '20px',
+          color: `${color}.500`,
+        },
+        '.swiper-button-prev': {},
+        '.swiper-button-next': {},
+        '.swiper-button-disabled': {
+          display: 'none',
+        },
+
+        '.swiper': {
+          width: '100%',
+          height: '100%',
+        },
+        '.swiper-slide': {
+          width: size,
+          height: size,
+        },
+      }}
+    >
       <Button
         as={FormLabel}
         bg={`${color}.100`}
         borderRadius={10}
-        w={h}
-        h={h}
-        htmlFor="image"
+        w={size}
+        h={size}
+        htmlFor="image-upload"
         cursor="pointer"
         display="flex"
         flexDir="column"
         flexShrink={0}
-        mr={gap}
+        mr={'10px'}
+        mb={0}
+        _hover={{ bg: `${color}.100` }}
+        _active={{ bg: `${color}.100` }}
       >
         <input
-          type="file"
+          id="image-upload"
           multiple
-          onChange={handleFileChange}
+          type="file"
+          accept="image/jpg,image/png,image/jpeg,image/gif"
+          onChange={handleImageAdd}
           style={{ display: 'none' }}
-          id="image"
         />
-        <Icon as={CameraIcon} fill={`${color}.500`} w={24} h={24} />
+        <Icon as={CameraIcon} fill={`${color}.500`} w={'24px'} h={'24px'} />
         <Text fontWeight="medium" color={`${color}.500`}>
           {images.length}/10
         </Text>
       </Button>
-      <Container
-        className="slick-container"
-        css={{
-          '.slick-track': {
-            display: 'flex',
-            gap,
-            alignItems: 'center',
-            paddingRight: '5px',
-          },
-          '.slick-slider': {
-            position: 'relative',
-          },
-          '.slick-slide > div': {
-            display: 'flex',
-          },
-          '.slick-prev': {
-            position: 'absolute',
-            zIndex: 1,
-            left: '10px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-          },
-          '.slick-next': {
-            position: 'absolute',
-            zIndex: 1,
-            right: '10px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-          },
-          '.slick-disabled': {
-            display: 'none',
-          },
-        }}
-        w="100%"
-        overflow="hidden"
+      <Swiper
+        breakpoints={breakPoints}
+        navigation={true}
+        modules={[Navigation]}
       >
-        <Slider ref={sliderRef} {...settings}>
-          {images.map(({ url }) => (
-            <Box pos="relative" key={nanoid()}>
+        {images.map((image) => (
+          <SwiperSlide key={nanoid()}>
+            <Box pos="relative" w={'100%'} h={'100%'}>
               <IconButton
                 borderRadius="50%"
                 bg="white"
@@ -168,27 +132,32 @@ const ImageSelector = ({
                 borderColor="gray.400"
                 icon={<CloseIcon />}
                 aria-label="close button"
-                w={24}
-                h={24}
-                p={4}
+                w={'24px'}
+                h={'24px'}
+                p={'4px'}
+                minW={'auto'}
+                m={0}
                 fill="gray.400"
                 pos="absolute"
-                top={8}
-                right={8}
-                onClick={() => handleDeleteImage(url)}
+                top={'8px'}
+                right={'8px'}
+                _hover={{ bg: 'white' }}
+                _active={{ bg: 'white' }}
+                onClick={() => handleImageRemove(image.url)}
               />
               <Image
-                src={url}
-                h={h}
-                w="100%"
+                src={image.url}
+                alt={`image-${image.url}`}
+                w={'100%'}
+                h={'100%'}
                 borderRadius={10}
-                bg={`${color}.100`}
+                bg={`white`}
               />
             </Box>
-          ))}
-        </Slider>
-      </Container>
-    </Container>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Box>
   );
 };
 

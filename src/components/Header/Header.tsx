@@ -13,6 +13,7 @@ import { LogoHorizon } from '@/assets/images';
 import Tab from '../Tab/Tab';
 import PostMenu from './PostMenu';
 import { headerNavLinks } from './constants';
+import { PATH } from '@/routes/constants';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -27,9 +28,8 @@ const Header = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        px="20px"
+        px={{ mobile: '0', tablet: '20px' }}
         hideBelow="tablet"
-        zIndex={10}
       >
         <Flex gap="36px" align="center">
           <Image
@@ -54,7 +54,12 @@ const Header = () => {
           ))}
         </Flex>
         <Flex gap="30px">
-          <Button fontWeight="regular" bg="none" _hover={{ bg: 'none' }}>
+          <Button
+            fontWeight="regular"
+            bg="none"
+            _hover={{ bg: 'none' }}
+            onClick={() => navigate(PATH.LOGIN.MAIN)}
+          >
             로그인 / 회원가입
           </Button>
           <PostMenu />
@@ -87,7 +92,7 @@ const MobileHeader = () => {
         />
         <ProfileIcon />
       </Flex>
-      <Tab tabsData={headerNavLinks} color="orange" tabWidth="full" />
+      <Tab tabsData={headerNavLinks} color="orange" tabWidth="fit-full" />
     </Box>
   );
 };

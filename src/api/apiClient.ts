@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getItem } from '@/utils/session';
+import tokenManager from '@/services/login/tokenManager';
 
 const apiClient = axios.create({
   baseURL: '/api',
@@ -7,10 +7,10 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = getItem('access_token');
+    const accessToken = tokenManager.accessToken();
 
-    if (token) {
-      config.headers['access-token'] = token;
+    if (accessToken) {
+      config.headers['access-token'] = accessToken;
     }
 
     return config;

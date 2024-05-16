@@ -6,6 +6,7 @@ import TagStyleConfig from './components/tag';
 
 export const colors = {
   black: '#282828',
+  sub: '#5A5A5A',
   white: '#FFFFFF',
   primary: '#B3D36F',
   secondary: '#FF9029',
