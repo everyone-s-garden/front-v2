@@ -18,6 +18,11 @@ import { PATH } from '@/routes/constants';
 const Header = () => {
   const navigate = useNavigate();
 
+  const handleClickLoginButton = () => {
+    sessionStorage.setItem('login-prev-page', window.location.pathname);
+    navigate(PATH.LOGIN.MAIN);
+  };
+
   return (
     <>
       <Container
@@ -58,7 +63,7 @@ const Header = () => {
             fontWeight="regular"
             bg="none"
             _hover={{ bg: 'none' }}
-            onClick={() => navigate(PATH.LOGIN.MAIN)}
+            onClick={handleClickLoginButton}
           >
             로그인 / 회원가입
           </Button>

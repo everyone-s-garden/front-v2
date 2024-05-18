@@ -7,6 +7,10 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
+    if (config.url === '/v1/auth/refresh') {
+      return config;
+    }
+
     const accessToken = tokenManager.accessToken();
 
     if (accessToken) {

@@ -11,6 +11,7 @@ const loginAPI = {
       code: code,
       redirectUri: redirectUri,
     });
+
     tokenManager.setAccessToken(response.data.accessToken);
 
     return response.data;
@@ -19,7 +20,10 @@ const loginAPI = {
   refresh: async () => {
     const response = await apiClient.post('/v1/auth/refresh');
 
-    return response.data;
+    tokenManager.removeToken();
+    tokenManager.setAccessToken(response.data.accessToken);
+
+    return response;
   },
 };
 
