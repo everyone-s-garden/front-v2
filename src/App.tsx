@@ -13,7 +13,7 @@ import { emotionTheme, theme } from './styles/theme';
 
 const App = () => {
   const queryClient = new QueryClient();
-  const { isLoggedIn } = useLoginStore();
+  const { isLoggedIn, logout } = useLoginStore();
   const nineMinutes = 9 * 60 * 1000;
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const App = () => {
         await loginAPI.refresh();
       } catch {
         alert('재 로그인이 필요합니다.');
+        logout();
       }
     };
 
@@ -33,7 +34,7 @@ const App = () => {
 
       return () => clearInterval(interval);
     }
-  }, [isLoggedIn, nineMinutes]);
+  }, [isLoggedIn, nineMinutes, logout]);
 
   return (
     <QueryClientProvider client={queryClient}>

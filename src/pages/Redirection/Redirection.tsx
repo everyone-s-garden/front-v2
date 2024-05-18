@@ -15,6 +15,7 @@ function Redirection({ type }: RedirectionProps) {
   const code = serachParams.get('code');
   const redirectUri = `${origin}/login/oauth2/${type}`;
   const { setIsLoggedIn } = useLoginStore();
+  const loginPrevPage = sessionStorage.getItem('login-prev-page');
 
   useEffect(() => {
     async function fetchLogin() {
@@ -24,14 +25,12 @@ function Redirection({ type }: RedirectionProps) {
       } catch (error) {
         console.error(`Failed to login with ${type}:`, error);
       } finally {
-        setTimeout(() => {
-          navigate(-2);
-        }, 10);
+        if (loginPrevPage) navigate(loginPrevPage);
       }
     }
 
     if (code) fetchLogin();
-  }, [code, redirectUri, navigate, setIsLoggedIn, type]);
+  }, [code, redirectUri, navigate, setIsLoggedIn, type, loginPrevPage]);
 
   return (
     <Box
