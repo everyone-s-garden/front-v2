@@ -1,10 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
+  Chat,
+  ChatContent,
   CommunityEdit,
   CommunityMain,
   GardenEdit,
   Main,
   MyGardenEdit,
+  StartContent,
 } from '@/pages';
 import CommunityDetail from '../pages/Community/CommunityDetail/CommunityDetail';
 import Layout from './Layout';
@@ -60,6 +63,20 @@ const router = createBrowserRouter([
       {
         path: PATH.COMMUNITY.CREATE,
         element: <CommunityEdit />,
+      },
+      {
+        path: PATH.CHAT.MAIN,
+        element: <Chat />,
+        children: [
+          {
+            index: true,
+            element: <StartContent />,
+          },
+          {
+            path: PATH.CHAT.ROOM,
+            element: <ChatContent />,
+          },
+        ],
       },
     ],
   },

@@ -1,10 +1,21 @@
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import Banner from './components/Banner';
+import MonthlyCrop from './components/MonthlyCrop';
+import RecentPosts from './components/RecentPosts/RecentPosts';
+import Weather from './components/Weather/Weather';
 
 const Main = () => {
   return (
-    <div>
-      <Box height="300vh"></Box>
-    </div>
+    <Flex
+      flexDir="column"
+      pb={{ mobile: '50px', tablet: '120px' }}
+      gap={{ mobile: '36px', tablet: '80px' }}
+    >
+      <Banner />
+      <RecentPosts />
+      <MonthlyCrop />
+      <Weather />
+    </Flex>
   );
 };
 

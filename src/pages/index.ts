@@ -4,3 +4,6 @@ export { default as MyGardenEdit } from './Garden/MyGardenEdit/MyGardenEdit';
 export { default as CommunityMain } from './Community/CommunityMain/CommunityMain';
 export { default as CommunityDetail } from './Community/CommunityDetail/CommunityDetail';
 export { default as CommunityEdit } from './Community/CommunityEdit/CommunityEdit';
+export { default as Chat } from './Chat/Chat';
+export { default as StartContent } from './Chat/ChatContent/StartContent';
+export { default as ChatContent } from './Chat/ChatContent/ChatContent';
