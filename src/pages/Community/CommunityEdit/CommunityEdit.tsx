@@ -1,6 +1,7 @@
 import { Box, Divider, Flex } from '@chakra-ui/react';
 import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+import { useEffect } from 'react';
 import { Controller, FormProvider, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { BlockerModal, ImageSelector } from '@/components';
@@ -20,6 +21,7 @@ const CommunityEdit = () => {
   const navigate = useNavigate();
 
   const images = useImageStore((state) => state.images);
+  const resetImages = useImageStore((state) => state.resetImages);
 
   const methods = usePostForm();
 
@@ -54,6 +56,12 @@ const CommunityEdit = () => {
       },
     });
   };
+
+  useEffect(() => {
+    return () => {
+      resetImages();
+    };
+  }, [resetImages]);
 
   return (
     <>

@@ -162,12 +162,52 @@ export const useCreateLikePost = () => {
   });
 };
 
+export const useDeleteLikePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: whisperAPI.deleteLikePost,
+    onSuccess(_, postId) {
+      queryClient.setQueryData(
+        whisperQueries.detail(postId).queryKey,
+        (oldData) => {
+          if (!oldData) return;
+
+          return {
+            ...oldData,
+            isLikeClick: !oldData.isLikeClick,
+            likeCount: oldData.isLikeClick
+              ? oldData.likeCount - 1
+              : oldData.likeCount + 1,
+          };
+        },
+      );
+
+      queryClient.invalidateQueries({ queryKey: whisperQueries.all() });
+    },
+  });
+};
+
 export const useCreateLikeComment = () => {
   const queryClient = useQueryClient();
   const postId = useLocation().pathname.split('/').pop();
 
   return useMutation({
     mutationFn: whisperAPI.createLikeComment,
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: whisperQueries.comments(Number(postId)),
+      });
+    },
+  });
+};
+
+export const useDeleteLikeComment = () => {
+  const queryClient = useQueryClient();
+  const postId = useLocation().pathname.split('/').pop();
+
+  return useMutation({
+    mutationFn: whisperAPI.deleteLikeComment,
     onSuccess() {
       queryClient.invalidateQueries({
         queryKey: whisperQueries.comments(Number(postId)),

@@ -12,6 +12,8 @@ import {
   useCreateComment,
   useCreateLikeComment,
   useCreateLikePost,
+  useDeleteLikeComment,
+  useDeleteLikePost,
   useGetPopularPosts,
   useGetPost,
 } from '@/services/whisper/query';
@@ -27,7 +29,9 @@ const CommunityDetail = () => {
 
   const { mutate: createComment } = useCreateComment();
   const { mutate: createLikePost } = useCreateLikePost();
+  const { mutate: deleteLikePost } = useDeleteLikePost();
   const { mutate: createLikeComment } = useCreateLikeComment();
+  const { mutate: deleteLikeComment } = useDeleteLikeComment();
 
   const { ref } = useInfiniteScroll<HTMLDivElement>({
     fetchData: () => {
@@ -39,11 +43,23 @@ const CommunityDetail = () => {
   const commentRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
 
-  const handleClickLikePost = () => {
+  const handleClickLikePost = (isLike: boolean) => {
+    if (isLike) {
+      deleteLikePost(Number(postId));
+
+      return;
+    }
+
     createLikePost(Number(postId));
   };
 
-  const handleClickLikeComment = (commentId: number) => {
+  const handleClickLikeComment = (isLike: boolean, commentId: number) => {
+    if (isLike) {
+      deleteLikeComment(commentId);
+
+      return;
+    }
+
     createLikeComment(commentId);
   };
 
@@ -125,7 +141,7 @@ const CommunityDetail = () => {
           <Interaction
             likeCount={post?.likeCount ?? 0}
             commentCount={post?.commentCount ?? 0}
-            isLikeClick={false}
+            isLikeClick={post?.isLikeClick ?? false}
             handleClickLikePost={handleClickLikePost}
             handleClickComment={moveToComment}
           />
