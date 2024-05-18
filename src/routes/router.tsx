@@ -1,58 +1,170 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
+  CommentedPosts,
+  CropTrade,
+  FavoritedGardens,
+  GardenEdit,
+  GardenManagement,
+  LikedPosts,
+  Main,
+  MyGarden,
+  MyGardenEdit,
+  MyPage,
+  MyPost,
+  NearByGardensInfo,
+  PurchaseHistory,
+  RecentlyViewedGardens,
+  SalesHistory,
+  Settings,
+  VerifyLocation,
+  Whispers,
+  WishList,
+  WrittenPosts,
+  CommunityDetail,
+  Chat,
+  ChatContent,
   CommunityEdit,
   CommunityMain,
-  GardenEdit,
-  Main,
-  MyGardenEdit,
+  StartContent,
+  Login,
+  Redirection,
+  Map,
 } from '@/pages';
-import CommunityDetail from '../pages/Community/CommunityDetail/CommunityDetail';
 import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
-import Login from '@/pages/Login/Login';
-import Map from '@/pages/Map/Map';
-import Redirection from '@/pages/Redirection/Redirection';
+
+const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS } = PATH;
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
-        path: PATH.MAIN,
+        path: MAIN,
         element: <Main />,
       },
       {
-        path: PATH.ERROR,
+        path: ERROR,
         element: <div>에러</div>,
       },
       {
-        path: PATH.LOGIN.MAIN,
+        path: LOGIN.MAIN,
         element: <Login />,
       },
       {
-        path: PATH.LOGIN.REDIRECT_URI_KAKAO,
+        path: LOGIN.REDIRECT_URI_KAKAO,
         element: <Redirection type="kakao" />,
       },
       {
-        path: PATH.LOGIN.REDIRECT_URI_NAVER,
+        path: LOGIN.REDIRECT_URI_NAVER,
         element: <Redirection type="naver" />,
       },
       {
-        path: PATH.MAP.MAIN,
+        path: MAP.MAIN,
         element: <Map />,
       },
       {
-        path: PATH.COMMUNITY.MAIN,
+        path: MYPAGE.MAIN,
+        element: <MyPage />,
+      },
+      {
+        path: SETTINGS,
+        element: <Settings />,
+      },
+      {
+        path: MYPAGE.NEARBY_GARDENS_INFO.MAIN,
+        element: <NearByGardensInfo />,
+        children: [
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
+            element: <FavoritedGardens />,
+          },
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.MY_POSTS,
+            element: <MyPost />,
+          },
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
+            element: <RecentlyViewedGardens />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+        element: <GardenManagement />,
+        children: [
+          {
+            path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+            element: <MyGarden />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.CROP_TRADE.MAIN,
+        element: <CropTrade />,
+        children: [
+          {
+            path: MYPAGE.CROP_TRADE.PURCHASE_HISTORY,
+            element: <PurchaseHistory />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.SALES_HISTORY,
+            element: <SalesHistory />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.VERIFY_LOCATION,
+            element: <VerifyLocation />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.WISH_LIST,
+            element: <WishList />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.WHISPERS.MAIN,
+        element: <Whispers />,
+        children: [
+          {
+            path: MYPAGE.WHISPERS.COMMENTED_POSTS,
+            element: <CommentedPosts />,
+          },
+          {
+            path: MYPAGE.WHISPERS.LIKED_POSTS,
+            element: <LikedPosts />,
+          },
+          {
+            path: MYPAGE.WHISPERS.WRITTEN_POSTS,
+            element: <WrittenPosts />,
+          },
+        ],
+      },
+      {
+        path: COMMUNITY.MAIN,
         element: <CommunityMain />,
       },
       {
-        path: PATH.COMMUNITY.DETAIL,
+        path: COMMUNITY.DETAIL,
         element: <CommunityDetail />,
       },
       {
-        path: PATH.COMMUNITY.CREATE,
+        path: COMMUNITY.CREATE,
         element: <CommunityEdit />,
+      },
+      {
+        path: CHAT.MAIN,
+        element: <Chat />,
+        children: [
+          {
+            index: true,
+            element: <StartContent />,
+          },
+          {
+            path: CHAT.ROOM,
+            element: <ChatContent />,
+          },
+        ],
       },
     ],
   },
@@ -60,11 +172,11 @@ const router = createBrowserRouter([
     element: <HiddenHeaderLayout />,
     children: [
       {
-        path: PATH.MAP.CREATE_GARDEN,
+        path: MAP.CREATE_GARDEN,
         element: <GardenEdit />,
       },
       {
-        path: PATH.MAP.CREATE_MY_GARDEN,
+        path: MAP.CREATE_MY_GARDEN,
         element: <MyGardenEdit />,
       },
     ],

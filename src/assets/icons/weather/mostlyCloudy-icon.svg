@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M47.0556 22.5278C47.0556 32.2081 39.2081 40.0556 29.5278 40.0556C19.8475 40.0556 12 32.2081 12 22.5278C12 12.8475 19.8475 5 29.5278 5C39.2081 5 47.0556 12.8475 47.0556 22.5278Z" fill="url(#paint0_radial_736_10178)"/>
+<circle cx="29.0557" cy="23" r="10" fill="#F77700"/>
+<ellipse cx="9.82641" cy="31.1563" rx="7.82641" ry="7.26738" fill="#B5E0FF"/>
+<ellipse cx="21.5661" cy="31.1563" rx="8.38543" ry="9.50349" fill="#B5E0FF"/>
+<ellipse cx="33.8649" cy="31.1563" rx="8.38543" ry="7.26738" fill="#B5E0FF"/>
+<defs>
+<radialGradient id="paint0_radial_736_10178" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(29.5278 22.5278) rotate(90) scale(17.5278)">
+<stop stop-color="#FF7D02"/>
+<stop offset="1" stop-color="#FF7D02" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>
