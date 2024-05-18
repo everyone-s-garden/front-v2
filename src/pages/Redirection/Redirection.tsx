@@ -13,23 +13,25 @@ function Redirection({ type }: RedirectionProps) {
   const navigate = useNavigate();
   const serachParams = new URLSearchParams(window.location.search);
   const code = serachParams.get('code');
-  const kakaoRedirectUri = `${origin}/login/oauth2/${type}`;
+  const redirectUri = `${origin}/login/oauth2/${type}`;
   const { setIsLoggedIn } = useLoginStore();
 
   useEffect(() => {
     async function fetchLogin() {
       try {
-        await loginAPI.login(type, code, kakaoRedirectUri);
+        await loginAPI.login(type, code, redirectUri);
         setIsLoggedIn(true);
-
-        navigate(-2);
       } catch (error) {
         console.error(`Failed to login with ${type}:`, error);
+      } finally {
+        setTimeout(() => {
+          navigate(-2);
+        }, 10);
       }
     }
 
     if (code) fetchLogin();
-  }, [code, kakaoRedirectUri, navigate, setIsLoggedIn, type]);
+  }, [code, redirectUri, navigate, setIsLoggedIn, type]);
 
   return (
     <Box
