@@ -28,7 +28,7 @@ const PostMenu = ({ loggedIn = false }: PostMenuProps) => {
   };
 
   return (
-    <Menu>
+    <Menu placement={'bottom-end'}>
       <MenuButton
         as={Button}
         leftIcon={<PlusIcon />}
