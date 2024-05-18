@@ -11,6 +11,7 @@ export interface TagProps {
   variant?: ResponsiveValue<string> | undefined;
   icon?: boolean;
   progress?: boolean;
+  my?: ResponsiveValue<string | number>;
 }
 
 const TagComponent = ({
@@ -19,6 +20,7 @@ const TagComponent = ({
   tagLabel,
   icon,
   progress,
+  my,
 }: TagProps) => {
   const styles = useStyleConfig('TagStyleConfig', {
     variant,
@@ -27,7 +29,13 @@ const TagComponent = ({
   });
 
   return (
-    <Flex sx={styles} direction={'row'} w={'fit-content'} alignItems={'center'}>
+    <Flex
+      sx={styles}
+      direction={'row'}
+      w={'fit-content'}
+      alignItems={'center'}
+      my={my}
+    >
       {icon && (
         <Circle
           size={'9px'}

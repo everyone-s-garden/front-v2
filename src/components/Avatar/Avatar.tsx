@@ -1,5 +1,5 @@
 import { Avatar, AvatarProps } from '@chakra-ui/react';
-import { DefaultProfile } from '@/assets/icons';
+import { DefaultProfile } from '@/assets/images';
 
 const AvatarComponent = ({ src, loading = 'lazy', ...rest }: AvatarProps) => {
   //유저 이미지 없을 경우 기본 농부 이미지

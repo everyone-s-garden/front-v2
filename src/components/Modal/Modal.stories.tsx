@@ -1,6 +1,6 @@
 import { Box, Button, Input, Text, useDisclosure } from '@chakra-ui/react';
 import { Meta, StoryObj } from '@storybook/react';
-import { LocationIcon, ModalPlusIcon } from '@/assets/icons';
+import { LocationSecondaryIcon, ModalPlusIcon } from '@/assets/icons';
 import Modal from './Modal';
 
 const meta = {
@@ -55,7 +55,7 @@ export const 작물거래글쓰기: Story = {
             />
           </Box>
           <Box display="flex" gap="5px" alignItems="center" h="20px">
-            <LocationIcon />
+            <LocationSecondaryIcon />
             <Text>내 위치 지정</Text>
           </Box>
         </Box>
