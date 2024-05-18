@@ -26,43 +26,44 @@ import {
   CommunityEdit,
   CommunityMain,
   StartContent,
+  Login,
+  Redirection,
+  Map,
 } from '@/pages';
+import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
-import Login from '@/pages/Login/Login';
-import Map from '@/pages/Map/Map';
-import MapReport from '@/pages/Map/MapReport/MapReport';
-import Redirection from '@/pages/Redirection/Redirection';
 
-const { NEARBY_GARDENS_INFO, CROP_TRADE, WHISPERS, GARDEN_MANAGEMENT } =
-  PATH.MYPAGE;
+import MapReport from '@/pages/Map/MapReport/MapReport';
+
+const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS } = PATH;
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
-        path: PATH.MAIN,
+        path: MAIN,
         element: <Main />,
       },
       {
-        path: PATH.ERROR,
+        path: ERROR,
         element: <div>에러</div>,
       },
       {
-        path: PATH.LOGIN.MAIN,
+        path: LOGIN.MAIN,
         element: <Login />,
       },
       {
-        path: PATH.LOGIN.REDIRECT_URI_KAKAO,
+        path: LOGIN.REDIRECT_URI_KAKAO,
         element: <Redirection type="kakao" />,
       },
       {
-        path: PATH.LOGIN.REDIRECT_URI_NAVER,
+        path: LOGIN.REDIRECT_URI_NAVER,
         element: <Redirection type="naver" />,
       },
       {
-        path: PATH.MAP.MAIN,
+        path: MAP.MAIN,
         element: <Map />,
       },
       {
@@ -82,91 +83,91 @@ const router = createBrowserRouter([
         element: <MyPage />,
       },
       {
-        path: PATH.SETTINGS,
+        path: SETTINGS,
         element: <Settings />,
       },
       {
-        path: NEARBY_GARDENS_INFO.MAIN,
+        path: MYPAGE.NEARBY_GARDENS_INFO.MAIN,
         element: <NearByGardensInfo />,
         children: [
           {
-            path: NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
+            path: MYPAGE.NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
             element: <FavoritedGardens />,
           },
           {
-            path: NEARBY_GARDENS_INFO.MY_POSTS,
+            path: MYPAGE.NEARBY_GARDENS_INFO.MY_POSTS,
             element: <MyPost />,
           },
           {
-            path: NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
+            path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
             element: <RecentlyViewedGardens />,
           },
         ],
       },
       {
-        path: GARDEN_MANAGEMENT.MY_GARDEN,
+        path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
         element: <GardenManagement />,
         children: [
           {
-            path: GARDEN_MANAGEMENT.MY_GARDEN,
+            path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
             element: <MyGarden />,
           },
         ],
       },
       {
-        path: CROP_TRADE.MAIN,
+        path: MYPAGE.CROP_TRADE.MAIN,
         element: <CropTrade />,
         children: [
           {
-            path: CROP_TRADE.PURCHASE_HISTORY,
+            path: MYPAGE.CROP_TRADE.PURCHASE_HISTORY,
             element: <PurchaseHistory />,
           },
           {
-            path: CROP_TRADE.SALES_HISTORY,
+            path: MYPAGE.CROP_TRADE.SALES_HISTORY,
             element: <SalesHistory />,
           },
           {
-            path: CROP_TRADE.VERIFY_LOCATION,
+            path: MYPAGE.CROP_TRADE.VERIFY_LOCATION,
             element: <VerifyLocation />,
           },
           {
-            path: CROP_TRADE.WISH_LIST,
+            path: MYPAGE.CROP_TRADE.WISH_LIST,
             element: <WishList />,
           },
         ],
       },
       {
-        path: WHISPERS.MAIN,
+        path: MYPAGE.WHISPERS.MAIN,
         element: <Whispers />,
         children: [
           {
-            path: WHISPERS.COMMENTED_POSTS,
+            path: MYPAGE.WHISPERS.COMMENTED_POSTS,
             element: <CommentedPosts />,
           },
           {
-            path: WHISPERS.LIKED_POSTS,
+            path: MYPAGE.WHISPERS.LIKED_POSTS,
             element: <LikedPosts />,
           },
           {
-            path: WHISPERS.WRITTEN_POSTS,
+            path: MYPAGE.WHISPERS.WRITTEN_POSTS,
             element: <WrittenPosts />,
           },
         ],
       },
       {
-        path: PATH.COMMUNITY.MAIN,
+        path: COMMUNITY.MAIN,
         element: <CommunityMain />,
       },
       {
-        path: PATH.COMMUNITY.DETAIL,
+        path: COMMUNITY.DETAIL,
         element: <CommunityDetail />,
       },
       {
-        path: PATH.COMMUNITY.CREATE,
+        path: COMMUNITY.CREATE,
         element: <CommunityEdit />,
       },
       {
-        path: PATH.CHAT.MAIN,
+        path: CHAT.MAIN,
         element: <Chat />,
         children: [
           {
@@ -174,10 +175,23 @@ const router = createBrowserRouter([
             element: <StartContent />,
           },
           {
-            path: PATH.CHAT.ROOM,
+            path: CHAT.ROOM,
             element: <ChatContent />,
           },
         ],
+      },
+    ],
+  },
+  {
+    element: <HiddenHeaderLayout />,
+    children: [
+      {
+        path: MAP.CREATE_GARDEN,
+        element: <GardenEdit />,
+      },
+      {
+        path: MAP.CREATE_MY_GARDEN,
+        element: <MyGardenEdit />,
       },
     ],
   },

@@ -2,6 +2,7 @@ import { Flex, FlexProps, Input, Text } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { AvatarComponent } from '@/components';
 import { DUMMY_MY_INFO } from '@/data/dummyData';
+import useLoginStore from '@/stores/useLoginStore';
 
 interface CommentInputProps extends FlexProps {
   commentId?: number;
@@ -17,6 +18,8 @@ const CommentInput = ({
 }: CommentInputProps) => {
   const [focus, setFocus] = useState(false);
   const commentRef = useRef<HTMLInputElement>(null);
+
+  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
 
   // TODO: 등록 성공해야 빈 값 되도록 변경
   return (
@@ -52,14 +55,20 @@ const CommentInput = ({
             }
           }}
           autoFocus={autoFocus}
+          disabled={!isLoggedIn}
+          placeholder={
+            isLoggedIn ? undefined : '로그인 후 댓글을 작성할 수 있습니다.'
+          }
         />
         <Text
           fontSize={{ mobile: '14px', tablet: '16px' }}
           fontWeight={'medium'}
           color={'gray.400'}
           flexShrink={0}
-          cursor={'pointer'}
+          cursor={isLoggedIn ? 'pointer' : 'not-allowed'}
           onClick={() => {
+            if (!isLoggedIn) return;
+
             handleSubmitComment(commentRef.current?.value ?? '', commentId);
             commentRef.current!.value = '';
           }}

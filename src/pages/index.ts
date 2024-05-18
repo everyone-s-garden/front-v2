@@ -24,3 +24,6 @@ export { default as CommunityEdit } from './Community/CommunityEdit/CommunityEdi
 export { default as Chat } from './Chat/Chat';
 export { default as StartContent } from './Chat/ChatContent/StartContent';
 export { default as ChatContent } from './Chat/ChatContent/ChatContent';
+export { default as Redirection } from './Redirection/Redirection';
+export { default as Login } from './Login/Login';
+export { default as Map } from './Map/Map';

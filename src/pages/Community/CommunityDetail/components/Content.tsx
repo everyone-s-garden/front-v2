@@ -46,6 +46,16 @@ const Content = () => {
           maxW={988}
           w={'calc(100% + 40px)'}
           m={{ mobile: '20px 0 20px -20px', tablet: '26px auto 0 auto' }}
+          __css={{
+            '.slick-slide img': {
+              objectFit: 'scale-down',
+              maxH: '600px',
+            },
+            '.slick-track': {
+              display: 'flex',
+              alignItems: 'center',
+            },
+          }}
         >
           <ImageSlider arrowStyle="circle" numberOfSlides={images.length}>
             {images.map((image) => (
@@ -56,7 +66,6 @@ const Content = () => {
       )}
 
       <Box
-        fontWeight={'medium'}
         mt={{ mobile: '20px', tablet: '24px' }}
         mb={{ mobile: '28px', tablet: '50px' }}
         dangerouslySetInnerHTML={{ __html: content }}
@@ -68,15 +77,15 @@ const Content = () => {
             textAlign: 'center',
           },
           fontWeight: 'medium',
-          'h1 *': {
+          h1: {
             fontSize: '20px',
             fontWeight: 'bold',
           },
-          'h2 *': {
+          h2: {
             fontSize: '18px',
             fontWeight: 'semiBold',
           },
-          'h3 *': {
+          h3: {
             fontSize: '14px',
             fontWeight: 'medium',
           },

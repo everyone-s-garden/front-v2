@@ -18,7 +18,10 @@ const Layout = () => {
       </Box>
       <Box
         overflow={'auto'}
-        h={{ mobile: 'calc(100svh - 100px)', tablet: 'calc(100svh - 108px)' }}
+        h={{
+          mobile: 'calc(100svh - 100px)',
+          tablet: 'calc(100svh - 108px)',
+        }}
       >
         <Outlet />
       </Box>

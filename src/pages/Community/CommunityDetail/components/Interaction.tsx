@@ -6,7 +6,7 @@ interface InteractionProps extends BoxProps {
   likeCount: number;
   commentCount: number;
   isLikeClick: boolean;
-  handleClickLikePost: () => void;
+  handleClickLikePost: (isLike: boolean) => void;
   handleClickComment: () => void;
 }
 
@@ -20,7 +20,7 @@ const Interaction = ({
 }: InteractionProps) => {
   const handleClickShare = useCallback(() => {
     if (!navigator.canShare()) {
-      alert('이 브라우저에서는 공유 기능을 지원하지 않습니다.');
+      alert('준비 중인 기능입니다.');
 
       return;
     }
@@ -72,7 +72,7 @@ const Interaction = ({
           variant={'unstyled'}
           display={'flex'}
           shadow={'md'}
-          onClick={handleClickLikePost}
+          onClick={() => handleClickLikePost(isLikeClick)}
         />
         <Text fontSize={'12px'} fontWeight={'medium'} color={'sub'} minW={2}>
           {likeCount}

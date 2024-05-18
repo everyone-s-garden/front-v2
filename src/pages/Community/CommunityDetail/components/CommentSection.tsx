@@ -11,7 +11,7 @@ import { useGetComments, useGetPost } from '@/services/whisper/query';
 import { useWhisperStore } from '@/stores/whisperStore';
 
 interface CommentSectionProps extends BoxProps {
-  handleClickLikeComment: (commentId: number) => void;
+  handleClickLikeComment: (isLike: boolean, commentId: number) => void;
   handleSubmitComment: (content: string, parentCommentId?: number) => void;
 }
 

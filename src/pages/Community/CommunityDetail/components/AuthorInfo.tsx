@@ -5,11 +5,12 @@ import { User } from '../../types';
 
 const AuthorInfo = ({ userId, profile, name, memberMannerGrade }: User) => {
   const handleClickUser = () => {
-    alert(`유저 ${userId} 프로필 클릭`);
+    userId;
+    alert(`준비 중인 기능입니다.`);
   };
 
   const handleClickGrade = () => {
-    alert('등급 안내 버튼 클릭');
+    alert('준비 중인 기능입니다.');
   };
 
   return (
