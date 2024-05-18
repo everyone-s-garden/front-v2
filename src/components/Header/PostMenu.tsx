@@ -6,11 +6,27 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PlusIcon } from '@/assets/icons';
 import { postOptions } from './constants';
 
-const PostMenu = () => {
+interface PostMenuProps {
+  loggedIn?: boolean;
+}
+
+const PostMenu = ({ loggedIn = false }: PostMenuProps) => {
+  const navigate = useNavigate();
+
+  const handleClickPostButton = (path: string) => {
+    if (!loggedIn) {
+      alert('로그인이 필요합니다.');
+
+      return;
+    }
+
+    navigate(path);
+  };
+
   return (
     <Menu>
       <MenuButton
@@ -41,8 +57,6 @@ const PostMenu = () => {
         {postOptions.map(({ title, description, link }) => (
           <MenuItem
             key={link}
-            as={ReactRouterLink}
-            to={link}
             _notLast={{
               borderBottom: '1px solid',
               borderColor: 'gray.200',
@@ -59,6 +73,7 @@ const PostMenu = () => {
             alignItems="flex-start"
             px="20px"
             gap="8px"
+            onClick={() => handleClickPostButton(link)}
           >
             <Text fontWeight="medium">{title}</Text>
             <Text fontSize={12} color="gray.700">
