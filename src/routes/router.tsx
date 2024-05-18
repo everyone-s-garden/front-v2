@@ -21,12 +21,17 @@ import {
   WishList,
   WrittenPosts,
   CommunityDetail,
+  Chat,
+  ChatContent,
   CommunityEdit,
   CommunityMain,
+  StartContent,
 } from '@/pages';
 import Layout from './Layout';
 import { PATH } from './constants';
+import Login from '@/pages/Login/Login';
 import Map from '@/pages/Map/Map';
+import Redirection from '@/pages/Redirection/Redirection';
 
 const { NEARBY_GARDENS_INFO, CROP_TRADE, WHISPERS, GARDEN_MANAGEMENT } =
   PATH.MYPAGE;
@@ -42,6 +47,18 @@ const router = createBrowserRouter([
       {
         path: PATH.ERROR,
         element: <div>에러</div>,
+      },
+      {
+        path: PATH.LOGIN.MAIN,
+        element: <Login />,
+      },
+      {
+        path: PATH.LOGIN.REDIRECT_URI_KAKAO,
+        element: <Redirection type="kakao" />,
+      },
+      {
+        path: PATH.LOGIN.REDIRECT_URI_NAVER,
+        element: <Redirection type="naver" />,
       },
       {
         path: PATH.MAP.MAIN,
@@ -142,6 +159,20 @@ const router = createBrowserRouter([
       {
         path: PATH.COMMUNITY.CREATE,
         element: <CommunityEdit />,
+      },
+      {
+        path: PATH.CHAT.MAIN,
+        element: <Chat />,
+        children: [
+          {
+            index: true,
+            element: <StartContent />,
+          },
+          {
+            path: PATH.CHAT.ROOM,
+            element: <ChatContent />,
+          },
+        ],
       },
     ],
   },

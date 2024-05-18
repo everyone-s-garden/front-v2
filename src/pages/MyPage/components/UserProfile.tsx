@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { AvatarComponent, TagComponent } from '@/components';
-import { CeedIcon, ShareIcon } from '@/assets/icons';
+import { SeedIcon, ShareIcon } from '@/assets/icons';
 
 // interface UserProfileProps {}
 
@@ -41,7 +41,7 @@ const UserProfile = () => {
         py="7px"
       >
         <Box mr="12px" w="37.998px" h="36.001px">
-          <CeedIcon />
+          <SeedIcon />
         </Box>
         <Text color="white" fontWeight="semiBold">
           씨앗 등급

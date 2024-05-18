@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://every-garden.kro.kr/:path*"
+    },
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}

@@ -1,6 +1,10 @@
 export const PATH = {
   MAIN: '/',
-  LOGIN: '/login',
+  LOGIN: {
+    MAIN: '/login',
+    REDIRECT_URI_KAKAO: '/login/oauth2/kakao',
+    REDIRECT_URI_NAVER: '/login/oauth2/naver',
+  },
   ERROR: '*',
   COMMUNITY: {
     MAIN: '/community',
@@ -39,4 +43,8 @@ export const PATH = {
     },
   },
   SETTINGS: '/settings',
+  CHAT: {
+    MAIN: '/chat',
+    ROOM: '/chat/:id',
+  },
 };

@@ -13,7 +13,7 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
-import { CeedIcon } from '@/assets/icons';
+import { SeedIcon } from '@/assets/icons';
 import {
   cropTradeRoute,
   gardenManagementRoute,
@@ -125,6 +125,7 @@ const MyPage = () => {
         ml="auto"
         mr="auto"
         px={{ mobile: '20px', tablet: '0px' }}
+        pb={{ mobile: '0px', tablet: '120px' }}
       >
         <Flex
           w="full"
@@ -168,7 +169,7 @@ const MyPage = () => {
                 씨앗 등급
               </Text>
               <Box w="20px">
-                <CeedIcon />
+                <SeedIcon />
               </Box>
             </Flex>
             <Text color="orange.500" fontSize="10px">
