@@ -8,7 +8,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import { CloseIcon } from '@/assets/icons';
+import { CloseSecondaryIcon } from '@/assets/icons';
 import { MapGardenNoImg } from '@/assets/images';
 
 interface MapSliderModalProps {
@@ -38,7 +38,7 @@ const MobileMapSlider = ({ images, isOpen, onClose }: MapSliderModalProps) => {
       <ModalContent maxWidth="fit-content" h="287px">
         <Icon
           onClick={onClose}
-          as={CloseIcon}
+          as={CloseSecondaryIcon}
           w="28px"
           h="28px"
           fill="white"
