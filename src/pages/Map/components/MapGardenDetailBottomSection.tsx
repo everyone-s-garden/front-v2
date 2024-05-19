@@ -43,6 +43,10 @@ const MapGardenDetailBottomSection = ({
   const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
 
   useEffect(() => {
+    setLiked(isGardenLiked);
+  }, [isGardenLiked]);
+
+  useEffect(() => {
     const userAgent = navigator.userAgent;
 
     const isMobile =
