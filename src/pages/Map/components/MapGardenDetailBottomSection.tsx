@@ -7,6 +7,7 @@ import {
   useDisclosure,
   chakra,
   Link,
+  Spinner,
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -22,14 +23,18 @@ import { useLikeGarden } from '@/services/gardens/mutations';
 
 interface MapGardenDetailBottomSectionProps {
   garden?: GardenDetail;
+  refetch: () => void;
 }
 
 const CopyBox = chakra(motion.div);
 
 const MapGardenDetailBottomSection = ({
   garden,
+  refetch,
 }: MapGardenDetailBottomSectionProps) => {
-  const [liked, setLiked] = useState(garden?.isLiked);
+  const [loading, setLoading] = useState<boolean | undefined>(undefined);
+  const isGardenLiked = garden?.gardenLikeId === 0 ? false : true;
+  const [liked, setLiked] = useState(isGardenLiked);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [copied, setCopied] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
@@ -69,8 +74,18 @@ const MapGardenDetailBottomSection = ({
   };
 
   const handleClickLike = () => {
-    if (liked) mutateLikeGarden('cancel');
-    else mutateLikeGarden('like');
+    setLoading(true);
+    if (liked)
+      mutateLikeGarden({ type: 'cancel', gardenLikeId: garden?.gardenLikeId });
+    else mutateLikeGarden({ type: 'like', gardenLikeId: garden?.gardenLikeId });
+
+    setTimeout(() => {
+      refetch();
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 150);
+    }, 250);
   };
 
   return (
@@ -89,6 +104,8 @@ const MapGardenDetailBottomSection = ({
 
       <Flex w="fit-content" margin="0 auto" gap="14px">
         <Button
+          w="106px"
+          h="48px"
           bgColor="white"
           border="1px solid"
           borderColor={liked ? 'orange.500' : 'gray.100'}
@@ -96,18 +113,30 @@ const MapGardenDetailBottomSection = ({
           _hover={{}}
           _active={{}}
           onClick={handleClickLike}
+          isLoading={loading}
+          isDisabled={loading}
         >
-          <Icon
-            w="24px"
-            h="24px"
-            as={HeartIcon}
-            fill={liked ? 'orange.500' : 'gray.300'}
-            marginRight="6px"
-          />
-          <Text color={liked ? 'orange.500' : 'gray.300'} fontWeight="medium">
-            찜하기
-          </Text>
+          {loading ? (
+            <Spinner size="sm" emptyColor="gray.200" color="green.500" />
+          ) : (
+            <>
+              <Icon
+                w="24px"
+                h="24px"
+                as={HeartIcon}
+                fill={liked ? 'orange.500' : 'gray.300'}
+                marginRight="6px"
+              />
+              <Text
+                color={liked ? 'orange.500' : 'gray.300'}
+                fontWeight="medium"
+              >
+                찜하기
+              </Text>
+            </>
+          )}
         </Button>
+
         <Button
           color="white"
           padding="14px 52px"

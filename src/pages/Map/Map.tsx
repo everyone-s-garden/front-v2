@@ -10,7 +10,7 @@ const Map = () => {
   const [map, setMap] = useState<naver.maps.Map | null>(null);
 
   return (
-    <Box>
+    <Box overflow="hidden">
       <MapHeader
         {...{ map, mapHeaderOptionsArray, headerOption, setHeaderOption }}
       />

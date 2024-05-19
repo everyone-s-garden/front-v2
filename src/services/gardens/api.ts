@@ -27,9 +27,11 @@ const gardensAPI = {
     return response.data;
   },
 
-  likeGarden: async (type: 'like' | 'cancel', id: number | undefined) => {
-    if (!id) return;
-
+  likeGarden: async (
+    type: 'like' | 'cancel',
+    id: number | undefined,
+    gardenLikeId: number | undefined,
+  ) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -37,16 +39,12 @@ const gardensAPI = {
     };
 
     if (type === 'like') {
-      const response = await apiClient.post(
-        '/v2/gardens/likes',
-        { gardenId: id },
-        config,
-      );
+      const response = await apiClient.post(`/v2/gardens/${id}/likes`, config);
 
       return response.data;
     } else {
       const response = await apiClient.delete(
-        `/v2/gardens/likes/${id}`,
+        `/v2/gardens/likes/${gardenLikeId}`,
         config,
       );
 

@@ -29,7 +29,7 @@ interface MapGardenDetailProps {
 
 const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
   const { gardenId } = useMapGardenDetailIdStore();
-  const { data } = useGetIndividualGarden(gardenId);
+  const { data, refetch } = useGetIndividualGarden(gardenId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dragging, setDragging] = useState(false);
   const garden: GardenDetail = data;
@@ -294,7 +294,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
             <Text fontWeight="regular">{garden?.gardenDescription}</Text>
           </Flex>
         </Flex>
-        <MapGardenDetailBottomSection garden={garden} />
+        <MapGardenDetailBottomSection garden={garden} refetch={refetch} />
       </Box>
 
       <Show above="tablet">

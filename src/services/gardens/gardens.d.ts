@@ -31,7 +31,7 @@ interface GardenDetail {
   gardenStatus: 'ACTIVE' | 'INACTIVE';
   gardenType: 'PRIVATE' | 'PUBLIC';
   images: (string | null)[];
-  isLiked: boolean;
+  gardenLikeId: number;
   latitude: number;
   longitude: number;
   price: string;
