@@ -19,6 +19,7 @@ import { useImageStore } from '@/stores/imageStore';
 interface ImageSelectorProps {
   breakPoints: Record<number, { slidesPerView: number; spaceBetween?: number }>;
   color: 'green' | 'orange';
+  arrowUse: boolean;
   size: {
     mobile: number;
     tablet: number;
@@ -30,6 +31,7 @@ const ImageSelector = ({
   breakPoints,
   color = 'green',
   size,
+  arrowUse = true,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);

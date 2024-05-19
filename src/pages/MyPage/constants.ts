@@ -151,5 +151,14 @@ export const settingsRoute = [
   },
 ];
 
+export const userFeedBackItem = [
+  { key: 'garden-1', value: 1, label: '텃밭 분양' },
+  { key: 'croptrade-2', value: 2, label: '작물 판매' },
+  { key: 'whisper-3', value: 3, label: '속닥속닥' },
+  { key: 'chat-4', value: 4, label: '채팅관련' },
+  { key: 'mypage-5', value: 5, label: '마이페이지' },
+  { key: 'etc-6', value: 6, label: '기타' },
+];
+
 export const TAB_GAP = 106;
 export const TAB_PADDING_VERTICAL = 13;

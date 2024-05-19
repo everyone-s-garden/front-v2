@@ -45,3 +45,4 @@ export { default as LoginLogo } from './login-logo.svg?react';
 export { default as ParagraphIcon } from './paragraph.svg?react';
 export { default as PostIcon } from './post.svg?react';
 export { default as ETCIcon } from './etc.svg?react';
+export { default as UserFeedBackSmileIcon } from './mypage/user-feed-back-smile.svg?react';
