@@ -20,7 +20,7 @@ interface WhisperProps {
 
 const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
   // eslint-disable-next-line
-  const [report, setReport] = useState(false);
+  const [report] = useState(false);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const handleCheckbox = (idx: number) => {
     setCheckedItems((prev) => ({
