@@ -36,6 +36,8 @@ import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
 
+import MapReport from '@/pages/Map/MapReport/MapReport';
+
 const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS } = PATH;
 
 const router = createBrowserRouter([
@@ -61,6 +63,94 @@ const router = createBrowserRouter([
       {
         path: MAP.MAIN,
         element: <Map />,
+      },
+      {
+        path: PATH.MAP.REPORT,
+        element: <MapReport />,
+      },
+      {
+        path: PATH.MAP.CREATE_GARDEN,
+        element: <GardenEdit />,
+      },
+      {
+        path: PATH.MAP.CREATE_MY_GARDEN,
+        element: <MyGardenEdit />,
+      },
+      {
+        path: PATH.MYPAGE.MAIN,
+        element: <MyPage />,
+      },
+      {
+        path: SETTINGS,
+        element: <Settings />,
+      },
+      {
+        path: MYPAGE.NEARBY_GARDENS_INFO.MAIN,
+        element: <NearByGardensInfo />,
+        children: [
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
+            element: <FavoritedGardens />,
+          },
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.MY_POSTS,
+            element: <MyPost />,
+          },
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
+            element: <RecentlyViewedGardens />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+        element: <GardenManagement />,
+        children: [
+          {
+            path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+            element: <MyGarden />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.CROP_TRADE.MAIN,
+        element: <CropTrade />,
+        children: [
+          {
+            path: MYPAGE.CROP_TRADE.PURCHASE_HISTORY,
+            element: <PurchaseHistory />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.SALES_HISTORY,
+            element: <SalesHistory />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.VERIFY_LOCATION,
+            element: <VerifyLocation />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.WISH_LIST,
+            element: <WishList />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.WHISPERS.MAIN,
+        element: <Whispers />,
+        children: [
+          {
+            path: MYPAGE.WHISPERS.COMMENTED_POSTS,
+            element: <CommentedPosts />,
+          },
+          {
+            path: MYPAGE.WHISPERS.LIKED_POSTS,
+            element: <LikedPosts />,
+          },
+          {
+            path: MYPAGE.WHISPERS.WRITTEN_POSTS,
+            element: <WrittenPosts />,
+          },
+        ],
       },
       {
         path: COMMUNITY.MAIN,

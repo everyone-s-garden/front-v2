@@ -1,50 +1,81 @@
-import { Box, Flex, Image, Show, Text, chakra } from '@chakra-ui/react';
+import { Icon, Show, chakra } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { MapNoGardenImg } from '@/assets/images';
+import { Dispatch, SetStateAction } from 'react';
+import { MapArrowBottomIcon, MapArrowLeftIcon } from '@/assets/icons';
+import MapGardens from './MapGardens';
+import MapNoGarden from './MapNoGarden';
 
+const Button = chakra(motion.button);
 const GardenContainer = chakra(motion.div);
 
-interface GardensContainer {
+interface GardensContainerProps {
+  gardens: Garden[];
   showGardens: boolean;
+  setShowGardens: Dispatch<SetStateAction<boolean>>;
+  showGardenDetail: boolean;
+  setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
 }
 
-const GardensContainer = ({ showGardens }: GardensContainer) => {
+const GardensContainer = ({
+  gardens,
+  showGardens,
+  setShowGardens,
+  showGardenDetail,
+  setShowGardenDetail,
+}: GardensContainerProps) => {
   return (
     <>
       <Show above="tablet">
         <GardenContainer
-          w="379px"
+          w="378px"
           position="absolute"
-          zIndex="1"
+          zIndex="3"
           h="100%"
           right="0"
           bgColor="white"
           borderWidth="1px 0 0 1px"
           borderColor="gray.200"
-          initial={{ x: 379 }}
+          initial={{
+            x: showGardens ? 0 : 379,
+          }}
           animate={{
             x: showGardens ? 0 : 379,
             transition: { type: 'tween' },
           }}
         >
-          <Flex
-            flexDir="column"
-            justifyContent="center"
+          {gardens?.length === 0 ? (
+            <MapNoGarden />
+          ) : (
+            <MapGardens
+              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+            />
+          )}
+          <Button
+            position="absolute"
+            left="-22px"
+            top="50%"
+            transform="translateY(-50%)"
+            bgColor="white"
+            cursor="pointer"
+            minW="21px"
+            h="55px"
+            display="flex"
             alignItems="center"
-            gap="16px"
-            h="100%"
+            justifyContent="center"
+            sx={{
+              borderRadius: '5px 0 0 5px',
+              borderWidth: '1px 0 1px 1px',
+              borderColor: 'gray.200',
+              borderStyle: 'solid',
+            }}
+            onClick={() => setShowGardens(!showGardens)}
           >
-            <Image src={MapNoGardenImg} w="66px" h="66px" />
-
-            <Box>
-              <Text fontWeight="semibold" fontSize="18px" color="#80AC49">
-                해당 지역에는 텃밭이 없어요!
-              </Text>
-              <Text fontWeight="regular" fontSize="16px" color="#80AC49">
-                지도를 다른 곳으로 움직여보세요.
-              </Text>
-            </Box>
-          </Flex>
+            {showGardens ? (
+              <Icon as={MapArrowLeftIcon} transform="rotate(180deg)" />
+            ) : (
+              <Icon as={MapArrowLeftIcon} />
+            )}
+          </Button>
         </GardenContainer>
       </Show>
 
@@ -52,37 +83,52 @@ const GardensContainer = ({ showGardens }: GardensContainer) => {
         <GardenContainer
           w="100%"
           position="absolute"
-          zIndex="1"
-          h="550"
+          zIndex="3"
+          h="475px"
           bottom="0"
           bgColor="white"
           borderTop="1px"
           borderColor="gray.200"
           borderRadius="17px 17px 0 0"
-          initial={{ y: 520 }}
+          initial={{ y: showGardens ? 0 : 455 }}
           animate={{
-            y: showGardens ? 0 : 520,
+            y: showGardens ? 0 : 455,
             transition: { type: 'tween' },
           }}
         >
-          <Flex
-            flexDir="column"
+          {gardens?.length === 0 ? (
+            <MapNoGarden />
+          ) : (
+            <MapGardens
+              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+            />
+          )}
+          <Button
+            position="absolute"
+            display="flex"
             justifyContent="center"
             alignItems="center"
-            gap="16px"
-            h="100%"
+            w="55px"
+            h="21px"
+            left="50%"
+            transform="translateX(-50%)"
+            top="-22px"
+            bgColor="white"
+            sx={{
+              borderRadius: '5px 5px 0 0',
+              borderWidth: '1px 1px 0 1px',
+              borderColor: 'gray.200',
+              borderStyle: 'solid',
+            }}
+            cursor="pointer"
+            onClick={() => setShowGardens(!showGardens)}
           >
-            <Image src={MapNoGardenImg} w="66px" h="66px" />
-
-            <Box>
-              <Text fontWeight="semibold" fontSize="18px" color="#80AC49">
-                해당 지역에는 텃밭이 없어요!
-              </Text>
-              <Text fontWeight="regular" fontSize="16px" color="#80AC49">
-                지도를 다른 곳으로 움직여보세요.
-              </Text>
-            </Box>
-          </Flex>
+            {showGardens ? (
+              <Icon as={MapArrowBottomIcon} />
+            ) : (
+              <Icon as={MapArrowBottomIcon} transform="rotate(180deg)" />
+            )}
+          </Button>
         </GardenContainer>
       </Show>
     </>

@@ -14,7 +14,9 @@ const BottomMenu = ({
   return (
     <Drawer placement="bottom" isOpen={isOpen} onClose={onClose}>
       <DrawerOverlay />
-      <DrawerContent borderTopRadius="20px">{children}</DrawerContent>
+      <DrawerContent overflow="hidden" borderTopRadius="20px">
+        {children}
+      </DrawerContent>
     </Drawer>
   );
 };
