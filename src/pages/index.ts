@@ -23,7 +23,7 @@ export { default as CommunityDetail } from './Community/CommunityDetail/Communit
 export { default as CommunityEdit } from './Community/CommunityEdit/CommunityEdit';
 export { default as Chat } from './Chat/Chat';
 export { default as StartContent } from './Chat/ChatContent/StartContent';
-export { default as ChatContent } from './Chat/ChatContent/ChatContent';
+export { default as ChatContents } from './Chat/ChatContent/ChatContents';
 export { default as Redirection } from './Redirection/Redirection';
 export { default as Login } from './Login/Login';
 export { default as Map } from './Map/Map';

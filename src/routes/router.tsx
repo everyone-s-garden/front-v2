@@ -22,7 +22,7 @@ import {
   WrittenPosts,
   CommunityDetail,
   Chat,
-  ChatContent,
+  ChatContents,
   CommunityEdit,
   CommunityMain,
   StartContent,
@@ -186,7 +186,7 @@ const router = createBrowserRouter([
               },
               {
                 path: CHAT.ROOM,
-                element: <ChatContent />,
+                element: <ChatContents />,
               },
             ],
           },

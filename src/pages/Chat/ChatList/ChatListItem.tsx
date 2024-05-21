@@ -1,7 +1,17 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
+import { ChatRoom } from '@/services/chat/type';
 
-const ChatListItem = () => {
+const ChatListItem = ({ chat }: { chat: ChatRoom }) => {
+  const navigate = useNavigate();
+  const { partnerInfo, recentContents, postInfo, chatRoomId } = chat;
+  const { imageUrl, nickName } = partnerInfo;
+
+  const handleEnterChatRoom = () => {
+    navigate(`/chat/${chatRoomId}`);
+  };
+
   return (
     <Flex
       as="li"
@@ -15,6 +25,7 @@ const ChatListItem = () => {
       rounded={{ mobile: 'none', tablet: '10px' }}
       borderColor="gray.200"
       _hover={{ backgroundColor: 'orange.300' }}
+      onClick={handleEnterChatRoom}
     >
       <Flex alignItems="center" gap="14px">
         <AvatarComponent
@@ -22,11 +33,12 @@ const ChatListItem = () => {
           width="56px"
           height="56px"
           flexShrink={0}
+          src={imageUrl}
         />
         <Box>
           <Flex alignItems="center" gap="6px">
             <Text fontWeight="700" fontSize="18px">
-              nickname
+              {nickName}
             </Text>
             <Text fontWeight="regular" fontSize="14px">
               씨앗 · 1분전
@@ -38,11 +50,17 @@ const ChatListItem = () => {
             overflow="hidden"
             display="-webkit-box"
           >
-            내용
+            {recentContents}
           </Text>
         </Box>
       </Flex>
-      <Image rounded="10px" w="72px" h="72px" flexShrink={0} />
+      <Image
+        rounded="10px"
+        w="72px"
+        h="72px"
+        flexShrink={0}
+        src={postInfo.images[0]}
+      />
     </Flex>
   );
 };
