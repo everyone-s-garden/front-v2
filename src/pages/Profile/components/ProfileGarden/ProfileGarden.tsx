@@ -6,10 +6,10 @@ import ProfileGarendFooter from './ProfileGarendFooter';
 const ProfileGarden = () => {
   return (
     <Flex
-      mb={{ tablet: '439px' }}
+      mb={{ desktop: '439px' }}
       flexDir="column"
-      ml={{ mobile: '', tablet: '141px' }}
-      w={{ mobile: 'full', tablet: '678px' }}
+      ml={{ mobile: '', desktop: '141px' }}
+      w={{ mobile: 'full', desktop: '678px' }}
     >
       <Box
         w="fit-content"
@@ -20,7 +20,7 @@ const ProfileGarden = () => {
         color="white"
         fontWeight="semiBold"
         mb="14px"
-        display={{ mobile: 'none', tablet: 'block' }}
+        display={{ mobile: 'none', desktop: 'block' }}
       >
         나의 텃밭
       </Box>
@@ -28,9 +28,9 @@ const ProfileGarden = () => {
       <ProfileGarendFooter />
       <Text
         color="sub"
-        fontSize={{ mobile: '16px', tablet: '18px' }}
-        mt={{ mobile: '24px', tablet: '31px' }}
-        mb={{ mobile: '50px', tablet: '70px' }}
+        fontSize={{ mobile: '16px', desktop: '18px' }}
+        mt={{ mobile: '24px', desktop: '31px' }}
+        mb={{ mobile: '50px', desktop: '70px' }}
       >
         안녕하세요. 저희는 아빠, 엄마, 13살 된 딸아이 그리고 삽살개 한 마리와
         고양이 두 마리가 함께 사는 가족입니다 : ) 텃밭을 만들고 시작한지는

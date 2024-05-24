@@ -10,7 +10,7 @@ const ProfileCardFooter = () => {
       alignItems="center"
       mx="auto"
       bgColor="orange.500"
-      h={{ mobile: '48px', tablet: '56px' }}
+      h={{ mobile: '48px', desktop: '56px' }}
       pos="absolute"
       bottom="0"
     >
