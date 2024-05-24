@@ -37,8 +37,10 @@ import Layout from './Layout';
 import { PATH } from './constants';
 
 import MapReport from '@/pages/Map/MapReport/MapReport';
+import Profile from '@/pages/Profile/Profile';
 
-const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS } = PATH;
+const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, PROFILE } =
+  PATH;
 
 const router = createBrowserRouter([
   {
@@ -159,6 +161,10 @@ const router = createBrowserRouter([
       {
         path: COMMUNITY.DETAIL,
         element: <CommunityDetail />,
+      },
+      {
+        path: PROFILE,
+        element: <Profile />,
       },
 
       // NOTE: 로그인하지 않은 사용자만 접근 가능한 페이지

@@ -48,4 +48,5 @@ export const PATH = {
     MAIN: '/chat',
     ROOM: '/chat/:id',
   },
+  PROFILE: '/profile/:userId',
 };
