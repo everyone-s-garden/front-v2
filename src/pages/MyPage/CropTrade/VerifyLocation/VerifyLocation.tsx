@@ -67,7 +67,7 @@ const VerifyLocation = () => {
         mb={{ mobile: '40px', tablet: '80px' }}
         _hover={{ bg: 'green.100' }}
       >
-        <LocationPrimaryIcon />
+        <LocationPrimaryIcon fill="#9EC646" />
         <Text
           ml="8px"
           color="green.500"

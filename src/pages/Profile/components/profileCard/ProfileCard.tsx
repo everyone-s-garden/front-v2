@@ -14,7 +14,9 @@ const ProfileCard = () => {
       borderColor="orange.500"
       bgColor="orange.100"
       mt={{ mobile: '40px', tablet: '0px' }}
+      mb={{ mobile: '96px', tablet: '0px' }}
       overflow="hidden"
+      flexShrink="0"
     >
       <Icon
         as={ShareIcon}

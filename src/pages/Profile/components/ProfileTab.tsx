@@ -18,9 +18,11 @@ const ProfileTab = ({
 
   return (
     <Tabs
-      pos="relative"
+      pos={{ mobile: 'absolute', tablet: 'relative' }}
       overflowX="auto"
       display="flex"
+      w="full"
+      top={{ mobile: '240px', tablet: '0px' }}
       pb={{ mobile: '10px', tablet: '' }}
     >
       {profileTabs.map((tab, i) => (
