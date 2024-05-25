@@ -33,7 +33,7 @@ const UserFeedBack = () => {
   });
   const breakPoints = {
     320: { slidesPerView: 1, spaceBetween: 10 },
-    768: { slidesPerView: 2, spaceBetween: 20 },
+    768: { slidesPerView: 1, spaceBetween: 10 },
     1024: { slidesPerView: 3, spaceBetween: 30 },
   };
 
@@ -147,12 +147,7 @@ const UserFeedBack = () => {
             fontSize="14px"
             mb="20px"
           />
-          <ImageSelector
-            color="green"
-            breakPoints={breakPoints}
-            size={size}
-            arrowUse={false}
-          />
+          <ImageSelector color="green" breakPoints={breakPoints} size={size} />
         </Box>
       </Modal>
     </>
