@@ -15,7 +15,7 @@ import getRelativeTime from '@/utils/getRelativeTime';
 
 interface CommentProps extends CommentType {
   subComments?: CommentType[];
-  handleClickLikeComment: (commentId: number) => void;
+  handleClickLikeComment: (isLike: boolean, commentId: number) => void;
   handleSubmitComment: (content: string, parentCommentId?: number) => void;
 }
 
@@ -34,7 +34,7 @@ const Comment = ({
   const [subCommentView, setSubCommentView] = useState(false);
 
   const handleClickReport = () => {
-    alert(`댓글 ${commentId} 신고하기`);
+    alert(`준비 중인 기능입니다.`);
   };
 
   return (
@@ -77,7 +77,7 @@ const Comment = ({
             variant={'unstyled'}
             display={'flex'}
             minW={'20px'}
-            onClick={() => handleClickLikeComment(commentId)}
+            onClick={() => handleClickLikeComment(isLikeClick, commentId)}
           />
           <Text
             fontSize={'14px'}

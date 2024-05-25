@@ -1,22 +1,37 @@
 import { Box, Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { MobileMapArrowIcon } from '@/assets/icons';
+import SearchRegionsList from './SearchRegionsList';
+import useDebounce from '@/hooks/useDebounce';
+import { useGetSearchRegions } from '@/services/regions/query';
+import useSearchRegionsInputValueStroe from '@/stores/useSearchRegionsInputValueStore';
 
 interface MobileMapHeaderProps {
+  map: naver.maps.Map | null;
   showOption: boolean;
   setShowOption: Dispatch<SetStateAction<boolean>>;
-  mobileHeaderOption: string;
-  mapHeaderOptions: string[];
-  setMobileHeaderOption: Dispatch<SetStateAction<string>>;
+  headerOption: string;
+  mapHeaderOptionsArray: string[];
+  setHeaderOption: Dispatch<SetStateAction<string>>;
 }
 
 const MobileMapHeader = ({
+  map,
   showOption,
   setShowOption,
-  mobileHeaderOption,
-  mapHeaderOptions,
-  setMobileHeaderOption,
+  headerOption,
+  mapHeaderOptionsArray,
+  setHeaderOption,
 }: MobileMapHeaderProps) => {
+  const { searchRegionsInputValue, setSearchRegionsInputValue } =
+    useSearchRegionsInputValueStroe();
+  const debouncedValue = useDebounce(searchRegionsInputValue, 500);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  const { data } = useGetSearchRegions(debouncedValue);
+
+  const regions: SearchRegions[] = data?.locationSearchResponses;
+
   return (
     <Flex h="67px" gap="8px" alignItems="center" padding="20px">
       <Box position="relative">
@@ -36,7 +51,7 @@ const MobileMapHeader = ({
             setShowOption(!showOption);
           }}
         >
-          {mobileHeaderOption}
+          {headerOption}
           <Icon
             as={MobileMapArrowIcon}
             w="9px"
@@ -54,7 +69,7 @@ const MobileMapHeader = ({
             overflow="hidden"
             zIndex="1"
           >
-            {mapHeaderOptions.map((option, i) => (
+            {mapHeaderOptionsArray.map((option, i) => (
               <Text
                 padding="4px 16px"
                 color="green.700"
@@ -64,7 +79,7 @@ const MobileMapHeader = ({
                 cursor="pointer"
                 onClick={() => {
                   setShowOption(!showOption);
-                  setMobileHeaderOption(option);
+                  setHeaderOption(option);
                 }}
                 key={i}
               >
@@ -74,16 +89,31 @@ const MobileMapHeader = ({
           </Box>
         )}
       </Box>
-      <Input
-        w="calc(100% - 100px)"
-        variant="unstyled"
-        bgColor="gray.50"
-        border="none"
-        h="36px"
-        padding="0 12px"
-        fontSize="14px"
-        placeholder="지역명 검색"
-      />
+      <Box pos="relative" w="calc(100% - 100px)">
+        <Input
+          w="100%"
+          h="36px"
+          variant="unstyled"
+          bgColor="gray.50"
+          border="none"
+          padding="0 12px"
+          fontSize="14px"
+          placeholder="지역명 검색"
+          value={searchRegionsInputValue}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchRegionsInputValue(e.target.value)
+          }
+          onFocus={() => {
+            setIsInputFocused(true);
+          }}
+          onBlur={() => setIsInputFocused(false)}
+        />
+        <SearchRegionsList
+          map={map}
+          regions={regions}
+          isInputFocused={isInputFocused}
+        />
+      </Box>
     </Flex>
   );
 };

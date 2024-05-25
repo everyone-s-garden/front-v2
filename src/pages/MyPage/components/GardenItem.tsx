@@ -16,7 +16,7 @@ interface CardProps {
 
 const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
   // eslint-disable-next-line
-  const [report, setReport] = useState(false);
+  const [report] = useState(false);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const handleCheckbox = (idx: number) => {
     setCheckedItems((prev) => ({

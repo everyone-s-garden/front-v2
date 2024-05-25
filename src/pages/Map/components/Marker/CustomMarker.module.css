@@ -1,0 +1,47 @@
+@keyframes growAndFade {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.myMarker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #f97700;
+  border: 2px solid #fff;
+  animation: growAndFade 2s infinite;
+}
+
+.gardenMarker {
+  width: 40px;
+  height: 67px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  transition: all 0.5s;
+}
+
+.gardenMarker:hover {
+  transform: translateY(-4px);
+}
+
+.cluster_marker {
+  width: 120px;
+  height: 120px;
+  background-color: #9ec646;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  border-radius: 50%;
+  color: white;
+  font-size: 30px;
+  font-weight: 400;
+}
