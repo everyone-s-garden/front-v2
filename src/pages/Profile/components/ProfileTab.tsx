@@ -18,12 +18,18 @@ const ProfileTab = ({
 
   return (
     <Tabs
-      pos={{ mobile: 'absolute', desktop: 'relative' }}
+      pos={{ mobile: 'absolute', tablet: 'relative' }}
       overflowX="auto"
       display="flex"
+      gap={{ tablet: '80px' }}
       w="full"
-      top={{ mobile: '221px', desktop: '0px' }}
-      pb={{ mobile: '10px', desktop: '' }}
+      h={{ tablet: '52px' }}
+      justifyContent={{ tablet: 'center' }}
+      alignItems={{ tablet: 'center' }}
+      top={{ mobile: '221px', tablet: '0px' }}
+      pb={{ mobile: '10px', tablet: '0px' }}
+      borderY={{ tablet: '1px solid' }}
+      borderColor={{ tablet: 'gray.100' }}
     >
       {profileTabs.map((tab, i) => (
         <Tab
@@ -32,9 +38,9 @@ const ProfileTab = ({
           p={0}
           maxH="fit-content"
           color={tab === activeTab ? 'GrayText' : 'gray.200'}
-          fontWeight={{ mobile: 'semiBold', desktop: 'bold' }}
-          fontSize={{ mobile: '16px', desktop: '18px' }}
-          w={{ mobile: '25%', desktop: '' }}
+          fontWeight={{ mobile: 'semiBold', tablet: 'bold' }}
+          fontSize={{ mobile: '16px', tablet: '18px' }}
+          w={{ mobile: '25%', tablet: 'fit-content' }}
           textAlign="center"
           cursor="pointer"
         >
@@ -55,6 +61,7 @@ const ProfileTab = ({
         bottom="0px"
         bgColor="green.500"
         transition="left 0.5s ease"
+        display={{ mobile: 'block', tablet: 'none' }}
       />
     </Tabs>
   );

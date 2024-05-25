@@ -8,8 +8,8 @@ function ProfileGardenStatus() {
   return (
     <Flex
       pos="absolute"
-      top={{ mobile: '8px', desktop: '10px' }}
-      left={{ mobile: '8px', desktop: '10px' }}
+      top={{ mobile: '8px', tablet: '10px' }}
+      left={{ mobile: '8px', tablet: '10px' }}
       h="28px"
       p="7px"
       bgColor={gardenStatus !== gardenStatusArr[2] ? 'green.100' : 'white'}

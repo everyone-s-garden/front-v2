@@ -14,23 +14,23 @@ const ProfileIndividualSaleGarden = ({
     <Flex
       pos="relative"
       flexDir="column"
-      w={{ mobile: 'full', desktop: '230px' }}
-      h={{ mobile: '265px', desktop: '' }}
+      w={{ mobile: 'full', tablet: '230px' }}
+      h={{ mobile: '265px', tablet: '' }}
       gap="10px"
     >
       <ProfileGardenStatus />
       <Image src={image} borderRadius="10px" alt="" h="160px" />
       <Text
-        fontSize={{ mobile: '16px', desktop: '18px' }}
-        fontWeight={{ mobile: 'bold', desktop: 'semiBold' }}
+        fontSize={{ mobile: '16px', tablet: '18px' }}
+        fontWeight={{ mobile: 'bold', tablet: 'semiBold' }}
       >
         양주 공공텃밭
       </Text>
 
       <Text
-        fontSize={{ mobile: '14px', desktop: '16px' }}
-        color={{ mobile: 'sub', desktop: 'black' }}
-        mt={{ mobile: '-2px', desktop: '0px' }}
+        fontSize={{ mobile: '14px', tablet: '16px' }}
+        color={{ mobile: 'sub', tablet: 'black' }}
+        mt={{ mobile: '-2px', tablet: '0px' }}
       >
         평당 15,000원
       </Text>

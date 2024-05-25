@@ -12,8 +12,8 @@ const fakeImages = [
 
 const ProfileSaleGarden = () => {
   return (
-    <Box ml={{ desktop: '87px' }} mb={{ desktop: '438px' }}>
-      <Show below="desktop">
+    <Box ml={{ tablet: '87px' }} mb={{ tablet: '164px' }}>
+      <Show below="tablet">
         <Flex flexDir="column" gap="36px">
           {fakeImages.map((image, i) => (
             <ProfileIndividualSaleGarden image={image} key={i} />
@@ -21,7 +21,7 @@ const ProfileSaleGarden = () => {
         </Flex>
       </Show>
 
-      <Show above="desktop">
+      <Show above="tablet">
         <Grid
           gridTemplateColumns="1fr 1fr 1fr"
           gridRowGap="52px"
