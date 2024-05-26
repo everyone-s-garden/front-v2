@@ -1,6 +1,14 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 
-const MobileHeader = () => {
+interface MobileHeaderProps {
+  partnerNickname: string;
+  partnerMannerGrade: string;
+}
+
+const MobileHeader = ({
+  partnerNickname,
+  partnerMannerGrade,
+}: MobileHeaderProps) => {
   return (
     <Flex
       display={{ mobile: 'block', tablet: 'none' }}
@@ -11,10 +19,10 @@ const MobileHeader = () => {
       position="relative"
     >
       <Text fontSize="18px" fontWeight="semiBold">
-        nickname
+        {partnerNickname}
       </Text>
       <Text fontSize="14px" fontWeight="regular">
-        씨앗 · 1분전
+        {partnerMannerGrade}
       </Text>
       <Box
         position="absolute"

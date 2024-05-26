@@ -1,7 +1,10 @@
 import { Flex, Tab, TabIndicator, TabList, Tabs, Text } from '@chakra-ui/react';
 import ChatListItem from './ChatListItem';
+import { useGetGardenChatRooms } from '@/services/chat/query';
 
 const ChatList = () => {
+  const { data } = useGetGardenChatRooms();
+
   return (
     <Flex
       h="100%"
@@ -22,7 +25,14 @@ const ChatList = () => {
       >
         채팅
       </Text>
-      <Tabs position="relative" variant="unstyled" bg="white" h="62px">
+      <Tabs
+        position="relative"
+        variant="unstyled"
+        bg="white"
+        h="62px"
+        borderLeft="1px solid"
+        borderLeftColor="gray.100"
+      >
         <TabList
           h="100%"
           w="100%"
@@ -41,9 +51,9 @@ const ChatList = () => {
         padding={{ mobile: '0', tablet: '6px 7px' }}
         gap={{ mobile: '0', tablet: '6px' }}
       >
-        <ChatListItem />
-        <ChatListItem />
-        <ChatListItem />
+        {data?.responses.map((chat) => (
+          <ChatListItem key={chat.chatRoomId} chat={chat} />
+        ))}
       </Flex>
     </Flex>
   );

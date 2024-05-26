@@ -1,4 +1,5 @@
 import { Button, Flex, chakra, createIcon } from '@chakra-ui/react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 const PlusIcon = createIcon({
   displayName: 'PlusIcon',
@@ -13,7 +14,38 @@ const PlusIcon = createIcon({
   ),
 });
 
-const ContentInput = () => {
+interface ContentInputProps {
+  sendMessage: (message: string) => void;
+}
+
+const ContentInput = ({ sendMessage }: ContentInputProps) => {
+  const [message, setMessage] = useState<string>('');
+
+  const submitMessage = (message: string) => {
+    if (!message) return;
+    sendMessage(message);
+    setMessage('');
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitMessage(message);
+  };
+
+  const handleMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(event.target.value);
+  };
+
+  // const handleTextAreaKeyDown = (
+  //   event: React.KeyboardEvent<HTMLTextAreaElement>,
+  // ) => {
+  //   if (event.key === 'Enter' && !event.shiftKey) {
+  //     event.preventDefault();
+  //     if (!message.trim()) return;
+  //     submitMessage(message);
+  //   }
+  // };
+
   return (
     <Flex
       h={{ mobile: '80px', tablet: '155px' }}
@@ -43,7 +75,13 @@ const ContentInput = () => {
           stroke="black"
         />
       </chakra.button>
-      <Flex as="form" w="100%" alignItems="center" gap="16px">
+      <chakra.form
+        display="flex"
+        w="100%"
+        alignItems="center"
+        gap="16px"
+        onSubmit={handleSubmit}
+      >
         <chakra.textarea
           placeholder="메세지 보내기"
           w="100%"
@@ -60,6 +98,9 @@ const ContentInput = () => {
             color: 'gray.300',
           }}
           outline="none"
+          value={message}
+          onChange={handleMessageChange}
+          // onKeyUp={handleTextAreaKeyDown}
         />
         <Button
           variant="unstyled"
@@ -71,10 +112,11 @@ const ContentInput = () => {
           textAlign="center"
           p={{ mobile: '8px', tablet: '12px 13px' }}
           fontSize={{ mobile: '14px', tablet: '20px' }}
+          onClick={() => submitMessage(message)}
         >
           보내기
         </Button>
-      </Flex>
+      </chakra.form>
     </Flex>
   );
 };
