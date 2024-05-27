@@ -8,6 +8,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Slider from 'react-slick';
 import {
@@ -102,6 +103,9 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
       </Box>
     ),
   };
+
+  const startDate = dayjs(garden?.recruitStartDate).format('YYYY. MM. DD');
+  const endDate = dayjs(garden?.recruitEndDate).format('YYYY. MM. DD');
 
   const hasNoFacility =
     !garden?.gardenFacility.isEquipment &&
@@ -199,7 +203,7 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
               신청기간
             </Text>
             <Text fontWeight="medium">
-              {garden?.recruitEndDate} ~ {garden?.recruitStartDate}
+              {startDate} ~ {endDate}
             </Text>
           </Flex>
           <Flex>
@@ -214,7 +218,9 @@ const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
             <Text minW="25%" fontWeight="medium">
               면적
             </Text>
-            <Text fontWeight="regular">{garden?.size}평</Text>
+            <Text fontWeight="regular">
+              {Number(garden?.size).toLocaleString()}평
+            </Text>
           </Flex>
           <Flex>
             <Text minW="25%" fontWeight="medium">
