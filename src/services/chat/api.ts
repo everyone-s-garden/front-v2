@@ -8,13 +8,13 @@ const chatAPI = {
   }: {
     writerId: number;
     postId: number;
-  }) => {
+  }): Promise<{ chatRoomId: number }> => {
     const response = await apiClient.post(`/garden-chats`, {
       writerId,
       postId,
     });
 
-    return response;
+    return response.data;
   },
 
   enterGardenChatRoom: async ({

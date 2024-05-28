@@ -17,7 +17,6 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
     <Flex
       w="100%"
       zIndex="1"
-      position="absolute"
       justifyContent="space-between"
       alignItems={{ mobile: 'flex-start', tablet: 'center' }}
       h={{ mobile: '193px', tablet: '86px' }}
@@ -34,11 +33,12 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
       />
       <Flex alignItems="center" gap="15px">
         <Image
-          width={{ mobile: '52px', tablet: '52px' }}
-          height={{ mobile: '52px', tablet: '52px' }}
+          w={{ mobile: '52px', tablet: '52px' }}
+          h={{ mobile: '52px', tablet: '52px' }}
           borderRadius="10px"
           backgroundColor="gray.100"
           src={images[0]}
+          flexShrink={0}
         />
         <Flex flexDirection="column">
           <Flex alignItems="center" gap="8px">

@@ -25,29 +25,38 @@ const ChatContents = () => {
 
   useEffect(() => {
     setSocketMessage([]);
-    client.current = new StompJS.Client({
-      brokerURL: import.meta.env.VITE_API_CHAT_URL,
-      connectHeaders: {
-        'access-token': token!,
-      },
-      debug: (str) => {
-        console.log(str);
-      },
-      onConnect: () => {
-        client.current &&
-          client.current.subscribe(
-            `/queue/garden-chats/${roomId}`,
-            (message: StompJS.IMessage) => {
-              setSocketMessage((prev) => [...prev, JSON.parse(message.body)]);
-            },
-          );
-      },
-      onStompError: (frame) => {
-        console.log('Broker reported error: ' + frame.headers['message']);
-        console.log('Additional details: ' + frame.body);
-      },
-    });
-    client.current && client.current.activate();
+    if (!client.current) {
+      client.current = new StompJS.Client({
+        brokerURL: import.meta.env.VITE_API_CHAT_URL,
+        connectHeaders: {
+          'access-token': token!,
+        },
+        debug: (str) => {
+          console.log(str);
+        },
+        onConnect: () => {
+          client.current &&
+            client.current.subscribe(
+              `/queue/garden-chats/${roomId}`,
+              (message: StompJS.IMessage) => {
+                setSocketMessage((prev) => [...prev, JSON.parse(message.body)]);
+              },
+            );
+        },
+        onStompError: (frame) => {
+          console.log('Broker reported error: ' + frame.headers['message']);
+          console.log('Additional details: ' + frame.body);
+        },
+      });
+      client.current.activate();
+    }
+
+    return () => {
+      if (client.current) {
+        client.current.deactivate();
+        client.current = undefined;
+      }
+    };
   }, [roomId, token]);
 
   const sendMessage = (message: string) => {
