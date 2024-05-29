@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ChatIcon,
   CopyNumberIcon,
@@ -19,6 +20,7 @@ import {
   ReportIcon,
 } from '@/assets/icons';
 import Modal from '@/components/Modal/Modal';
+import { useCreateGardenChatRoom } from '@/services/chat/query';
 import { useLikeGarden } from '@/services/gardens/mutations';
 
 interface MapGardenDetailBottomSectionProps {
@@ -39,8 +41,14 @@ const MapGardenDetailBottomSection = ({
   const [copied, setCopied] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
+  const navigate = useNavigate();
 
   const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
+  const {
+    mutate: createGardenChatRoom,
+    data: newChatRoomData,
+    isSuccess,
+  } = useCreateGardenChatRoom();
 
   useEffect(() => {
     setLiked(isGardenLiked);
@@ -90,6 +98,20 @@ const MapGardenDetailBottomSection = ({
         setLoading(false);
       }, 150);
     }, 250);
+  };
+
+  const handleClickChat = () => {
+    if (garden?.roomId === -1) {
+      createGardenChatRoom({
+        postId: garden?.gardenId,
+        writerId: garden?.writerId,
+      });
+      if (isSuccess) {
+        navigate(`/chat/${newChatRoomData.chatRoomId}`);
+      }
+    } else {
+      navigate(`/chat/${garden?.roomId}`);
+    }
   };
 
   return (
@@ -235,6 +257,7 @@ const MapGardenDetailBottomSection = ({
               paddingRight="24px"
               borderRadius="9px"
               cursor="pointer"
+              onClick={handleClickChat}
             >
               <Icon as={ChatIcon} w="24px" h="24px" />
               <Text fontWeight="semiBold">채팅하기</Text>

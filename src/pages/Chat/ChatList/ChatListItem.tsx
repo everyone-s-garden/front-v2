@@ -18,7 +18,6 @@ const ChatListItem = ({ chat }: { chat: ChatRoom }) => {
       bg="white"
       alignItems="center"
       justifyContent="space-between"
-      w="100%"
       p={{ mobile: '12px 20px', tablet: '12px 16px' }}
       cursor="pointer"
       borderBottom={{ mobile: '1px solid', tablet: 'none' }}
@@ -45,10 +44,12 @@ const ChatListItem = ({ chat }: { chat: ChatRoom }) => {
             </Text>
           </Flex>
           <Text
+            w={{ mobile: 'calc(100vw - 270px)', tablet: '200px' }}
+            textOverflow="ellipsis"
+            whiteSpace="nowrap"
             fontWeight="500"
             fontSize="16px"
             overflow="hidden"
-            display="-webkit-box"
           >
             {recentContents}
           </Text>

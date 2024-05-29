@@ -20,6 +20,7 @@ interface ContentInputProps {
 
 const ContentInput = ({ sendMessage }: ContentInputProps) => {
   const [message, setMessage] = useState<string>('');
+  const [isComposing, setIsComposing] = useState(false);
 
   const submitMessage = (message: string) => {
     if (!message) return;
@@ -36,15 +37,16 @@ const ContentInput = ({ sendMessage }: ContentInputProps) => {
     setMessage(event.target.value);
   };
 
-  // const handleTextAreaKeyDown = (
-  //   event: React.KeyboardEvent<HTMLTextAreaElement>,
-  // ) => {
-  //   if (event.key === 'Enter' && !event.shiftKey) {
-  //     event.preventDefault();
-  //     if (!message.trim()) return;
-  //     submitMessage(message);
-  //   }
-  // };
+  const handleTextAreaKeyDown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (event.key === 'Enter' && !event.shiftKey && !isComposing) {
+      event.preventDefault();
+      if (!message.trim()) return;
+      submitMessage(message);
+      setMessage('');
+    }
+  };
 
   return (
     <Flex
@@ -52,8 +54,6 @@ const ContentInput = ({ sendMessage }: ContentInputProps) => {
       border={{ mobile: 'none', tablet: '1px' }}
       borderColor={{ mobile: '', tablet: 'gray.200' }}
       w="100%"
-      position="absolute"
-      bottom="0"
       alignItems="center"
       p="24px 16px"
       gap="16px"
@@ -100,7 +100,9 @@ const ContentInput = ({ sendMessage }: ContentInputProps) => {
           outline="none"
           value={message}
           onChange={handleMessageChange}
-          // onKeyUp={handleTextAreaKeyDown}
+          onKeyDown={handleTextAreaKeyDown}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
         />
         <Button
           variant="unstyled"
@@ -113,6 +115,9 @@ const ContentInput = ({ sendMessage }: ContentInputProps) => {
           p={{ mobile: '8px', tablet: '12px 13px' }}
           fontSize={{ mobile: '14px', tablet: '20px' }}
           onClick={() => submitMessage(message)}
+          isDisabled={!message.trim()}
+          _disabled={{ bg: 'gray.200', cursor: 'not-allowed' }}
+          _hover={{}}
         >
           보내기
         </Button>
