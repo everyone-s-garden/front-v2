@@ -33,8 +33,6 @@ apiClient.interceptors.response.use(
       instance: string;
     }>,
   ) => {
-    alert(error.response?.data.detail);
-
     return Promise.reject(error);
   },
 );
