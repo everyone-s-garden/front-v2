@@ -10,6 +10,7 @@ import {
   Link,
   Text,
 } from '@chakra-ui/react';
+import { getMonthImage } from '../utils/getMonthImage';
 import ItemTitle from './ItemTitle';
 import { useGetMonthCrops } from '@/services/crop/query';
 
@@ -31,6 +32,7 @@ const MONTH_TITLE = [
 const MonthlyCrop = () => {
   const { data: monthCrops } = useGetMonthCrops();
   const currentMonth = new Date().getMonth();
+  const currentMonthImage = getMonthImage(currentMonth + 1);
 
   if (!monthCrops) return null;
 
@@ -51,13 +53,13 @@ const MonthlyCrop = () => {
           <Image
             rounded="10px"
             hideBelow="desktop"
-            src={`/src/assets/images/month/pc/${currentMonth + 1}.png`}
+            src={currentMonthImage.pc}
             height={'min-content'}
           />
           <Image
             rounded="10px"
             hideFrom="desktop"
-            src={`/src/assets/images/month/mobile/${currentMonth + 1}.png`}
+            src={currentMonthImage.mobile}
           />
           <Accordion allowToggle w="100%">
             {monthCrops[currentMonth].cropInfos.map((item, index) => (
