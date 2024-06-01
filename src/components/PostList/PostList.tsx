@@ -49,6 +49,7 @@ const PostList = ({ posts }: PostListProps) => {
           preview,
           title,
           userInfo,
+          isLikeClick,
         }) => (
           <ListItem
             key={postId}
@@ -118,7 +119,7 @@ const PostList = ({ posts }: PostListProps) => {
                     strokeWidth={2}
                     w={'18px'}
                     h={'18px'}
-                    fill={'none'}
+                    fill={isLikeClick ? 'sub' : 'none'}
                     flexShrink={0}
                     mr={'4px'}
                     mt={'2px'}
