@@ -2,11 +2,11 @@ const REPORT_TYPE = {
   DEFAULT: {
     OFF_TRACK: '주제와 맞지 않음',
     INACCURATE_INFORMATION: '정보가 부정확함',
-    ADVERTISING: '지나친 광고성 게시물',
+    ADVERTISING: '지나친 광고성',
     SPAMMING: '도배 및 중복 게시물',
     COPYRIGHT_INFRINGEMENT: '저작권 침해 우려됨',
     SWEAR_WORD: '욕설/비방이 심함',
-    SENSATIONAL: '외설적인 게시물',
+    SENSATIONAL: '외설적인 내용',
     PERSONAL_INFORMATION_EXPOSURE: '개인정보 노출',
     COMMENTS: '기타',
   },
@@ -46,4 +46,8 @@ export const REPORT_DATA = {
     color: 'orange',
     report: REPORT_TYPE.DEFAULT,
   },
+};
+
+export const ERROR = {
+  POST_ALREADY_REPORTED: '동일한 커뮤니티 게시글에는 신고가 한번만 가능합니다.',
 };

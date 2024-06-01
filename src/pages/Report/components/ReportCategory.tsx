@@ -7,6 +7,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { useController, useFormContext, useWatch } from 'react-hook-form';
 import {
   BottomMenu,
   Dropdown,
@@ -15,26 +16,58 @@ import {
   DropdownTrigger,
 } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
+import { REPORT_DATA } from '../constants';
+import { Report } from '../schema';
+import { Color, Name } from '../types';
 
-const ReportCategory = () => {
+interface ReportCategoryProps {
+  categoryList: string[];
+  name: Name;
+  color: Color;
+}
+
+const ReportCategory = ({ color, name, categoryList }: ReportCategoryProps) => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<Report>();
+  const { field } = useController({
+    name: 'reportType',
+    control,
+  });
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const handleClick = (category: string) => {
+    field.onChange(category);
+    onClose();
+  };
+
+  const { report } = REPORT_DATA[name];
+  const categoryName = useWatch({ control, name: 'reportType' });
+
   return (
     <Box>
       <FormLabel htmlFor="category" mb={{ mobile: '14px', tablet: '20px' }}>
         상세 유형 선택
       </FormLabel>
       <Hide below="tablet">
-        <Dropdown>
+        <Dropdown colorScheme={color} variant={'none'}>
           <DropdownTrigger
             type={'button'}
             border={'1px solid'}
-            borderColor={'gray.200'}
+            borderColor={errors?.reportType?.message ? 'error' : 'gray.200'}
             borderRadius={'10px'}
             h={'53px'}
-            px={'24px'}
+            px={'20px'}
             w={'100%'}
           >
             <Flex justify={'space-between'} align={'center'}>
-              <Text>상세 유형을 선택해주세요.</Text>
+              <Text>
+                {categoryName
+                  ? report[categoryName as keyof typeof report]
+                  : '상세 유형을 선택해주세요.'}
+              </Text>
               <Icon
                 as={ArrowDownIcon}
                 w={'20px'}
@@ -45,86 +78,57 @@ const ReportCategory = () => {
           </DropdownTrigger>
 
           <DropdownList minW={'606px'}>
-            <DropdownItem h={'54px'} w={'100%'}>
-              아이템 1
-            </DropdownItem>
-            <DropdownItem h={'54px'}>아이템 1</DropdownItem>
-            <DropdownItem h={'54px'}>아이템 1</DropdownItem>
-            <DropdownItem h={'54px'}>아이템 1</DropdownItem>
+            {categoryList.map((category, index) => (
+              <DropdownItem
+                key={index}
+                h={'54px'}
+                w={'100%'}
+                onClick={() => handleClick(category)}
+              >
+                {report[category as keyof typeof report]}
+              </DropdownItem>
+            ))}
           </DropdownList>
         </Dropdown>
       </Hide>
 
       <Hide above="tablet">
-        <MobileReportBottomMenu />
+        <Flex
+          justify={'space-between'}
+          align={'center'}
+          onClick={onOpen}
+          border={'1px solid'}
+          borderColor={errors?.reportType?.message ? 'error' : 'gray.200'}
+          borderRadius={'10px'}
+          h={'53px'}
+          px={{ mobile: '16px', tablet: '24px' }}
+          w={'100%'}
+          cursor={'pointer'}
+        >
+          <Text>
+            {categoryName
+              ? report[categoryName as keyof typeof report]
+              : '상세 유형을 선택해주세요.'}
+          </Text>
+          <Icon as={ArrowDownIcon} w={'20px'} h={'20px'} stroke={'gray.400'} />
+        </Flex>
+        <BottomMenu isOpen={isOpen} onClose={onClose}>
+          {categoryList.map((category, index) => (
+            <Flex
+              _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
+              _notFirst={{ borderRadius: 0 }}
+              _hover={{ bg: `${color}.100` }}
+              key={index}
+              onClick={() => handleClick(category)}
+              p="18px"
+              cursor={'pointer'}
+            >
+              {report[category as keyof typeof report]}
+            </Flex>
+          ))}
+        </BottomMenu>
       </Hide>
     </Box>
-  );
-};
-
-const MobileReportBottomMenu = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
-  return (
-    <>
-      <Flex
-        justify={'space-between'}
-        align={'center'}
-        onClick={onOpen}
-        border={'1px solid'}
-        borderColor={'gray.200'}
-        borderRadius={'10px'}
-        h={'53px'}
-        px={'24px'}
-        w={'100%'}
-        cursor={'pointer'}
-      >
-        <Text>상세 유형을 선택해주세요.</Text>
-        <Icon as={ArrowDownIcon} w={'20px'} h={'20px'} stroke={'gray.400'} />
-      </Flex>
-      <BottomMenu isOpen={isOpen} onClose={onClose}>
-        <Flex
-          _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
-          _notFirst={{ borderRadius: 0 }}
-          _hover={{ bg: 'green.100' }}
-          onClick={onClose}
-          p="18px"
-          cursor={'pointer'}
-        >
-          아이템 1
-        </Flex>
-        <Flex
-          _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
-          _notFirst={{ borderRadius: 0 }}
-          _hover={{ bg: 'green.100' }}
-          onClick={onClose}
-          p="18px"
-          cursor={'pointer'}
-        >
-          아이템 1
-        </Flex>
-        <Flex
-          _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
-          _notFirst={{ borderRadius: 0 }}
-          _hover={{ bg: 'green.100' }}
-          onClick={onClose}
-          p="18px"
-          cursor={'pointer'}
-        >
-          아이템 1
-        </Flex>
-        <Flex
-          _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
-          _notFirst={{ borderRadius: 0 }}
-          _hover={{ bg: 'green.100' }}
-          onClick={onClose}
-          p="18px"
-          cursor={'pointer'}
-        >
-          아이템 1
-        </Flex>
-      </BottomMenu>
-    </>
   );
 };
 

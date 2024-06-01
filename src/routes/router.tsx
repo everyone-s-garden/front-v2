@@ -37,8 +37,6 @@ import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
 
-import MapReport from '@/pages/Map/MapReport/MapReport';
-
 const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, REPORT } =
   PATH;
 
@@ -65,10 +63,6 @@ const router = createBrowserRouter([
       {
         path: MAP.MAIN,
         element: <Map />,
-      },
-      {
-        path: PATH.MAP.REPORT,
-        element: <MapReport />,
       },
       {
         path: PATH.MAP.CREATE_GARDEN,

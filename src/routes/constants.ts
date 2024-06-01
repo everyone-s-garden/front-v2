@@ -16,7 +16,6 @@ const COMMUNITY = {
 
 const MAP = {
   MAIN: '/map',
-  REPORT: '/map/report/:id',
   CREATE_MY_GARDEN: '/map/create-my-garden',
   CREATE_GARDEN: '/map/create-garden',
 };
