@@ -29,6 +29,7 @@ import {
   Login,
   Redirection,
   Map,
+  Report,
 } from '@/pages';
 import AuthRoute from './AuthRoute';
 import GuestRoute from './GuestRoute';
@@ -38,7 +39,8 @@ import { PATH } from './constants';
 
 import MapReport from '@/pages/Map/MapReport/MapReport';
 
-const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS } = PATH;
+const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, REPORT } =
+  PATH;
 
 const router = createBrowserRouter([
   {
@@ -295,6 +297,10 @@ const router = createBrowserRouter([
                 element: <ChatContents />,
               },
             ],
+          },
+          {
+            path: REPORT,
+            element: <Report />,
           },
         ],
       },
