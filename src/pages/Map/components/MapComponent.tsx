@@ -50,7 +50,7 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
     enabled: map !== null,
   });
 
-  const gardens: Garden[] = data?.gardenByComplexesResponses;
+  const gardens: Garden[] = data?.gardenByComplexesWithScrollResponses;
 
   useEffect(() => {
     if (map) {
