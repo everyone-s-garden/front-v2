@@ -1,28 +1,68 @@
 import { Icon, Show, chakra } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { MapArrowBottomIcon, MapArrowLeftIcon } from '@/assets/icons';
+import getMapBounds from '../utils/getMapBounds';
 import MapGardens from './MapGardens';
 import MapNoGarden from './MapNoGarden';
+import { useGetGardensScroll } from '@/services/gardens/query';
 
 const Button = chakra(motion.button);
 const GardenContainer = chakra(motion.div);
 
 interface GardensContainerProps {
-  gardens: Garden[];
   showGardens: boolean;
   setShowGardens: Dispatch<SetStateAction<boolean>>;
   showGardenDetail: boolean;
   setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
+  gardenType: 'ALL' | 'PUBLIC' | 'PRIVATE';
+  map: naver.maps.Map | null;
 }
 
 const GardensContainer = ({
-  gardens,
   showGardens,
   setShowGardens,
   showGardenDetail,
   setShowGardenDetail,
+  gardenType,
+  map,
 }: GardensContainerProps) => {
+  const [hasNext, setHasNext] = useState(false);
+  const [gardens, setGardens] = useState();
+  const [gardensArr, setGardensArr] = useState([]);
+  const { startLat, startLong, endLat, endLong } = getMapBounds(map);
+  const { data, fetchNextPage, hasNextPage } = useGetGardensScroll(
+    map,
+    gardenType,
+    startLat,
+    startLong,
+    endLat,
+    endLong,
+  );
+
+  const pages = data?.pages;
+
+  useEffect(() => {
+    setHasNext(data?.pages[data.pageParams.length - 1].hasNext);
+  }, [data?.pageParams.length, data?.pages]);
+
+  useEffect(() => {
+    if (pages && pages.length > 0) {
+      setGardens(pages[0].gardenByComplexesWithScrollResponses);
+    }
+  }, [pages, data?.pageParams.length]);
+
+  const calculatedGardens = data?.pages.map(
+    (item) => item.gardenByComplexesWithScrollResponses,
+  );
+
+  const flattenedGardens = calculatedGardens?.flat() as [];
+
+  useEffect(() => {
+    setGardensArr(flattenedGardens);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pages]);
+
   return (
     <>
       <Show above="tablet">
@@ -43,11 +83,19 @@ const GardensContainer = ({
             transition: { type: 'tween' },
           }}
         >
-          {gardens?.length === 0 ? (
+          {gardensArr?.length === 0 ? (
             <MapNoGarden />
           ) : (
             <MapGardens
-              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+              {...{
+                gardens,
+                showGardenDetail,
+                setShowGardenDetail,
+                fetchNextPage,
+                hasNextPage,
+                hasNext,
+                gardensArr,
+              }}
             />
           )}
           <Button
@@ -96,11 +144,18 @@ const GardensContainer = ({
             transition: { type: 'tween' },
           }}
         >
-          {gardens?.length === 0 ? (
+          {gardensArr?.length === 0 ? (
             <MapNoGarden />
           ) : (
             <MapGardens
-              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+              {...{
+                showGardenDetail,
+                setShowGardenDetail,
+                fetchNextPage,
+                hasNextPage,
+                hasNext,
+                gardensArr,
+              }}
             />
           )}
           <Button
