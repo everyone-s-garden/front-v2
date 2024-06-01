@@ -37,7 +37,7 @@ const Report = () => {
         신고하기
       </Text>
 
-      <ReportForm {...location.state} />
+      {location.state && <ReportForm {...location.state} />}
     </Box>
   );
 };
