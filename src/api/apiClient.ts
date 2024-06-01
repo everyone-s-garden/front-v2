@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import tokenManager from '@/services/login/tokenManager';
+import { ApiError } from '@/types/error';
 
 const apiClient = axios.create({
   baseURL: '/api',
@@ -24,16 +25,8 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
   (response) => response,
-  (
-    error: AxiosError<{
-      type: string;
-      title: string;
-      status: number;
-      detail: string;
-      instance: string;
-    }>,
-  ) => {
-    return Promise.reject(error);
+  (error: AxiosError<ApiError>) => {
+    return Promise.reject(error.response?.data);
   },
 );
 

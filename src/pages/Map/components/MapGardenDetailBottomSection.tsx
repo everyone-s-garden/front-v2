@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   ChatIcon,
   CopyNumberIcon,
@@ -20,6 +20,7 @@ import {
   ReportIcon,
 } from '@/assets/icons';
 import Modal from '@/components/Modal/Modal';
+import { PATH } from '@/routes/constants';
 import { useCreateGardenChatRoom } from '@/services/chat/query';
 import { useLikeGarden } from '@/services/gardens/mutations';
 
@@ -41,6 +42,8 @@ const MapGardenDetailBottomSection = ({
   const [copied, setCopied] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
+
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
@@ -114,18 +117,31 @@ const MapGardenDetailBottomSection = ({
     }
   };
 
+  const handleClickReport = () => {
+    navigate(PATH.REPORT, {
+      state: {
+        from: pathname,
+        name: 'garden',
+        color: 'orange',
+        reportId: garden?.gardenId,
+      },
+      replace: true,
+    });
+  };
+
   return (
     <Box marginTop="40px" cursor="pointer">
       <Flex marginBottom="20px" alignItems="center" gap="6px">
         <Icon as={ReportIcon} />
-        <Link
-          href={`/map/report/${garden?.gardenId}`}
+        <Text
           fontSize="12px"
           color="gray.400"
           fontWeight="regular"
+          onClick={handleClickReport}
+          cursor={'pointer'}
         >
           신고하기
-        </Link>
+        </Text>
       </Flex>
 
       <Flex w="fit-content" margin="0 auto" gap="14px">

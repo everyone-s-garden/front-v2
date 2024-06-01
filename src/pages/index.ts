@@ -27,3 +27,4 @@ export { default as ChatContents } from './Chat/ChatContent/ChatContents';
 export { default as Redirection } from './Redirection/Redirection';
 export { default as Login } from './Login/Login';
 export { default as Map } from './Map/Map';
+export { default as Report } from './Report/Report';

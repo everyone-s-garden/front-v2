@@ -1,15 +1,30 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { ImageSlider, TagComponent } from '@/components';
 import getRelativeTime from '../../../../utils/getRelativeTime';
 import { POST } from '../../constants';
 import AuthorInfo from './AuthorInfo';
+import { PATH } from '@/routes/constants';
 import { useGetPost } from '@/services/whisper/query';
 
 const Content = () => {
-  const postId = useLocation().pathname.split('/').pop();
+  const { pathname } = useLocation();
+  const postId = pathname.split('/').pop();
   const { data } = useGetPost(Number(postId));
+  const navigate = useNavigate();
+
+  const handleClickReport = () => {
+    navigate(PATH.REPORT, {
+      state: {
+        from: pathname,
+        name: 'community_post',
+        color: 'orange',
+        reportId: postId,
+      },
+      replace: true,
+    });
+  };
 
   if (!data) return null;
 
@@ -107,7 +122,7 @@ const Content = () => {
           mb={'20px'}
           cursor={'pointer'}
           w={'fit-content'}
-          onClick={() => alert('신고하기 버튼 클릭')}
+          onClick={handleClickReport}
         >
           글 신고하기
         </Text>
