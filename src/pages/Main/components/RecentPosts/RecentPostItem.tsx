@@ -78,7 +78,7 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
           </Text>
         </Flex>
         <Text fontSize="16px" fontWeight="bold">
-          {price} 원
+          {Number(price).toLocaleString()} 원
         </Text>
         <Text color="gray.700" fontSize="16px">
           {term}
