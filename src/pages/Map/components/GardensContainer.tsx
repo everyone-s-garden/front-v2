@@ -28,8 +28,6 @@ const GardensContainer = ({
   map,
 }: GardensContainerProps) => {
   const [hasNext, setHasNext] = useState(false);
-  const [gardens, setGardens] = useState();
-  const [gardensArr, setGardensArr] = useState([]);
   const { startLat, startLong, endLat, endLong } = getMapBounds(map);
   const { data, fetchNextPage, hasNextPage } = useGetGardensScroll(
     map,
@@ -40,28 +38,11 @@ const GardensContainer = ({
     endLong,
   );
 
-  const pages = data?.pages;
+  const gardens = data?.allGardens;
 
   useEffect(() => {
     setHasNext(data?.pages[data.pageParams.length - 1].hasNext);
   }, [data?.pageParams.length, data?.pages]);
-
-  useEffect(() => {
-    if (pages && pages.length > 0) {
-      setGardens(pages[0].gardenByComplexesWithScrollResponses);
-    }
-  }, [pages, data?.pageParams.length]);
-
-  const calculatedGardens = data?.pages.map(
-    (item) => item.gardenByComplexesWithScrollResponses,
-  );
-
-  const flattenedGardens = calculatedGardens?.flat() as [];
-
-  useEffect(() => {
-    setGardensArr(flattenedGardens);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pages]);
 
   return (
     <>
@@ -83,18 +64,17 @@ const GardensContainer = ({
             transition: { type: 'tween' },
           }}
         >
-          {gardensArr?.length === 0 ? (
+          {gardens?.length === 0 ? (
             <MapNoGarden />
           ) : (
             <MapGardens
               {...{
-                gardens,
                 showGardenDetail,
                 setShowGardenDetail,
                 fetchNextPage,
                 hasNextPage,
                 hasNext,
-                gardensArr,
+                gardens,
               }}
             />
           )}
@@ -144,7 +124,7 @@ const GardensContainer = ({
             transition: { type: 'tween' },
           }}
         >
-          {gardensArr?.length === 0 ? (
+          {gardens?.length === 0 ? (
             <MapNoGarden />
           ) : (
             <MapGardens
@@ -154,7 +134,7 @@ const GardensContainer = ({
                 fetchNextPage,
                 hasNextPage,
                 hasNext,
-                gardensArr,
+                gardens,
               }}
             />
           )}

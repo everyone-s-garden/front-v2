@@ -74,12 +74,21 @@ export const useGetGardensScroll = (
       ),
     enabled: map !== null,
     initialPageParam: 0,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
+    getNextPageParam: (lastPage, pages) => {
       if (lastPage.length === 0) {
         return undefined;
       }
 
-      return lastPageParam + 1;
+      return pages.length;
+    },
+    select: (data) => {
+      const allGardens = data.pages.reduce((acc, page) => {
+        acc.push(...page.gardenByComplexesWithScrollResponses);
+
+        return acc;
+      }, []);
+
+      return { ...data, allGardens };
     },
   });
 

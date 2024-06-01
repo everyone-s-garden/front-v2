@@ -12,7 +12,7 @@ interface MapGardensProps {
   hasNext: boolean;
   fetchNextPage: () => void;
   hasNextPage: boolean;
-  gardensArr: Garden[];
+  gardens: Garden[];
 }
 
 const MapGardens = ({
@@ -21,7 +21,7 @@ const MapGardens = ({
   hasNext,
   fetchNextPage,
   hasNextPage,
-  gardensArr,
+  gardens,
 }: MapGardensProps) => {
   const { setGardenId } = useMapGardenDetailIdStore();
   const { ref } = useInfiniteScroll<HTMLDivElement>({
@@ -37,7 +37,7 @@ const MapGardens = ({
         h={{ mobile: '475px', tablet: 'calc(100vh - 166px)' }}
         overflow={showGardenDetail ? 'hidden' : 'auto'}
       >
-        {gardensArr?.map((garden) => (
+        {gardens?.map((garden) => (
           <Box
             w={{ mobile: '100%', tablet: '352px' }}
             margin="0 auto"
