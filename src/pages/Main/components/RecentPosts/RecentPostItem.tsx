@@ -1,12 +1,25 @@
 import { Box, Flex, Image, Text, chakra } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@/assets/icons';
+import { DefaultPost } from '@/assets/images';
 import { GardenPost } from '@/services/gardenPost/types';
 
 const CHeartIcon = chakra(HeartIcon);
 
 const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
-  const { imageUrl, gardenName, address, price, recruitEndDate, isLiked } =
-    postData;
+  const navigate = useNavigate();
+
+  const {
+    imageUrl,
+    gardenName,
+    address,
+    price,
+    recruitEndDate,
+    isLiked,
+    gardenId,
+    latitude,
+    longitude,
+  } = postData;
 
   const endDate = new Date(recruitEndDate);
   const currentDate = new Date();
@@ -22,15 +35,25 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
         ? '마감 임박'
         : '마감됨';
 
+  const handlePostClick = () => {
+    navigate('/map', { state: { latitude, longitude, gardenId } });
+  };
+
   return (
-    <Flex flexDir="column" flexShrink="0" gap="12px">
+    <Flex
+      flexDir="column"
+      flexShrink="0"
+      gap="12px"
+      onClick={handlePostClick}
+      cursor="pointer"
+    >
       <Box position="relative">
         <Image
           draggable="false"
           w={{ mobile: '190px', tablet: '276px' }}
           h={{ mobile: '129px', tablet: '168px' }}
           rounded="10px"
-          src={imageUrl}
+          src={imageUrl || DefaultPost}
           alt="recent post"
         />
         <CHeartIcon

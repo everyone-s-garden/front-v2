@@ -6,3 +6,4 @@ export { default as MapGardenNoImg } from './map/map-garden-no-img.jpg';
 export { default as Banner1Mobile } from './banners/banner1-mobile.png';
 export { default as Banner2Mobile } from './banners/banner2-mobile.png';
 export { default as DefaultProfile } from './default_profile.png';
+export { default as DefaultPost } from './default_post.png';
