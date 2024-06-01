@@ -78,8 +78,6 @@ const GardenEdit = () => {
   };
 
   const onSubmit: SubmitHandler<Garden> = (data) => {
-    console.log(data);
-
     const formData = new FormData();
 
     /** 분양 텃밭 form blob */
@@ -95,7 +93,8 @@ const GardenEdit = () => {
     createGarden(formData, {
       onSuccess() {
         // TODO: 분양 텃밭 등록 성공 시 처리
-        navigate(PATH.MAP.MAIN);
+        methods.reset();
+        setTimeout(() => navigate(PATH.MAP.MAIN));
       },
       onError() {
         alert('분양 텃밭 등록에 실패했습니다.');
@@ -365,7 +364,10 @@ const GardenEdit = () => {
         </FormProvider>
       </Content>
 
-      <BlockerModal color="green" />
+      <BlockerModal
+        color="green"
+        blockState={Object.values(methods.getValues()).some((value) => value)}
+      />
     </>
   );
 };
