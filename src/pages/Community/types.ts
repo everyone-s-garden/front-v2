@@ -10,12 +10,21 @@ export type OrderByOptions =
   | 'LIKE_COUNT'
   | 'OLDER_DATE';
 
+export type CommentOrderByOptions = 'RECENT_DATE' | 'LIKE_COUNT' | 'OLDER_DATE';
+
 export interface PostParams {
   searchContent: string;
   offset: number;
   limit: number;
   postType: PostType;
   orderBy: OrderByOptions;
+}
+
+export interface User {
+  userId: number;
+  name: string;
+  profile: string | null;
+  memberMannerGrade: 'SEED';
 }
 
 export interface Post {
@@ -25,12 +34,26 @@ export interface Post {
   commentCount: number;
   content: string;
   preview: string | null;
-  userInfo: {
-    userId: number;
-    profile: string | null;
-    name: string;
-    memberMannerGrade: string;
-  };
+  userInfo: User;
   postType: PostType;
   createdDate: string;
+  isLikeClick: boolean;
+}
+
+export interface PostDetail extends Omit<Post, 'preview' | 'postId'> {
+  images: string[];
+  isLikeClick: boolean;
+}
+
+export interface Comment {
+  commentId: number;
+  likeCount: number;
+  content: string;
+  userInfo: User;
+  isLikeClick: boolean;
+  createdAt: string;
+}
+
+export interface Comments {
+  mainComment: (Comment & { subComments: Comment[] })[];
 }

@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Heading,
   Icon,
   Image,
   List,
@@ -9,6 +8,7 @@ import {
   Tag,
   Text,
 } from '@chakra-ui/react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { CommentIcon, HeartIcon } from '@/assets/icons';
@@ -21,6 +21,13 @@ interface PostListProps {
 
 const PostList = ({ posts }: PostListProps) => {
   const navigate = useNavigate();
+
+  const getPlainText = useCallback((content: string) => {
+    const $div = document.createElement('div');
+    $div.innerHTML = content;
+
+    return $div.textContent || $div.innerText || '';
+  }, []);
 
   const handleClickItem = (postId: number) => {
     navigate(`/community/${postId}`);
@@ -42,23 +49,13 @@ const PostList = ({ posts }: PostListProps) => {
           preview,
           title,
           userInfo,
+          isLikeClick,
         }) => (
           <ListItem
             key={postId}
             pb={{ mobile: '20px', tablet: '24px' }}
             borderBottom={'1px solid'}
             borderBottomColor={'gray.100'}
-            __css={{
-              h2: {
-                display: '-webkit-box',
-                WebkitLineClamp: {
-                  mobile: 2,
-                  tablet: 1,
-                },
-                WebkitBoxOrient: 'vertical',
-                overflow: 'hidden',
-              },
-            }}
           >
             <Flex justify={'space-between'}>
               <Flex flexDir={'column'} gap={'8px'}>
@@ -78,25 +75,27 @@ const PostList = ({ posts }: PostListProps) => {
                   >
                     {POST.TYPE[postType]}
                   </Tag>
-                  <Heading
+                  <Text
                     as={'h2'}
                     fontSize={{ mobile: '16px', tablet: '20px' }}
                     fontWeight={'semiBold'}
                     h={{ mobile: '48px', tablet: 'fit-content' }}
+                    lineHeight={'24px'}
                     noOfLines={{ mobile: 2, tablet: 1 }}
                     onClick={() => handleClickItem(postId)}
                     cursor={'pointer'}
                   >
                     {title}
-                  </Heading>
+                  </Text>
                 </Flex>
                 <Text
                   hideBelow={'tablet'}
                   noOfLines={2}
                   fontSize={18}
                   height={'54px'}
+                  whiteSpace={'normal'}
                 >
-                  {content.replaceAll('\n', ' ')}
+                  {getPlainText(content)}
                 </Text>
                 <Flex align={'center'}>
                   <AvatarComponent
@@ -120,7 +119,7 @@ const PostList = ({ posts }: PostListProps) => {
                     strokeWidth={2}
                     w={'18px'}
                     h={'18px'}
-                    fill={'none'}
+                    fill={isLikeClick ? 'sub' : 'none'}
                     flexShrink={0}
                     mr={'4px'}
                     mt={'2px'}

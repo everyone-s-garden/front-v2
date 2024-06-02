@@ -1,30 +1,67 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
+  CommentedPosts,
+  CropTrade,
+  FavoritedGardens,
+  GardenEdit,
+  GardenManagement,
+  LikedPosts,
+  Main,
+  MyGarden,
+  MyGardenEdit,
+  MyPage,
+  MyPost,
+  NearByGardensInfo,
+  PurchaseHistory,
+  RecentlyViewedGardens,
+  SalesHistory,
+  Settings,
+  VerifyLocation,
+  Whispers,
+  WishList,
+  WrittenPosts,
+  CommunityDetail,
+  Chat,
+  ChatContents,
   CommunityEdit,
   CommunityMain,
-  GardenEdit,
-  Main,
-  MyGardenEdit,
+  StartContent,
+  Login,
+  Redirection,
+  Map,
+  Report,
 } from '@/pages';
-import CommunityDetail from '../pages/Community/CommunityDetail/CommunityDetail';
+import AuthRoute from './AuthRoute';
+import GuestRoute from './GuestRoute';
+import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
-import Map from '@/pages/Map/Map';
+
+const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, REPORT } =
+  PATH;
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       {
-        path: PATH.MAIN,
+        path: MAIN,
         element: <Main />,
       },
       {
-        path: PATH.ERROR,
+        path: ERROR,
         element: <div>에러</div>,
       },
       {
-        path: PATH.MAP.MAIN,
+        path: LOGIN.REDIRECT_URI_KAKAO,
+        element: <Redirection type="kakao" />,
+      },
+      {
+        path: LOGIN.REDIRECT_URI_NAVER,
+        element: <Redirection type="naver" />,
+      },
+      {
+        path: MAP.MAIN,
         element: <Map />,
       },
       {
@@ -36,16 +73,230 @@ const router = createBrowserRouter([
         element: <MyGardenEdit />,
       },
       {
-        path: PATH.COMMUNITY.MAIN,
+        path: PATH.MYPAGE.MAIN,
+        element: <MyPage />,
+      },
+      {
+        path: SETTINGS,
+        element: <Settings />,
+      },
+      {
+        path: MYPAGE.NEARBY_GARDENS_INFO.MAIN,
+        element: <NearByGardensInfo />,
+        children: [
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
+            element: <FavoritedGardens />,
+          },
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.MY_POSTS,
+            element: <MyPost />,
+          },
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
+            element: <RecentlyViewedGardens />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+        element: <GardenManagement />,
+        children: [
+          {
+            path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+            element: <MyGarden />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.CROP_TRADE.MAIN,
+        element: <CropTrade />,
+        children: [
+          {
+            path: MYPAGE.CROP_TRADE.PURCHASE_HISTORY,
+            element: <PurchaseHistory />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.SALES_HISTORY,
+            element: <SalesHistory />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.VERIFY_LOCATION,
+            element: <VerifyLocation />,
+          },
+          {
+            path: MYPAGE.CROP_TRADE.WISH_LIST,
+            element: <WishList />,
+          },
+        ],
+      },
+      {
+        path: MYPAGE.WHISPERS.MAIN,
+        element: <Whispers />,
+        children: [
+          {
+            path: MYPAGE.WHISPERS.COMMENTED_POSTS,
+            element: <CommentedPosts />,
+          },
+          {
+            path: MYPAGE.WHISPERS.LIKED_POSTS,
+            element: <LikedPosts />,
+          },
+          {
+            path: MYPAGE.WHISPERS.WRITTEN_POSTS,
+            element: <WrittenPosts />,
+          },
+        ],
+      },
+      {
+        path: COMMUNITY.MAIN,
         element: <CommunityMain />,
       },
       {
-        path: PATH.COMMUNITY.DETAIL,
+        path: COMMUNITY.DETAIL,
         element: <CommunityDetail />,
       },
+
+      // NOTE: 로그인하지 않은 사용자만 접근 가능한 페이지
       {
-        path: PATH.COMMUNITY.CREATE,
-        element: <CommunityEdit />,
+        element: <GuestRoute />,
+        children: [
+          {
+            path: LOGIN.MAIN,
+            element: <Login />,
+          },
+        ],
+      },
+
+      // NOTE: 로그인 시에만 접근 가능한 페이지
+      {
+        element: <AuthRoute />,
+        children: [
+          {
+            path: COMMUNITY.CREATE,
+            element: <CommunityEdit />,
+          },
+          {
+            path: MYPAGE.MAIN,
+            element: <MyPage />,
+          },
+          {
+            path: SETTINGS,
+            element: <Settings />,
+          },
+          {
+            path: MYPAGE.NEARBY_GARDENS_INFO.MAIN,
+            element: <NearByGardensInfo />,
+            children: [
+              {
+                path: MYPAGE.NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
+                element: <FavoritedGardens />,
+              },
+              {
+                path: MYPAGE.NEARBY_GARDENS_INFO.MY_POSTS,
+                element: <MyPost />,
+              },
+              {
+                path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
+                element: <RecentlyViewedGardens />,
+              },
+            ],
+          },
+          {
+            path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+            element: <GardenManagement />,
+            children: [
+              {
+                path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
+                element: <MyGarden />,
+              },
+            ],
+          },
+          {
+            path: MYPAGE.CROP_TRADE.MAIN,
+            element: <CropTrade />,
+            children: [
+              {
+                path: MYPAGE.CROP_TRADE.PURCHASE_HISTORY,
+                element: <PurchaseHistory />,
+              },
+              {
+                path: MYPAGE.CROP_TRADE.SALES_HISTORY,
+                element: <SalesHistory />,
+              },
+              {
+                path: MYPAGE.CROP_TRADE.VERIFY_LOCATION,
+                element: <VerifyLocation />,
+              },
+              {
+                path: MYPAGE.CROP_TRADE.WISH_LIST,
+                element: <WishList />,
+              },
+            ],
+          },
+          {
+            path: MYPAGE.WHISPERS.MAIN,
+            element: <Whispers />,
+            children: [
+              {
+                path: MYPAGE.WHISPERS.COMMENTED_POSTS,
+                element: <CommentedPosts />,
+              },
+              {
+                path: MYPAGE.WHISPERS.LIKED_POSTS,
+                element: <LikedPosts />,
+              },
+              {
+                path: MYPAGE.WHISPERS.WRITTEN_POSTS,
+                element: <WrittenPosts />,
+              },
+            ],
+          },
+          {
+            path: CHAT.MAIN,
+            element: <Chat />,
+            children: [
+              {
+                index: true,
+                element: <StartContent />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    // NOTE: 모바일 헤더 없는 페이지
+    element: <HiddenHeaderLayout />,
+    children: [
+      // NOTE: 로그인 시에만 접근 가능한 페이지
+      {
+        element: <AuthRoute />,
+        children: [
+          {
+            path: MAP.CREATE_GARDEN,
+            element: <GardenEdit />,
+          },
+          {
+            path: MAP.CREATE_MY_GARDEN,
+            element: <MyGardenEdit />,
+          },
+          {
+            path: CHAT.MAIN,
+            element: <Chat />,
+            children: [
+              {
+                path: CHAT.ROOM,
+                element: <ChatContents />,
+              },
+            ],
+          },
+          {
+            path: REPORT,
+            element: <Report />,
+          },
+        ],
       },
     ],
   },

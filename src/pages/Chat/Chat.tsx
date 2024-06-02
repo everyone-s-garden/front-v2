@@ -1,5 +1,20 @@
+import { Flex } from '@chakra-ui/react';
+import { Outlet } from 'react-router-dom';
+import ChatList from './ChatList/ChatList';
+
 const Chat = () => {
-  return <h1>Chat 페이지</h1>;
+  return (
+    <Flex
+      w="100%"
+      h={{ mobile: '100vh', tablet: 'calc(100vh - 108px)' }}
+      maxW="1200px"
+      bg={{ mobile: 'white', tablet: 'orange.100' }}
+      m="0 auto"
+    >
+      <ChatList />
+      <Outlet />
+    </Flex>
+  );
 };
 
 export default Chat;

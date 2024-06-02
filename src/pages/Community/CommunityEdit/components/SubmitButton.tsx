@@ -1,6 +1,10 @@
 import { Button, Center } from '@chakra-ui/react';
 
-const SubmitButton = () => {
+interface SubmitButtonProps {
+  isPending?: boolean;
+}
+
+const SubmitButton = ({ isPending = false }: SubmitButtonProps) => {
   return (
     <>
       <Center mb={'100px'}>
@@ -12,6 +16,9 @@ const SubmitButton = () => {
           bg={'orange.500'}
           color={'white'}
           mt={'130px'}
+          type="submit"
+          isLoading={isPending}
+          display={'flex'}
         >
           등록하기
         </Button>
@@ -27,6 +34,9 @@ const SubmitButton = () => {
         bottom={0}
         color={'white'}
         borderRadius={0}
+        type="submit"
+        isLoading={isPending}
+        display={'flex'}
       >
         등록하기
       </Button>

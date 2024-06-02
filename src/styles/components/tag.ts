@@ -32,8 +32,10 @@ const sizeVariants = {
 const variantVariants = {
   whisper: {
     backgroundColor: 'orange.200',
-    px: '11px',
-    py: '8px',
+    px: '10px',
+    py: '6px',
+    borderRadius: '8px',
+    fontSize: { mobile: 16, tablet: 18 },
   },
   faq: (props: StyleFunctionProps) => {
     const { progress } = props;

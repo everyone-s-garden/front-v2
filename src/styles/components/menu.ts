@@ -11,6 +11,7 @@ const Menu: ComponentStyleConfig = defineStyleConfig({
       border: '1px solid',
       borderColor: 'gray.200',
       padding: 0,
+      zIndex: 2,
     },
     item: {
       color: 'black',

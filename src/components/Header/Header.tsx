@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Box,
+  IconButton,
 } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
@@ -13,9 +14,27 @@ import { LogoHorizon } from '@/assets/images';
 import Tab from '../Tab/Tab';
 import PostMenu from './PostMenu';
 import { headerNavLinks } from './constants';
+import { PATH } from '@/routes/constants';
+import useLoginStore from '@/stores/useLoginStore';
 
-const Header = () => {
+interface HeaderProps {
+  loggedIn?: boolean;
+}
+
+const Header = ({ loggedIn = false }: HeaderProps) => {
   const navigate = useNavigate();
+  const logout = useLoginStore((state) => state.logout);
+
+  const handleClickLoginButton = () => {
+    if (loggedIn) {
+      logout();
+
+      return;
+    }
+
+    sessionStorage.setItem('login-prev-page', window.location.pathname);
+    navigate(PATH.LOGIN.MAIN);
+  };
 
   return (
     <>
@@ -37,7 +56,7 @@ const Header = () => {
             maxW="163px"
             h="auto"
             cursor="pointer"
-            onClick={() => navigate('/')}
+            onClick={() => navigate(PATH.MAIN)}
           />
           {headerNavLinks.slice(1).map(({ href, tabName }) => (
             <ChakraLink
@@ -53,19 +72,42 @@ const Header = () => {
           ))}
         </Flex>
         <Flex gap="30px">
-          <Button fontWeight="regular" bg="none" _hover={{ bg: 'none' }}>
-            로그인 / 회원가입
+          {loggedIn && (
+            <Button
+              fontWeight="regular"
+              variant={'unstyled'}
+              onClick={() => navigate(PATH.MYPAGE.MAIN)}
+            >
+              마이페이지
+            </Button>
+          )}
+          <Button
+            fontWeight="regular"
+            variant={'unstyled'}
+            onClick={handleClickLoginButton}
+          >
+            {loggedIn ? '로그아웃' : '로그인 / 회원가입'}
           </Button>
-          <PostMenu />
+          <PostMenu loggedIn={loggedIn} />
         </Flex>
       </Container>
-      <MobileHeader />
+      <MobileHeader loggedIn={loggedIn} />
     </>
   );
 };
 
-const MobileHeader = () => {
+const MobileHeader = ({ loggedIn = false }: HeaderProps) => {
   const navigate = useNavigate();
+  const handleClickProfile = () => {
+    if (loggedIn) {
+      navigate(PATH.MYPAGE.MAIN);
+
+      return;
+    }
+
+    sessionStorage.setItem('login-prev-page', window.location.pathname);
+    navigate(PATH.LOGIN.MAIN);
+  };
 
   return (
     <Box
@@ -82,9 +124,18 @@ const MobileHeader = () => {
           alt="로고"
           w="127px"
           h="22px"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(PATH.MAIN)}
         />
-        <ProfileIcon />
+        <IconButton
+          aria-label="profile"
+          icon={<ProfileIcon />}
+          variant={'unstyled'}
+          minW={'fit-content'}
+          h={'fit-content'}
+          fill={loggedIn ? 'black' : 'transparent'}
+          stroke={'black'}
+          onClick={handleClickProfile}
+        />
       </Flex>
       <Tab tabsData={headerNavLinks} color="orange" tabWidth="fit-full" />
     </Box>

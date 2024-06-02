@@ -23,6 +23,7 @@ const globalStyles = css`
       sans-serif;
     color: #282828;
     font-size: 16px;
+    font-weight: 500;
   }
 
   *::-webkit-scrollbar {
@@ -30,9 +31,20 @@ const globalStyles = css`
     height: 7px;
   }
 
+  @media screen and (max-width: 1024px) {
+    *::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+  }
+
   *::-webkit-scrollbar-thumb {
     background-color: #bebebe;
     border-radius: 7px;
+  }
+
+  body {
+    overflow: hidden;
   }
 
   #root {
@@ -75,7 +87,7 @@ const globalStyles = css`
   select,
   option,
   textarea {
-    word-break: break-all;
+    // 단어 기준 줄바꿈
     white-space: pre-line;
   }
 
@@ -136,6 +148,14 @@ const globalStyles = css`
     line-height: 0;
     text-indent: -9999px;
   } /* 대체 텍스트가 아닌 접근성을 위한 숨김 텍스트를 제공할 때 */
+
+  .slick-dots li button:before {
+    opacity: 0.25;
+    color: white;
+  }
+  .slick-dots li.slick-active button:before {
+    color: white;
+  }
 `;
 
 export default globalStyles;
