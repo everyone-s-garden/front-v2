@@ -24,6 +24,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           variant={'unstyled'}
           ref={ref}
           onWheel={(e) => e.currentTarget.blur()}
+          autoComplete={'off'}
           {...props}
         />
         {errorMessage && (

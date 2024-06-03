@@ -8,8 +8,14 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useWatch } from 'react-hook-form';
+import { useEffect, useRef } from 'react';
+import {
+  Controller,
+  FormProvider,
+  SubmitHandler,
+  useWatch,
+} from 'react-hook-form';
+import { NumericFormat, PatternFormat } from 'react-number-format';
 import { useNavigate } from 'react-router-dom';
 import { BlockerModal, Content, DatePicker } from '@/components';
 import FlexInput from '../components/FlexInput';
@@ -38,6 +44,12 @@ const GardenEdit = () => {
     setError,
   } = methods;
 
+  const numberRef = useRef({
+    price: '',
+    size: '',
+    contact: '',
+  });
+
   const searchValue = useSearchStore((state) => state.searchValue);
   const showResults = useSearchStore((state) => state.showResults);
   const images = useImageStore((state) => state.images);
@@ -54,6 +66,9 @@ const GardenEdit = () => {
   const isToilet = useWatch({ control, name: 'isToilet' });
   const isWaterway = useWatch({ control, name: 'isWaterway' });
   const isEquipment = useWatch({ control, name: 'isEquipment' });
+  useWatch({ control, name: 'price' });
+  useWatch({ control, name: 'size' });
+  useWatch({ control, name: 'contact' });
 
   const validateRecruitStartDate = (date: string) => {
     if (recruitEndDate) {
@@ -78,12 +93,23 @@ const GardenEdit = () => {
   };
 
   const onSubmit: SubmitHandler<Garden> = (data) => {
+    console.log(numberRef.current);
     const formData = new FormData();
 
     /** 분양 텃밭 form blob */
-    const jsonBlob = new Blob([JSON.stringify(data)], {
-      type: 'application/json',
-    });
+    const jsonBlob = new Blob(
+      [
+        JSON.stringify({
+          ...data,
+          price: numberRef.current.price,
+          size: numberRef.current.size,
+          contact: numberRef.current.contact,
+        }),
+      ],
+      {
+        type: 'application/json',
+      },
+    );
 
     images.forEach(({ file }) => {
       formData.append('gardenImages', file);
@@ -167,23 +193,58 @@ const GardenEdit = () => {
                 errorMessage={errors.gardenName?.message}
                 {...register('gardenName')}
               />
-              <Input
-                placeholder={'가격'}
-                type="number"
-                errorMessage={errors.price?.message}
-                {...register('price')}
+              <Controller
+                control={control}
+                render={({ field }) => (
+                  <NumericFormat
+                    customInput={Input}
+                    placeholder={'가격'}
+                    thousandSeparator=","
+                    suffix={' 원'}
+                    errorMessage={errors.price?.message}
+                    {...field}
+                    onValueChange={(values) => {
+                      const { value } = values;
+                      numberRef.current.price = value;
+                    }}
+                  />
+                )}
+                name="price"
               />
-              <Input
-                placeholder={'면적(평)'}
-                type="number"
-                errorMessage={errors.size?.message}
-                {...register('size')}
+              <Controller
+                control={control}
+                render={({ field }) => (
+                  <NumericFormat
+                    customInput={Input}
+                    placeholder={'면적(평)'}
+                    thousandSeparator=","
+                    suffix={' 평'}
+                    errorMessage={errors.price?.message}
+                    {...field}
+                    onValueChange={(values) => {
+                      const { value } = values;
+                      numberRef.current.size = value;
+                    }}
+                  />
+                )}
+                name="size"
               />
-              <Input
-                placeholder={'연락처'}
-                type="tel"
-                errorMessage={errors.contact?.message}
-                {...register('contact')}
+              <Controller
+                control={control}
+                render={({ field }) => (
+                  <PatternFormat
+                    customInput={Input}
+                    placeholder={'연락처'}
+                    format="###-####-####"
+                    errorMessage={errors.contact?.message}
+                    {...field}
+                    onValueChange={(values) => {
+                      const { value } = values;
+                      numberRef.current.contact = value;
+                    }}
+                  />
+                )}
+                name="contact"
               />
 
               <FlexInput

@@ -6,17 +6,10 @@ const phoneRegex = new RegExp(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/);
 
 const FormSchema = z.object({
   gardenName: z.string().min(1, '필수 입력 항목입니다.'),
-  price: z
-    .string()
-    .min(1, '필수 입력 항목입니다.')
-    .regex(/^\d+$/, '유효한 금액을 입력해주세요.'),
-  size: z
-    .string()
-    .min(1, '필수 입력 항목입니다.')
-    .regex(/^\d+$/, '숫자만 입력해주세요.'),
+  price: z.string({ required_error: '필수 입력 항목입니다.' }),
+  size: z.string({ required_error: '필수 입력 항목입니다.' }),
   contact: z
-    .string()
-    .min(1, '필수 입력 항목입니다.')
+    .string({ required_error: '필수 입력 항목입니다.' })
     .regex(phoneRegex, '올바른 전화번호를 입력해주세요.'),
   recruitStartDate: z.string().min(1, '필수 입력 항목입니다.'),
   recruitEndDate: z.string().min(1, '필수 입력 항목입니다.'),
@@ -41,7 +34,7 @@ const useGardenForm = () => {
       gardenName: '',
       price: undefined,
       size: undefined,
-      contact: '',
+      contact: undefined,
       recruitStartDate: '',
       recruitEndDate: '',
       gardenStatus: undefined,
