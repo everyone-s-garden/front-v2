@@ -9,7 +9,13 @@ import {
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
-import { FormProvider, SubmitHandler, useWatch } from 'react-hook-form';
+import {
+  Controller,
+  FormProvider,
+  SubmitHandler,
+  useWatch,
+} from 'react-hook-form';
+import { NumericFormat, PatternFormat } from 'react-number-format';
 import { useNavigate } from 'react-router-dom';
 import { BlockerModal, Content, DatePicker } from '@/components';
 import FlexInput from '../components/FlexInput';
@@ -25,6 +31,7 @@ import { useCreateGarden } from '@/services/garden/query';
 import { useGetLocation } from '@/services/region/query';
 import { useImageStore } from '@/stores/imageStore';
 import useSearchStore from '@/stores/searchStore';
+import removeNumberFormmating from '@/utils/removeNumberFormatting';
 
 const GardenEdit = () => {
   const methods = useGardenForm();
@@ -54,6 +61,9 @@ const GardenEdit = () => {
   const isToilet = useWatch({ control, name: 'isToilet' });
   const isWaterway = useWatch({ control, name: 'isWaterway' });
   const isEquipment = useWatch({ control, name: 'isEquipment' });
+  useWatch({ control, name: 'price' });
+  useWatch({ control, name: 'size' });
+  useWatch({ control, name: 'contact' });
 
   const validateRecruitStartDate = (date: string) => {
     if (recruitEndDate) {
@@ -81,9 +91,19 @@ const GardenEdit = () => {
     const formData = new FormData();
 
     /** 분양 텃밭 form blob */
-    const jsonBlob = new Blob([JSON.stringify(data)], {
-      type: 'application/json',
-    });
+    const jsonBlob = new Blob(
+      [
+        JSON.stringify({
+          ...data,
+          price: removeNumberFormmating(data.price),
+          size: removeNumberFormmating(data.size),
+          contact: removeNumberFormmating(data.contact),
+        }),
+      ],
+      {
+        type: 'application/json',
+      },
+    );
 
     images.forEach(({ file }) => {
       formData.append('gardenImages', file);
@@ -167,23 +187,64 @@ const GardenEdit = () => {
                 errorMessage={errors.gardenName?.message}
                 {...register('gardenName')}
               />
-              <Input
-                placeholder={'가격'}
-                type="number"
-                errorMessage={errors.price?.message}
-                {...register('price')}
+              <Controller
+                control={control}
+                render={({
+                  field: { name, onBlur, onChange, value, disabled },
+                }) => (
+                  <NumericFormat
+                    customInput={Input}
+                    placeholder={'가격'}
+                    thousandSeparator=","
+                    suffix={' 원'}
+                    errorMessage={errors.price?.message}
+                    name={name}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    disabled={disabled}
+                  />
+                )}
+                name="price"
               />
-              <Input
-                placeholder={'면적(평)'}
-                type="number"
-                errorMessage={errors.size?.message}
-                {...register('size')}
+              <Controller
+                control={control}
+                render={({
+                  field: { name, onBlur, onChange, value, disabled },
+                }) => (
+                  <NumericFormat
+                    customInput={Input}
+                    placeholder={'면적(평)'}
+                    thousandSeparator=","
+                    suffix={' 평'}
+                    errorMessage={errors.size?.message}
+                    name={name}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    disabled={disabled}
+                  />
+                )}
+                name="size"
               />
-              <Input
-                placeholder={'연락처'}
-                type="tel"
-                errorMessage={errors.contact?.message}
-                {...register('contact')}
+              <Controller
+                control={control}
+                render={({
+                  field: { name, onBlur, onChange, value, disabled },
+                }) => (
+                  <PatternFormat
+                    customInput={Input}
+                    placeholder={'연락처'}
+                    format="###-####-####"
+                    errorMessage={errors.contact?.message}
+                    name={name}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    disabled={disabled}
+                  />
+                )}
+                name="contact"
               />
 
               <FlexInput

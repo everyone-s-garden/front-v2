@@ -64,18 +64,18 @@ const DatePickerCalendar = ({
           <IconButton
             onClick={handlePrevMonthClick}
             aria-label="Prev Month"
-            bg="transparent"
             size="xs"
             fontSize="10px"
             icon={<ArrowLeftIcon width="16px" height="16px" />}
+            variant={'unstyled'}
           />
           <IconButton
             onClick={handleNextMonthClick}
             aria-label="Next Month"
-            bg="transparent"
             size="xs"
             fontSize="10px"
             icon={<ArrowRightIcon width="16px" height="16px" />}
+            variant={'unstyled'}
           />
         </Flex>
       </Flex>
