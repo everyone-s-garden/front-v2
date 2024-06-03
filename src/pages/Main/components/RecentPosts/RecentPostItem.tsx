@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@/assets/icons';
 import { DefaultPost } from '@/assets/images';
 import { GardenPost } from '@/services/gardenPost/types';
+import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
 const CHeartIcon = chakra(HeartIcon);
 
 const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
   const navigate = useNavigate();
+  const { setGardenId } = useMapGardenDetailIdStore();
 
   const {
     imageUrl,
@@ -36,7 +38,10 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
         : '마감됨';
 
   const handlePostClick = () => {
-    navigate('/map', { state: { latitude, longitude, gardenId } });
+    navigate('/map', {
+      state: { data: { lat: latitude, lng: longitude } },
+    });
+    setGardenId(gardenId);
   };
 
   return (
@@ -56,33 +61,33 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
           src={imageUrl || DefaultPost}
           alt="recent post"
         />
-        <CHeartIcon
+        {/* <CHeartIcon
           position="absolute"
           top="12px"
           left="12px"
           fill={isLiked ? 'white' : 'transparent'}
           stroke={'white'}
           strokeWidth={1.5}
-        />
+        /> */}
       </Box>
       <Flex flexDir="column" gap="3px">
-        <Flex gap="8px" alignItems="center">
-          <Text
-            fontSize={{ mobile: '16px', tablet: '18px' }}
-            fontWeight="semiBold"
-          >
-            {gardenName}
+        <Text
+          fontSize={{ mobile: '16px', tablet: '18px' }}
+          fontWeight="semiBold"
+        >
+          {gardenName}
+        </Text>
+        <Text color="gray.700" fontSize="14px" fontWeight="regular">
+          {address}
+        </Text>
+        <Flex alignItems="center" gap="8px">
+          <Text fontSize="16px" fontWeight="bold">
+            {Number(price).toLocaleString()} 원
           </Text>
-          <Text color="gray.700" fontSize="14px" fontWeight="regular">
-            {address}
+          <Text color="gray.700" fontSize="12px">
+            {term}
           </Text>
         </Flex>
-        <Text fontSize="16px" fontWeight="bold">
-          {Number(price).toLocaleString()} 원
-        </Text>
-        <Text color="gray.700" fontSize="16px">
-          {term}
-        </Text>
       </Flex>
     </Flex>
   );
