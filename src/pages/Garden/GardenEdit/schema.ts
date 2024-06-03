@@ -6,8 +6,12 @@ const phoneRegex = new RegExp(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/);
 
 const FormSchema = z.object({
   gardenName: z.string().min(1, '필수 입력 항목입니다.'),
-  price: z.string({ required_error: '필수 입력 항목입니다.' }),
-  size: z.string({ required_error: '필수 입력 항목입니다.' }),
+  price: z
+    .string({ required_error: '필수 입력 항목입니다.' })
+    .min(1, '필수 입력 항목입니다.'),
+  size: z
+    .string({ required_error: '필수 입력 항목입니다.' })
+    .min(1, '필수 입력 항목입니다.'),
   contact: z
     .string({ required_error: '필수 입력 항목입니다.' })
     .regex(phoneRegex, '올바른 전화번호를 입력해주세요.'),

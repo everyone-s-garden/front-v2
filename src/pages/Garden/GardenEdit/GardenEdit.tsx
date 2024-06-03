@@ -8,7 +8,7 @@ import {
   Textarea,
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import {
   Controller,
   FormProvider,
@@ -31,6 +31,7 @@ import { useCreateGarden } from '@/services/garden/query';
 import { useGetLocation } from '@/services/region/query';
 import { useImageStore } from '@/stores/imageStore';
 import useSearchStore from '@/stores/searchStore';
+import removeNumberFormmating from '@/utils/removeNumberFormatting';
 
 const GardenEdit = () => {
   const methods = useGardenForm();
@@ -43,12 +44,6 @@ const GardenEdit = () => {
     clearErrors,
     setError,
   } = methods;
-
-  const numberRef = useRef({
-    price: '',
-    size: '',
-    contact: '',
-  });
 
   const searchValue = useSearchStore((state) => state.searchValue);
   const showResults = useSearchStore((state) => state.showResults);
@@ -93,7 +88,6 @@ const GardenEdit = () => {
   };
 
   const onSubmit: SubmitHandler<Garden> = (data) => {
-    console.log(numberRef.current);
     const formData = new FormData();
 
     /** 분양 텃밭 form blob */
@@ -101,9 +95,9 @@ const GardenEdit = () => {
       [
         JSON.stringify({
           ...data,
-          price: numberRef.current.price,
-          size: numberRef.current.size,
-          contact: numberRef.current.contact,
+          price: removeNumberFormmating(data.price),
+          size: removeNumberFormmating(data.size),
+          contact: removeNumberFormmating(data.contact),
         }),
       ],
       {
@@ -195,53 +189,59 @@ const GardenEdit = () => {
               />
               <Controller
                 control={control}
-                render={({ field }) => (
+                render={({
+                  field: { name, onBlur, onChange, value, disabled },
+                }) => (
                   <NumericFormat
                     customInput={Input}
                     placeholder={'가격'}
                     thousandSeparator=","
                     suffix={' 원'}
                     errorMessage={errors.price?.message}
-                    {...field}
-                    onValueChange={(values) => {
-                      const { value } = values;
-                      numberRef.current.price = value;
-                    }}
+                    name={name}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    disabled={disabled}
                   />
                 )}
                 name="price"
               />
               <Controller
                 control={control}
-                render={({ field }) => (
+                render={({
+                  field: { name, onBlur, onChange, value, disabled },
+                }) => (
                   <NumericFormat
                     customInput={Input}
                     placeholder={'면적(평)'}
                     thousandSeparator=","
                     suffix={' 평'}
-                    errorMessage={errors.price?.message}
-                    {...field}
-                    onValueChange={(values) => {
-                      const { value } = values;
-                      numberRef.current.size = value;
-                    }}
+                    errorMessage={errors.size?.message}
+                    name={name}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    disabled={disabled}
                   />
                 )}
                 name="size"
               />
               <Controller
                 control={control}
-                render={({ field }) => (
+                render={({
+                  field: { name, onBlur, onChange, value, disabled },
+                }) => (
                   <PatternFormat
                     customInput={Input}
                     placeholder={'연락처'}
                     format="###-####-####"
                     errorMessage={errors.contact?.message}
-                    {...field}
-                    onValueChange={(values) => {
-                      const { value } = values;
-                      numberRef.current.contact = value;
-                    }}
+                    name={name}
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    value={value}
+                    disabled={disabled}
                   />
                 )}
                 name="contact"
