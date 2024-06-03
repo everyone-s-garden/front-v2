@@ -14,14 +14,29 @@ const gardensAPI = {
   },
 
   getGardensInBounds: async (
-    type: 'ALL' | 'PUBLIC' | 'PRIVATE',
     map: naver.maps.Map | null,
+    type: 'ALL' | 'PUBLIC' | 'PRIVATE',
   ) => {
     if (!map) return;
     const bounds = map.getBounds();
 
     const response = await apiClient.get(
-      `/v2/gardens/by-complexes?gardenType=${type}&pageNumber=0&startLat=${bounds.minY()}&startLong=${bounds.minX()}&endLat=${bounds.maxY()}&endLong=${bounds.maxX()}`,
+      `/v2/gardens/by-complexes/all?gardenType=${type}&startLat=${bounds.minY()}&startLong=${bounds.minX()}&endLat=${bounds.maxY()}&endLong=${bounds.maxX()}`,
+    );
+
+    return response.data;
+  },
+
+  getGardensInBoundWithScroll: async (
+    type: 'ALL' | 'PUBLIC' | 'PRIVATE',
+    page: number,
+    startLat?: number,
+    startLong?: number,
+    endLat?: number,
+    endLong?: number,
+  ) => {
+    const response = await apiClient.get(
+      `/v2/gardens/by-complexes?gardenType=${type}&pageNumber=${page}&startLat=${startLat}&startLong=${startLong}&endLat=${endLat}&endLong=${endLong}`,
     );
 
     return response.data;

@@ -33,7 +33,7 @@ const Empty = ({
         textAlign={'center'}
         fontSize={FONT_SIZE[size]}
         fontWeight={'semiBold'}
-        color={'sub'}
+        color={'gray.500'}
       >
         {description}
       </Text>

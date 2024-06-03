@@ -1,28 +1,49 @@
 import { Icon, Show, chakra } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { MapArrowBottomIcon, MapArrowLeftIcon } from '@/assets/icons';
+import getMapBounds from '../utils/getMapBounds';
 import MapGardens from './MapGardens';
 import MapNoGarden from './MapNoGarden';
+import { useGetGardensScroll } from '@/services/gardens/query';
 
 const Button = chakra(motion.button);
 const GardenContainer = chakra(motion.div);
 
 interface GardensContainerProps {
-  gardens: Garden[];
   showGardens: boolean;
   setShowGardens: Dispatch<SetStateAction<boolean>>;
   showGardenDetail: boolean;
   setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
+  gardenType: 'ALL' | 'PUBLIC' | 'PRIVATE';
+  map: naver.maps.Map | null;
 }
 
 const GardensContainer = ({
-  gardens,
   showGardens,
   setShowGardens,
   showGardenDetail,
   setShowGardenDetail,
+  gardenType,
+  map,
 }: GardensContainerProps) => {
+  const [hasNext, setHasNext] = useState(false);
+  const { startLat, startLong, endLat, endLong } = getMapBounds(map);
+  const { data, fetchNextPage, hasNextPage } = useGetGardensScroll(
+    map,
+    gardenType,
+    startLat,
+    startLong,
+    endLat,
+    endLong,
+  );
+
+  const gardens = data?.allGardens;
+
+  useEffect(() => {
+    setHasNext(data?.pages[data.pageParams.length - 1].hasNext);
+  }, [data?.pageParams.length, data?.pages]);
+
   return (
     <>
       <Show above="tablet">
@@ -47,7 +68,14 @@ const GardensContainer = ({
             <MapNoGarden />
           ) : (
             <MapGardens
-              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+              {...{
+                showGardenDetail,
+                setShowGardenDetail,
+                fetchNextPage,
+                hasNextPage,
+                hasNext,
+                gardens,
+              }}
             />
           )}
           <Button
@@ -100,7 +128,14 @@ const GardensContainer = ({
             <MapNoGarden />
           ) : (
             <MapGardens
-              {...{ gardens, showGardenDetail, setShowGardenDetail }}
+              {...{
+                showGardenDetail,
+                setShowGardenDetail,
+                fetchNextPage,
+                hasNextPage,
+                hasNext,
+                gardens,
+              }}
             />
           )}
           <Button

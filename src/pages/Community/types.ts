@@ -37,6 +37,7 @@ export interface Post {
   userInfo: User;
   postType: PostType;
   createdDate: string;
+  isLikeClick: boolean;
 }
 
 export interface PostDetail extends Omit<Post, 'preview' | 'postId'> {
