@@ -12,8 +12,6 @@ const WeeklyWeather = ({
 }) => {
   const today = new Date().getDay();
 
-  console.log(weeklyWeatherData);
-
   return (
     <Flex
       flexDirection="column"
@@ -25,6 +23,7 @@ const WeeklyWeather = ({
       <Flex justifyContent="space-between">
         {weeklyWeatherData.map((status, index) => (
           <Flex
+            key={index}
             flexDirection="column"
             alignItems="center"
             gap={{ mobile: '18px', tablet: '34px' }}
