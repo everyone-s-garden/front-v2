@@ -65,14 +65,6 @@ const router = createBrowserRouter([
         element: <Map />,
       },
       {
-        path: PATH.MAP.CREATE_GARDEN,
-        element: <GardenEdit />,
-      },
-      {
-        path: PATH.MAP.CREATE_MY_GARDEN,
-        element: <MyGardenEdit />,
-      },
-      {
         path: PATH.MYPAGE.MAIN,
         element: <MyPage />,
       },
