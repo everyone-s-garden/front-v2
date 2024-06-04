@@ -1,11 +1,11 @@
-import { Box, Flex, Image, Text, chakra } from '@chakra-ui/react';
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { HeartIcon } from '@/assets/icons';
+// import { HeartIcon } from '@/assets/icons';
 import { DefaultPost } from '@/assets/images';
 import { GardenPost } from '@/services/gardenPost/types';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
-const CHeartIcon = chakra(HeartIcon);
+// const CHeartIcon = chakra(HeartIcon);
 
 const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
     address,
     price,
     recruitEndDate,
-    isLiked,
+    // isLiked,
     gardenId,
     latitude,
     longitude,
