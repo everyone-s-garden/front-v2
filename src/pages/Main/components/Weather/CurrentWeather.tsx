@@ -1,7 +1,10 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import { cloudyIcon } from '@/assets/icons/weather';
+import getBackgroundColorFromWeather from '../../utils/getBackgroundColorFromWeather';
+import getWeatherIcon from '../../utils/getWeatherIcon';
 import { useGetWeatherByRegion } from '@/services/weather/query';
 import { useMyLocationStore } from '@/stores/myLocationStore';
+
+const BLACK_COLOR_VALUE = ['맑음', '구름많음', '흐림'];
 
 const CurrentWeather = () => {
   const myLocation = useMyLocationStore((state) => state.myLocation);
@@ -17,23 +20,41 @@ const CurrentWeather = () => {
 
   return (
     <Flex
-      p={{ mobile: '25px 25px 25px 15px', tablet: '16px 60px 16px 50px' }}
+      p={{ mobile: '0 25px', tablet: '0 50px' }}
       gap="15px"
       h={{ mobile: '100px', tablet: '148px' }}
       justifyContent="space-between"
-      bgColor="#fff4e7"
+      alignItems="center"
+      bgColor={getBackgroundColorFromWeather(currentWeather.skyValue)}
       overflow="hidden"
     >
-      <Image src={cloudyIcon} h={{ mobile: '80px', tablet: '130px' }} />
+      <Image
+        alignSelf="flex-end"
+        src={getWeatherIcon(currentWeather.skyValue, true)}
+        h={{ mobile: '80px', tablet: '130px' }}
+      />
       <Flex alignItems="center" justifyContent="center" gap="22px">
         <Text
           fontSize={{ mobile: '32px', tablet: '64px' }}
           fontWeight="semiBold"
+          color={
+            BLACK_COLOR_VALUE.includes(currentWeather.skyValue)
+              ? 'black'
+              : 'white'
+          }
         >
           {currentWeather.temperatureValue}°
         </Text>
-        <Box w="1px" h={{ mobile: '100%', tablet: '77px' }} bg="gray.200" />
-        <Text fontWeight="medium" fontSize={{ mobile: '14px', tablet: '20px' }}>
+        <Box w="1px" h="77px" bg="gray.200" />
+        <Text
+          fontWeight="medium"
+          fontSize={{ mobile: '14px', tablet: '20px' }}
+          color={
+            BLACK_COLOR_VALUE.includes(currentWeather.skyValue)
+              ? 'black'
+              : 'white'
+          }
+        >
           {currentWeather.skyValue}
         </Text>
       </Flex>
