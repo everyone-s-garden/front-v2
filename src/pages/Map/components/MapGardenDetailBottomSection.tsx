@@ -5,13 +5,12 @@ import {
   Text,
   Button,
   useDisclosure,
-  chakra,
   Link,
   Spinner,
 } from '@chakra-ui/react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AlertToast } from '@/components';
 import {
   ChatIcon,
   CopyNumberIcon,
@@ -20,6 +19,7 @@ import {
   ReportIcon,
 } from '@/assets/icons';
 import Modal from '@/components/Modal/Modal';
+import useClipboard from '@/hooks/useClipboard';
 import { PATH } from '@/routes/constants';
 import { useCreateGardenChatRoom } from '@/services/chat/query';
 import { useLikeGarden } from '@/services/gardens/mutations';
@@ -29,8 +29,6 @@ interface MapGardenDetailBottomSectionProps {
   refetch: () => void;
 }
 
-const CopyBox = chakra(motion.div);
-
 const MapGardenDetailBottomSection = ({
   garden,
   refetch,
@@ -39,9 +37,10 @@ const MapGardenDetailBottomSection = ({
   const isGardenLiked = garden?.gardenLikeId === 0 ? false : true;
   const [liked, setLiked] = useState(isGardenLiked);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [copied, setCopied] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
+
+  const { isCopied, onCopy } = useClipboard();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -67,19 +66,6 @@ const MapGardenDetailBottomSection = ({
 
     setIsMobile(isMobile);
   }, []);
-
-  const handleCopyClipBoard = async (text: string | undefined) => {
-    try {
-      await navigator.clipboard.writeText(text as string);
-      setCopied(true);
-
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch (e) {
-      alert('복사에 실패하였습니다');
-    }
-  };
 
   const handleClickCall = () => {
     if (!isMobile) setIsClickedCallInWeb(true);
@@ -125,7 +111,6 @@ const MapGardenDetailBottomSection = ({
         color: 'orange',
         reportId: garden?.gardenId,
       },
-      replace: true,
     });
   };
 
@@ -218,7 +203,7 @@ const MapGardenDetailBottomSection = ({
               h="24px"
               cursor="pointer"
               as={CopyNumberIcon}
-              onClick={() => handleCopyClipBoard(garden?.contact)}
+              onClick={() => onCopy(garden?.contact ?? '')}
             />
           </Flex>
           <Flex gap="17.5px">
@@ -291,31 +276,7 @@ const MapGardenDetailBottomSection = ({
           </Text>
         </Box>
 
-        <AnimatePresence>
-          {copied && (
-            <CopyBox
-              pos="absolute"
-              top="260px"
-              left="50%"
-              w="195px"
-              h="48px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              bgColor="green.500"
-              color="white"
-              fontSize="15px"
-              fontWeight="medium"
-              borderRadius="9px"
-              transform="-50%"
-              initial={{ opacity: 0, x: '-50%', scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-            >
-              복사 되었습니다.
-            </CopyBox>
-          )}
-        </AnimatePresence>
+        <AlertToast show={isCopied} message="복사되었습니다." color="green" />
       </Modal>
     </Box>
   );

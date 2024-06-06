@@ -45,7 +45,6 @@ const Comment = ({
         color: 'orange',
         reportId: commentId,
       },
-      replace: true,
     });
   };
 
