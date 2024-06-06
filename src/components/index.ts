@@ -12,4 +12,5 @@ export { default as Content } from './Content/Content';
 export { default as DatePicker } from './DatePicker/DatePicker';
 export { default as AlertToast } from './AlertToast/AlertToast';
 
+export * from './Header/PostMenu';
 export * from './Dropdown/Dropdown';
