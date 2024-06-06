@@ -1,4 +1,4 @@
-import { Box, Center, Divider, Heading } from '@chakra-ui/react';
+import { Box, Center, Divider, Text } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 import { PostList } from '@/components';
@@ -104,13 +104,14 @@ const CommunityDetail = () => {
         />
 
         <Box mb={6}>
-          <Heading
+          <Text
             as={'h1'}
             fontSize={{ mobile: '18px', tablet: '24px' }}
+            fontWeight={'bold'}
             mb={{ mobile: '16px', tablet: '24px' }}
           >
             지금 인기글을 소개합니다
-          </Heading>
+          </Text>
           {popularPosts && popularPosts.length > 0 ? (
             <PostList posts={popularPosts} />
           ) : (

@@ -1,10 +1,12 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import DOMPurify from 'dompurify';
 import { nanoid } from 'nanoid';
 import { useLocation, useNavigate } from 'react-router';
 import { ImageSlider, TagComponent } from '@/components';
 import getRelativeTime from '../../../../utils/getRelativeTime';
 import { POST } from '../../constants';
 import AuthorInfo from './AuthorInfo';
+import { contentStyles } from './contentStyles';
 import { PATH } from '@/routes/constants';
 import { useGetPost } from '@/services/whisper/query';
 
@@ -28,6 +30,9 @@ const Content = () => {
   if (!data) return null;
 
   const { title, content, images, userInfo, createdDate, postType } = data;
+  const cleanContent = DOMPurify.sanitize(content, {
+    FORBID_ATTR: ['style'],
+  }).replace(/\n/g, '');
 
   return (
     <Box>
@@ -82,34 +87,10 @@ const Content = () => {
       <Box
         mt={{ mobile: '20px', tablet: '24px' }}
         mb={{ mobile: '28px', tablet: '50px' }}
-        dangerouslySetInnerHTML={{ __html: content }}
-        __css={{
-          '.align-right': {
-            textAlign: 'right',
-          },
-          '.align-center': {
-            textAlign: 'center',
-          },
-          fontWeight: 'medium',
-          h1: {
-            fontSize: '20px',
-            fontWeight: 'bold',
-          },
-          h2: {
-            fontSize: '18px',
-            fontWeight: 'semiBold',
-          },
-          h3: {
-            fontSize: '14px',
-            fontWeight: 'medium',
-          },
-          '& > div': {
-            h: '24px',
-          },
-          em: {
-            fontStyle: 'italic',
-          },
+        dangerouslySetInnerHTML={{
+          __html: cleanContent,
         }}
+        __css={contentStyles}
       />
 
       <Flex justify={'flex-end'}>
