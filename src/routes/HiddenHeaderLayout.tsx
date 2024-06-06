@@ -18,7 +18,6 @@ const HiddenHeaderLayout = () => {
         <Header loggedIn={isLoggedIn} />
       </Box>
       <Box
-        overflow={{ mobile: undefined, tablet: 'auto' }}
         h={{
           mobile: undefined,
           tablet: 'calc(100svh - 108px)',
