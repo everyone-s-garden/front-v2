@@ -22,7 +22,6 @@ const Content = () => {
         color: 'orange',
         reportId: postId,
       },
-      replace: true,
     });
   };
 

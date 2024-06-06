@@ -125,7 +125,6 @@ const MapGardenDetailBottomSection = ({
         color: 'orange',
         reportId: garden?.gardenId,
       },
-      replace: true,
     });
   };
 
