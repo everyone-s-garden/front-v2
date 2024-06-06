@@ -42,7 +42,7 @@ export const mainRoute = [
   },
   {
     tabName: '설정',
-    keyword: '*',
+    keyword: 'setting',
     href: PATH.SETTINGS,
     des: '고객센터 및 회원정보를 수정할\n수 있어요.',
     icon: SettingsMyPageIcon,
@@ -51,7 +51,7 @@ export const mainRoute = [
     href: '/',
     tabName: '유저의 소리함',
     des: '모두의 텃밭에 의견을 추가할 수\n있어요.',
-    keyword: '하이',
+    keyword: 'userFeedback',
     icon: UserFeedBackMyPageIcon,
   },
 ];
@@ -128,26 +128,32 @@ export const settingsRoute = [
   {
     tabName: '공지사항',
     href: '*',
+    keyword: '',
   },
   {
     tabName: '자주 묻는 질문',
     href: '*',
+    keyword: '',
   },
   {
     tabName: '1:1 문의하기',
     href: '*',
+    keyword: '',
   },
   {
     tabName: '개인정보수정',
     href: '*',
+    keyword: '',
   },
   {
     tabName: '로그아웃',
     href: '*',
+    keyword: '',
   },
   {
     tabName: '회원탈퇴',
     href: '*',
+    keyword: '',
   },
 ];
 

@@ -1,7 +1,7 @@
 import { Box, Flex, Image, ListItem, Text, Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { HeartIcon } from '@/assets/icons';
-import { ICrop, IGarden } from '../type';
+import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
@@ -10,7 +10,7 @@ interface CardProps {
   heart?: boolean;
   menu?: boolean;
   checkboxOpen?: boolean;
-  item: IGarden | ICrop;
+  item: RecentGardenItem | BaseGardenItem | CropTrade;
   idx: number;
 }
 
@@ -30,6 +30,15 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
     }
   }, [checkboxOpen]);
 
+  const thumbnail = 'images' in item ? item.images[0] : item.imageUrl;
+  const id = 'gardenId' in item ? item.gardenId : item.cropPostId;
+  const title = 'gardenName' in item ? item.gardenName : item.title;
+  const itemId = 'gardenId' in item ? item.gardenId : item.cropPostId;
+
+  const handleLike = () => {
+    console.log('like');
+  };
+
   return (
     <ListItem cursor="pointer" mb="32px" mt={{ mobile: '16px', tablet: '0' }}>
       <Flex flex={1}>
@@ -43,13 +52,13 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
             w="full"
             h="full"
             borderRadius="8px"
-            src={item.thumbnail}
+            src={thumbnail}
             objectFit="cover"
           />
           <Overlay report={report} />
           {heart && (
             <Box
-              onClick={() => alert(`heart clicked ${item.id}`)}
+              onClick={handleLike}
               as="button"
               pos="absolute"
               top={{ mobile: '8px', tablet: '12px' }}
@@ -57,12 +66,12 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
               bg="transparent"
               aria-label="좋아요 버튼"
             >
-              <HeartIcon />
+              <HeartIcon color="red" />
             </Box>
           )}
           <MobileCheckbox
             handleCheckbox={handleCheckbox}
-            idx={item.id}
+            id={id}
             checkedItems={checkedItems}
             checkboxOpen={checkboxOpen}
           />
@@ -79,7 +88,7 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
               fontWeight="semiBold"
               noOfLines={{ mobile: 2, tablet: 1 }}
             >
-              {item.name}
+              {title}
             </Text>
             {'location' in item && (
               <Text
@@ -87,7 +96,7 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
                 ml={{ mobile: '6px', tablet: '0' }}
                 fontSize="16px"
               >
-                {item.location}
+                {/* {item.location} */}
               </Text>
             )}
           </Flex>
@@ -107,7 +116,7 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
               </>
             )}
             <Text color="black" noOfLines={1} fontWeight="semiBold" mb="6px">
-              {item.price.toLocaleString()}원
+              {/* {item.price.toLocaleString()}원 */}
             </Text>
           </Flex>
           <Text
@@ -137,7 +146,7 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
             <Overlay report={report} />
           </Button>
         </Box>
-        {menu && <MenuButton ml="auto" />}
+        {menu && <MenuButton ml="auto" itemId={itemId} />}
       </Flex>
     </ListItem>
   );
