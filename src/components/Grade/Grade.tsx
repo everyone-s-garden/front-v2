@@ -43,26 +43,39 @@ const gradeData = [
 const Grade = () => {
   return (
     <Center flexDir={'column'}>
-      <Text fontSize={'20px'} fontWeight={'bold'} bg={'green.100'} px={'7px'}>
+      <Text fontSize={{ mobile: '16px', tablet: '20px' }} fontWeight={'bold'}>
         모두의 텃밭 등급제도
       </Text>
-      <List mt={'40px'} maxW={'300px'} w={'100%'}>
+      <List mt={'48px'} maxW={'300px'} w={'100%'}>
         {gradeData.map(({ image, grade, description, color }) => (
           <ListItem
             key={grade}
             display={'flex'}
             py={'20px'}
+            _first={{ pt: 0 }}
             gap={'18px'}
             alignItems={'center'}
             borderBottom={'1px solid'}
             borderBottomColor={'gray.100'}
           >
-            <Image src={image} alt={grade} />
+            <Image
+              src={image}
+              alt={grade}
+              h={{ mobile: '44px', tablet: '56px' }}
+            />
             <Flex flexDir={'column'} gap={'4px'}>
-              <Text color={color} fontWeight={'semiBold'}>
+              <Text
+                color={color}
+                fontWeight={'semiBold'}
+                fontSize={{ mobile: '14px', tablet: '16px' }}
+              >
                 {grade}
               </Text>
-              <Text fontSize={'14px'} fontWeight={'medium'} color={'sub'}>
+              <Text
+                fontSize={{ mobile: '12px', tablet: '14px' }}
+                fontWeight={'medium'}
+                color={'sub'}
+              >
                 {description}
               </Text>
             </Flex>

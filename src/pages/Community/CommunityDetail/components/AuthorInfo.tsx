@@ -84,7 +84,11 @@ const AuthorInfo = ({ userId, profile, name, memberMannerGrade }: User) => {
             cursor={'pointer'}
           />
         </Flex>
-        <Center px={'80px'} pb={'60px'} mt={'16px'}>
+        <Center
+          px={{ mobile: '20px', tablet: '80px' }}
+          pb={'60px'}
+          w={{ mobile: 'calc(100vw - 40px)', tablet: 'auto' }}
+        >
           <Grade />
         </Center>
       </Modal>

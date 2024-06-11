@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { PostList } from '@/components';
+import { MobilePostMenu, PostList } from '@/components';
 import { PostBoxIcon } from '@/assets/icons';
 import CommunityHeader from './components/CommunityHeader';
 import Order from './components/Order';
@@ -59,6 +59,13 @@ const CommunityMain = () => {
           <div ref={ref} />
         </Box>
       </Box>
+
+      <MobilePostMenu
+        pos={'absolute'}
+        hideFrom={'tablet'}
+        bottom={'160px'}
+        right={'20px'}
+      />
     </>
   );
 };

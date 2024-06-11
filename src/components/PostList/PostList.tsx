@@ -82,8 +82,11 @@ const PostList = ({ posts }: PostListProps) => {
                     h={{ mobile: '48px', tablet: 'fit-content' }}
                     lineHeight={'24px'}
                     noOfLines={{ mobile: 2, tablet: 1 }}
+                    wordBreak={'break-all'}
+                    overflowWrap={'anywhere'}
                     onClick={() => handleClickItem(postId)}
                     cursor={'pointer'}
+                    w={'100%'}
                   >
                     {title}
                   </Text>
@@ -94,6 +97,8 @@ const PostList = ({ posts }: PostListProps) => {
                   fontSize={18}
                   height={'54px'}
                   whiteSpace={'normal'}
+                  wordBreak={'break-all'}
+                  overflowWrap={'anywhere'}
                 >
                   {getPlainText(content)}
                 </Text>

@@ -172,7 +172,7 @@ const MobileToolBar = ({
   return (
     <Center
       hideFrom={'tablet'}
-      position={'absolute'}
+      position={'fixed'}
       bottom={'60px'}
       h={'68px'}
       w={'100%'}

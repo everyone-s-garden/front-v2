@@ -165,10 +165,6 @@ const router = createBrowserRouter([
         element: <AuthRoute />,
         children: [
           {
-            path: COMMUNITY.CREATE,
-            element: <CommunityEdit />,
-          },
-          {
             path: MYPAGE.MAIN,
             element: <MyPage />,
           },
@@ -273,6 +269,10 @@ const router = createBrowserRouter([
           {
             path: MAP.CREATE_MY_GARDEN,
             element: <MyGardenEdit />,
+          },
+          {
+            path: COMMUNITY.CREATE,
+            element: <CommunityEdit />,
           },
           {
             path: CHAT.MAIN,

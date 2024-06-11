@@ -21,7 +21,7 @@ const editorStyle: SystemStyleObject = {
   /** 에디터 전체 */
   '.rdw-editor-wrapper': {
     h: {
-      mobile: 'calc(100svh - 532px)',
+      mobile: 'calc(100svh - 480px)',
       tablet: '554px',
     },
     overflow: 'auto',
