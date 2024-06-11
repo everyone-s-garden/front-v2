@@ -61,6 +61,8 @@ const DatePicker = ({
         px={{ mobile: '13px', tablet: '16px' }}
         fontWeight="medium"
         onClick={handleOpen}
+        variant={'unstyled'}
+        display={'flex'}
       >
         <Show above="tablet">
           <Flex justifyContent="space-between" alignItems="center">

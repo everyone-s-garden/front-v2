@@ -23,6 +23,7 @@ const globalStyles = css`
       sans-serif;
     color: #282828;
     font-size: 16px;
+    font-weight: 500;
   }
 
   *::-webkit-scrollbar {
@@ -87,7 +88,6 @@ const globalStyles = css`
   option,
   textarea {
     // 단어 기준 줄바꿈
-    word-break: keep-all;
     white-space: pre-line;
   }
 

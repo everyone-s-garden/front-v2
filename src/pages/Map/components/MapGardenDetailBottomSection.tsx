@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   ChatIcon,
   CopyNumberIcon,
@@ -19,6 +20,8 @@ import {
   ReportIcon,
 } from '@/assets/icons';
 import Modal from '@/components/Modal/Modal';
+import { PATH } from '@/routes/constants';
+import { useCreateGardenChatRoom } from '@/services/chat/query';
 import { useLikeGarden } from '@/services/gardens/mutations';
 
 interface MapGardenDetailBottomSectionProps {
@@ -40,7 +43,15 @@ const MapGardenDetailBottomSection = ({
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
 
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
+  const {
+    mutate: createGardenChatRoom,
+    data: newChatRoomData,
+    isSuccess,
+  } = useCreateGardenChatRoom();
 
   useEffect(() => {
     setLiked(isGardenLiked);
@@ -92,18 +103,45 @@ const MapGardenDetailBottomSection = ({
     }, 250);
   };
 
+  const handleClickChat = () => {
+    if (garden?.roomId === -1) {
+      createGardenChatRoom({
+        postId: garden?.gardenId,
+        writerId: garden?.writerId,
+      });
+      if (isSuccess) {
+        navigate(`/chat/${newChatRoomData.chatRoomId}`);
+      }
+    } else {
+      navigate(`/chat/${garden?.roomId}`);
+    }
+  };
+
+  const handleClickReport = () => {
+    navigate(PATH.REPORT, {
+      state: {
+        from: pathname,
+        name: 'garden',
+        color: 'orange',
+        reportId: garden?.gardenId,
+      },
+      replace: true,
+    });
+  };
+
   return (
     <Box marginTop="40px" cursor="pointer">
       <Flex marginBottom="20px" alignItems="center" gap="6px">
         <Icon as={ReportIcon} />
-        <Link
-          href={`/map/report/${garden?.gardenId}`}
+        <Text
           fontSize="12px"
           color="gray.400"
           fontWeight="regular"
+          onClick={handleClickReport}
+          cursor={'pointer'}
         >
           신고하기
-        </Link>
+        </Text>
       </Flex>
 
       <Flex w="fit-content" margin="0 auto" gap="14px">
@@ -145,6 +183,8 @@ const MapGardenDetailBottomSection = ({
           color="white"
           padding="14px 52px"
           bgColor="green.500"
+          w="160px"
+          h="48px"
           _hover={{}}
           _active={{}}
           onClick={onOpen}
@@ -233,6 +273,7 @@ const MapGardenDetailBottomSection = ({
               paddingRight="24px"
               borderRadius="9px"
               cursor="pointer"
+              onClick={handleClickChat}
             >
               <Icon as={ChatIcon} w="24px" h="24px" />
               <Text fontWeight="semiBold">채팅하기</Text>

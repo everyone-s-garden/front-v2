@@ -10,18 +10,21 @@ import {
 import { Box, Flex, ModalCloseButton, Text, Textarea } from '@chakra-ui/react';
 import { userFeedBackItem } from '../constants';
 import { useState } from 'react';
-import { userFeedbackModal } from '../type';
+import { userFeedbackModalProps } from '../type';
 
-const UserFeedbackModal = ({ modalOpen, setModalOpen }: userFeedbackModal) => {
+const UserFeedbackModal = ({
+  modalOpen,
+  setModalOpen,
+}: userFeedbackModalProps) => {
   const [inquireType, setInquireType] = useState({
     label: '문의 유형',
     key: 'no-key',
     value: 0,
   });
   const breakPoints = {
-    320: { slidesPerView: 1, spaceBetween: 10 },
-    768: { slidesPerView: 1, spaceBetween: 10 },
-    1024: { slidesPerView: 3, spaceBetween: 30 },
+    320: { slidesPerView: 3, spaceBetween: 5 },
+    768: { slidesPerView: 3, spaceBetween: 5 },
+    1024: { slidesPerView: 3, spaceBetween: 5 },
   };
 
   const size = {

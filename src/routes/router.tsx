@@ -22,13 +22,14 @@ import {
   WrittenPosts,
   CommunityDetail,
   Chat,
-  ChatContent,
+  ChatContents,
   CommunityEdit,
   CommunityMain,
   StartContent,
   Login,
   Redirection,
   Map,
+  Report,
 } from '@/pages';
 import AuthRoute from './AuthRoute';
 import GuestRoute from './GuestRoute';
@@ -36,9 +37,8 @@ import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
 
-import MapReport from '@/pages/Map/MapReport/MapReport';
-
-const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS } = PATH;
+const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, REPORT } =
+  PATH;
 
 const router = createBrowserRouter([
   {
@@ -63,18 +63,6 @@ const router = createBrowserRouter([
       {
         path: MAP.MAIN,
         element: <Map />,
-      },
-      {
-        path: PATH.MAP.REPORT,
-        element: <MapReport />,
-      },
-      {
-        path: PATH.MAP.CREATE_GARDEN,
-        element: <GardenEdit />,
-      },
-      {
-        path: PATH.MAP.CREATE_MY_GARDEN,
-        element: <MyGardenEdit />,
       },
       {
         path: PATH.MYPAGE.MAIN,
@@ -177,20 +165,6 @@ const router = createBrowserRouter([
         element: <AuthRoute />,
         children: [
           {
-            path: CHAT.MAIN,
-            element: <Chat />,
-            children: [
-              {
-                index: true,
-                element: <StartContent />,
-              },
-              {
-                path: CHAT.ROOM,
-                element: <ChatContent />,
-              },
-            ],
-          },
-          {
             path: COMMUNITY.CREATE,
             element: <CommunityEdit />,
           },
@@ -270,6 +244,16 @@ const router = createBrowserRouter([
               },
             ],
           },
+          {
+            path: CHAT.MAIN,
+            element: <Chat />,
+            children: [
+              {
+                index: true,
+                element: <StartContent />,
+              },
+            ],
+          },
         ],
       },
     ],
@@ -289,6 +273,20 @@ const router = createBrowserRouter([
           {
             path: MAP.CREATE_MY_GARDEN,
             element: <MyGardenEdit />,
+          },
+          {
+            path: CHAT.MAIN,
+            element: <Chat />,
+            children: [
+              {
+                path: CHAT.ROOM,
+                element: <ChatContents />,
+              },
+            ],
+          },
+          {
+            path: REPORT,
+            element: <Report />,
           },
         ],
       },

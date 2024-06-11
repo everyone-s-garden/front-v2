@@ -1,5 +1,7 @@
-import { Box, Flex, Spinner } from '@chakra-ui/react';
+import { Box, Button, Flex, Spinner, Text } from '@chakra-ui/react';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import ItemTitle from '../ItemTitle';
 import CurrentWeather from './CurrentWeather';
 import NextWeather from './NextWeather';
@@ -31,9 +33,51 @@ const Weather = () => {
           >
             <CurrentWeather />
           </Suspense>
-          <Suspense>
-            <NextWeather />
-          </Suspense>
+          <QueryErrorResetBoundary>
+            {({ reset }) => (
+              <ErrorBoundary
+                onReset={reset}
+                fallbackRender={({ resetErrorBoundary }) => (
+                  <Flex
+                    alignItems="center"
+                    justifyContent="center"
+                    h="48px"
+                    borderTop="1px"
+                    borderColor="gray.100"
+                  >
+                    <Text>날씨 정보를 가져오는데 실패했어요...</Text>
+                    <Button
+                      variant="unstyled"
+                      onClick={() => resetErrorBoundary()}
+                    >
+                      다시 시도하기
+                    </Button>
+                  </Flex>
+                )}
+              >
+                <Suspense
+                  fallback={
+                    <Flex
+                      alignItems="center"
+                      justifyContent="center"
+                      h="48px"
+                      borderTop="1px"
+                      borderColor="gray.100"
+                    >
+                      <Spinner
+                        speed="0.6s"
+                        size="sm"
+                        thickness="3px"
+                        color="orange.500"
+                      />
+                    </Flex>
+                  }
+                >
+                  <NextWeather />
+                </Suspense>
+              </ErrorBoundary>
+            )}
+          </QueryErrorResetBoundary>
         </Box>
       </Flex>
     </Box>

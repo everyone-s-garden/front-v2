@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CommentIcon, ParagraphIcon, PostIcon } from '@/assets/icons';
+import { CommentsIcon, ParagraphBoxIcon, PostBoxIcon } from '@/assets/icons';
 import Empty from './Empty';
 
 const meta = {
@@ -45,16 +45,16 @@ type Story = StoryObj<typeof meta>;
 export const 게시글_없을_때: Story = {
   args: {
     size: 'large',
-    src: PostIcon,
-    description: `게시된 게시물이 없습니다.
-    새로운 게시물을 업로드 해보세요 !`,
+    src: PostBoxIcon,
+    description: `등록된 글이 없습니다.
+    새로운 글을 등록해보세요 !`,
   },
 };
 
 export const 댓글_없을_때: Story = {
   args: {
     size: 'medium',
-    src: CommentIcon,
+    src: CommentsIcon,
     iconFill: true,
     description: `아직 댓글이 없습니다.
     댓글을 남겨보세요.`,
@@ -64,19 +64,19 @@ export const 댓글_없을_때: Story = {
 export const 인기_게시글_없을_때: Story = {
   args: {
     size: 'medium',
-    src: ParagraphIcon,
+    src: ParagraphBoxIcon,
     iconFill: true,
-    description: `아직 댓글이 없습니다.
-    댓글을 남겨보세요.`,
+    description: `인기글이 없습니다.
+    글을 작성하여 인기글이 되어보세요 !`,
   },
 };
 
 export const 모바일: Story = {
   args: {
     size: 'large',
-    src: PostIcon,
-    description: `게시된 게시물이 없습니다.
-    새로운 게시물을 업로드 해보세요 !`,
+    src: ParagraphBoxIcon,
+    description: `등록된 글이 없습니다.
+    새로운 글을 등록해보세요 !`,
   },
   parameters: {
     viewport: {

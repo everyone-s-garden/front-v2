@@ -1,6 +1,5 @@
 import { Box, Flex, Text, createIcon } from '@chakra-ui/react';
-// import { useGetGardenChatRooms } from 'api/ChatAPI';
-// import { ReactComponent as ClickIcon } from 'assets/chat/click-icon.svg';
+import { useGetGardenChatRooms } from '@/services/chat/query';
 
 const ClickIcon = createIcon({
   displayName: 'ClickIcon',
@@ -17,6 +16,10 @@ const ClickIcon = createIcon({
 });
 
 const StartContent = () => {
+  const { data } = useGetGardenChatRooms();
+
+  if (!data) return null;
+
   return (
     <Box
       bg="white"

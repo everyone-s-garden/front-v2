@@ -111,7 +111,7 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
         <Overlay report={report} />
         <MobileCheckbox
           handleCheckbox={handleCheckbox}
-          idx={idx}
+          id={item.id}
           checkedItems={checkedItems}
           checkboxOpen={checkboxOpen}
         />
@@ -127,7 +127,7 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
           <GardenImageDefaultIcon />
         )}
       </Box>
-      {menu && <MenuButton ml="26px" />}
+      {menu && <MenuButton itemId={item.id} ml="26px" />}
     </ListItem>
   );
 };
