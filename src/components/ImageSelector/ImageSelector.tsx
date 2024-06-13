@@ -24,12 +24,14 @@ interface ImageSelectorProps {
     tablet: number;
     desktop: number;
   };
+  showArrow?: boolean;
 }
 
 const ImageSelector = ({
   breakPoints,
   color = 'green',
   size,
+  showArrow = true,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
@@ -72,12 +74,15 @@ const ImageSelector = ({
           fontSize: '20px',
           color: `${color}.500`,
         },
-        '.swiper-button-prev': {},
-        '.swiper-button-next': {},
+        '.swiper-button-prev': {
+          top: '50%',
+        },
+        '.swiper-button-next': {
+          top: '50%',
+        },
         '.swiper-button-disabled': {
           display: 'none',
         },
-
         '.swiper': {
           width: '100%',
           height: '100%',
@@ -119,7 +124,7 @@ const ImageSelector = ({
       </Button>
       <Swiper
         breakpoints={breakPoints}
-        navigation={true}
+        navigation={showArrow}
         modules={[Navigation]}
       >
         {images.map((image) => (

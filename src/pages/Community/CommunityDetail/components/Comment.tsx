@@ -7,10 +7,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { CommentPlusIcon, HeartIcon } from '@/assets/icons';
 import { Comment as CommentType } from '../../types';
 import CommentInput from './CommentInput';
+import { PATH } from '@/routes/constants';
 import getRelativeTime from '@/utils/getRelativeTime';
 
 interface CommentProps extends CommentType {
@@ -32,9 +34,18 @@ const Comment = ({
   ...rest
 }: CommentProps & FlexProps) => {
   const [subCommentView, setSubCommentView] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleClickReport = () => {
-    alert(`준비 중인 기능입니다.`);
+    navigate(PATH.REPORT, {
+      state: {
+        from: pathname,
+        name: 'community_comment',
+        color: 'orange',
+        reportId: commentId,
+      },
+    });
   };
 
   return (

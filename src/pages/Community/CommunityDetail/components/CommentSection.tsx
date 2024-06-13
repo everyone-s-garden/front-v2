@@ -1,7 +1,7 @@
 import { Box, BoxProps, Flex, List, Text } from '@chakra-ui/react';
 import { forwardRef, useEffect } from 'react';
 import { useLocation } from 'react-router';
-import { CommentIcon } from '@/assets/icons';
+import { CommentsIcon } from '@/assets/icons';
 import Comment from './Comment';
 import CommentInput from './CommentInput';
 import CommentOrder from './CommentOrder';
@@ -67,9 +67,9 @@ const CommentSection = forwardRef<HTMLDivElement, CommentSectionProps>(
           ) : (
             <Empty
               description={`아직 댓글이 없습니다.
-      댓글을 남겨보세요.`}
-              src={CommentIcon}
-              size="small"
+              댓글을 남겨보세요.`}
+              src={CommentsIcon}
+              size="medium"
               iconFill={true}
               py={'40px'}
             />

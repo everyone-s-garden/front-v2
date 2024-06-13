@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { useEffect } from 'react';
-import { PostList } from '@/components';
-import { PostIcon } from '@/assets/icons';
+import { MobilePostMenu, PostList } from '@/components';
+import { PostBoxIcon } from '@/assets/icons';
 import CommunityHeader from './components/CommunityHeader';
 import Order from './components/Order';
 import PostType from './components/PostType';
@@ -47,18 +47,25 @@ const CommunityMain = () => {
             <PostList posts={data} />
           ) : (
             <Empty
-              src={PostIcon}
+              src={PostBoxIcon}
               iconFill={false}
               iconStroke={false}
               size="large"
-              description={`게시된 게시물이 없습니다.
-              새로운 게시물을 업로드 해보세요 !`}
+              description={`등록된 글이 없습니다.
+              새로운 글을 등록해보세요 !`}
               py={{ mobile: '50px', tablet: '80px' }}
             />
           )}
           <div ref={ref} />
         </Box>
       </Box>
+
+      <MobilePostMenu
+        pos={'absolute'}
+        hideFrom={'tablet'}
+        bottom={'160px'}
+        right={'20px'}
+      />
     </>
   );
 };

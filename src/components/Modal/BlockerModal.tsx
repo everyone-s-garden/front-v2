@@ -4,12 +4,13 @@ import Modal from './Modal';
 
 interface BlockerModalProps {
   color: 'green' | 'orange';
+  blockState: boolean;
 }
 
-const BlockerModal = ({ color }: BlockerModalProps) => {
+const BlockerModal = ({ color, blockState }: BlockerModalProps) => {
   const { proceed, reset, state } = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      currentLocation.pathname !== nextLocation.pathname,
+      blockState && currentLocation.pathname !== nextLocation.pathname,
   );
 
   return (

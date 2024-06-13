@@ -1,25 +1,25 @@
+import { Box, ImageProps } from '@chakra-ui/react';
 import { PropsWithChildren, useState } from 'react';
-import Slider from 'react-slick';
+import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Arrow from './Arrow';
 
 export interface ImageSliderProps {
-  // >,< 화살표 모양을 정해서 내려주시면 됩니다. plain은 메인페이지에서만 사용 되는 화살표이고, 'circle'은 동그란 화살표입니다.
   arrowStyle: 'plain' | 'circle';
-
-  // 이미지 슬라이드의 총 개수를 넘겨주시면 됩니다.
   numberOfSlides: number;
+  imageMaxWidth?: ImageProps['maxWidth'];
 }
 
 const ImageSlider = ({
   children,
   numberOfSlides,
   arrowStyle,
+  imageMaxWidth = '1440px',
 }: PropsWithChildren<ImageSliderProps>) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const settings = {
+  const settings: Settings = {
     infinite: false,
     speed: 500,
     slidesToShow: 1,
@@ -43,7 +43,20 @@ const ImageSlider = ({
     ),
   };
 
-  return <Slider {...settings}>{children}</Slider>;
+  return (
+    <Box
+      __css={{
+        '.slick-slide img': {
+          tablet: {
+            maxWidth: imageMaxWidth,
+            width: '100%',
+          },
+        },
+      }}
+    >
+      <Slider {...settings}>{children}</Slider>
+    </Box>
+  );
 };
 
 export default ImageSlider;

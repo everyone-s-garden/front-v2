@@ -5,3 +5,5 @@ export { default as sunnyIcon } from './sunny-icon.svg';
 export { default as mostlyCloudyIcon } from './mostlyCloudy-icon.svg';
 export { default as rainSnowIcon } from './rainSnow-icon.svg';
 export { default as showerIcon } from './shower-icon.svg';
+export { default as mainSunnyIcon } from './mainSunny-icon.svg';
+export { default as mainMostlyCloudyIcon } from './mainMostlyCloudy-icon.svg';
