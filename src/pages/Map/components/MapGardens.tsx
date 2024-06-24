@@ -3,20 +3,33 @@ import { Dispatch, SetStateAction } from 'react';
 import { MapGardenNoImg } from '@/assets/images';
 import GardenStatus from './GardenStatus';
 import MapGardenDetail from './MapGardenDetail';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
 interface MapGardensProps {
-  gardens: Garden[];
   showGardenDetail: boolean;
   setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
+  hasNext: boolean;
+  fetchNextPage: () => void;
+  hasNextPage: boolean;
+  gardens: Garden[];
 }
 
 const MapGardens = ({
-  gardens,
   showGardenDetail,
   setShowGardenDetail,
+  hasNext,
+  fetchNextPage,
+  hasNextPage,
+  gardens,
 }: MapGardensProps) => {
   const { setGardenId } = useMapGardenDetailIdStore();
+  const { ref } = useInfiniteScroll<HTMLDivElement>({
+    fetchData: () => {
+      if (hasNext) fetchNextPage();
+    },
+    hasNextPage,
+  });
 
   return (
     <Box position="relative">
@@ -73,6 +86,7 @@ const MapGardens = ({
         {showGardenDetail && (
           <MapGardenDetail setShowGardenDetail={setShowGardenDetail} />
         )}
+        {hasNext && <Box ref={ref} h="10px" />}
       </Box>
     </Box>
   );

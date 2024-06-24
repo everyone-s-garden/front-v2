@@ -1,4 +1,5 @@
 import { Button, Flex, chakra, createIcon } from '@chakra-ui/react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 const PlusIcon = createIcon({
   displayName: 'PlusIcon',
@@ -13,15 +14,46 @@ const PlusIcon = createIcon({
   ),
 });
 
-const ContentInput = () => {
+interface ContentInputProps {
+  sendMessage: (message: string) => void;
+}
+
+const ContentInput = ({ sendMessage }: ContentInputProps) => {
+  const [message, setMessage] = useState<string>('');
+  const [isComposing, setIsComposing] = useState(false);
+
+  const submitMessage = (message: string) => {
+    if (!message) return;
+    sendMessage(message);
+    setMessage('');
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    submitMessage(message);
+  };
+
+  const handleMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(event.target.value);
+  };
+
+  const handleTextAreaKeyDown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (event.key === 'Enter' && !event.shiftKey && !isComposing) {
+      event.preventDefault();
+      if (!message.trim()) return;
+      submitMessage(message);
+      setMessage('');
+    }
+  };
+
   return (
     <Flex
       h={{ mobile: '80px', tablet: '155px' }}
       border={{ mobile: 'none', tablet: '1px' }}
       borderColor={{ mobile: '', tablet: 'gray.200' }}
       w="100%"
-      position="absolute"
-      bottom="0"
       alignItems="center"
       p="24px 16px"
       gap="16px"
@@ -43,7 +75,13 @@ const ContentInput = () => {
           stroke="black"
         />
       </chakra.button>
-      <Flex as="form" w="100%" alignItems="center" gap="16px">
+      <chakra.form
+        display="flex"
+        w="100%"
+        alignItems="center"
+        gap="16px"
+        onSubmit={handleSubmit}
+      >
         <chakra.textarea
           placeholder="메세지 보내기"
           w="100%"
@@ -60,6 +98,11 @@ const ContentInput = () => {
             color: 'gray.300',
           }}
           outline="none"
+          value={message}
+          onChange={handleMessageChange}
+          onKeyDown={handleTextAreaKeyDown}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
         />
         <Button
           variant="unstyled"
@@ -71,10 +114,14 @@ const ContentInput = () => {
           textAlign="center"
           p={{ mobile: '8px', tablet: '12px 13px' }}
           fontSize={{ mobile: '14px', tablet: '20px' }}
+          onClick={() => submitMessage(message)}
+          isDisabled={!message.trim()}
+          _disabled={{ bg: 'gray.200', cursor: 'not-allowed' }}
+          _hover={{}}
         >
           보내기
         </Button>
-      </Flex>
+      </chakra.form>
     </Flex>
   );
 };

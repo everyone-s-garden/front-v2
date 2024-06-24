@@ -1,14 +1,23 @@
 import { Box, Text } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
-import MapReportForm from './components/MapReportForm';
+import { useEffect } from 'react';
+import { Location, useLocation, useNavigate } from 'react-router-dom';
+import ReportForm from './components/ReportForm';
+import { ReportState } from './types';
+import { PATH } from '@/routes/constants';
 
-const MapReport = () => {
-  const { id } = useParams();
+const Report = () => {
+  const location: Location<ReportState> = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location.state) {
+      // NOTE: 그냥 접근할 경우 메인 페이지로 이동
+      navigate(PATH.MAIN);
+    }
+  }, [location.state, navigate]);
 
   return (
     <Box
-      zIndex={{ mobile: '99', tablet: '0' }}
-      bgColor="white"
       minW={{ mobile: '100vw', tablet: 'fit-content' }}
       minH={{ mobile: '100vh', tablet: 'fit-content' }}
       pos={{ mobile: 'fixed', tablet: 'relative' }}
@@ -28,9 +37,9 @@ const MapReport = () => {
         신고하기
       </Text>
 
-      <MapReportForm id={id} />
+      {location.state && <ReportForm {...location.state} />}
     </Box>
   );
 };
 
-export default MapReport;
+export default Report;

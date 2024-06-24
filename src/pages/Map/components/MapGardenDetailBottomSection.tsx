@@ -5,12 +5,12 @@ import {
   Text,
   Button,
   useDisclosure,
-  chakra,
   Link,
   Spinner,
 } from '@chakra-ui/react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AlertToast } from '@/components';
 import {
   ChatIcon,
   CopyNumberIcon,
@@ -19,14 +19,15 @@ import {
   ReportIcon,
 } from '@/assets/icons';
 import Modal from '@/components/Modal/Modal';
+import useClipboard from '@/hooks/useClipboard';
+import { PATH } from '@/routes/constants';
+import { useCreateGardenChatRoom } from '@/services/chat/query';
 import { useLikeGarden } from '@/services/gardens/mutations';
 
 interface MapGardenDetailBottomSectionProps {
   garden?: GardenDetail;
   refetch: () => void;
 }
-
-const CopyBox = chakra(motion.div);
 
 const MapGardenDetailBottomSection = ({
   garden,
@@ -36,11 +37,20 @@ const MapGardenDetailBottomSection = ({
   const isGardenLiked = garden?.gardenLikeId === 0 ? false : true;
   const [liked, setLiked] = useState(isGardenLiked);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [copied, setCopied] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);
 
+  const { isCopied, onCopy } = useClipboard();
+
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
+  const {
+    mutate: createGardenChatRoom,
+    data: newChatRoomData,
+    isSuccess,
+  } = useCreateGardenChatRoom();
 
   useEffect(() => {
     setLiked(isGardenLiked);
@@ -56,19 +66,6 @@ const MapGardenDetailBottomSection = ({
 
     setIsMobile(isMobile);
   }, []);
-
-  const handleCopyClipBoard = async (text: string | undefined) => {
-    try {
-      await navigator.clipboard.writeText(text as string);
-      setCopied(true);
-
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch (e) {
-      alert('복사에 실패하였습니다');
-    }
-  };
 
   const handleClickCall = () => {
     if (!isMobile) setIsClickedCallInWeb(true);
@@ -92,18 +89,44 @@ const MapGardenDetailBottomSection = ({
     }, 250);
   };
 
+  const handleClickChat = () => {
+    if (garden?.roomId === -1) {
+      createGardenChatRoom({
+        postId: garden?.gardenId,
+        writerId: garden?.writerId,
+      });
+      if (isSuccess) {
+        navigate(`/chat/${newChatRoomData.chatRoomId}`);
+      }
+    } else {
+      navigate(`/chat/${garden?.roomId}`);
+    }
+  };
+
+  const handleClickReport = () => {
+    navigate(PATH.REPORT, {
+      state: {
+        from: pathname,
+        name: 'garden',
+        color: 'orange',
+        reportId: garden?.gardenId,
+      },
+    });
+  };
+
   return (
     <Box marginTop="40px" cursor="pointer">
       <Flex marginBottom="20px" alignItems="center" gap="6px">
         <Icon as={ReportIcon} />
-        <Link
-          href={`/map/report/${garden?.gardenId}`}
+        <Text
           fontSize="12px"
           color="gray.400"
           fontWeight="regular"
+          onClick={handleClickReport}
+          cursor={'pointer'}
         >
           신고하기
-        </Link>
+        </Text>
       </Flex>
 
       <Flex w="fit-content" margin="0 auto" gap="14px">
@@ -145,6 +168,8 @@ const MapGardenDetailBottomSection = ({
           color="white"
           padding="14px 52px"
           bgColor="green.500"
+          w="160px"
+          h="48px"
           _hover={{}}
           _active={{}}
           onClick={onOpen}
@@ -178,7 +203,7 @@ const MapGardenDetailBottomSection = ({
               h="24px"
               cursor="pointer"
               as={CopyNumberIcon}
-              onClick={() => handleCopyClipBoard(garden?.contact)}
+              onClick={() => onCopy(garden?.contact ?? '')}
             />
           </Flex>
           <Flex gap="17.5px">
@@ -233,6 +258,7 @@ const MapGardenDetailBottomSection = ({
               paddingRight="24px"
               borderRadius="9px"
               cursor="pointer"
+              onClick={handleClickChat}
             >
               <Icon as={ChatIcon} w="24px" h="24px" />
               <Text fontWeight="semiBold">채팅하기</Text>
@@ -250,31 +276,7 @@ const MapGardenDetailBottomSection = ({
           </Text>
         </Box>
 
-        <AnimatePresence>
-          {copied && (
-            <CopyBox
-              pos="absolute"
-              top="260px"
-              left="50%"
-              w="195px"
-              h="48px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              bgColor="green.500"
-              color="white"
-              fontSize="15px"
-              fontWeight="medium"
-              borderRadius="9px"
-              transform="-50%"
-              initial={{ opacity: 0, x: '-50%', scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-            >
-              복사 되었습니다.
-            </CopyBox>
-          )}
-        </AnimatePresence>
+        <AlertToast show={isCopied} message="복사되었습니다." color="green" />
       </Modal>
     </Box>
   );

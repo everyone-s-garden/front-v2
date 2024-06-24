@@ -17,6 +17,7 @@ export const DUMMY_POST: Post[] = [
     },
     postType: 'INFORMATION_SHARE',
     createdDate: '2024-03-28',
+    isLikeClick: true,
   },
   {
     postId: 2,
@@ -35,6 +36,7 @@ export const DUMMY_POST: Post[] = [
     },
     postType: 'GARDEN_SHOWCASE',
     createdDate: '2024-03-27',
+    isLikeClick: false,
   },
   {
     postId: 3,
@@ -52,6 +54,7 @@ export const DUMMY_POST: Post[] = [
     },
     postType: 'QUESTION',
     createdDate: '2024-03-26',
+    isLikeClick: true,
   },
   {
     postId: 4,
@@ -71,6 +74,7 @@ export const DUMMY_POST: Post[] = [
     },
     postType: 'ETC',
     createdDate: '2024-03-25',
+    isLikeClick: false,
   },
   {
     postId: 5,
@@ -88,6 +92,7 @@ export const DUMMY_POST: Post[] = [
     },
     postType: 'INFORMATION_SHARE',
     createdDate: '2024-03-24',
+    isLikeClick: true,
   },
   {
     postId: 6,
@@ -106,6 +111,7 @@ export const DUMMY_POST: Post[] = [
     },
     postType: 'GARDEN_SHOWCASE',
     createdDate: '2024-03-23',
+    isLikeClick: true,
   },
   {
     postId: 7,
@@ -123,6 +129,7 @@ export const DUMMY_POST: Post[] = [
     },
     postType: 'QUESTION',
     createdDate: '2024-03-22',
+    isLikeClick: false,
   },
 ];
 

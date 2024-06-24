@@ -1,38 +1,30 @@
-import { Button, Center } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 
-const SubmitButton = () => {
+interface SubmitButtonProps {
+  isPending?: boolean;
+}
+
+const SubmitButton = ({ isPending = false }: SubmitButtonProps) => {
   return (
-    <>
-      <Center mb={'100px'}>
-        <Button
-          hideBelow={'tablet'}
-          variant={'unstyled'}
-          w={'344px'}
-          h={'54px'}
-          bg={'orange.500'}
-          color={'white'}
-          mt={'130px'}
-          type="submit"
-        >
-          등록하기
-        </Button>
-      </Center>
-
+    <Box display={{ mobile: 'block', tablet: 'flex' }}>
       <Button
-        hideFrom={'tablet'}
         variant={'unstyled'}
-        w={'100%'}
-        h={'60px'}
-        position={'absolute'}
-        bg={'orange.500'}
+        pos={{ mobile: 'fixed', tablet: 'static' }}
         bottom={0}
+        w={{ mobile: '100%', tablet: '344px' }}
+        h={{ mobile: '60px', tablet: '54px' }}
+        m={{ mobile: 0, tablet: '50px auto 100px auto' }}
+        borderRadius={{ mobile: '0', tablet: '10px' }}
+        bg={'orange.500'}
+        fontWeight={'semiBold'}
         color={'white'}
-        borderRadius={0}
-        type="submit"
+        type={'submit'}
+        isLoading={isPending}
+        display={'flex'}
       >
         등록하기
       </Button>
-    </>
+    </Box>
   );
 };
 

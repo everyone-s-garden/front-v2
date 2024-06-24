@@ -6,6 +6,6 @@ export const FONT_SIZE = {
 
 export const IMAGE_SIZE = {
   small: { mobile: '36px', tablet: '48px' },
-  medium: { mobile: '40px', tablet: '80px' },
-  large: { mobile: '60px', tablet: '120px' },
+  medium: { mobile: '40px', tablet: '78px' },
+  large: { mobile: '54px', tablet: '100px' },
 };

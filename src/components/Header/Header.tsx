@@ -12,7 +12,7 @@ import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { ProfileIcon } from '@/assets/icons';
 import { LogoHorizon } from '@/assets/images';
 import Tab from '../Tab/Tab';
-import PostMenu from './PostMenu';
+import { PostMenu } from './PostMenu';
 import { headerNavLinks } from './constants';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
@@ -88,7 +88,7 @@ const Header = ({ loggedIn = false }: HeaderProps) => {
           >
             {loggedIn ? '로그아웃' : '로그인 / 회원가입'}
           </Button>
-          <PostMenu loggedIn={loggedIn} />
+          <PostMenu />
         </Flex>
       </Container>
       <MobileHeader loggedIn={loggedIn} />

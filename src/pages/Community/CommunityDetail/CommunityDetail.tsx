@@ -1,8 +1,8 @@
-import { Box, Center, Divider, Heading } from '@chakra-ui/react';
+import { Box, Center, Divider, Text } from '@chakra-ui/react';
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 import { PostList } from '@/components';
-import { ParagraphIcon } from '@/assets/icons';
+import { ParagraphBoxIcon } from '@/assets/icons';
 import CommentSection from './components/CommentSection';
 import Content from './components/Content';
 import Interaction from './components/Interaction';
@@ -104,21 +104,22 @@ const CommunityDetail = () => {
         />
 
         <Box mb={6}>
-          <Heading
+          <Text
             as={'h1'}
             fontSize={{ mobile: '18px', tablet: '24px' }}
+            fontWeight={'bold'}
             mb={{ mobile: '16px', tablet: '24px' }}
           >
             지금 인기글을 소개합니다
-          </Heading>
+          </Text>
           {popularPosts && popularPosts.length > 0 ? (
             <PostList posts={popularPosts} />
           ) : (
             <Empty
-              src={ParagraphIcon}
+              src={ParagraphBoxIcon}
               iconFill={true}
               description={`인기글이 없습니다.
-글을 작성하여 인기글이 되어보세요 !`}
+              글을 작성하여 인기글이 되어보세요 !`}
               py={{ mobile: '50px', tablet: '150px' }}
             />
           )}

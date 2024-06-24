@@ -1,14 +1,14 @@
 import { Box } from '@chakra-ui/react';
-import { useQuery } from '@tanstack/react-query';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
+import { useLocation } from 'react-router-dom';
+import getGardenType from '../utils/getGardenType';
 import GardensContainer from './GardensContainer';
 import MapSpinner from './MapSpinner';
 import MarkerCluster from './Marker/MarkerCluster';
 import MyMarker from './Marker/MyMarker';
 import useGeolocation from '@/hooks/useGeolocation';
-import gardensAPI from '@/services/gardens/api';
-import { gardensQuery } from '@/services/gardens/query';
+import { useGetMapGardens } from '@/services/gardens/query';
 
 interface MapComponentProps {
   map: naver.maps.Map | null;
@@ -17,40 +17,19 @@ interface MapComponentProps {
 }
 
 const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
-  const [showGardens, setShowGardens] = useState(false);
-  const [showGardenDetail, setShowGardenDetail] = useState(false);
+  const location = useLocation();
+  const [showGardens, setShowGardens] = useState(
+    location.state && location.state.data ? true : false,
+  );
+  const [showGardenDetail, setShowGardenDetail] = useState(
+    location.state && location.state.data ? true : false,
+  );
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
+  const gardenType = getGardenType(headerOption);
 
-  let gardenType: 'PUBLIC' | 'PRIVATE' | 'ALL';
-
-  switch (headerOption) {
-    case '공공':
-      gardenType = 'PUBLIC';
-      break;
-
-    case '개인':
-      gardenType = 'PRIVATE';
-      break;
-
-    case '둘다 표시':
-      gardenType = 'ALL';
-      break;
-
-    default:
-      break;
-  }
-
-  const fetchGardnesInBounds = () =>
-    gardensAPI.getGardensInBounds(gardenType, map);
-
-  const { data, refetch } = useQuery({
-    queryKey: [...gardensQuery.all()],
-    queryFn: fetchGardnesInBounds,
-    enabled: map !== null,
-  });
-
-  const gardens: Garden[] = data?.gardenByComplexesResponses;
+  const { data: mapGardens, refetch } = useGetMapGardens(gardenType, map);
+  const gardens: Garden[] = mapGardens?.gardenByComplexesResponses;
 
   useEffect(() => {
     if (map) {
@@ -95,6 +74,17 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
     return <MapSpinner />;
   }
 
+  const getDefaultCenter = () => {
+    if (location.state && location.state.data) {
+      return new navermaps.LatLng(
+        location.state.data.lat,
+        location.state.data.lng,
+      );
+    }
+
+    return new navermaps.LatLng(position.lat, position.lng);
+  };
+
   return (
     <Box
       position="relative"
@@ -108,15 +98,16 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
           setShowGardens,
           showGardenDetail,
           setShowGardenDetail,
-          gardens,
+          gardenType,
+          map,
         }}
       />
 
       <MapDiv style={{ width: '100%', height: '100%' }}>
         <NaverMap
           ref={setMap}
-          defaultCenter={new navermaps.LatLng(position.lat, position.lng)}
-          defaultZoom={10}
+          defaultCenter={getDefaultCenter()}
+          defaultZoom={location.state && location.state.data ? 15 : 10}
           zoomControl
           zoomControlOptions={{
             style: naver.maps.ZoomControlStyle.SMALL,
