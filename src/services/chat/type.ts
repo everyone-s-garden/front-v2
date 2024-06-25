@@ -1,3 +1,5 @@
+import { Grade } from '@/types/grade';
+
 export interface ChatRoom {
   recentContents: string;
   readNotCnt: number;
@@ -9,6 +11,7 @@ export interface ChatRoom {
     partnerId: number;
     nickName: string;
     imageUrl: string | undefined;
+    memberMannerGrade: Grade;
   };
   createdAt: string;
   chatRoomId: number;

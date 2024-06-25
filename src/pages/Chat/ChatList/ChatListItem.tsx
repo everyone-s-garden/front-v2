@@ -2,12 +2,15 @@ import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { ChatRoom } from '@/services/chat/type';
+import getRelativeTime from '@/utils/getRelativeTime';
 
 const ChatListItem = ({ chat }: { chat: ChatRoom }) => {
   const navigate = useNavigate();
   const { partnerInfo, recentContents, postInfo, chatRoomId, readNotCnt } =
     chat;
   const { imageUrl, nickName } = partnerInfo;
+
+  const lastMessageTime = getRelativeTime(chat.createdAt);
 
   const handleEnterChatRoom = () => {
     navigate(`/chat/${chatRoomId}`);
@@ -41,7 +44,7 @@ const ChatListItem = ({ chat }: { chat: ChatRoom }) => {
               {nickName}
             </Text>
             <Text fontWeight="regular" fontSize="14px">
-              씨앗 · 1분전
+              {partnerInfo.memberMannerGrade} · {lastMessageTime}
             </Text>
           </Flex>
           <Flex gap="8px">
