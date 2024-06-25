@@ -34,9 +34,10 @@ export interface EnterChatRoom {
 
 export interface ChatContent {
   chatMessageId: number;
+  chatRoomId: number;
   memberId: number;
   contents: string;
-  createdAt: number[];
+  createdAt: string;
   readOrNot: boolean;
 }
 
