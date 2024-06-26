@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { HeadphonesIcon, TextBubbleGreenIcon } from '@/assets/icons';
 import { useState } from 'react';
-import UserFeedbackModal from './UsefFeedbackModal';
+import UserFeedbackModal from './UserFeedbackModal';
 
 // interface UserFeedBackProps {}
 

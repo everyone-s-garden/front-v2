@@ -11,35 +11,92 @@ import { Box, Flex, ModalCloseButton, Text, Textarea } from '@chakra-ui/react';
 import { userFeedBackItem } from '../constants';
 import { useState } from 'react';
 import { userFeedbackModalProps } from '../type';
+import { useImageStore } from '@/stores/imageStore';
+import { postUserFeedback } from '@/services/mypage/api';
+
+const breakPoints = {
+  320: { slidesPerView: 3, spaceBetween: 5 },
+  768: { slidesPerView: 3, spaceBetween: 5 },
+  1024: { slidesPerView: 3, spaceBetween: 5 },
+};
+
+const size = {
+  mobile: 70,
+  tablet: 70,
+  desktop: 70,
+};
+const initialFeedbackType = {
+  label: '문의 유형',
+  key: 'no-key',
+  value: 'default',
+};
 
 const UserFeedbackModal = ({
   modalOpen,
   setModalOpen,
 }: userFeedbackModalProps) => {
-  const [inquireType, setInquireType] = useState({
-    label: '문의 유형',
-    key: 'no-key',
-    value: 0,
-  });
-  const breakPoints = {
-    320: { slidesPerView: 3, spaceBetween: 5 },
-    768: { slidesPerView: 3, spaceBetween: 5 },
-    1024: { slidesPerView: 3, spaceBetween: 5 },
+  const [feedbackType, setFeedbackType] = useState(initialFeedbackType);
+  const images = useImageStore((state) => state.images);
+  const setImages = useImageStore((state) => state.setImages);
+  const [feedbackText, setFeedbackText] = useState('');
+  const [errorState, setErrorState] = useState(false);
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setFeedbackType(initialFeedbackType);
+    setImages([]);
+    setErrorState(false);
   };
 
-  const size = {
-    mobile: 70,
-    tablet: 70,
-    desktop: 70,
+  const validateForm = () => {
+    if (feedbackType.value === 'default' || feedbackText.length < 8) {
+      setErrorState(true);
+      return false;
+    }
+    return true;
   };
+  const onSubmit = async () => {
+    if (!validateForm()) return;
+
+    const formData = new FormData();
+
+    images.forEach(({ file }) => {
+      formData.append('images', file);
+    });
+
+    const jsonBlob = new Blob(
+      [
+        JSON.stringify({
+          content: feedbackText,
+          feedbackType: feedbackType.value,
+        }),
+      ],
+      {
+        type: 'application/json',
+      },
+    );
+    formData.append('texts', jsonBlob);
+
+    const res_status = await postUserFeedback(formData);
+    if (res_status === 201) {
+      closeModal();
+    } else {
+      alert('피드백 전송 실패');
+    }
+  };
+
+  const isDropdownError = errorState && feedbackType.value === 'default';
+  const isTextareaError = errorState && feedbackText.length < 8;
+
   return (
     <Modal
       showExitIcon={false}
       isOpen={modalOpen}
       showButton={true}
-      onClose={() => setModalOpen(false)}
+      onClose={closeModal}
       buttonContent="등록하기"
       buttonColor="green"
+      handleClickButton={onSubmit}
     >
       <Box w="340px" h="518px" px="16px" pt="26px" pb="34px">
         <Flex align="center" mb="24px" justify="space-between">
@@ -69,8 +126,8 @@ const UserFeedbackModal = ({
           <DropdownTrigger
             w="full"
             borderRadius="10px"
-            border="1px solid"
-            borderColor="green.500"
+            border={isDropdownError ? '2px solid' : '1px solid'}
+            borderColor={isDropdownError ? 'red.300' : 'green.500'}
             mb="20px"
           >
             <Flex
@@ -81,7 +138,7 @@ const UserFeedbackModal = ({
               align="center"
             >
               <Text fontWeight="medium" fontSize="14px">
-                {inquireType.label}
+                {feedbackType.label}
               </Text>
               <ArrowDownIcon />
             </Flex>
@@ -94,7 +151,7 @@ const UserFeedbackModal = ({
                 pl="16px"
                 fontSize="12px"
                 fontWeight="medium"
-                onClick={() => setInquireType(item)}
+                onClick={() => setFeedbackType(item)}
               >
                 {item.label}
               </DropdownItem>
@@ -107,8 +164,16 @@ const UserFeedbackModal = ({
           h="105px"
           fontSize="14px"
           mb="20px"
+          onChange={(e) => setFeedbackText(e.currentTarget.value)}
+          border={isTextareaError ? '2px solid' : '1px solid'}
+          borderColor={isTextareaError ? 'red.300' : 'green.500'}
         />
-        <ImageSelector color="green" breakPoints={breakPoints} size={size} />
+        <ImageSelector
+          color="green"
+          breakPoints={breakPoints}
+          size={size}
+          showArrow={false}
+        />
       </Box>
     </Modal>
   );

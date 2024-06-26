@@ -1,5 +1,7 @@
+import { useDeletePost } from '@/services/mypage/query';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { PropsWithChildren, SetStateAction } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface NomalButtonProps {
   onClick?: () => void;
@@ -31,12 +33,27 @@ export const NormalButton = ({
 interface MobileEditButtonProps {
   checkboxOpen: boolean;
   setCheckboxOpen: React.Dispatch<SetStateAction<boolean>>;
+  checkedItems?: Record<string, boolean>;
+  setCheckedItems?: React.Dispatch<SetStateAction<Record<string, boolean>>>;
 }
 
 const MobileEditButton = ({
   checkboxOpen,
+  checkedItems,
   setCheckboxOpen,
+  setCheckedItems,
 }: MobileEditButtonProps) => {
+  const { mutate: deletePost } = useDeletePost();
+  const { pathname } = useLocation();
+
+  const handleDelete = () => {
+    if (!checkedItems || !setCheckedItems) return;
+    Object.keys(checkedItems).forEach((key) => {
+      deletePost({ path: pathname, id: +key });
+    });
+    setCheckedItems({});
+  };
+
   return (
     <Box
       pb="12px"
@@ -52,7 +69,7 @@ const MobileEditButton = ({
 
       {checkboxOpen && (
         <Flex>
-          <NormalButton>삭제</NormalButton>
+          <NormalButton onClick={handleDelete}>삭제</NormalButton>
           <Box h="full" w="1px" bg="gray" />
           <NormalButton onClick={() => setCheckboxOpen(false)}>
             취소

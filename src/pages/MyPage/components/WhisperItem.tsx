@@ -1,38 +1,42 @@
 import { Box, Button, Flex, Image, ListItem, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AvatarComponent, TagComponent } from '@/components';
 import {
   GardenImageDefaultIcon,
   HeartUnfiledIcon,
   TextBubbleBlackIcon,
 } from '@/assets/icons';
-import { IWhipser } from '../type';
+import { Whisper } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
 
 interface WhisperProps {
-  item: IWhipser;
+  item: Whisper;
   menu?: boolean;
   checkboxOpen?: boolean;
   idx: number;
+  checkedItems?: Record<string, boolean>;
+  handleCheck?: (id: number) => void;
 }
 
-const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
+const WhisperItem = ({
+  item,
+  menu,
+  checkboxOpen,
+  idx,
+  checkedItems,
+  handleCheck,
+}: WhisperProps) => {
   // eslint-disable-next-line
   const [report] = useState(false);
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const handleCheckbox = (idx: number) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [idx]: !prev[idx],
-    }));
-  };
-  useEffect(() => {
-    if (!checkboxOpen) {
-      setCheckedItems({});
-    }
-  }, [checkboxOpen]);
+
+  const getPlainText = useCallback((content: string) => {
+    const $div = document.createElement('div');
+    $div.innerHTML = content;
+
+    return $div.textContent || $div.innerText || '';
+  }, []);
 
   return (
     <ListItem
@@ -44,7 +48,7 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
       mt={{ mobile: '16px', tablet: '0' }}
       mb={{ mobile: '24px', tablet: '28px' }}
     >
-      <Box>
+      <Box mr="auto">
         <Flex align="center" mb={{ mobile: '8px', tablet: '12px' }}>
           <Box display={{ mobile: 'none', tablet: 'block' }}>
             <TagComponent tagLabel="텃밭 자랑" />
@@ -59,21 +63,24 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
           </Text>
         </Flex>
         <Text display={{ mobile: 'none', tablet: 'inline' }} mb="8px">
-          {item.payload}
+          {getPlainText(item.content)}
         </Text>
         <Flex align="center" mb={{ mobile: '8px', tablet: '0' }} mt="8px">
           <Box w="24px" h="24px">
-            <AvatarComponent src={item?.userProfile || undefined} size="full" />
+            <AvatarComponent
+              src={item?.userInfo.profile || undefined}
+              size="full"
+            />
           </Box>
           <Text ml="8px" mr="10px">
-            {item.userName}
+            {item.userInfo.name}
           </Text>
           <HeartUnfiledIcon />
           <Text ml="6px" mr="10px">
-            {item.likeCount}
+            {item.likesCount}
           </Text>
           <TextBubbleBlackIcon />
-          <Text ml="6px">{item.commentCount}</Text>
+          <Text ml="6px">{item.commentsCount}</Text>
         </Flex>
         <Text
           color="error"
@@ -103,31 +110,33 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
         ml={{ mobile: '0', tablet: '22px' }}
         display={{
           mobile: 'block',
-          tablet: item.thumbnail ? 'block' : 'none',
+          tablet: item.preview ? 'block' : 'none',
         }}
         mr={{ mobile: '13px', tablet: '0' }}
         position="relative"
       >
         <Overlay report={report} />
-        <MobileCheckbox
-          handleCheckbox={handleCheckbox}
-          id={item.id}
-          checkedItems={checkedItems}
-          checkboxOpen={checkboxOpen}
-        />
-        {item.thumbnail ? (
+        {handleCheck && checkedItems && (
+          <MobileCheckbox
+            handleCheckbox={handleCheck}
+            id={item.postId}
+            checkedItems={checkedItems}
+            checkboxOpen={checkboxOpen}
+          />
+        )}
+        {item.preview ? (
           <Image
             w="full"
             h="full"
             objectFit="cover"
-            src={item.thumbnail}
+            src={item.preview}
             borderRadius="10px"
           />
         ) : (
           <GardenImageDefaultIcon />
         )}
       </Box>
-      {menu && <MenuButton itemId={item.id} ml="26px" />}
+      {menu && <MenuButton itemId={item.postId} ml="26px" />}
     </ListItem>
   );
 };

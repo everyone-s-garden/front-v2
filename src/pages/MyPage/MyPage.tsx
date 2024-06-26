@@ -23,7 +23,7 @@ import {
   whispersRoute,
 } from './constants';
 import { IMainRoute, userFeedbackModalProps } from './type';
-import UserFeedbackModal from './components/UsefFeedbackModal';
+import UserFeedbackModal from './components/UserFeedbackModal';
 
 interface Routes {
   [key: string]: { tabName: string; keyword?: string; href: string }[];

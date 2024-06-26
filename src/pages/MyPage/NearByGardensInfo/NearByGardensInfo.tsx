@@ -25,7 +25,7 @@ const NearByGardensInfo = () => {
         <Suspense
           fallback={
             <Flex
-              h={{ mobile: '100%', tablet: '100%' }}
+              h={{ mobile: '100%', tablet: 'fit-content' }}
               justifyContent="center"
               alignItems="center"
               w={{ mobile: '100%', tablet: '100%' }}

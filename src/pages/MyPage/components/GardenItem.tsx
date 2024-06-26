@@ -1,5 +1,5 @@
 import { Box, Flex, Image, ListItem, Text, Button } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { HeartIcon } from '@/assets/icons';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
 import MenuButton from './MenuButton';
@@ -12,23 +12,21 @@ interface CardProps {
   checkboxOpen?: boolean;
   item: RecentGardenItem | BaseGardenItem | CropTrade;
   idx: number;
+  checkedItems?: Record<string, boolean>;
+  handleCheck?: (id: number) => void;
 }
 
-const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
+const GardenItem = ({
+  heart,
+  menu,
+  checkboxOpen,
+  item,
+  idx,
+  checkedItems,
+  handleCheck,
+}: CardProps) => {
   // eslint-disable-next-line
   const [report] = useState(false);
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const handleCheckbox = (idx: number) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [idx]: !prev[idx],
-    }));
-  };
-  useEffect(() => {
-    if (!checkboxOpen) {
-      setCheckedItems({});
-    }
-  }, [checkboxOpen]);
 
   const thumbnail = 'images' in item ? item.images[0] : item.imageUrl;
   const id = 'gardenId' in item ? item.gardenId : item.cropPostId;
@@ -69,12 +67,14 @@ const GardenItem = ({ heart, menu, checkboxOpen, item, idx }: CardProps) => {
               <HeartIcon color="red" />
             </Box>
           )}
-          <MobileCheckbox
-            handleCheckbox={handleCheckbox}
-            id={id}
-            checkedItems={checkedItems}
-            checkboxOpen={checkboxOpen}
-          />
+          {handleCheck && checkedItems && (
+            <MobileCheckbox
+              handleCheckbox={handleCheck}
+              id={id}
+              checkedItems={checkedItems}
+              checkboxOpen={checkboxOpen}
+            />
+          )}
         </Box>
         <Box flex={1}>
           <Flex

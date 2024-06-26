@@ -1,5 +1,5 @@
 import apiClient from '@/api/apiClient';
-import { nearByGardenPath, cropTradePath } from './type';
+import { whisperPageParams } from './type';
 
 const nearByBasePath = '/v2/gardens';
 const cropTradeBasePath = '/v1/my/crops';
@@ -9,13 +9,19 @@ export const nearByGardenAPI = {
     const res = await apiClient.get(`/v2/gardens/recent`);
     return res.data;
   },
-  getLikePosts: async () => {
-    const res = await apiClient.get(`${nearByBasePath}/likes`);
+  getLikePosts: async (nextGardenId: number) => {
+    const res = await apiClient.get(
+      `${nearByBasePath}/likes?nextGardenId=${nextGardenId}`,
+    );
     return res.data;
   },
 
-  getMyPosts: async () => {
-    const res = await apiClient.get(`${nearByBasePath}/mine`);
+  getMyPosts: async (nextGardenId: number) => {
+    const res = await apiClient.get(
+      `${nearByBasePath}/mine?nextGardenId=${nextGardenId}`,
+    );
+    console.log('res data', res.data);
+
     return res.data;
   },
 };
@@ -41,25 +47,29 @@ export const cropTradeAPI = {
 
 export const myManagedGardenAPI = {
   getMyManagedGarden: async () => {
-    const res = await apiClient.get(`/v2/gardens/my-managed`);
+    const res = await apiClient.get(
+      `/v2/gardens/my-managed?nextMyManagedGardenId=0`,
+    );
     return res.data;
   },
 };
 
 export const whisperAPI = {
-  getMyPosts: async () => {
-    const res = await apiClient.get(`${whisperBasePath}?offset=0&limit=10`);
-    return res.data;
-  },
-  getCommentedPosts: async () => {
+  getMyPosts: async ({ offset, limit }: whisperPageParams) => {
     const res = await apiClient.get(
-      `${whisperBasePath}/comments?offset=0&limit=10`,
+      `${whisperBasePath}?offset=${offset}&limit=${limit}`,
     );
     return res.data;
   },
-  getLikePosts: async () => {
+  getCommentedPosts: async ({ offset, limit }: whisperPageParams) => {
     const res = await apiClient.get(
-      `${whisperBasePath}/likes?offset=0&limit=10`,
+      `${whisperBasePath}/comments?offset=${offset}&limit=${limit}`,
+    );
+    return res.data;
+  },
+  getLikePosts: async ({ offset, limit }: whisperPageParams) => {
+    const res = await apiClient.get(
+      `${whisperBasePath}/likes?offset=${offset}&limit=${limit}`,
     );
     return res.data;
   },
@@ -78,4 +88,9 @@ export const likePost = async (id: number) => {
 export const bookmarkPost = async (id: number) => {
   const res = await apiClient.post(`/v1/crops/posts/${id}/bookmarks`);
   return res.data;
+};
+
+export const postUserFeedback = async (data: FormData) => {
+  const res = await apiClient.post('/v1/feedbacks', data);
+  return res.status;
 };

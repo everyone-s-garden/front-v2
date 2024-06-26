@@ -10,15 +10,20 @@ export interface IMainRoute {
 
 export type ISubRoute = Omit<IMainRoute, 'des' | 'icon'>;
 
-export interface IWhipser {
-  id: number;
+export interface Whisper {
+  postId: number;
   title: string;
-  thumbnail: string | null;
-  userName: string;
-  userProfile: string | null;
-  likeCount: number;
-  commentCount: number;
-  payload: string;
+  preview: string;
+  content: string;
+  likesCount: number;
+  commentsCount: number;
+  thumbnail?: string;
+  userInfo: {
+    userId: number;
+    profile: string;
+    name: string;
+    memberMannerGrade: string;
+  };
 }
 
 export interface BaseGardenItem {
