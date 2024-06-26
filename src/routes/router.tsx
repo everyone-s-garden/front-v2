@@ -36,6 +36,7 @@ import GuestRoute from './GuestRoute';
 import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
+import Profile from '@/pages/Profile/Profile';
 
 const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, REPORT } =
   PATH;
@@ -149,7 +150,7 @@ const router = createBrowserRouter([
         element: <CommunityDetail />,
       },
       {
-        path: PROFILE,
+        path: MYPAGE.PROFILE,
         element: <Profile />,
       },
 

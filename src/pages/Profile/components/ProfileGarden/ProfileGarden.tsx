@@ -8,10 +8,9 @@ const ProfileGarden = () => {
     <Flex
       mb={{ tablet: '164px' }}
       flexDir="column"
-      ml={{ mobile: '', tablet: '141px' }}
-      w={{ mobile: 'full', tablet: '678px' }}
       borderBottom="1px solid"
       borderColor="gray.100"
+      overflow="hidden"
     >
       <Box
         w="fit-content"

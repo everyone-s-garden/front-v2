@@ -12,7 +12,7 @@ const fakeImages = [
 
 const ProfileSaleGarden = () => {
   return (
-    <Box ml={{ tablet: '87px' }} mb={{ tablet: '164px' }}>
+    <Box mb={{ tablet: '164px' }}>
       <Show below="tablet">
         <Flex flexDir="column" gap="36px">
           {fakeImages.map((image, i) => (

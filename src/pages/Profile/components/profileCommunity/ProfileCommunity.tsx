@@ -11,7 +11,6 @@ const ProfileCommunity = () => {
     <Flex
       flexDir="column"
       gap={{ mobile: '24px', tablet: '36px' }}
-      ml={{ tablet: '74px' }}
       w={{ tablet: '886px' }}
       mb={{ tablet: '164px' }}
     >

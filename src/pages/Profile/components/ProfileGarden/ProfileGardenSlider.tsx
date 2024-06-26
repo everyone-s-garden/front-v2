@@ -8,10 +8,10 @@ const fakeImages = [
 
 const ProfileGardenSlider = () => {
   return (
-    <Box borderTopRadius="10px" overflow="hidden" h="330px">
+    <Box borderTopRadius="10px" w="full" overflow="hidden" h="330px">
       <ImageSlider arrowStyle="circle" numberOfSlides={fakeImages.length}>
         {fakeImages.map((image, i) => (
-          <Image src={image} key={i} h="330px" />
+          <Image src={image} key={i} w="full" h="330px" />
         ))}
       </ImageSlider>
     </Box>

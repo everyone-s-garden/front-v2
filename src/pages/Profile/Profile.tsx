@@ -14,23 +14,31 @@ const Profile = () => {
   console.log(userId);
 
   return (
-    <Box pos="relative" mb={{ mobile: '187px', tablet: '0px' }}>
+    <Box w="full" pos="relative" mb={{ mobile: '187px', tablet: '0px' }}>
       <ProfileTab
         profileTabs={profileTabs}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      <Flex
-        flexDir={{ mobile: 'column', tablet: 'row' }}
-        mt={{ mobile: '0px', tablet: '108px' }}
-        pl={{ mobile: 0, tablet: '138px' }}
-        mx={{ mobile: '20px', tablet: '0' }}
+      <Box
+        w={{ mobile: 'full', tablet: 'full' }}
+        mx={{ desktop: 'auto' }}
+        justifyContent="center"
       >
-        <ProfileCard />
-        {activeTab === profileTabs[0] && <ProfileGarden />}
-        {activeTab === profileTabs[1] && <ProfileSaleGarden />}
-        {activeTab === profileTabs[3] && <ProfileCommunity />}
-      </Flex>
+        <Flex
+          w={{ desktop: '900px' }}
+          flexDir={{ mobile: 'column', tablet: 'row' }}
+          mt={{ mobile: '0px', tablet: '48px', desktop: '108px' }}
+          mx={{ mobile: '20px', tablet: '59px', desktop: 'auto' }}
+          gap={{ mobile: '0px', tablet: '60px', desktop: '' }}
+        >
+          <ProfileCard />
+
+          {activeTab === profileTabs[0] && <ProfileGarden />}
+          {activeTab === profileTabs[1] && <ProfileSaleGarden />}
+          {activeTab === profileTabs[3] && <ProfileCommunity />}
+        </Flex>
+      </Box>
     </Box>
   );
 };
