@@ -1,9 +1,14 @@
 import { Text, Image, Flex } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import BtnItems from './BtnItems';
 import MobileHeader from './MobileHeader';
 import { EnterChatRoom } from '@/services/chat/type';
+import { useGetIndividualGarden } from '@/services/gardens/query';
+import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
 const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
+  const navigate = useNavigate();
+  const { setGardenId } = useMapGardenDetailIdStore();
   const {
     gardenName,
     gardenStatus,
@@ -12,6 +17,20 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
     price,
     partnerMannerGrade,
   } = productInfo;
+  const { data: gardenDetailData } = useGetIndividualGarden(productInfo.postId);
+
+  const handleGardenInfoClick = () => {
+    if (!gardenDetailData) return;
+    navigate('/map', {
+      state: {
+        data: {
+          lat: gardenDetailData.latitude,
+          lng: gardenDetailData.longitude,
+        },
+      },
+    });
+    setGardenId(gardenDetailData.gardenId);
+  };
 
   return (
     <Flex
@@ -32,22 +51,30 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
         partnerMannerGrade={partnerMannerGrade}
       />
       <Flex alignItems="center" gap="15px">
-        <Image
-          w={{ mobile: '52px', tablet: '52px' }}
-          h={{ mobile: '52px', tablet: '52px' }}
-          borderRadius="10px"
-          backgroundColor="gray.100"
-          src={images[0]}
-          flexShrink={0}
-        />
+        {gardenDetailData && (
+          <Image
+            w={{ mobile: '52px', tablet: '52px' }}
+            h={{ mobile: '52px', tablet: '52px' }}
+            borderRadius="10px"
+            backgroundColor="gray.100"
+            src={images[0]}
+            flexShrink={0}
+            cursor="pointer"
+            onClick={handleGardenInfoClick}
+          />
+        )}
         <Flex flexDirection="column">
-          <Flex alignItems="center" gap="8px">
+          <Flex
+            alignItems="center"
+            gap="8px"
+            onClick={handleGardenInfoClick}
+            cursor="pointer"
+          >
             <Text
               fontSize={{ mobile: '16px', tablet: '18px' }}
               fontWeight="semiBold"
             >
               {gardenStatus === 'ACTIVE' ? '분양중' : '분양 완료'}
-              분양중
             </Text>
             <Text
               fontSize={{ mobile: '16px', tablet: '18px' }}
