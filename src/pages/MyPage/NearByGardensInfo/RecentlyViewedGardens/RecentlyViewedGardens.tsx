@@ -16,6 +16,7 @@ const RecentlyViewedGardens = () => {
       {gardenData.map((item, idx) => (
         <GardenItem key={item.gardenId} item={item} idx={idx} />
       ))}
+      <div style={{ height: 100 }} />
     </List>
   );
 };

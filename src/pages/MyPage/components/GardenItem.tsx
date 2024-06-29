@@ -5,15 +5,18 @@ import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/routes/constants';
 
 interface CardProps {
   heart?: boolean;
   menu?: boolean;
   checkboxOpen?: boolean;
-  item: RecentGardenItem | BaseGardenItem | CropTrade;
   idx: number;
+  item: RecentGardenItem | BaseGardenItem | CropTrade;
   checkedItems?: Record<string, boolean>;
   handleCheck?: (id: number) => void;
+  handleDelete?: (id: number) => void;
 }
 
 const GardenItem = ({
@@ -21,12 +24,14 @@ const GardenItem = ({
   menu,
   checkboxOpen,
   item,
-  idx,
   checkedItems,
   handleCheck,
+  idx,
+  handleDelete,
 }: CardProps) => {
   // eslint-disable-next-line
   const [report] = useState(false);
+  const nav = useNavigate();
 
   const thumbnail = 'images' in item ? item.images[0] : item.imageUrl;
   const id = 'gardenId' in item ? item.gardenId : item.cropPostId;
@@ -37,8 +42,17 @@ const GardenItem = ({
     console.log('like');
   };
 
+  const navigateToDetail = () => {
+    nav(PATH.MAP.MAIN, { state: { id } });
+  };
+
   return (
-    <ListItem cursor="pointer" mb="32px" mt={{ mobile: '16px', tablet: '0' }}>
+    <ListItem
+      cursor="pointer"
+      mb="32px"
+      mt={{ mobile: '16px', tablet: '0' }}
+      onClick={navigateToDetail}
+    >
       <Flex flex={1}>
         <Box
           w={{ mobile: '114px', tablet: '234px' }}
@@ -146,7 +160,9 @@ const GardenItem = ({
             <Overlay report={report} />
           </Button>
         </Box>
-        {menu && <MenuButton ml="auto" itemId={itemId} />}
+        {menu && (
+          <MenuButton ml="auto" itemId={itemId} handleDelete={handleDelete} />
+        )}
       </Flex>
     </ListItem>
   );

@@ -21,7 +21,7 @@ const FavoritedGardens = () => {
       {data?.map((item, idx) => (
         <GardenItem key={item.gardenId} item={item} heart idx={idx} />
       ))}
-      <div ref={ref} />
+      <div style={{ height: 100 }} ref={ref} />
     </List>
   );
 };

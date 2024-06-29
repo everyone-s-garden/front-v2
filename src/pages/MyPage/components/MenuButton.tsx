@@ -1,21 +1,13 @@
 import { Box, Text } from '@chakra-ui/react';
 import { Dropdown, DropdownItem, DropdownTrigger } from '@/components';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
-import { useDeletePost } from '@/services/mypage/query';
-import { useLocation } from 'react-router-dom';
 
 interface MenuButtonProps {
   ml: string;
   itemId: number;
+  handleDelete?: (id: number) => void;
 }
-const MenuButton = ({ ml, itemId }: MenuButtonProps) => {
-  const { mutate: deletePost } = useDeletePost();
-  const { pathname } = useLocation();
-
-  // const dd = useDeletePost();
-  const handleDeleteClick = async () => {
-    deletePost({ path: pathname, id: itemId });
-  };
+const MenuButton = ({ ml, itemId, handleDelete }: MenuButtonProps) => {
   return (
     <Box display={{ mobile: 'none', tablet: 'block' }} ml={ml} pos="relative">
       <Dropdown>
@@ -55,7 +47,7 @@ const MenuButton = ({ ml, itemId }: MenuButtonProps) => {
                 w="111px"
                 px="0px"
                 py="20px"
-                onClick={handleDeleteClick}
+                onClick={() => handleDelete && handleDelete(itemId)}
               >
                 <Text fontWeight="medium" fontSize="16px" color="gray.700">
                   삭제하기

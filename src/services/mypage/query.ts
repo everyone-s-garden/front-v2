@@ -1,4 +1,5 @@
 import {
+  InfiniteData,
   queryOptions,
   useInfiniteQuery,
   useMutation,
@@ -14,6 +15,57 @@ import {
 } from './api';
 import { BaseGardenItem, Whisper } from '@/pages/MyPage/type';
 
+interface LastPage {
+  hasNext: boolean;
+  nextGardenId?: number;
+  gardenLikeByMemberResponses?: BaseGardenItem[];
+  gardenMineResponses?: BaseGardenItem[];
+}
+interface WhisperGetNextPageParams {
+  data: { postInfos: Whisper[] };
+  allPages: { postInfos: Whisper[] }[];
+  pageParams: { offset: number; limit: number };
+}
+
+const nearByGetNextPageParam = (lastPage: LastPage) => {
+  if (!lastPage.hasNext) {
+    return undefined;
+  }
+  return lastPage.nextGardenId;
+};
+
+const nearBySelect = (data: InfiniteData<LastPage>): BaseGardenItem[] => {
+  return data.pages.reduce<BaseGardenItem[]>(
+    (acc, page) =>
+      acc.concat(
+        page.gardenMineResponses || page.gardenLikeByMemberResponses || [],
+      ),
+    [],
+  );
+};
+
+const whisperGetNextPageParam = ({
+  data,
+  allPages,
+  pageParams,
+}: WhisperGetNextPageParams) => {
+  if (data.postInfos.length < 10) {
+    return undefined;
+  }
+  return {
+    ...pageParams,
+    offset: (pageParams.offset || 0) + 10,
+  };
+};
+
+const whisperSelect = (
+  data: InfiniteData<{ postInfos: Whisper[] }>,
+): Whisper[] => {
+  return data.pages.reduce<Whisper[]>(
+    (acc, item) => acc.concat(item.postInfos),
+    [],
+  );
+};
 export const nearByGardenQueries = {
   all: () => ['nearby'] as const,
   recentPosts: () =>
@@ -28,19 +80,8 @@ export const useGetNearByGardenLikeLists = () => {
     queryKey: [...nearByGardenQueries.all(), 'likes'],
     queryFn: ({ pageParam = 0 }) => nearByGardenAPI.getLikePosts(pageParam),
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage.hasNext) {
-        return undefined;
-      }
-      return lastPage.nextGardenId;
-    },
-    select: (data) => {
-      const gardens: BaseGardenItem[] = data.pages.reduce(
-        (acc, page) => acc.concat(page.gardenLikeByMemberResponses),
-        [],
-      );
-      return gardens;
-    },
+    getNextPageParam: nearByGetNextPageParam,
+    select: nearBySelect,
   });
 };
 export const useGetNearByGardenRecentLists = () => {
@@ -52,19 +93,8 @@ export const useGetNearByGardenMineLists = () => {
     queryKey: [...nearByGardenQueries.all(), 'mine'],
     queryFn: ({ pageParam = 0 }) => nearByGardenAPI.getMyPosts(pageParam),
     initialPageParam: 0,
-    getNextPageParam: (lastPage) => {
-      if (!lastPage.hasNext) {
-        return undefined;
-      }
-      return lastPage.nextGardenId;
-    },
-    select: (data) => {
-      const gardens: BaseGardenItem[] = data.pages.reduce(
-        (acc, page) => acc.concat(page.gardenMineResponses),
-        [],
-      );
-      return gardens;
-    },
+    getNextPageParam: nearByGetNextPageParam,
+    select: nearBySelect,
   });
 };
 
@@ -120,24 +150,9 @@ export const useGetWhisperMyPosts = () => {
       limit: 10,
     },
 
-    getNextPageParam: (...pages) => {
-      const [data, , params] = pages;
-      if (data.postInfos.length < 10) {
-        return undefined;
-      }
-      return {
-        ...params,
-        offset: (params.offset || 0) + 10,
-      };
-    },
-    select(data) {
-      const posts = data.pages.reduce<Whisper[]>(
-        (acc, item) => acc.concat(item.postInfos),
-        [],
-      );
-
-      return posts;
-    },
+    getNextPageParam: (data, allPages, pageParams) =>
+      whisperGetNextPageParam({ data, allPages, pageParams }),
+    select: whisperSelect,
   });
 };
 export const useGetWhisperLikePosts = () => {
@@ -148,24 +163,9 @@ export const useGetWhisperLikePosts = () => {
       offset: 0,
       limit: 10,
     },
-    getNextPageParam: (...pages) => {
-      const [data, , params] = pages;
-      if (data.postInfos.length < 10) {
-        return undefined;
-      }
-      return {
-        ...params,
-        offset: (params.offset || 0) + 10,
-      };
-    },
-    select(data) {
-      const posts = data.pages.reduce<Whisper[]>(
-        (acc, item) => acc.concat(item.postInfos),
-        [],
-      );
-
-      return posts;
-    },
+    getNextPageParam: (data, allPages, pageParams) =>
+      whisperGetNextPageParam({ data, allPages, pageParams }),
+    select: whisperSelect,
   });
 };
 export const useGetCommentedPosts = () => {
@@ -176,54 +176,17 @@ export const useGetCommentedPosts = () => {
       offset: 0,
       limit: 10,
     },
-    getNextPageParam: (...pages) => {
-      const [data, , params] = pages;
-      if (data.postInfos.length < 10) {
-        return undefined;
-      }
-      return {
-        ...params,
-        offset: (params.offset || 0) + 10,
-      };
-    },
-    select(data) {
-      const posts = data.pages.reduce<Whisper[]>(
-        (acc, item) => acc.concat(item.postInfos),
-        [],
-      );
-
-      return posts;
-    },
+    getNextPageParam: (data, allPages, pageParams) =>
+      whisperGetNextPageParam({ data, allPages, pageParams }),
+    select: whisperSelect,
   });
 };
 
 const getQueryKeys = (path: string) => {
-  const [, , parentPath, childPath] = path.split('/');
-
-  if (parentPath.includes('nearby')) {
-    if (childPath === 'my-posts') {
-      return [...nearByGardenQueries.all(), 'mine'];
-    }
-    if (childPath === 'favorited-gardens') {
-      return [...nearByGardenQueries.all(), 'likes'];
-    }
-    if (childPath === 'recently-viewed-gardens') {
-      return [...nearByGardenQueries.all(), 'recent'];
-    }
-  }
+  if (path.includes('nearby')) return [...nearByGardenQueries.all(), 'mine'];
   if (path.includes('crop')) return cropTradeQueries.all();
   if (path.includes('my-garden')) return myManagedGardenQueries.all();
-  if (parentPath.includes('whispers')) {
-    if (childPath.includes('written-posts')) {
-      return [...whisperKey, 'myPosts'];
-    }
-    if (childPath.includes('liked-posts')) {
-      return [...whisperKey, 'LikePosts'];
-    }
-    if (childPath.includes('commented-posts')) {
-      return [...whisperKey, 'commentedPosts'];
-    }
-  }
+  if (path.includes('whisper')) return [...whisperKey, 'myPosts'];
 };
 
 const getPath = (path: string) => {
@@ -242,8 +205,6 @@ export const useDeletePost = () => {
       deletePost(getPath(path), id),
     onSuccess: (_, variables) => {
       const { path } = variables;
-
-      console.log(getQueryKeys(path));
       queryClient.invalidateQueries({ queryKey: getQueryKeys(path) });
     },
   });

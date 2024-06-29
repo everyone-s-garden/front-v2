@@ -2,11 +2,14 @@ import { List } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import MobileEditButton from '../../components/MobileEditButton';
 import WhisperItem from '../../components/WhisperItem';
-import { useGetWhisperMyPosts } from '@/services/mypage/query';
+import { useDeletePost, useGetWhisperMyPosts } from '@/services/mypage/query';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { useLocation } from 'react-router-dom';
 
 const WrittenPosts = () => {
   const { data, hasNextPage, fetchNextPage } = useGetWhisperMyPosts();
+  const { pathname } = useLocation();
+  const { mutate: deletePost } = useDeletePost();
   const { ref } = useInfiniteScroll<HTMLDivElement>({
     fetchData: () => {
       fetchNextPage();
@@ -20,6 +23,20 @@ const WrittenPosts = () => {
       ...prev,
       [id]: !prev[id],
     }));
+  };
+
+  const handleDelete = (id?: number) => {
+    if (id) {
+      deletePost({ path: pathname, id });
+    } else {
+      Object.keys(checkedItems).forEach((key) => {
+        if (checkedItems[key]) {
+          deletePost({ path: pathname, id: +key });
+        }
+      });
+    }
+    setCheckedItems({});
+    setCheckboxOpen(false);
   };
   useEffect(() => {
     if (!checkboxOpen) {
@@ -35,8 +52,7 @@ const WrittenPosts = () => {
       <MobileEditButton
         checkboxOpen={checkboxOpen}
         setCheckboxOpen={setCheckboxOpen}
-        checkedItems={checkedItems}
-        setCheckedItems={setCheckedItems}
+        handleDelete={handleDelete}
       />
       {data?.map((item, idx) => (
         <WhisperItem
@@ -47,6 +63,7 @@ const WrittenPosts = () => {
           idx={idx}
           checkedItems={checkedItems}
           handleCheck={handleCheck}
+          handleDelete={handleDelete}
         />
       ))}
       <div style={{ height: 100 }} ref={ref} />

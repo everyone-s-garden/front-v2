@@ -16,7 +16,7 @@ const CommentedPosts = () => {
 
   if (data.length === 0) return <h1>게시글이 존재하지 않습니다.</h1>;
   return (
-    <List w="full" px={{ mobile: '20px', tablet: '0px' }}>
+    <List w="full" maxW={'100%'} px={{ mobile: '20px', tablet: '0px' }}>
       {data?.map((item, idx) => (
         <WhisperItem key={item.postId} item={item} idx={idx} />
       ))}

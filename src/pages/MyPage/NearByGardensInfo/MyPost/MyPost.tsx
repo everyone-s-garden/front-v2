@@ -2,11 +2,17 @@ import { List } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import GardenItem from '../../components/GardenItem';
 import MobileEditButton from '../../components/MobileEditButton';
-import { useGetNearByGardenMineLists } from '@/services/mypage/query';
+import {
+  useDeletePost,
+  useGetNearByGardenMineLists,
+} from '@/services/mypage/query';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { useLocation } from 'react-router-dom';
 
 const MyPost = () => {
   const { data, fetchNextPage, hasNextPage } = useGetNearByGardenMineLists();
+  const { pathname } = useLocation();
+  const { mutate: deletePost } = useDeletePost();
   const { ref } = useInfiniteScroll<HTMLDivElement>({
     fetchData: () => {
       fetchNextPage();
@@ -23,6 +29,20 @@ const MyPost = () => {
       [id]: !prev[id],
     }));
   };
+
+  const handleDelete = (id?: number) => {
+    if (id) {
+      deletePost({ path: pathname, id });
+    } else {
+      Object.keys(checkedItems).forEach((key) => {
+        if (checkedItems[key]) {
+          deletePost({ path: pathname, id: +key });
+        }
+      });
+    }
+    setCheckedItems({});
+    setCheckboxOpen(false);
+  };
   useEffect(() => {
     if (!checkboxOpen) {
       setCheckedItems({});
@@ -36,18 +56,19 @@ const MyPost = () => {
       <MobileEditButton
         checkboxOpen={checkboxOpen}
         setCheckboxOpen={setCheckboxOpen}
-        checkedItems={checkedItems}
+        handleDelete={handleDelete}
       />
 
       {data?.map((item, idx) => (
         <GardenItem
           key={item.gardenId}
           item={item}
-          idx={idx}
           menu
+          idx={idx}
           checkboxOpen={checkboxOpen}
           checkedItems={checkedItems}
           handleCheck={handleCheck}
+          handleDelete={handleDelete}
         />
       ))}
       <div style={{ height: 100 }} ref={ref} />

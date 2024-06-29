@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Image, ListItem, Text } from '@chakra-ui/react';
-import { useCallback, useEffect, useState } from 'react';
-import { AvatarComponent, TagComponent } from '@/components';
+import { Box, Flex, Image, ListItem, Text } from '@chakra-ui/react';
+import { useCallback, useState } from 'react';
+import { AvatarComponent, BottomMenu, TagComponent } from '@/components';
 import {
   GardenImageDefaultIcon,
   HeartUnfiledIcon,
@@ -10,6 +10,7 @@ import { Whisper } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
+import { ThreeDotsMenuIcon } from '@/assets/icons';
 
 interface WhisperProps {
   item: Whisper;
@@ -18,18 +19,19 @@ interface WhisperProps {
   idx: number;
   checkedItems?: Record<string, boolean>;
   handleCheck?: (id: number) => void;
+  handleDelete: (id: number) => void;
 }
 
 const WhisperItem = ({
   item,
   menu,
   checkboxOpen,
-  idx,
   checkedItems,
   handleCheck,
+  handleDelete,
 }: WhisperProps) => {
-  // eslint-disable-next-line
   const [report] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const getPlainText = useCallback((content: string) => {
     const $div = document.createElement('div');
@@ -41,18 +43,55 @@ const WhisperItem = ({
   return (
     <ListItem
       display="flex"
-      pb={{ mobile: '0', tablet: '28px' }}
-      borderBottom={{ mobile: 'none', tablet: '1px solid' }}
-      borderColor={{ mobile: 'white', tablet: 'gray.100' }}
+      pb={{ mobile: '10px', tablet: '28px' }}
+      borderBottom={'1px solid'}
+      borderColor={'gray.100'}
       flexDir={{ mobile: 'row-reverse', tablet: 'row' }}
       mt={{ mobile: '16px', tablet: '0' }}
       mb={{ mobile: '24px', tablet: '28px' }}
     >
-      <Box mr="auto">
-        <Flex align="center" mb={{ mobile: '8px', tablet: '12px' }}>
-          <Box display={{ mobile: 'none', tablet: 'block' }}>
+      <Box w="100%">
+        <Flex
+          flexDir={{ mobile: 'column', tablet: 'row' }}
+          align={{ mobile: 'flex-start', tablet: 'center' }}
+          mb={{ mobile: '8px', tablet: '12px' }}
+        >
+          <Flex
+            w={{ mobile: '100%', tablet: 'auto' }}
+            alignItems={'center'}
+            mb={{ mobile: '8px', tablet: '0' }}
+          >
             <TagComponent tagLabel="텃밭 자랑" />
-          </Box>
+            <Box hideFrom={'tablet'} ml="auto">
+              <ThreeDotsMenuIcon
+                onClick={() => setIsOpen(true)}
+                cursor="pointer"
+              />
+              <BottomMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <Box
+                  as="button"
+                  p="18px"
+                  display="flex"
+                  justifyContent="flex-start"
+                  _hover={{ bg: 'green.100' }}
+                  _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
+                >
+                  게시글 수정
+                </Box>
+                <Box
+                  as="button"
+                  p="18px"
+                  display="flex"
+                  justifyContent="flex-start"
+                  _hover={{ bg: 'green.100' }}
+                  _notFirst={{ borderRadius: 0 }}
+                  onClick={() => handleDelete(item.postId)}
+                >
+                  삭제하기
+                </Box>
+              </BottomMenu>
+            </Box>
+          </Flex>
           <Text
             fontSize="16px"
             fontWeight="semiBold"
@@ -62,7 +101,14 @@ const WhisperItem = ({
             {item.title}
           </Text>
         </Flex>
-        <Text display={{ mobile: 'none', tablet: 'inline' }} mb="8px">
+        <Text
+          mb="8px"
+          hideBelow={'tablet'}
+          noOfLines={3}
+          whiteSpace={'normal'}
+          wordBreak={'break-all'}
+          overflowWrap={'anywhere'}
+        >
           {getPlainText(item.content)}
         </Text>
         <Flex align="center" mb={{ mobile: '8px', tablet: '0' }} mt="8px">
@@ -91,15 +137,6 @@ const WhisperItem = ({
         >
           신고가 접수된 게시글 입니다.
         </Text>
-        <Button
-          display={{ mobile: 'block', tablet: 'none' }}
-          bg="green.500"
-          color="white"
-          w="full"
-          _hover={{ bg: 'green.500' }}
-        >
-          수정하기
-        </Button>
       </Box>
       <Box
         w={{ mobile: '114px', tablet: '132px' }}
@@ -136,7 +173,13 @@ const WhisperItem = ({
           <GardenImageDefaultIcon />
         )}
       </Box>
-      {menu && <MenuButton itemId={item.postId} ml="26px" />}
+      {menu && (
+        <MenuButton
+          itemId={item.postId}
+          ml="26px"
+          handleDelete={() => handleDelete(item.postId)}
+        />
+      )}
     </ListItem>
   );
 };

@@ -7,6 +7,7 @@ const AvatarComponent = ({ src, loading = 'lazy', ...rest }: AvatarProps) => {
       loading={loading}
       {...rest}
       bg={'transparent'}
+      src={src}
       icon={<DefaultProfileSVG />}
     />
   );

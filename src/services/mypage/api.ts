@@ -20,7 +20,6 @@ export const nearByGardenAPI = {
     const res = await apiClient.get(
       `${nearByBasePath}/mine?nextGardenId=${nextGardenId}`,
     );
-    console.log('res data', res.data);
 
     return res.data;
   },
