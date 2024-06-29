@@ -19,7 +19,7 @@ interface WhisperProps {
   idx: number;
   checkedItems?: Record<string, boolean>;
   handleCheck?: (id: number) => void;
-  handleDelete: (id: number) => void;
+  handleDelete?: (id: number) => void;
 }
 
 const WhisperItem = ({
@@ -85,7 +85,7 @@ const WhisperItem = ({
                   justifyContent="flex-start"
                   _hover={{ bg: 'green.100' }}
                   _notFirst={{ borderRadius: 0 }}
-                  onClick={() => handleDelete(item.postId)}
+                  onClick={() => handleDelete && handleDelete(item.postId)}
                 >
                   삭제하기
                 </Box>
@@ -147,7 +147,7 @@ const WhisperItem = ({
         ml={{ mobile: '0', tablet: '22px' }}
         display={{
           mobile: 'block',
-          tablet: item.preview ? 'block' : 'none',
+          tablet: item?.preview ? 'block' : 'none',
         }}
         mr={{ mobile: '13px', tablet: '0' }}
         position="relative"
@@ -161,7 +161,7 @@ const WhisperItem = ({
             checkboxOpen={checkboxOpen}
           />
         )}
-        {item.preview ? (
+        {item?.preview ? (
           <Image
             w="full"
             h="full"
@@ -177,7 +177,7 @@ const WhisperItem = ({
         <MenuButton
           itemId={item.postId}
           ml="26px"
-          handleDelete={() => handleDelete(item.postId)}
+          handleDelete={() => handleDelete && handleDelete(item.postId)}
         />
       )}
     </ListItem>

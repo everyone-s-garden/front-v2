@@ -13,16 +13,14 @@ export type ISubRoute = Omit<IMainRoute, 'des' | 'icon'>;
 export interface Whisper {
   postId: number;
   title: string;
-  preview: string;
+  preview?: string;
   content: string;
   likesCount: number;
   commentsCount: number;
-  thumbnail?: string;
   userInfo: {
     userId: number;
     profile: string;
     name: string;
-    memberMannerGrade: string;
   };
 }
 
