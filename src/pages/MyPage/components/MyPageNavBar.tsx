@@ -47,15 +47,20 @@ const MyPageNavBar = ({ route }: { route: ISubRoute[] }) => {
         tabWidth="fit"
         paddingVertical={TAB_PADDING_VERTICAL}
         borderTop
-        textStyle={{ fontWeight: 'semiBold', color: 'green.600' }}
+        textStyle={{
+          fontWeight: 'semiBold',
+          color: 'green.600',
+          fontSize: '18px',
+        }}
       />
       <Tab
         gap={TAB_GAP}
         color="green"
         tabsData={route}
         tabWidth="fit"
+        indicatorHeight="4px"
         paddingVertical={TAB_PADDING_VERTICAL}
-        textStyle={{ fontWeight: 'semiBold' }}
+        textStyle={{ fontWeight: 'semiBold', fontSize: '18px' }}
       />
     </Box>
   );

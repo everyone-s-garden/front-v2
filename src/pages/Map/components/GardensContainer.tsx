@@ -71,6 +71,7 @@ const GardensContainer = ({
               {...{
                 showGardenDetail,
                 setShowGardenDetail,
+                setShowGardens,
                 fetchNextPage,
                 hasNextPage,
                 hasNext,
@@ -132,6 +133,7 @@ const GardensContainer = ({
                 {...{
                   showGardenDetail,
                   setShowGardenDetail,
+                  setShowGardens,
                   fetchNextPage,
                   hasNextPage,
                   hasNext,

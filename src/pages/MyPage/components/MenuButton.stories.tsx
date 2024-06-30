@@ -19,6 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const 기본: Story = {
   args: {
     ml: '24px',
+    itemId: 1,
   },
   render: (args) => <MenuButton {...args} />,
 };

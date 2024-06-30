@@ -2,7 +2,8 @@ import { List, TabList, Tabs, Tab, TabIndicator, Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import GardenItem from '../../components/GardenItem';
 import MobileEditButton from '../../components/MobileEditButton';
-import { cropMockData } from '../../mockData';
+import { useGetSaleLists } from '@/services/mypage/query';
+import { CropTrade } from '../../type';
 
 const tabList = [
   { tabName: '판매중', href: '*' },
@@ -12,7 +13,12 @@ const tabList = [
 
 const SalesHistory = () => {
   const [checkboxOpen, setCheckboxOpen] = useState(false);
+  const { data } = useGetSaleLists();
 
+  if (!data) return;
+  const cropData: CropTrade[] = data.cropInfos;
+
+  if (cropData.length === 0) return <h1>게시글이 없습니다.</h1>;
   return (
     <List w="100%" mt={{ mobile: '20px', tablet: '0' }}>
       <Tabs>
@@ -46,9 +52,9 @@ const SalesHistory = () => {
           setCheckboxOpen={setCheckboxOpen}
         />
 
-        {cropMockData.map((item, idx) => (
+        {cropData.map((item, idx) => (
           <GardenItem
-            key={item.id}
+            key={item.cropPostId}
             item={item}
             idx={idx}
             menu

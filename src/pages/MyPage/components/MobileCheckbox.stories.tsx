@@ -29,7 +29,7 @@ export const 기본: Story = {
   args: {
     checkedItems: {},
     handleCheckbox: action('Checkbox state changed false => true'),
-    idx: 1,
+    id: 1,
     checkboxOpen: false,
   },
   render: () => {
@@ -47,7 +47,7 @@ export const 기본: Story = {
       <MobileCheckbox
         checkedItems={checkedItems}
         checkboxOpen
-        idx={1}
+        id={1}
         handleCheckbox={handleCheckbox}
       />
     );

@@ -3,9 +3,26 @@ import { useState } from 'react';
 import { BottomMenu } from '@/components';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
 import MenuButton from '../../components/MenuButton';
+import { useDeletePost, useGetMyManagedGarden } from '@/services/mypage/query';
+import { MyManagedGarden } from '../../type';
+import { useLocation } from 'react-router-dom';
 
 const MyGarden = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data } = useGetMyManagedGarden();
+  const { pathname } = useLocation();
+  const { mutate: deletePost } = useDeletePost();
+
+  if (!data) return;
+
+  const myGarden: MyManagedGarden = data.myManagedGardenGetResponses[0];
+
+  if (data.myManagedGardenGetResponses.length === 0)
+    return <h1>등록된 나의 게시글이 없습니다.</h1>;
+
+  const handleDeleteClick = () => {
+    deletePost({ path: pathname, id: myGarden.myManagedGardenId });
+  };
 
   return (
     <Box
@@ -47,7 +64,7 @@ const MyGarden = () => {
             h="full"
             objectFit="cover"
             borderRadius={{ mobile: '8px', tablet: '12px' }}
-            src="https://cdn.jejusori.net/news/photo/202208/406575_410757_596.jpg"
+            src={myGarden.images[0]}
           />
         </Box>
 
@@ -100,6 +117,7 @@ const MyGarden = () => {
                   justifyContent="flex-start"
                   _hover={{ bg: 'green.100' }}
                   _notFirst={{ borderRadius: 0 }}
+                  onClick={handleDeleteClick}
                 >
                   삭제하기
                 </Box>
@@ -113,10 +131,14 @@ const MyGarden = () => {
               mb={{ mobile: '4px' }}
             >
               {' '}
-              (2023.12.01 - 2024.04.01)
+              ({myGarden.useStartDate} - {myGarden.useEndDate})
             </Text>
             {/* pc 수정하기 버튼 */}
-            <MenuButton ml="auto" />
+            <MenuButton
+              ml="auto"
+              itemId={myGarden.myManagedGardenId}
+              handleDelete={handleDeleteClick}
+            />
           </Flex>
           <Flex
             fontSize={{ mobile: '16px', tablet: '18px' }}
@@ -126,7 +148,7 @@ const MyGarden = () => {
             <Text fontWeight="regular" mr="16px">
               이름
             </Text>
-            <Text fontWeight="semiBold">클라인 가르텐</Text>
+            <Text fontWeight="semiBold">{myGarden.gardenName}</Text>
           </Flex>
           <Flex
             fontSize={{ mobile: '16px', tablet: '18px' }}

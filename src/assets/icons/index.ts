@@ -53,5 +53,7 @@ export { default as LoginLogo } from './login-logo.svg?react';
 export { default as ParagraphIcon } from './paragraph.svg?react';
 export { default as PostIcon } from './post.svg?react';
 export { default as ETCIcon } from './etc.svg?react';
+export { default as UserFeedBackSmileIcon } from './mypage/user-feed-back-smile.svg?react';
 export { default as ParagraphBoxIcon } from './paragraph-box.svg?react';
 export { default as PostBoxIcon } from './post-box.svg?react';
+export { default as DefaultProfileSVG } from './default-profile-image.svg?react';

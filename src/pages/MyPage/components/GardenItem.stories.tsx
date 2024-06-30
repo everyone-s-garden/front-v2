@@ -18,11 +18,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const args = {
+  item: gardenMockData[0],
+  idx: 0,
+};
+
 export const 텃밭카드_기본: Story = {
-  args: {
-    item: gardenMockData[0],
-    idx: 0,
-  },
+  args,
   render: (args) => (
     <List>
       <GardenItem {...args} />
@@ -30,10 +32,7 @@ export const 텃밭카드_기본: Story = {
   ),
 };
 export const 텃밭카드_기본_모바일: Story = {
-  args: {
-    item: gardenMockData[0],
-    idx: 0,
-  },
+  args,
   parameters: {
     viewport: {
       defaultViewport: 'iphone13pro',
@@ -47,11 +46,7 @@ export const 텃밭카드_기본_모바일: Story = {
 };
 
 export const 텃밭카드_하트: Story = {
-  args: {
-    heart: true,
-    item: gardenMockData[0],
-    idx: 0,
-  },
+  args: { ...args, heart: true },
   render: (args) => (
     <List>
       <GardenItem {...args} />
@@ -59,11 +54,7 @@ export const 텃밭카드_하트: Story = {
   ),
 };
 export const 텃밭카드_하트_모바일: Story = {
-  args: {
-    heart: true,
-    item: gardenMockData[0],
-    idx: 0,
-  },
+  args: { ...args, heart: true },
   parameters: {
     viewport: {
       defaultViewport: 'iphone13pro',
@@ -77,11 +68,7 @@ export const 텃밭카드_하트_모바일: Story = {
 };
 
 export const 텃밭카드_메뉴: Story = {
-  args: {
-    menu: true,
-    item: gardenMockData[0],
-    idx: 0,
-  },
+  args: { ...args, menu: true },
   render: (args) => (
     <List>
       <GardenItem {...args} />
@@ -89,11 +76,7 @@ export const 텃밭카드_메뉴: Story = {
   ),
 };
 export const 텃밭카드_메뉴_모바일: Story = {
-  args: {
-    menu: true,
-    item: gardenMockData[0],
-    idx: 0,
-  },
+  args: { ...args, menu: true },
   parameters: {
     viewport: {
       defaultViewport: 'iphone13pro',

@@ -31,11 +31,13 @@ export const NormalButton = ({
 interface MobileEditButtonProps {
   checkboxOpen: boolean;
   setCheckboxOpen: React.Dispatch<SetStateAction<boolean>>;
+  handleDelete: () => void;
 }
 
 const MobileEditButton = ({
   checkboxOpen,
   setCheckboxOpen,
+  handleDelete,
 }: MobileEditButtonProps) => {
   return (
     <Box
@@ -52,7 +54,7 @@ const MobileEditButton = ({
 
       {checkboxOpen && (
         <Flex>
-          <NormalButton>삭제</NormalButton>
+          <NormalButton onClick={handleDelete}>삭제</NormalButton>
           <Box h="full" w="1px" bg="gray" />
           <NormalButton onClick={() => setCheckboxOpen(false)}>
             취소
