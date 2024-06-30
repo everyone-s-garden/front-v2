@@ -3,12 +3,15 @@ import { useState } from 'react';
 import { BottomMenu } from '@/components';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
 import MenuButton from '../../components/MenuButton';
-import { useGetMyManagedGarden } from '@/services/mypage/query';
+import { useDeletePost, useGetMyManagedGarden } from '@/services/mypage/query';
 import { MyManagedGarden } from '../../type';
+import { useLocation } from 'react-router-dom';
 
 const MyGarden = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useGetMyManagedGarden();
+  const { pathname } = useLocation();
+  const { mutate: deletePost } = useDeletePost();
 
   if (!data) return;
 
@@ -16,6 +19,10 @@ const MyGarden = () => {
 
   if (data.myManagedGardenGetResponses.length === 0)
     return <h1>등록된 나의 게시글이 없습니다.</h1>;
+
+  const handleDeleteClick = () => {
+    deletePost({ path: pathname, id: myGarden.myManagedGardenId });
+  };
 
   return (
     <Box
@@ -110,6 +117,7 @@ const MyGarden = () => {
                   justifyContent="flex-start"
                   _hover={{ bg: 'green.100' }}
                   _notFirst={{ borderRadius: 0 }}
+                  onClick={handleDeleteClick}
                 >
                   삭제하기
                 </Box>
@@ -126,7 +134,11 @@ const MyGarden = () => {
               ({myGarden.useStartDate} - {myGarden.useEndDate})
             </Text>
             {/* pc 수정하기 버튼 */}
-            <MenuButton ml="auto" itemId={myGarden.myManagedGardenId} />
+            <MenuButton
+              ml="auto"
+              itemId={myGarden.myManagedGardenId}
+              handleDelete={handleDeleteClick}
+            />
           </Flex>
           <Flex
             fontSize={{ mobile: '16px', tablet: '18px' }}
