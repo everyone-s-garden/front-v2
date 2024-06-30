@@ -30,10 +30,9 @@ interface MapGardenDetailProps {
 
 const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
   const { gardenId } = useMapGardenDetailIdStore();
-  const { data, refetch } = useGetIndividualGarden(gardenId);
+  const { data: garden, refetch } = useGetIndividualGarden(gardenId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dragging, setDragging] = useState(false);
-  const garden: GardenDetail = data;
 
   if (!garden)
     return (
