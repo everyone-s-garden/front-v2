@@ -1,4 +1,12 @@
-import { Box, Flex, Image, ListItem, Text, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Image,
+  ListItem,
+  Text,
+  Button,
+  Hide,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import { HeartIcon } from '@/assets/icons';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
@@ -37,6 +45,7 @@ const GardenItem = ({
   const id = 'gardenId' in item ? item.gardenId : item.cropPostId;
   const title = 'gardenName' in item ? item.gardenName : item.title;
   const itemId = 'gardenId' in item ? item.gardenId : item.cropPostId;
+  const price = 'price' in item ? item.price : null;
 
   const handleLike = () => {
     console.log('like');
@@ -130,7 +139,8 @@ const GardenItem = ({
               </>
             )}
             <Text color="black" noOfLines={1} fontWeight="semiBold" mb="6px">
-              {/* {item.price.toLocaleString()}원 */}
+              <Hide below="tablet">평당 </Hide>
+              {(+price!).toLocaleString()} 원
             </Text>
           </Flex>
           <Text

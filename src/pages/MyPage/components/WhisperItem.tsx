@@ -11,6 +11,7 @@ import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
+import { DefaultProfile } from '@/assets/images';
 
 interface WhisperProps {
   item: Whisper;
@@ -40,6 +41,9 @@ const WhisperItem = ({
     return $div.textContent || $div.innerText || '';
   }, []);
 
+  const userProfileImage = !item?.userInfo.profile
+    ? DefaultProfile
+    : item?.userInfo.profile;
   return (
     <ListItem
       display="flex"
@@ -113,10 +117,7 @@ const WhisperItem = ({
         </Text>
         <Flex align="center" mb={{ mobile: '8px', tablet: '0' }} mt="8px">
           <Box w="24px" h="24px">
-            <AvatarComponent
-              src={item?.userInfo.profile || undefined}
-              size="full"
-            />
+            <AvatarComponent src={userProfileImage} size="full" />
           </Box>
           <Text ml="8px" mr="10px">
             {item.userInfo.name}
@@ -128,7 +129,7 @@ const WhisperItem = ({
           <TextBubbleBlackIcon />
           <Text ml="6px">{item.commentsCount}</Text>
         </Flex>
-        <Text
+        {/* <Text
           color="error"
           fontSize={{ mobile: '14px', tablet: '16px' }}
           fontWeight="medium"
@@ -136,7 +137,7 @@ const WhisperItem = ({
           mb="8px"
         >
           신고가 접수된 게시글 입니다.
-        </Text>
+        </Text> */}
       </Box>
       <Box
         w={{ mobile: '114px', tablet: '132px' }}
