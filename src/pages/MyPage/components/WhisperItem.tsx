@@ -12,6 +12,8 @@ import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
 import { DefaultProfile } from '@/assets/images';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/routes/constants';
 
 interface WhisperProps {
   item: Whisper;
@@ -33,6 +35,7 @@ const WhisperItem = ({
 }: WhisperProps) => {
   const [report] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const getPlainText = useCallback((content: string) => {
     const $div = document.createElement('div');
@@ -44,15 +47,21 @@ const WhisperItem = ({
   const userProfileImage = !item?.userInfo.profile
     ? DefaultProfile
     : item?.userInfo.profile;
+
+  const navigateToDetail = () => {
+    navigate(`${PATH.COMMUNITY.MAIN}/${item.postId}`);
+  };
   return (
     <ListItem
       display="flex"
+      cursor="pointer"
       pb={{ mobile: '10px', tablet: '28px' }}
       borderBottom={'1px solid'}
       borderColor={'gray.100'}
       flexDir={{ mobile: 'row-reverse', tablet: 'row' }}
       mt={{ mobile: '16px', tablet: '0' }}
       mb={{ mobile: '24px', tablet: '28px' }}
+      onClick={navigateToDetail}
     >
       <Box w="100%">
         <Flex
