@@ -1,4 +1,4 @@
-import { List } from '@chakra-ui/react';
+import { Box, List, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import GardenItem from '../../components/GardenItem';
 import MobileEditButton from '../../components/MobileEditButton';
@@ -58,6 +58,19 @@ const MyPost = () => {
         setCheckboxOpen={setCheckboxOpen}
         handleDelete={handleDelete}
       />
+
+      <Box
+        pt="13px"
+        pb="19px"
+        borderBottom="1px solid"
+        borderColor="gray.100"
+        mb="24px"
+        hideBelow={'tablet'}
+      >
+        <Text fontSize="20px" fontWeight="semiBold">
+          내가 올린 분양글
+        </Text>
+      </Box>
 
       {data?.map((item, idx) => (
         <GardenItem
