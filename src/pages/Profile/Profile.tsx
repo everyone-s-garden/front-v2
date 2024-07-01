@@ -31,7 +31,7 @@ const Profile = () => {
           mx={{ mobile: '20px', tablet: '59px', desktop: 'auto' }}
           gap={{ mobile: '0px', tablet: '60px', desktop: '100px' }}
         >
-          <ProfileCard />
+          <ProfileCard userId={userId as string} />
 
           {activeTab === profileTabs[0] && <ProfileGarden />}
           {activeTab === profileTabs[1] && <ProfileSaleGarden />}

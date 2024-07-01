@@ -1,7 +1,11 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
 import { SeedIcon } from '@/assets/icons';
 
-const ProfileCardFooter = () => {
+interface ProfileCardFooterProps {
+  memberMannerGrade: string;
+}
+
+const ProfileCardFooter = ({ memberMannerGrade }: ProfileCardFooterProps) => {
   return (
     <Flex
       w="full"
@@ -24,7 +28,8 @@ const ProfileCardFooter = () => {
         color="white"
         fontWeight="semiBold"
       >
-        씨앗 등급
+        {/* 씨앗 등급 */}
+        {memberMannerGrade}
       </Text>
     </Flex>
   );

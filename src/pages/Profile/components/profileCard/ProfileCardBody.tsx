@@ -1,7 +1,11 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { DefaultProfile } from '@/assets/images';
 
-const ProfileCardBody = () => {
+interface ProfileCardBodyProps {
+  userInfo: UserInfo;
+}
+
+const ProfileCardBody = ({ userInfo }: ProfileCardBodyProps) => {
   return (
     <Flex
       gap={{ mobile: '12px', tablet: '7.82px', desktop: '10px' }}
@@ -12,8 +16,10 @@ const ProfileCardBody = () => {
       mb={{ mobile: '20px', tablet: '24px' }}
     >
       <Image
-        src={DefaultProfile}
-        alt="기본 이미지"
+        src={
+          userInfo?.profileImageUrl ? userInfo?.profileImageUrl : DefaultProfile
+        }
+        alt={userInfo?.nickname}
         w={{ mobile: '70px', tablet: '73.52px', desktop: '94px' }}
         h={{ mobile: '70px', tablet: '73.52px', desktop: '94px' }}
         borderRadius="50%"
@@ -35,7 +41,7 @@ const ProfileCardBody = () => {
           w="fit-content"
           h="fit-content"
         >
-          텃린이
+          {userInfo?.nickname}
         </Box>
         <Text
           color="orange.500"
