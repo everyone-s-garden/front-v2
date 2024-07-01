@@ -26,6 +26,7 @@ const Profile = () => {
       >
         <Flex
           w={{ desktop: '1024px' }}
+          h="full"
           flexDir={{ mobile: 'column', tablet: 'row' }}
           mt={{ mobile: '0px', tablet: '48px', desktop: '108px' }}
           mx={{ mobile: '20px', tablet: '59px', desktop: 'auto' }}

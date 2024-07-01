@@ -55,3 +55,5 @@ export { default as PostIcon } from './post.svg?react';
 export { default as ETCIcon } from './etc.svg?react';
 export { default as ParagraphBoxIcon } from './paragraph-box.svg?react';
 export { default as PostBoxIcon } from './post-box.svg?react';
+export { default as NoPostIcon } from './no-post.svg?react';
+export { default as NoGardenIcon } from './no-garden.svg?react';

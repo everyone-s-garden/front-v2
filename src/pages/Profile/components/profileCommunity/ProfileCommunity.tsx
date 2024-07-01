@@ -1,5 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { PostList } from '@/components';
+import NoContent from '../noContent/NoContent';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { useGetProfilePosts } from '@/services/whisper/query';
 
@@ -21,8 +22,6 @@ const ProfileCommunity = ({ userId }: ProfileCommunityProps) => {
     hasNextPage,
   });
 
-  if (!popularPosts) return;
-
   return (
     <Flex
       flexDir="column"
@@ -30,7 +29,11 @@ const ProfileCommunity = ({ userId }: ProfileCommunityProps) => {
       w={{ tablet: '886px' }}
       mb={{ tablet: '164px' }}
     >
-      <PostList posts={popularPosts} />
+      {popularPosts && popularPosts?.length !== 0 ? (
+        <PostList posts={popularPosts} />
+      ) : (
+        <NoContent type="post" />
+      )}
       <div ref={ref} />
     </Flex>
   );
