@@ -23,11 +23,11 @@ const ProfileSaleGarden = () => {
 
       <Show above="tablet">
         <Grid
-          gridTemplateColumns="1fr 1fr 1fr"
+          gridTemplateColumns={{ tablet: '1fr 1fr', desktop: '1fr 1fr 1fr' }}
           gridRowGap="52px"
           gridColumnGap="48px"
           flexDir="column"
-          gap="36px"
+          gap="45px"
         >
           {fakeImages.map((image, i) => (
             <ProfileIndividualSaleGarden image={image} key={i} />

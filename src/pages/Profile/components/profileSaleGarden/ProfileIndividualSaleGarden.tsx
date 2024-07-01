@@ -14,8 +14,8 @@ const ProfileIndividualSaleGarden = ({
     <Flex
       pos="relative"
       flexDir="column"
-      w={{ mobile: 'full', tablet: '230px' }}
-      h={{ mobile: '265px', tablet: '' }}
+      w={{ mobile: 'full', tablet: 'full', dektop: '210px' }}
+      h={{ mobile: '265px', tablet: 'full' }}
       gap="10px"
     >
       <ProfileGardenStatus />

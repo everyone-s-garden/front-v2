@@ -8,7 +8,7 @@ import ProfileCommunity from './components/profileCommunity/ProfileCommunity';
 import ProfileSaleGarden from './components/profileSaleGarden/ProfileSaleGarden';
 
 const Profile = () => {
-  const profileTabs = ['텃밭 보기', '분양 텃밭', '작물거래', '속닥속닥'];
+  const profileTabs = ['텃밭 보기', '분양 텃밭', '속닥속닥'];
   const [activeTab, setActiveTab] = useState(profileTabs[0]);
   const { userId } = useParams();
   console.log(userId);
@@ -26,11 +26,11 @@ const Profile = () => {
         justifyContent="center"
       >
         <Flex
-          w={{ desktop: '900px' }}
+          w={{ desktop: '1024px' }}
           flexDir={{ mobile: 'column', tablet: 'row' }}
           mt={{ mobile: '0px', tablet: '48px', desktop: '108px' }}
           mx={{ mobile: '20px', tablet: '59px', desktop: 'auto' }}
-          gap={{ mobile: '0px', tablet: '60px', desktop: '' }}
+          gap={{ mobile: '0px', tablet: '60px', desktop: '100px' }}
         >
           <ProfileCard />
 

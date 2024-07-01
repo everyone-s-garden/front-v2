@@ -7,8 +7,8 @@ const ProfileCard = () => {
   return (
     <Box
       pos="relative"
-      w={{ mobile: 'full', tablet: '204px' }}
-      h={{ mobile: '166px', tablet: '280px' }}
+      w={{ mobile: 'full', tablet: '160px', desktop: '204px' }}
+      h={{ mobile: '166px', tablet: '218px', desktop: '280px' }}
       borderRadius="10px"
       border="1px solid"
       borderColor="orange.500"

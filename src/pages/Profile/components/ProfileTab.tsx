@@ -40,7 +40,7 @@ const ProfileTab = ({
           color={tab === activeTab ? 'GrayText' : 'gray.200'}
           fontWeight={{ mobile: 'semiBold', tablet: 'bold' }}
           fontSize={{ mobile: '16px', tablet: '18px' }}
-          w={{ mobile: '25%', tablet: 'fit-content' }}
+          w={{ mobile: 'calc(100%/3)', tablet: 'fit-content' }}
           textAlign="center"
           cursor="pointer"
         >
@@ -52,11 +52,11 @@ const ProfileTab = ({
         pos="absolute"
         left={
           (activeTab === profileTabs[0] ? '0' : undefined) ||
-          (activeTab === profileTabs[1] ? '25%' : undefined) ||
-          (activeTab === profileTabs[2] ? '50%' : undefined) ||
+          (activeTab === profileTabs[1] ? '33%' : undefined) ||
+          (activeTab === profileTabs[2] ? '66%' : undefined) ||
           (activeTab === profileTabs[3] ? '75%' : undefined)
         }
-        w="25%"
+        w="calc(100%/3)"
         h="3px"
         bottom="0px"
         bgColor="green.500"
