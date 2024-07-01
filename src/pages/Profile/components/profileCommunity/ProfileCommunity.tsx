@@ -1,9 +1,13 @@
 import { Flex } from '@chakra-ui/react';
 import { PostList } from '@/components';
-import { useGetPopularPosts } from '@/services/whisper/query';
+import { useGetProfilePosts } from '@/services/whisper/query';
 
-const ProfileCommunity = () => {
-  const { data: popularPosts } = useGetPopularPosts();
+interface ProfileCommunityProps {
+  userId: string;
+}
+
+const ProfileCommunity = ({ userId }: ProfileCommunityProps) => {
+  const { data: popularPosts } = useGetProfilePosts(userId);
 
   if (!popularPosts) return;
 

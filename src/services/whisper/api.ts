@@ -36,6 +36,16 @@ const whisperAPI = {
 
     return response.data;
   },
+  getProfilePosts: async (
+    pageParam: Param,
+    userId: string,
+  ): Promise<PostList> => {
+    const response = await apiClient.get(`/v1/posts/author/${userId}`, {
+      params: { ...pageParam },
+    });
+
+    return response.data;
+  },
   getPost: async (postId: number): Promise<PostDetail> => {
     const response = await apiClient.get(`/v1/posts/${postId}`);
 

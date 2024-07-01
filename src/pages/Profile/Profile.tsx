@@ -11,7 +11,6 @@ const Profile = () => {
   const profileTabs = ['텃밭 보기', '분양 텃밭', '속닥속닥'];
   const [activeTab, setActiveTab] = useState(profileTabs[0]);
   const { userId } = useParams();
-  console.log(userId);
 
   return (
     <Box w="full" pos="relative" mb={{ mobile: '187px', tablet: '0px' }}>
@@ -36,7 +35,9 @@ const Profile = () => {
 
           {activeTab === profileTabs[0] && <ProfileGarden />}
           {activeTab === profileTabs[1] && <ProfileSaleGarden />}
-          {activeTab === profileTabs[3] && <ProfileCommunity />}
+          {activeTab === profileTabs[2] && (
+            <ProfileCommunity userId={userId as string} />
+          )}
         </Flex>
       </Box>
     </Box>

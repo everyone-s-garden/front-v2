@@ -50,17 +50,16 @@ const ProfileTab = ({
 
       <Box
         pos="absolute"
-        left={
-          (activeTab === profileTabs[0] ? '0' : undefined) ||
-          (activeTab === profileTabs[1] ? '33%' : undefined) ||
-          (activeTab === profileTabs[2] ? '66%' : undefined) ||
-          (activeTab === profileTabs[3] ? '75%' : undefined)
+        transform={
+          (activeTab === profileTabs[0] ? 'translateX(0)' : undefined) ||
+          (activeTab === profileTabs[1] ? 'translateX(100%)' : undefined) ||
+          (activeTab === profileTabs[2] ? 'translateX(200%)' : undefined)
         }
         w="calc(100%/3)"
         h="3px"
         bottom="0px"
         bgColor="green.500"
-        transition="left 0.5s ease"
+        transition="transform 0.5s ease"
         display={{ mobile: 'block', tablet: 'none' }}
       />
     </Tabs>
