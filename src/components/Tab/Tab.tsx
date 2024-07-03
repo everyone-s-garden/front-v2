@@ -12,6 +12,7 @@ interface TabProps {
   paddingVertical?: number;
   borderTop?: boolean;
   textStyle?: React.CSSProperties;
+  indicatorHeight?: string;
 }
 
 const Tab = ({
@@ -22,6 +23,7 @@ const Tab = ({
   paddingVertical,
   borderTop = false,
   textStyle,
+  indicatorHeight = '2px',
 }: TabProps) => {
   const [tabIndex, setTabIndex] = useState(-1);
 
@@ -91,6 +93,7 @@ const Tab = ({
             _selected={{
               color: textStyle?.color || 'black',
             }}
+            fontSize={textStyle?.fontSize}
             fontWeight={textStyle?.fontWeight}
             {...getTabStyles()}
           >
@@ -100,7 +103,7 @@ const Tab = ({
       </TabList>
       <TabIndicator
         bottom={0}
-        height="2px"
+        height={indicatorHeight}
         bg={`${color}.500`}
         borderRadius="1px"
         display={tabIndex === -1 ? 'none' : 'block'}

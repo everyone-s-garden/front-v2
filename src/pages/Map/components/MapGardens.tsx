@@ -1,14 +1,16 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { MapGardenNoImg } from '@/assets/images';
 import GardenStatus from './GardenStatus';
 import MapGardenDetail from './MapGardenDetail';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
+import { useLocation } from 'react-router-dom';
 
 interface MapGardensProps {
   showGardenDetail: boolean;
   setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
+  setShowGardens: Dispatch<SetStateAction<boolean>>;
   hasNext: boolean;
   fetchNextPage: () => void;
   hasNextPage: boolean;
@@ -21,15 +23,25 @@ const MapGardens = ({
   hasNext,
   fetchNextPage,
   hasNextPage,
+  setShowGardens,
   gardens,
 }: MapGardensProps) => {
   const { setGardenId } = useMapGardenDetailIdStore();
+  const { state } = useLocation();
   const { ref } = useInfiniteScroll<HTMLDivElement>({
     fetchData: () => {
       if (hasNext) fetchNextPage();
     },
     hasNextPage,
   });
+
+  useEffect(() => {
+    if (state && state.id) {
+      setGardenId(state.id);
+      setShowGardenDetail(true);
+      setShowGardens(true);
+    }
+  }, []);
 
   return (
     <Box position="relative">
