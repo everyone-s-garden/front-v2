@@ -23,7 +23,7 @@ interface LastPage {
 }
 interface WhisperGetNextPageParams {
   data: { postInfos: Whisper[] };
-  allPages: { postInfos: Whisper[] }[];
+  // allPages: { postInfos: Whisper[] }[];
   pageParams: { offset: number; limit: number };
 }
 
@@ -31,6 +31,7 @@ const nearByGetNextPageParam = (lastPage: LastPage) => {
   if (!lastPage.hasNext) {
     return undefined;
   }
+
   return lastPage.nextGardenId;
 };
 
@@ -46,12 +47,12 @@ const nearBySelect = (data: InfiniteData<LastPage>): BaseGardenItem[] => {
 
 const whisperGetNextPageParam = ({
   data,
-  allPages,
   pageParams,
 }: WhisperGetNextPageParams) => {
   if (data.postInfos.length < 10) {
     return undefined;
   }
+
   return {
     ...pageParams,
     offset: (pageParams.offset || 0) + 10,
@@ -150,8 +151,8 @@ export const useGetWhisperMyPosts = () => {
       limit: 10,
     },
 
-    getNextPageParam: (data, allPages, pageParams) =>
-      whisperGetNextPageParam({ data, allPages, pageParams }),
+    getNextPageParam: (data, _, pageParams) =>
+      whisperGetNextPageParam({ data, pageParams }),
     select: whisperSelect,
   });
 };
@@ -163,8 +164,8 @@ export const useGetWhisperLikePosts = () => {
       offset: 0,
       limit: 10,
     },
-    getNextPageParam: (data, allPages, pageParams) =>
-      whisperGetNextPageParam({ data, allPages, pageParams }),
+    getNextPageParam: (data, _, pageParams) =>
+      whisperGetNextPageParam({ data, pageParams }),
     select: whisperSelect,
   });
 };
@@ -176,8 +177,8 @@ export const useGetCommentedPosts = () => {
       offset: 0,
       limit: 10,
     },
-    getNextPageParam: (data, allPages, pageParams) =>
-      whisperGetNextPageParam({ data, allPages, pageParams }),
+    getNextPageParam: (data, _, pageParams) =>
+      whisperGetNextPageParam({ data, pageParams }),
     select: whisperSelect,
   });
 };
@@ -194,6 +195,7 @@ const getPath = (path: string) => {
   if (path.includes('crop')) return '/v1/crops/posts';
   if (path.includes('my-garden')) return '/v2/gardens/my-managed';
   if (path.includes('whisper')) return '/v1/posts';
+
   return '';
 };
 

@@ -16,6 +16,11 @@ const MobileCheckbox = ({
 }: MobileCheckboxProps) => {
   if (!checkboxOpen) return;
 
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    handleCheckbox(id);
+  };
+
   return (
     <Box
       as="button"
@@ -24,7 +29,7 @@ const MobileCheckbox = ({
       left={{ mobile: '8px', tablet: '12px' }}
       display={{ mobile: 'block', tablet: 'none' }}
       bg="transparent"
-      onClick={() => handleCheckbox(id)}
+      onClick={onClick}
     >
       {checkedItems[id] ? <CheckBoxIcon /> : <EmptyCheckBoxIcon />}
     </Box>
