@@ -44,10 +44,6 @@ const WhisperItem = ({
     return $div.textContent || $div.innerText || '';
   }, []);
 
-  const userProfileImage = !item?.userInfo.profile
-    ? DefaultProfile
-    : item?.userInfo.profile;
-
   const navigateToDetail = () =>
     navigate(`${PATH.COMMUNITY.MAIN}/${item.postId}`);
 
@@ -128,7 +124,7 @@ const WhisperItem = ({
         </Text>
         <Flex align="center" mb={{ mobile: '8px', tablet: '0' }} mt="8px">
           <Box w="24px" h="24px">
-            <AvatarComponent src={userProfileImage} size="full" />
+            <AvatarComponent src={item.userInfo.profile} size="full" />
           </Box>
           <Text ml="8px" mr="10px">
             {item.userInfo.name}
