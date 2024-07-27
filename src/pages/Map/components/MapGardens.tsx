@@ -1,16 +1,16 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { MapGardenNoImg } from '@/assets/images';
 import GardenStatus from './GardenStatus';
 import MapGardenDetail from './MapGardenDetail';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
-import { useLocation } from 'react-router-dom';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 interface MapGardensProps {
   showGardenDetail: boolean;
-  setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
-  setShowGardens: Dispatch<SetStateAction<boolean>>;
+  setShowGardens: (showGardens: boolean) => void;
   hasNext: boolean;
   fetchNextPage: () => void;
   hasNextPage: boolean;
@@ -19,7 +19,6 @@ interface MapGardensProps {
 
 const MapGardens = ({
   showGardenDetail,
-  setShowGardenDetail,
   hasNext,
   fetchNextPage,
   hasNextPage,
@@ -34,6 +33,7 @@ const MapGardens = ({
     },
     hasNextPage,
   });
+  const { setShowGardenDetail } = useShowGardenDetailStore();
 
   useEffect(() => {
     if (state && state.id) {
@@ -95,9 +95,7 @@ const MapGardens = ({
             </Flex>
           </Box>
         ))}
-        {showGardenDetail && (
-          <MapGardenDetail setShowGardenDetail={setShowGardenDetail} />
-        )}
+        {showGardenDetail && <MapGardenDetail />}
         {hasNext && <Box ref={ref} h="10px" />}
       </Box>
     </Box>

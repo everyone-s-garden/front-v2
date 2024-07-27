@@ -16,6 +16,7 @@ import { PostMenu } from './PostMenu';
 import { headerNavLinks } from './constants';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 interface HeaderProps {
   loggedIn?: boolean;
@@ -108,6 +109,7 @@ const MobileHeader = ({ loggedIn = false }: HeaderProps) => {
     sessionStorage.setItem('login-prev-page', window.location.pathname);
     navigate(PATH.LOGIN.MAIN);
   };
+  const { showGardenDetail } = useShowGardenDetailStore();
 
   return (
     <Box
@@ -137,7 +139,9 @@ const MobileHeader = ({ loggedIn = false }: HeaderProps) => {
           onClick={handleClickProfile}
         />
       </Flex>
-      <Tab tabsData={headerNavLinks} color="orange" tabWidth="fit-full" />
+      {!showGardenDetail && (
+        <Tab tabsData={headerNavLinks} color="orange" tabWidth="fit-full" />
+      )}
     </Box>
   );
 };

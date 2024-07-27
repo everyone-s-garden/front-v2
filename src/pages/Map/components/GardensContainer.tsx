@@ -1,32 +1,28 @@
 import { Box, Icon, Show, chakra } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MapArrowBottomIcon, MapArrowLeftIcon } from '@/assets/icons';
 import getMapBounds from '../utils/getMapBounds';
 import MapGardens from './MapGardens';
 import MapNoGarden from './MapNoGarden';
 import { useGetGardensScroll } from '@/services/gardens/query';
+import useShowGardensStore from '@/stores/useShowGardensStore';
 
 const Button = chakra(motion.button);
 const GardenContainer = chakra(motion.div);
 
 interface GardensContainerProps {
-  showGardens: boolean;
-  setShowGardens: Dispatch<SetStateAction<boolean>>;
   showGardenDetail: boolean;
-  setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
   gardenType: 'ALL' | 'PUBLIC' | 'PRIVATE';
   map: naver.maps.Map | null;
 }
 
 const GardensContainer = ({
-  showGardens,
-  setShowGardens,
   showGardenDetail,
-  setShowGardenDetail,
   gardenType,
   map,
 }: GardensContainerProps) => {
+  const { showGardens, setShowGardens } = useShowGardensStore();
   const [hasNext, setHasNext] = useState(false);
   const { startLat, startLong, endLat, endLong } = getMapBounds(map);
   const { data, fetchNextPage, hasNextPage } = useGetGardensScroll(
@@ -70,7 +66,6 @@ const GardensContainer = ({
             <MapGardens
               {...{
                 showGardenDetail,
-                setShowGardenDetail,
                 setShowGardens,
                 fetchNextPage,
                 hasNextPage,
@@ -132,7 +127,6 @@ const GardensContainer = ({
               <MapGardens
                 {...{
                   showGardenDetail,
-                  setShowGardenDetail,
                   setShowGardens,
                   fetchNextPage,
                   hasNextPage,

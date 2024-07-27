@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import { useLocation } from 'react-router-dom';
 import getGardenType from '../utils/getGardenType';
@@ -9,6 +9,8 @@ import MarkerCluster from './Marker/MarkerCluster';
 import MyMarker from './Marker/MyMarker';
 import useGeolocation from '@/hooks/useGeolocation';
 import { useGetMapGardens } from '@/services/gardens/query';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
+import useShowGardensStore from '@/stores/useShowGardensStore';
 
 interface MapComponentProps {
   map: naver.maps.Map | null;
@@ -18,15 +20,16 @@ interface MapComponentProps {
 
 const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   const location = useLocation();
-  const [showGardens, setShowGardens] = useState(
-    location.state && location.state.data ? true : false,
-  );
-  const [showGardenDetail, setShowGardenDetail] = useState(
-    location.state && location.state.data ? true : false,
-  );
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
   const gardenType = getGardenType(headerOption);
+  const { showGardenDetail, setShowGardenDetail } = useShowGardenDetailStore();
+  const { setShowGardens } = useShowGardensStore();
+
+  useEffect(() => {
+    setShowGardenDetail(location.state && location.state.data ? true : false);
+    setShowGardens(location.state && location.state.data ? true : false);
+  }, [location.state, setShowGardenDetail, setShowGardens]);
 
   const { data: mapGardens, refetch } = useGetMapGardens(gardenType, map);
   const gardens: Garden[] = mapGardens?.gardenByComplexesResponses;
@@ -94,8 +97,6 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
     >
       <GardensContainer
         {...{
-          showGardens,
-          setShowGardens,
           showGardenDetail,
           setShowGardenDetail,
           gardenType,
@@ -114,9 +115,7 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
             position: navermaps.Position.TOP_LEFT,
           }}
         >
-          <MarkerCluster
-            {...{ gardens, setShowGardens, setShowGardenDetail }}
-          />
+          <MarkerCluster {...{ gardens, setShowGardens }} />
           <MyMarker navermaps={navermaps} position={position} />
         </NaverMap>
       </MapDiv>

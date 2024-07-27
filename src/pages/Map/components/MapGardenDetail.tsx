@@ -9,7 +9,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import Slider from 'react-slick';
 import {
   MapGardenDetailLeftIcon,
@@ -23,16 +23,14 @@ import MapSliderModal from './MapSliderModal';
 import MobileMapSlider from './MobileMapSlider';
 import { useGetIndividualGarden } from '@/services/gardens/query';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
-interface MapGardenDetailProps {
-  setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
-}
-
-const MapGardenDetail = ({ setShowGardenDetail }: MapGardenDetailProps) => {
+const MapGardenDetail = () => {
   const { gardenId } = useMapGardenDetailIdStore();
   const { data: garden, refetch } = useGetIndividualGarden(gardenId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dragging, setDragging] = useState(false);
+  const { setShowGardenDetail } = useShowGardenDetailStore();
 
   if (!garden)
     return (
