@@ -1,18 +1,18 @@
 import { Box, Flex, Image, ListItem, Text } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AvatarComponent, BottomMenu, TagComponent } from '@/components';
 import {
   GardenImageDefaultIcon,
   HeartUnfiledIcon,
   TextBubbleBlackIcon,
 } from '@/assets/icons';
+import { ThreeDotsMenuIcon } from '@/assets/icons';
+import { DefaultProfile } from '@/assets/images';
 import { Whisper } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
-import { ThreeDotsMenuIcon } from '@/assets/icons';
-import { DefaultProfile } from '@/assets/images';
-import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/routes/constants';
 
 interface WhisperProps {
@@ -44,13 +44,14 @@ const WhisperItem = ({
     return $div.textContent || $div.innerText || '';
   }, []);
 
-  const userProfileImage = !item?.userInfo.profile
-    ? DefaultProfile
-    : item?.userInfo.profile;
-
-  const navigateToDetail = () => {
+  const navigateToDetail = () =>
     navigate(`${PATH.COMMUNITY.MAIN}/${item.postId}`);
+
+  const menuOpen = (e: React.MouseEvent<HTMLOrSVGElement>) => {
+    e.stopPropagation();
+    setIsOpen(true);
   };
+
   return (
     <ListItem
       display="flex"
@@ -76,10 +77,7 @@ const WhisperItem = ({
           >
             <TagComponent tagLabel="텃밭 자랑" />
             <Box hideFrom={'tablet'} ml="auto">
-              <ThreeDotsMenuIcon
-                onClick={() => setIsOpen(true)}
-                cursor="pointer"
-              />
+              <ThreeDotsMenuIcon onClick={menuOpen} cursor="pointer" />
               <BottomMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 <Box
                   as="button"
@@ -126,7 +124,7 @@ const WhisperItem = ({
         </Text>
         <Flex align="center" mb={{ mobile: '8px', tablet: '0' }} mt="8px">
           <Box w="24px" h="24px">
-            <AvatarComponent src={userProfileImage} size="full" />
+            <AvatarComponent src={item.userInfo.profile} size="full" />
           </Box>
           <Text ml="8px" mr="10px">
             {item.userInfo.name}

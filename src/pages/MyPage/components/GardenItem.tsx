@@ -51,9 +51,7 @@ const GardenItem = ({
     console.log('like');
   };
 
-  const navigateToDetail = () => {
-    nav(PATH.MAP.MAIN, { state: { id } });
-  };
+  const navigateToDetail = () => nav(PATH.MAP.MAIN, { state: { id } });
 
   return (
     <ListItem

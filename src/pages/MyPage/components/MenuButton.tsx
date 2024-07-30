@@ -13,7 +13,10 @@ const MenuButton = ({ ml, itemId, handleDelete }: MenuButtonProps) => {
       <Dropdown>
         {({ isOpen }) => (
           <>
-            <DropdownTrigger w="fit-content">
+            <DropdownTrigger
+              w="fit-content"
+              onClick={(e) => e.stopPropagation()}
+            >
               <ThreeDotsMenuIcon />
             </DropdownTrigger>
             <Box
