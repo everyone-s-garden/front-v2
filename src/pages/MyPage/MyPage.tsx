@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
 import { SeedIcon } from '@/assets/icons';
+import UserFeedbackModal from './components/UserFeedbackModal';
 import {
   cropTradeRoute,
   gardenManagementRoute,
@@ -23,7 +24,7 @@ import {
   whispersRoute,
 } from './constants';
 import { IMainRoute, userFeedbackModalProps } from './type';
-import UserFeedbackModal from './components/UserFeedbackModal';
+import { useGetMyProfileInfo } from '@/services/user/query';
 
 interface Routes {
   [key: string]: { tabName: string; keyword?: string; href: string }[];
@@ -128,7 +129,13 @@ const GridComponent = ({
 };
 
 const MyPage = () => {
+  const { data: myProfile } = useGetMyProfileInfo();
   const [modalOpen, setModalOpen] = useState(false);
+
+  if (!myProfile) {
+    return null;
+  }
+
   return (
     <Box w="100vw">
       {/* 유저 프로필 */}
@@ -153,7 +160,7 @@ const MyPage = () => {
           pb={{ mobile: '29px', tablet: '0px' }}
         >
           <Box mr="12px" w="70px">
-            <AvatarComponent size="full" />
+            <AvatarComponent size="full" src={myProfile.profileImage} />
           </Box>
           <Box>
             <Text
@@ -162,7 +169,7 @@ const MyPage = () => {
               fontWeight="semiBold"
               fontSize="18px"
             >
-              텃린이
+              {myProfile.nickname}
             </Text>
             <Flex
               bg="orange.500"
@@ -185,7 +192,7 @@ const MyPage = () => {
               </Box>
             </Flex>
             <Text color="orange.500" fontSize="10px">
-              rrgy980@naver.com
+              {myProfile.email}
             </Text>
           </Box>
         </Flex>
