@@ -2,8 +2,8 @@ import { List, TabList, Tabs, Tab, TabIndicator, Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import GardenItem from '../../components/GardenItem';
 import MobileEditButton from '../../components/MobileEditButton';
-import { useGetSaleLists } from '@/services/mypage/query';
 import { CropTrade } from '../../type';
+import { useGetSaleLists } from '@/services/mypage/query';
 
 const tabList = [
   { tabName: '판매중', href: '*' },

@@ -8,7 +8,6 @@ import {
   TextBubbleBlackIcon,
 } from '@/assets/icons';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
-import { DefaultProfile } from '@/assets/images';
 import { Whisper } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
