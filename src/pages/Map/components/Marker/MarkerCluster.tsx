@@ -1,24 +1,22 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Overlay, useMap, useNavermaps } from 'react-naver-maps';
 import styles from './CustomMarker.module.css';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
+import useShowGardensStore from '@/stores/useShowGardensStore';
 import { makeMarkerClustering } from '@/utils/makeMarkerClustering/makeMarkerClustering';
 
 interface MakerClusterProps {
   gardens: Garden[];
-  setShowGardens: Dispatch<SetStateAction<boolean>>;
-  setShowGardenDetail: Dispatch<SetStateAction<boolean>>;
 }
 
-const MarkerCluster = ({
-  gardens,
-  setShowGardens,
-  setShowGardenDetail,
-}: MakerClusterProps) => {
+const MarkerCluster = ({ gardens }: MakerClusterProps) => {
+  const { setShowGardens } = useShowGardensStore();
   const navermaps = useNavermaps();
   const map = useMap();
   const { setGardenId } = useMapGardenDetailIdStore();
   const MarkerClustering = makeMarkerClustering(window.naver);
+  const { setShowGardenDetail } = useShowGardenDetailStore();
 
   const clusterMarker = {
     content: `<div class=${styles.cluster_marker}></div>`,

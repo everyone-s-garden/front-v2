@@ -9,11 +9,12 @@ import {
   GridItem,
   Text,
 } from '@chakra-ui/react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
 import { SeedIcon } from '@/assets/icons';
+import UserFeedbackModal from './components/UserFeedbackModal';
 import {
   cropTradeRoute,
   gardenManagementRoute,
@@ -22,7 +23,8 @@ import {
   settingsRoute,
   whispersRoute,
 } from './constants';
-import { IMainRoute } from './type';
+import { IMainRoute, userFeedbackModalProps } from './type';
+import { useGetMyProfileInfo } from '@/services/user/query';
 
 interface Routes {
   [key: string]: { tabName: string; keyword?: string; href: string }[];
@@ -38,11 +40,12 @@ const Panel = ({ tabName }: { tabName: string }) => {
       '텃밭 관리': gardenManagementRoute,
       '속닥 속닥': whispersRoute,
       설정: settingsRoute,
+      '유저의 소리함': [],
     }),
     [],
   );
 
-  const routeItems = routes[tabName] || nearByRoute;
+  const routeItems = routes[tabName];
 
   return (
     <>
@@ -68,9 +71,18 @@ const Panel = ({ tabName }: { tabName: string }) => {
     </>
   );
 };
-
-const GridComponent = ({ item }: { item: IMainRoute }) => {
+const GridComponent = ({
+  item,
+  setModalOpen,
+}: {
+  item: IMainRoute;
+  setModalOpen: userFeedbackModalProps['setModalOpen'];
+}) => {
   const nav = useNavigate();
+
+  const clickAction = () => {
+    item.keyword === 'userFeedback' ? setModalOpen(true) : nav(item.href);
+  };
 
   return (
     <GridItem
@@ -86,7 +98,7 @@ const GridComponent = ({ item }: { item: IMainRoute }) => {
       borderColor="gray.200"
       as="button"
       aria-label={item.tabName}
-      onClick={() => nav(item.href)}
+      onClick={clickAction}
       pos="relative"
     >
       <Flex flexDir="column">
@@ -117,6 +129,13 @@ const GridComponent = ({ item }: { item: IMainRoute }) => {
 };
 
 const MyPage = () => {
+  const { data: myProfile } = useGetMyProfileInfo();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  if (!myProfile) {
+    return null;
+  }
+
   return (
     <Box w="100vw">
       {/* 유저 프로필 */}
@@ -141,7 +160,7 @@ const MyPage = () => {
           pb={{ mobile: '29px', tablet: '0px' }}
         >
           <Box mr="12px" w="70px">
-            <AvatarComponent size="full" />
+            <AvatarComponent size="full" src={myProfile.profileImage} />
           </Box>
           <Box>
             <Text
@@ -150,7 +169,7 @@ const MyPage = () => {
               fontWeight="semiBold"
               fontSize="18px"
             >
-              텃린이
+              {myProfile.nickname}
             </Text>
             <Flex
               bg="orange.500"
@@ -173,7 +192,7 @@ const MyPage = () => {
               </Box>
             </Flex>
             <Text color="orange.500" fontSize="10px">
-              rrgy980@naver.com
+              {myProfile.email}
             </Text>
           </Box>
         </Flex>
@@ -194,7 +213,11 @@ const MyPage = () => {
             rowGap="32px"
           >
             {mainRoute?.map((route) => (
-              <GridComponent key={route.keyword} item={route} />
+              <GridComponent
+                key={route.keyword}
+                item={route}
+                setModalOpen={setModalOpen}
+              />
             ))}
           </Grid>
         </Box>
@@ -227,17 +250,24 @@ const MyPage = () => {
                         fontSize="18px"
                         color="black"
                         fontWeight="semiBold"
+                        onClick={() => {
+                          if (route.tabName === '유저의 소리함') {
+                            setModalOpen(true);
+                          }
+                        }}
                       >
                         {route.tabName}
                       </Box>
-                      <ArrowDownIcon
-                        style={{
-                          transform: isExpanded
-                            ? 'rotate(180deg)'
-                            : 'rotate(0deg)',
-                          transition: 'transform 0.2s ease-in-out',
-                        }}
-                      />
+                      {route.tabName !== '유저의 소리함' && (
+                        <ArrowDownIcon
+                          style={{
+                            transform: isExpanded
+                              ? 'rotate(180deg)'
+                              : 'rotate(0deg)',
+                            transition: 'transform 0.2s ease-in-out',
+                          }}
+                        />
+                      )}
                     </AccordionButton>
                     <Panel tabName={route.tabName} />
                   </>
@@ -247,6 +277,7 @@ const MyPage = () => {
           </Accordion>
         </Box>
       </Box>
+      <UserFeedbackModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </Box>
   );
 };

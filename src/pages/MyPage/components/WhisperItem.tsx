@@ -1,54 +1,107 @@
-import { Box, Button, Flex, Image, ListItem, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { AvatarComponent, TagComponent } from '@/components';
+import { Box, Flex, Image, ListItem, Text } from '@chakra-ui/react';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AvatarComponent, BottomMenu, TagComponent } from '@/components';
 import {
   GardenImageDefaultIcon,
   HeartUnfiledIcon,
   TextBubbleBlackIcon,
 } from '@/assets/icons';
-import { IWhipser } from '../type';
+import { ThreeDotsMenuIcon } from '@/assets/icons';
+import { Whisper } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
+import { PATH } from '@/routes/constants';
 
 interface WhisperProps {
-  item: IWhipser;
+  item: Whisper;
   menu?: boolean;
   checkboxOpen?: boolean;
   idx: number;
+  checkedItems?: Record<string, boolean>;
+  handleCheck?: (id: number) => void;
+  handleDelete?: (id: number) => void;
 }
 
-const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
-  // eslint-disable-next-line
+const WhisperItem = ({
+  item,
+  menu,
+  checkboxOpen,
+  checkedItems,
+  handleCheck,
+  handleDelete,
+}: WhisperProps) => {
   const [report] = useState(false);
-  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
-  const handleCheckbox = (idx: number) => {
-    setCheckedItems((prev) => ({
-      ...prev,
-      [idx]: !prev[idx],
-    }));
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const getPlainText = useCallback((content: string) => {
+    const $div = document.createElement('div');
+    $div.innerHTML = content;
+
+    return $div.textContent || $div.innerText || '';
+  }, []);
+
+  const navigateToDetail = () =>
+    navigate(`${PATH.COMMUNITY.MAIN}/${item.postId}`);
+
+  const menuOpen = (e: React.MouseEvent<HTMLOrSVGElement>) => {
+    e.stopPropagation();
+    setIsOpen(true);
   };
-  useEffect(() => {
-    if (!checkboxOpen) {
-      setCheckedItems({});
-    }
-  }, [checkboxOpen]);
 
   return (
     <ListItem
       display="flex"
-      pb={{ mobile: '0', tablet: '28px' }}
-      borderBottom={{ mobile: 'none', tablet: '1px solid' }}
-      borderColor={{ mobile: 'white', tablet: 'gray.100' }}
+      cursor="pointer"
+      pb={{ mobile: '10px', tablet: '28px' }}
+      borderBottom={'1px solid'}
+      borderColor={'gray.100'}
       flexDir={{ mobile: 'row-reverse', tablet: 'row' }}
       mt={{ mobile: '16px', tablet: '0' }}
       mb={{ mobile: '24px', tablet: '28px' }}
+      onClick={navigateToDetail}
     >
-      <Box>
-        <Flex align="center" mb={{ mobile: '8px', tablet: '12px' }}>
-          <Box display={{ mobile: 'none', tablet: 'block' }}>
+      <Box w="100%">
+        <Flex
+          flexDir={{ mobile: 'column', tablet: 'row' }}
+          align={{ mobile: 'flex-start', tablet: 'center' }}
+          mb={{ mobile: '8px', tablet: '12px' }}
+        >
+          <Flex
+            w={{ mobile: '100%', tablet: 'auto' }}
+            alignItems={'center'}
+            mb={{ mobile: '8px', tablet: '0' }}
+          >
             <TagComponent tagLabel="텃밭 자랑" />
-          </Box>
+            <Box hideFrom={'tablet'} ml="auto">
+              <ThreeDotsMenuIcon onClick={menuOpen} cursor="pointer" />
+              <BottomMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <Box
+                  as="button"
+                  p="18px"
+                  display="flex"
+                  justifyContent="flex-start"
+                  _hover={{ bg: 'green.100' }}
+                  _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
+                >
+                  게시글 수정
+                </Box>
+                <Box
+                  as="button"
+                  p="18px"
+                  display="flex"
+                  justifyContent="flex-start"
+                  _hover={{ bg: 'green.100' }}
+                  _notFirst={{ borderRadius: 0 }}
+                  onClick={() => handleDelete && handleDelete(item.postId)}
+                >
+                  삭제하기
+                </Box>
+              </BottomMenu>
+            </Box>
+          </Flex>
           <Text
             fontSize="16px"
             fontWeight="semiBold"
@@ -58,24 +111,31 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
             {item.title}
           </Text>
         </Flex>
-        <Text display={{ mobile: 'none', tablet: 'inline' }} mb="8px">
-          {item.payload}
+        <Text
+          mb="8px"
+          hideBelow={'tablet'}
+          noOfLines={3}
+          whiteSpace={'normal'}
+          wordBreak={'break-all'}
+          overflowWrap={'anywhere'}
+        >
+          {getPlainText(item.content)}
         </Text>
         <Flex align="center" mb={{ mobile: '8px', tablet: '0' }} mt="8px">
           <Box w="24px" h="24px">
-            <AvatarComponent src={item?.userProfile || undefined} size="full" />
+            <AvatarComponent src={item.userInfo.profile} size="full" />
           </Box>
           <Text ml="8px" mr="10px">
-            {item.userName}
+            {item.userInfo.name}
           </Text>
           <HeartUnfiledIcon />
           <Text ml="6px" mr="10px">
-            {item.likeCount}
+            {item.likesCount}
           </Text>
           <TextBubbleBlackIcon />
-          <Text ml="6px">{item.commentCount}</Text>
+          <Text ml="6px">{item.commentsCount}</Text>
         </Flex>
-        <Text
+        {/* <Text
           color="error"
           fontSize={{ mobile: '14px', tablet: '16px' }}
           fontWeight="medium"
@@ -83,16 +143,7 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
           mb="8px"
         >
           신고가 접수된 게시글 입니다.
-        </Text>
-        <Button
-          display={{ mobile: 'block', tablet: 'none' }}
-          bg="green.500"
-          color="white"
-          w="full"
-          _hover={{ bg: 'green.500' }}
-        >
-          수정하기
-        </Button>
+        </Text> */}
       </Box>
       <Box
         w={{ mobile: '114px', tablet: '132px' }}
@@ -103,31 +154,39 @@ const WhisperItem = ({ item, menu, checkboxOpen, idx }: WhisperProps) => {
         ml={{ mobile: '0', tablet: '22px' }}
         display={{
           mobile: 'block',
-          tablet: item.thumbnail ? 'block' : 'none',
+          tablet: item?.preview ? 'block' : 'none',
         }}
         mr={{ mobile: '13px', tablet: '0' }}
         position="relative"
       >
         <Overlay report={report} />
-        <MobileCheckbox
-          handleCheckbox={handleCheckbox}
-          idx={idx}
-          checkedItems={checkedItems}
-          checkboxOpen={checkboxOpen}
-        />
-        {item.thumbnail ? (
+        {handleCheck && checkedItems && (
+          <MobileCheckbox
+            handleCheckbox={handleCheck}
+            id={item.postId}
+            checkedItems={checkedItems}
+            checkboxOpen={checkboxOpen}
+          />
+        )}
+        {item?.preview ? (
           <Image
             w="full"
             h="full"
             objectFit="cover"
-            src={item.thumbnail}
+            src={item.preview}
             borderRadius="10px"
           />
         ) : (
           <GardenImageDefaultIcon />
         )}
       </Box>
-      {menu && <MenuButton ml="26px" />}
+      {menu && (
+        <MenuButton
+          itemId={item.postId}
+          ml="26px"
+          handleDelete={() => handleDelete && handleDelete(item.postId)}
+        />
+      )}
     </ListItem>
   );
 };

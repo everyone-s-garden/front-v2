@@ -4,14 +4,19 @@ import { ThreeDotsMenuIcon } from '@/assets/icons';
 
 interface MenuButtonProps {
   ml: string;
+  itemId: number;
+  handleDelete?: (id: number) => void;
 }
-const MenuButton = ({ ml }: MenuButtonProps) => {
+const MenuButton = ({ ml, itemId, handleDelete }: MenuButtonProps) => {
   return (
     <Box display={{ mobile: 'none', tablet: 'block' }} ml={ml} pos="relative">
       <Dropdown>
         {({ isOpen }) => (
           <>
-            <DropdownTrigger w="fit-content">
+            <DropdownTrigger
+              w="fit-content"
+              onClick={(e) => e.stopPropagation()}
+            >
               <ThreeDotsMenuIcon />
             </DropdownTrigger>
             <Box
@@ -45,7 +50,7 @@ const MenuButton = ({ ml }: MenuButtonProps) => {
                 w="111px"
                 px="0px"
                 py="20px"
-                onClick={() => alert(`삭제하기 클릭`)}
+                onClick={() => handleDelete && handleDelete(itemId)}
               >
                 <Text fontWeight="medium" fontSize="16px" color="gray.700">
                   삭제하기

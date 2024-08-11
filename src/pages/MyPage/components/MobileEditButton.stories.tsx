@@ -25,14 +25,16 @@ export const 기본: Story = {
   args: {
     checkboxOpen: true,
     setCheckboxOpen: action('checkbox state changed'),
+    handleDelete: () => {},
   },
-  render: () => {
+  render: (args) => {
     const [checkboxOpen, setCheckboxOpen] = useState(false);
 
     return (
       <MobileEditButton
         checkboxOpen={checkboxOpen}
         setCheckboxOpen={setCheckboxOpen}
+        handleDelete={args.handleDelete}
       />
     );
   },

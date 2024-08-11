@@ -105,7 +105,7 @@ const PostList = ({ posts }: PostListProps) => {
                 <Flex align={'center'}>
                   <AvatarComponent
                     src={userInfo.profile || undefined}
-                    name={userInfo.name}
+                    // name={userInfo.name}
                     w={'24px'}
                     h={'24px'}
                     mr={{ mobile: '6px', tablet: '8px' }}

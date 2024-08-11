@@ -18,11 +18,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const args = {
+  item: whisperMockData[0],
+  idx: 0,
+};
+
 export const 속닥속닥_카드_기본: Story = {
-  args: {
-    item: whisperMockData[0],
-    idx: 0,
-  },
+  args,
 
   render: (args) => (
     <List>
@@ -31,10 +33,7 @@ export const 속닥속닥_카드_기본: Story = {
   ),
 };
 export const 속닥속닥_카드_기본_모바일: Story = {
-  args: {
-    item: whisperMockData[0],
-    idx: 0,
-  },
+  args,
   parameters: {
     viewport: {
       defaultViewport: 'iphone13pro',
@@ -47,11 +46,7 @@ export const 속닥속닥_카드_기본_모바일: Story = {
   ),
 };
 export const 속닥속닥_메뉴: Story = {
-  args: {
-    item: whisperMockData[0],
-    menu: true,
-    idx: 0,
-  },
+  args: { ...args, menu: true },
 
   render: (args) => (
     <List>
@@ -60,11 +55,7 @@ export const 속닥속닥_메뉴: Story = {
   ),
 };
 export const 속닥속닥_메뉴_모바일: Story = {
-  args: {
-    item: whisperMockData[0],
-    menu: true,
-    idx: 0,
-  },
+  args: { ...args, menu: true },
   parameters: {
     viewport: {
       defaultViewport: 'iphone13pro',

@@ -4,17 +4,22 @@ import { CheckBoxIcon, EmptyCheckBoxIcon } from '@/assets/icons';
 interface MobileCheckboxProps {
   checkedItems: Record<string, boolean>;
   handleCheckbox: (idx: number) => void;
-  idx: number;
+  id: number;
   checkboxOpen?: boolean;
 }
 
 const MobileCheckbox = ({
   checkedItems,
   handleCheckbox,
-  idx,
+  id,
   checkboxOpen,
 }: MobileCheckboxProps) => {
   if (!checkboxOpen) return;
+
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    handleCheckbox(id);
+  };
 
   return (
     <Box
@@ -24,9 +29,9 @@ const MobileCheckbox = ({
       left={{ mobile: '8px', tablet: '12px' }}
       display={{ mobile: 'block', tablet: 'none' }}
       bg="transparent"
-      onClick={() => handleCheckbox(idx)}
+      onClick={onClick}
     >
-      {checkedItems[idx] ? <CheckBoxIcon /> : <EmptyCheckBoxIcon />}
+      {checkedItems[id] ? <CheckBoxIcon /> : <EmptyCheckBoxIcon />}
     </Box>
   );
 };

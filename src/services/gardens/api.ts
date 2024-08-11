@@ -7,7 +7,7 @@ const gardensAPI = {
     return response.data;
   },
 
-  getIndividualGarden: async (id: number | null) => {
+  getIndividualGarden: async (id: number | null): Promise<GardenDetail> => {
     const response = await apiClient.get(`/v2/gardens/${id}`);
 
     return response.data;
