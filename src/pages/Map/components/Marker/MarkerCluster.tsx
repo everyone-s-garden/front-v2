@@ -3,7 +3,7 @@ import { Overlay, useMap, useNavermaps } from 'react-naver-maps';
 import styles from './CustomMarker.module.css';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
-import useShowGardensStore from '@/stores/useShowGardensStore';
+import useShowMapAside from '@/stores/useShowMapAside';
 import { makeMarkerClustering } from '@/utils/makeMarkerClustering/makeMarkerClustering';
 
 interface MakerClusterProps {
@@ -11,7 +11,7 @@ interface MakerClusterProps {
 }
 
 const MarkerCluster = ({ gardens }: MakerClusterProps) => {
-  const { setShowGardens } = useShowGardensStore();
+  const { setIsShowAside } = useShowMapAside();
   const navermaps = useNavermaps();
   const map = useMap();
   const { setGardenId } = useMapGardenDetailIdStore();
@@ -69,7 +69,7 @@ const MarkerCluster = ({ gardens }: MakerClusterProps) => {
           });
 
         const onClickHandler = () => {
-          setShowGardens(true);
+          setIsShowAside(true);
           setShowGardenDetail(true);
           setGardenId(garden.gardenId);
         };

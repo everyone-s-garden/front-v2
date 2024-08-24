@@ -31,6 +31,7 @@ const nearByGetNextPageParam = (lastPage: LastPage) => {
   if (!lastPage.hasNext) {
     return undefined;
   }
+
   return lastPage.nextGardenId;
 };
 
@@ -46,12 +47,12 @@ const nearBySelect = (data: InfiniteData<LastPage>): BaseGardenItem[] => {
 
 const whisperGetNextPageParam = ({
   data,
-  allPages,
   pageParams,
 }: WhisperGetNextPageParams) => {
   if (data.postInfos.length < 10) {
     return undefined;
   }
+
   return {
     ...pageParams,
     offset: (pageParams.offset || 0) + 10,
@@ -194,6 +195,7 @@ const getPath = (path: string) => {
   if (path.includes('crop')) return '/v1/crops/posts';
   if (path.includes('my-garden')) return '/v2/gardens/my-managed';
   if (path.includes('whisper')) return '/v1/posts';
+
   return '';
 };
 

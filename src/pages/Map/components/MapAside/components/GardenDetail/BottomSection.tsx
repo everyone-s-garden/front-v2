@@ -8,7 +8,7 @@ import {
   Link,
   Spinner,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AlertToast } from '@/components';
 import {
@@ -24,17 +24,16 @@ import { PATH } from '@/routes/constants';
 import { useCreateGardenChatRoom } from '@/services/chat/query';
 import { useLikeGarden } from '@/services/gardens/mutations';
 
-interface MapGardenDetailBottomSectionProps {
-  garden?: GardenDetail;
+interface BottomSectionProps {
+  gardenInfo?: GardenDetail;
   refetch: () => void;
 }
 
-const MapGardenDetailBottomSection = ({
-  garden,
-  refetch,
-}: MapGardenDetailBottomSectionProps) => {
+const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
+  const ref = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
-  const isGardenLiked = garden?.gardenLikeId === 0 ? false : true;
+  const isGardenLiked = gardenInfo?.gardenLikeId === 0 ? false : true;
   const [liked, setLiked] = useState(isGardenLiked);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
@@ -45,7 +44,11 @@ const MapGardenDetailBottomSection = ({
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
+  const { mutateLikeGarden } = useLikeGarden(
+    liked,
+    gardenInfo?.gardenId,
+    setLiked,
+  );
   const {
     mutate: createGardenChatRoom,
     data: newChatRoomData,
@@ -77,8 +80,15 @@ const MapGardenDetailBottomSection = ({
   const handleClickLike = () => {
     setLoading(true);
     if (liked)
-      mutateLikeGarden({ type: 'cancel', gardenLikeId: garden?.gardenLikeId });
-    else mutateLikeGarden({ type: 'like', gardenLikeId: garden?.gardenLikeId });
+      mutateLikeGarden({
+        type: 'cancel',
+        gardenLikeId: gardenInfo?.gardenLikeId,
+      });
+    else
+      mutateLikeGarden({
+        type: 'like',
+        gardenLikeId: gardenInfo?.gardenLikeId,
+      });
 
     setTimeout(() => {
       refetch();
@@ -90,16 +100,16 @@ const MapGardenDetailBottomSection = ({
   };
 
   const handleClickChat = () => {
-    if (garden?.roomId === -1) {
+    if (gardenInfo?.roomId === -1) {
       createGardenChatRoom({
-        postId: garden?.gardenId,
-        writerId: garden?.writerId,
+        postId: gardenInfo?.gardenId,
+        writerId: gardenInfo?.writerId,
       });
       if (isSuccess) {
         navigate(`/chat/${newChatRoomData.chatRoomId}`);
       }
     } else {
-      navigate(`/chat/${garden?.roomId}`);
+      navigate(`/chat/${gardenInfo?.roomId}`);
     }
   };
 
@@ -109,13 +119,31 @@ const MapGardenDetailBottomSection = ({
         from: pathname,
         name: 'garden',
         color: 'orange',
-        reportId: garden?.gardenId,
+        reportId: gardenInfo?.gardenId,
       },
     });
   };
 
+  const handleOnClick = () => {
+    if (!gardenInfo?.openAPIResourceId) {
+      onOpen();
+
+      return;
+    }
+
+    if (ref.current) {
+      ref.current.value = gardenInfo?.openAPIResourceId;
+    }
+    if (formRef.current) {
+      formRef.current.action =
+        'https://www.modunong.or.kr:449/home/kor/garden/parcel/view.do';
+      formRef.current.target = '_blank';
+      formRef.current.submit();
+    }
+  };
+
   return (
-    <Box marginTop="40px" cursor="pointer">
+    <Box cursor="pointer" padding="0 30px 30px 30px">
       <Flex marginBottom="20px" alignItems="center" gap="6px">
         <Icon as={ReportIcon} />
         <Text
@@ -129,10 +157,11 @@ const MapGardenDetailBottomSection = ({
         </Text>
       </Flex>
 
-      <Flex w="fit-content" margin="0 auto" gap="14px">
+      <Flex gap="15px">
         <Button
-          w="106px"
+          w="100%"
           h="48px"
+          flexShrink="1"
           bgColor="white"
           border="1px solid"
           borderColor={liked ? 'orange.500' : 'gray.100'}
@@ -168,13 +197,14 @@ const MapGardenDetailBottomSection = ({
           color="white"
           padding="14px 52px"
           bgColor="green.500"
-          w="160px"
+          flexShrink="1"
+          w="100%"
           h="48px"
           _hover={{}}
           _active={{}}
-          onClick={onOpen}
+          onClick={handleOnClick}
         >
-          신청하기
+          {gardenInfo?.openAPIResourceId ? '연락처 보기' : '신청하기'}
         </Button>
       </Flex>
 
@@ -197,13 +227,13 @@ const MapGardenDetailBottomSection = ({
             justifyContent="space-between"
             marginBottom="12px"
           >
-            <Text fontWeight="semiBold">{garden?.contact}</Text>
+            <Text fontWeight="semiBold">{gardenInfo?.contact}</Text>
             <Icon
               w="24px"
               h="24px"
               cursor="pointer"
               as={CopyNumberIcon}
-              onClick={() => onCopy(garden?.contact ?? '')}
+              onClick={() => onCopy(gardenInfo?.contact ?? '')}
             />
           </Flex>
           <Flex gap="17.5px">
@@ -220,7 +250,7 @@ const MapGardenDetailBottomSection = ({
                 paddingRight="24px"
                 borderRadius="9px"
                 cursor="pointer"
-                href={`tel:${garden?.contact}`}
+                href={`tel:${gardenInfo?.contact}`}
                 isExternal
               >
                 <Icon as={PhoneIcon} w="24px" h="24px" />
@@ -278,8 +308,20 @@ const MapGardenDetailBottomSection = ({
 
         <AlertToast show={isCopied} message="복사되었습니다." color="green" />
       </Modal>
+      {gardenInfo?.openAPIResourceId && (
+        <form
+          ref={formRef}
+          id="cmmnForm"
+          name="cmmnForm"
+          action="/home/kor/garden/parcel/index.do?menuPos=9"
+          method="post"
+        >
+          <input id="tabPos" name="tabPos" type="hidden" value="C" />
+          <input ref={ref} type="hidden" id="idx" name="idx" />
+        </form>
+      )}
     </Box>
   );
 };
 
-export default MapGardenDetailBottomSection;
+export default BottomSection;

@@ -1,43 +1,32 @@
-interface gardenGetAllResponses {
-  gardenGetAllResponses: Garden[];
-  hasNext: boolean;
-}
+type GardenType =
+  | 'EVERY_FARM_PUBLIC'
+  | 'EVERY_FARM_PRIVATE'
+  | 'PRIVATE'
+  | 'PUBLIC';
+
+type GardenStatus = 'ACTIVE' | 'INACTIVE';
 
 interface Garden {
   gardenId: number;
   latitude: number;
   longitude: number;
   gardenName: string;
-  gardenType: 'PUBLIC';
+  gardenType: GardenType;
   price: string;
   size: string;
-  gardenStatus: 'ACTIVE' | 'INACTIVE';
-  images: string[];
+  gardenStatus: GardenStatus;
+  images: (string | null)[];
 }
 
-interface GardenFacility {
-  isToilet: boolean;
-  isWaterway: boolean;
-  isEquipment: boolean;
-}
-
-interface GardenDetail {
+interface GardenDetail extends Garden {
   address: string;
   contact: string;
   gardenDescription: string;
-  gardenFacility: GardenFacility;
-  gardenId: number;
-  gardenName: string;
-  gardenStatus: 'ACTIVE' | 'INACTIVE';
-  gardenType: 'PRIVATE' | 'PUBLIC';
-  images: (string | null)[];
+  gardenFacilities: string;
   gardenLikeId: number;
-  latitude: number;
-  longitude: number;
-  price: string;
   recruitEndDate: string;
   recruitStartDate: string;
   roomId: number;
-  size: string;
   writerId: number;
+  openAPIResourceId: string;
 }

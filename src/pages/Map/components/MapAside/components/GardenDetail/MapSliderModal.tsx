@@ -22,7 +22,6 @@ const MapSliderModal = ({ images, isOpen, onClose }: MapSliderModalProps) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: images.length > 1,
-
     nextArrow: <MapSliderArrow dir="next" />,
     prevArrow: <MapSliderArrow dir="prev" />,
   };

@@ -1,8 +1,15 @@
 import apiClient from '@/api/apiClient';
 
 const gardensAPI = {
-  getEveryGardens: async () => {
-    const response = await apiClient.get('/v2/gardens/all?pageNumber=0');
+  getEveryGardens: async (
+    pageNumber: number,
+  ): Promise<{
+    gardenGetAllResponses: Garden[];
+    hasNext: boolean;
+  }> => {
+    const response = await apiClient.get(
+      `/v2/gardens/all?pageNumber=${pageNumber}`,
+    );
 
     return response.data;
   },

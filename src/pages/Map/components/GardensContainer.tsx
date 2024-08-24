@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { MapArrowBottomIcon, MapArrowLeftIcon } from '@/assets/icons';
 import getMapBounds from '../utils/getMapBounds';
-import MapGardens from './MapGardens';
-import MapNoGarden from './MapNoGarden';
+import MapAside from './MapAside/MapAside';
+import MapNoGarden from './MapAside/components/GardenList/MapNoGarden';
 import { useGetGardensScroll } from '@/services/gardens/query';
-import useShowGardensStore from '@/stores/useShowGardensStore';
+import useShowMapAside from '@/stores/useShowMapAside';
 
 const Button = chakra(motion.button);
 const GardenContainer = chakra(motion.div);
@@ -22,7 +22,7 @@ const GardensContainer = ({
   gardenType,
   map,
 }: GardensContainerProps) => {
-  const { showGardens, setShowGardens } = useShowGardensStore();
+  const { isShowAside, setIsShowAside } = useShowMapAside();
   const [hasNext, setHasNext] = useState(false);
   const { startLat, startLong, endLat, endLong } = getMapBounds(map);
   const { data, fetchNextPage, hasNextPage } = useGetGardensScroll(
@@ -53,20 +53,19 @@ const GardensContainer = ({
           borderWidth="1px 0 0 1px"
           borderColor="gray.200"
           initial={{
-            x: showGardens ? 0 : 379,
+            x: isShowAside ? 0 : 379,
           }}
           animate={{
-            x: showGardens ? 0 : 379,
+            x: isShowAside ? 0 : 379,
             transition: { type: 'tween' },
           }}
         >
           {gardens?.length === 0 ? (
             <MapNoGarden />
           ) : (
-            <MapGardens
+            <MapAside
               {...{
                 showGardenDetail,
-                setShowGardens,
                 fetchNextPage,
                 hasNextPage,
                 hasNext,
@@ -92,9 +91,9 @@ const GardensContainer = ({
               borderColor: 'gray.200',
               borderStyle: 'solid',
             }}
-            onClick={() => setShowGardens(!showGardens)}
+            onClick={() => setIsShowAside(!isShowAside)}
           >
-            {showGardens ? (
+            {isShowAside ? (
               <Icon as={MapArrowLeftIcon} transform="rotate(180deg)" />
             ) : (
               <Icon as={MapArrowLeftIcon} />
@@ -115,19 +114,18 @@ const GardensContainer = ({
             borderTop="1px"
             borderColor="gray.200"
             borderRadius="17px 17px 0 0"
-            initial={{ y: showGardens ? 0 : 455 }}
+            initial={{ y: isShowAside ? 0 : 455 }}
             animate={{
-              y: showGardens ? 0 : 455,
+              y: isShowAside ? 0 : 455,
               transition: { type: 'tween' },
             }}
           >
             {gardens?.length === 0 ? (
               <MapNoGarden />
             ) : (
-              <MapGardens
+              <MapAside
                 {...{
                   showGardenDetail,
-                  setShowGardens,
                   fetchNextPage,
                   hasNextPage,
                   hasNext,
@@ -153,9 +151,9 @@ const GardensContainer = ({
                 borderStyle: 'solid',
               }}
               cursor="pointer"
-              onClick={() => setShowGardens(!showGardens)}
+              onClick={() => setIsShowAside(!isShowAside)}
             >
-              {showGardens ? (
+              {isShowAside ? (
                 <Icon as={MapArrowBottomIcon} />
               ) : (
                 <Icon as={MapArrowBottomIcon} transform="rotate(180deg)" />
