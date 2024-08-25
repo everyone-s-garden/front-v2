@@ -9,12 +9,11 @@ import {
   GridItem,
   Text,
 } from '@chakra-ui/react';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
 import { SeedIcon } from '@/assets/icons';
-import UserFeedbackModal from './components/UserFeedbackModal';
 import {
   cropTradeRoute,
   gardenManagementRoute,
@@ -23,8 +22,9 @@ import {
   settingsRoute,
   whispersRoute,
 } from './constants';
-import { IMainRoute, userFeedbackModalProps } from './type';
+import { IMainRoute } from './type';
 import { useGetMyProfileInfo } from '@/services/user/query';
+import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 interface Routes {
   [key: string]: { tabName: string; keyword?: string; href: string }[];
@@ -71,17 +71,13 @@ const Panel = ({ tabName }: { tabName: string }) => {
     </>
   );
 };
-const GridComponent = ({
-  item,
-  setModalOpen,
-}: {
-  item: IMainRoute;
-  setModalOpen: userFeedbackModalProps['setModalOpen'];
-}) => {
+const GridComponent = ({ item }: { item: IMainRoute }) => {
   const nav = useNavigate();
 
+  const { setModalOpen } = userFeedbackFabStore();
+
   const clickAction = () => {
-    item.keyword === 'userFeedback' ? setModalOpen(true) : nav(item.href);
+    item.keyword === 'userFeedback' ? setModalOpen() : nav(item.href);
   };
 
   return (
@@ -130,7 +126,7 @@ const GridComponent = ({
 
 const MyPage = () => {
   const { data: myProfile } = useGetMyProfileInfo();
-  const [modalOpen, setModalOpen] = useState(false);
+  const { setModalOpen } = userFeedbackFabStore();
 
   if (!myProfile) {
     return null;
@@ -213,11 +209,7 @@ const MyPage = () => {
             rowGap="32px"
           >
             {mainRoute?.map((route) => (
-              <GridComponent
-                key={route.keyword}
-                item={route}
-                setModalOpen={setModalOpen}
-              />
+              <GridComponent key={route.keyword} item={route} />
             ))}
           </Grid>
         </Box>
@@ -252,7 +244,7 @@ const MyPage = () => {
                         fontWeight="semiBold"
                         onClick={() => {
                           if (route.tabName === '유저의 소리함') {
-                            setModalOpen(true);
+                            setModalOpen();
                           }
                         }}
                       >
@@ -277,7 +269,6 @@ const MyPage = () => {
           </Accordion>
         </Box>
       </Box>
-      <UserFeedbackModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
     </Box>
   );
 };

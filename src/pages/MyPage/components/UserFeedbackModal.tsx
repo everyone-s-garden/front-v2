@@ -10,9 +10,9 @@ import {
 import { Box, Flex, ModalCloseButton, Text, Textarea } from '@chakra-ui/react';
 import { userFeedBackItem } from '../constants';
 import { useState } from 'react';
-import { userFeedbackModalProps } from '../type';
 import { useImageStore } from '@/stores/imageStore';
 import { postUserFeedback } from '@/services/mypage/api';
+import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 const breakPoints = {
   320: { slidesPerView: 3, spaceBetween: 5 },
@@ -31,10 +31,8 @@ const initialFeedbackType = {
   value: 'default',
 };
 
-const UserFeedbackModal = ({
-  modalOpen,
-  setModalOpen,
-}: userFeedbackModalProps) => {
+const UserFeedbackModal = () => {
+  const { modalOpen, setModalOpen } = userFeedbackFabStore();
   const [feedbackType, setFeedbackType] = useState(initialFeedbackType);
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
@@ -42,7 +40,7 @@ const UserFeedbackModal = ({
   const [errorState, setErrorState] = useState(false);
 
   const closeModal = () => {
-    setModalOpen(false);
+    setModalOpen();
     setFeedbackType(initialFeedbackType);
     setImages([]);
     setErrorState(false);

@@ -4,6 +4,7 @@ import { Header } from '@/components';
 
 import { PATH } from './constants';
 import useLoginStore from '@/stores/useLoginStore';
+import UserFeedbackFab from '@/components/UserFeedbackFab/UserFeedbackFab';
 
 const Layout = () => {
   const location = useLocation();
@@ -27,6 +28,8 @@ const Layout = () => {
         }}
       >
         <Outlet />
+
+        <UserFeedbackFab />
       </Box>
     </Container>
   );

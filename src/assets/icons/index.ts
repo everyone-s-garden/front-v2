@@ -57,3 +57,4 @@ export { default as UserFeedBackSmileIcon } from './mypage/user-feed-back-smile.
 export { default as ParagraphBoxIcon } from './paragraph-box.svg?react';
 export { default as PostBoxIcon } from './post-box.svg?react';
 export { default as DefaultProfileSVG } from './default-profile-image.svg?react';
+export { default as UserFeedbackFabIcon } from './user-feedback-fab.svg?react';
