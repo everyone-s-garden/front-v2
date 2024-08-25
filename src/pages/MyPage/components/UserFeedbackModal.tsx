@@ -1,4 +1,5 @@
-import { ArrowDownIcon, UserFeedBackSmileIcon } from '@/assets/icons';
+import { Box, Flex, ModalCloseButton, Text, Textarea } from '@chakra-ui/react';
+import { useState } from 'react';
 import {
   Dropdown,
   DropdownItem,
@@ -7,11 +8,10 @@ import {
   ImageSelector,
   Modal,
 } from '@/components';
-import { Box, Flex, ModalCloseButton, Text, Textarea } from '@chakra-ui/react';
+import { ArrowDownIcon, UserFeedBackSmileIcon } from '@/assets/icons';
 import { userFeedBackItem } from '../constants';
-import { useState } from 'react';
-import { useImageStore } from '@/stores/imageStore';
 import { postUserFeedback } from '@/services/mypage/api';
+import { useImageStore } from '@/stores/imageStore';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 const breakPoints = {
@@ -49,8 +49,10 @@ const UserFeedbackModal = () => {
   const validateForm = () => {
     if (feedbackType.value === 'default' || feedbackText.length < 8) {
       setErrorState(true);
+
       return false;
     }
+
     return true;
   };
   const onSubmit = async () => {
