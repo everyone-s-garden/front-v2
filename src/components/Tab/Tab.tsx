@@ -8,7 +8,6 @@ import {
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { Link as ReactRouterLink, useLocation } from 'react-router-dom';
 import { TabData } from './types';
-import useShowGardensStore from '@/stores/useShowGardensStore';
 
 interface TabProps {
   gap?: number;
@@ -77,15 +76,8 @@ const Tab = ({
     setTabIndex(calculateSelectedIndex());
   }, [currentPath, tabIndex, tabsData]);
 
-  const { showGardens } = useShowGardensStore();
-
   return (
-    <Tabs
-      position="relative"
-      index={tabIndex}
-      bg="white"
-      zIndex={showGardens ? -1 : 0}
-    >
+    <Tabs position="relative" index={tabIndex} bg="white" zIndex="0">
       <TabList
         as="ul"
         py={paddingVertical}

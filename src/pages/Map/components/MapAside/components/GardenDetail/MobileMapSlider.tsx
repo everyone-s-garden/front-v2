@@ -1,5 +1,4 @@
 import {
-  Box,
   Icon,
   Image,
   Modal,
@@ -20,22 +19,17 @@ interface MapSliderModalProps {
 const MobileMapSlider = ({ images, isOpen, onClose }: MapSliderModalProps) => {
   const settings = {
     dots: images.length > 1,
-    arrows: images.length > 1,
+    arrows: false,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    appendDots: (dots: JSX.Element) => (
-      <Box position="fixed" bottom="30px">
-        {dots}
-      </Box>
-    ),
   };
 
   return (
     <Modal isOpen={isOpen} onClose={() => {}} isCentered>
       <ModalOverlay bgColor="#000" />
-      <ModalContent maxWidth="fit-content" h="287px">
+      <ModalContent w="100%" h="287px" m="0">
         <Icon
           onClick={onClose}
           as={CloseSecondaryIcon}
@@ -47,17 +41,17 @@ const MobileMapSlider = ({ images, isOpen, onClose }: MapSliderModalProps) => {
           right="22px"
           cursor="pointer"
         />
-        <ModalBody w="100%" padding="0">
+        <ModalBody h="100%" w="100%" padding="0">
           <Slider {...settings}>
-            {images.map((image, i) => {
-              let src;
-              if (!image) src = MapGardenNoImg;
-              else src = image;
-
-              return (
-                <Image w="100%" h="287px" cursor="pointer" src={src} key={i} />
-              );
-            })}
+            {images.map((image, i) => (
+              <Image
+                w="100%"
+                h="287px"
+                cursor="pointer"
+                src={image || MapGardenNoImg}
+                key={i}
+              />
+            ))}
           </Slider>
         </ModalBody>
       </ModalContent>

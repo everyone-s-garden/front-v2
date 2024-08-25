@@ -9,8 +9,8 @@ import MarkerCluster from './Marker/MarkerCluster';
 import MyMarker from './Marker/MyMarker';
 import useGeolocation from '@/hooks/useGeolocation';
 import { useGetMapGardens } from '@/services/gardens/query';
+import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
-import useShowGardensStore from '@/stores/useShowGardensStore';
 
 interface MapComponentProps {
   map: naver.maps.Map | null;
@@ -24,15 +24,15 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   const geolocation = useGeolocation();
   const gardenType = getGardenType(headerOption);
   const { showGardenDetail, setShowGardenDetail } = useShowGardenDetailStore();
-  const { setShowGardens } = useShowGardensStore();
-
-  useEffect(() => {
-    setShowGardenDetail(location.state && location.state.data ? true : false);
-    setShowGardens(location.state && location.state.data ? true : false);
-  }, [location.state, setShowGardenDetail, setShowGardens]);
-
+  const { gardenId } = useMapGardenDetailIdStore();
   const { data: mapGardens, refetch } = useGetMapGardens(gardenType, map);
   const gardens: Garden[] = mapGardens?.gardenByComplexesResponses;
+
+  useEffect(() => {
+    setShowGardenDetail(
+      gardenId && location.state && location.state.data ? true : false,
+    );
+  }, [gardenId, location, setShowGardenDetail]);
 
   useEffect(() => {
     if (map) {
@@ -78,7 +78,7 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   }
 
   const getDefaultCenter = () => {
-    if (location.state && location.state.data) {
+    if (gardenId && location.state && location.state.data) {
       return new navermaps.LatLng(
         location.state.data.lat,
         location.state.data.lng,
@@ -108,14 +108,14 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
         <NaverMap
           ref={setMap}
           defaultCenter={getDefaultCenter()}
-          defaultZoom={location.state && location.state.data ? 15 : 10}
+          defaultZoom={location.state && location.state.data ? 18 : 15}
           zoomControl
           zoomControlOptions={{
             style: naver.maps.ZoomControlStyle.SMALL,
             position: navermaps.Position.TOP_LEFT,
           }}
         >
-          <MarkerCluster {...{ gardens, setShowGardens }} />
+          <MarkerCluster {...{ gardens }} />
           <MyMarker navermaps={navermaps} position={position} />
         </NaverMap>
       </MapDiv>

@@ -9,10 +9,10 @@ export const gardensQuery = {
   all: () => ['gardens'] as const,
   details: () => [...gardensQuery.all(), 'detail'],
 
-  everyGarden: () =>
+  everyGarden: (pageNumber: number) =>
     queryOptions({
-      queryKey: [...gardensQuery.all()],
-      queryFn: () => gardensAPI.getEveryGardens(),
+      queryKey: [...gardensQuery.all(), pageNumber],
+      queryFn: () => gardensAPI.getEveryGardens(pageNumber),
     }),
 
   individualGarden: (id: number | null) =>
@@ -22,8 +22,8 @@ export const gardensQuery = {
     }),
 };
 
-export const useGetEveryGardens = () => {
-  return useQuery(gardensQuery.everyGarden());
+export const useGetEveryGardens = (pageNumber: number) => {
+  return useQuery(gardensQuery.everyGarden(pageNumber));
 };
 
 export const useGetIndividualGarden = (id: number | null) => {
