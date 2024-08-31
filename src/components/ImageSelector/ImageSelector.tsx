@@ -157,6 +157,7 @@ const ImageSelector = ({
                 h={'100%'}
                 borderRadius={10}
                 bg={`white`}
+                userSelect={'none'}
               />
             </Box>
           </SwiperSlide>
