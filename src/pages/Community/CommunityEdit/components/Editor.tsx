@@ -29,6 +29,12 @@ const Editor = ({ editor }: { editor: EditorType }) => {
           placeholder="제목"
           _placeholder={{ color: 'gray.300' }}
           variant={'unstyled'}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              editor.commands.focus();
+            }
+          }}
           {...register('title')}
         />
         {errors.title?.message && (

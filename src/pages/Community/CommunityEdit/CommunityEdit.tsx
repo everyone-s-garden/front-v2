@@ -35,6 +35,30 @@ const CommunityEdit = () => {
   const editor = useEditor({
     extensions,
     onUpdate: ({ editor }) => field.onChange(editor.getText().trim()),
+    editorProps: {
+      handleKeyDown: (view, event) => {
+        if (event.key === 'Enter') {
+          // 선택된 텍스트(드래그 상태) 해제
+          const { state, dispatch } = view;
+
+          if (!state.selection.empty) {
+            // 텍스트가 선택된 상태일 경우 선택 해제
+            dispatch(
+              state.tr
+                .setSelection(
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (state.selection.constructor as any).near(
+                    state.selection.$to,
+                  ),
+                )
+                .scrollIntoView(),
+            );
+          }
+
+          return false; // 기본 엔터 동작 계속 처리
+        }
+      },
+    },
   });
 
   const onSubmit: SubmitHandler<Post> = ({ postType, title }) => {
