@@ -1,20 +1,14 @@
 import { Box, Input, Text } from '@chakra-ui/react';
-import { Editor as DraftEditor } from 'react-draft-wysiwyg';
-import { ControllerRenderProps, useFormContext } from 'react-hook-form';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { EditorContent, Editor as EditorType } from '@tiptap/react';
+import { useFormContext } from 'react-hook-form';
+import styles from '../editorStyles';
 import { Post } from '../schema';
-import isEditorEmpty from '../utils/isEditorEmpty';
-import styles from './editorStyles';
-import { editorLabels, toolbar } from './toolData';
 
-const Editor = ({ value, onChange }: Partial<ControllerRenderProps>) => {
+const Editor = ({ editor }: { editor: EditorType }) => {
   const {
     register,
     formState: { errors },
-    watch,
   } = useFormContext<Post>();
-
-  const content = watch('content');
 
   return (
     <>
@@ -51,16 +45,7 @@ const Editor = ({ value, onChange }: Partial<ControllerRenderProps>) => {
       </Box>
 
       <Box __css={styles} pos={'relative'}>
-        <Box
-          as={DraftEditor}
-          editorState={value}
-          onEditorStateChange={onChange}
-          toolbar={toolbar}
-          toolbarHidden={true}
-          localization={{ locale: 'ko', translations: editorLabels }}
-          placeholder="질문, 자랑, 공유 등 다양한 글을 작성해보세요."
-        />
-        {errors.content?.message && isEditorEmpty(content) && (
+        {errors.content && (
           <Text
             pos={'absolute'}
             top={{ mobile: '24px', tablet: '25px' }}
@@ -71,6 +56,7 @@ const Editor = ({ value, onChange }: Partial<ControllerRenderProps>) => {
             {errors.content.message}
           </Text>
         )}
+        <Box as={EditorContent} editor={editor} />
       </Box>
     </>
   );
