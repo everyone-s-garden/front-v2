@@ -1,8 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { EditorState } from 'draft-js';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import isEditorEmpty from './utils/isEditorEmpty';
 
 const formMessage = {
   type: {
@@ -22,10 +20,9 @@ const { type, title, content } = formMessage;
 const FormSchema = z.object({
   postType: z.enum(['정보 공유', '텃밭 자랑', '질문하기', '기타'], type),
   title: z.string().min(title.min.value, title.min.message),
-  content: z.custom<EditorState>(
-    (value) => !isEditorEmpty(value as EditorState),
-    content,
-  ),
+  content: z
+    .string({ required_error: content.message })
+    .min(1, content.message),
 });
 
 type Post = z.infer<typeof FormSchema>;
@@ -37,7 +34,7 @@ const usePostForm = () => {
     defaultValues: {
       postType: undefined,
       title: '',
-      content: EditorState.createEmpty(),
+      content: '',
     },
   });
 };
