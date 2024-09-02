@@ -15,8 +15,8 @@ export const headerNavLinks: TabData[] = [
 
 export const postOptions = [
   {
-    title: '나의 텃밭 등록하기',
-    description: '현재 가지고 있는 밭을 등록해요',
+    title: '텃밭 일기 작성하기',
+    description: '현재 가지고 있는 밭을 가꾸는 일기를 작성해요',
     link: PATH.MAP.CREATE_MY_GARDEN,
   },
   {

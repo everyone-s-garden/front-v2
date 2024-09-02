@@ -7,9 +7,9 @@ import {
   ListItem,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
-import { LogoHorizon } from '@/assets/images';
-import { PostMenu } from './PostMenu';
+import { PcPostMenu } from './PostMenu';
 import { headerNavLinks } from './constants';
+import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
 
@@ -31,23 +31,17 @@ const PcHeader = ({ loggedIn = false }) => {
   return (
     <Flex
       h="108px"
-      maxW="1167px"
+      maxW="1140px"
       mx="auto"
       justifyContent="space-between"
       alignItems="center"
-      px={{ mobile: '0', tablet: '20px' }}
-      hideBelow="tablet"
+      px="20px"
     >
       <nav>
-        <UnorderedList display="flex" gap="36px" alignItems="center" m="0">
+        <UnorderedList display="flex" gap="37px" alignItems="center" m="0">
           <ListItem>
             <ReactRouterLink to={PATH.MAIN}>
-              <Image
-                src={LogoHorizon}
-                alt="모두의 텃밭 로고"
-                maxW="163px"
-                h="auto"
-              />
+              <Image src={mainLogo} alt="모두의 텃밭 로고" w="54px" h="54px" />
             </ReactRouterLink>
           </ListItem>
           {headerNavLinks.slice(1).map(({ href, tabName }) => (
@@ -78,12 +72,12 @@ const PcHeader = ({ loggedIn = false }) => {
         )}
         <Button
           fontWeight="regular"
-          variant={'unstyled'}
+          variant="unstyled"
           onClick={handleClickLoginButton}
         >
           {loggedIn ? '로그아웃' : '로그인 / 회원가입'}
         </Button>
-        <PostMenu />
+        <PcPostMenu />
       </Flex>
     </Flex>
   );
