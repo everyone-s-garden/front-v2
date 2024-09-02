@@ -9,8 +9,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { EditorState } from 'draft-js';
-import { Dispatch, SetStateAction } from 'react';
+import { Editor } from '@tiptap/react';
 import { useFormContext } from 'react-hook-form';
 import {
   BottomMenu,
@@ -21,18 +20,11 @@ import {
 } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
 import { POST } from '../../constants';
-import { BLOCK_LABEL, INLINE_STYLE, TEXT_BLOCK_STYLE } from '../constants';
+import useBlockTool from '../hooks/useBlockTool';
+import useInlineTool from '../hooks/useInlineTool';
 import { Post } from '../schema';
-import BlockUtils from '../utils/BlockUtils';
-import inlineUtils from '../utils/InlineUtils';
 
-const ToolBar = ({
-  value,
-  onChange,
-}: {
-  value: EditorState;
-  onChange: Dispatch<SetStateAction<EditorState>>;
-}) => {
+const ToolBar = ({ editor }: { editor: Editor }) => {
   const {
     getValues,
     setValue,
@@ -43,6 +35,9 @@ const ToolBar = ({
 
   watch('postType');
 
+  const { headingTools, headingType } = useBlockTool(editor);
+  const { inlineTools } = useInlineTool(editor);
+
   return (
     <Center
       hideBelow={'tablet'}
@@ -51,6 +46,7 @@ const ToolBar = ({
       h={'64px'}
       flexShrink={0}
     >
+      {/* NOTE: 주제 */}
       <Dropdown colorScheme="orange" variant={'none'}>
         <DropdownTrigger
           as={Button}
@@ -90,7 +86,10 @@ const ToolBar = ({
           ))}
         </DropdownList>
       </Dropdown>
+
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
+
+      {/* NOTE: 헤딩 툴 */}
       <Dropdown colorScheme="orange" variant={'none'}>
         <DropdownTrigger
           as={Button}
@@ -102,22 +101,11 @@ const ToolBar = ({
           _active={{ bg: 'none' }}
           px={'36px'}
         >
-          {BLOCK_LABEL[BlockUtils.getBlockStyles(value)] ?? '본문'}
+          {headingType}
         </DropdownTrigger>
         <DropdownList minW={'120px'}>
-          {TEXT_BLOCK_STYLE.map(({ label, name, styles }) => (
-            <DropdownItem
-              key={name}
-              height={'48px'}
-              onClick={(e) => {
-                e.preventDefault();
-                BlockUtils.setBlockStyles({
-                  editorState: value,
-                  setEditorState: onChange,
-                  type: name,
-                });
-              }}
-            >
+          {headingTools.map(({ handler, label, styles }) => (
+            <DropdownItem key={label} height={'48px'} onClick={handler}>
               <Text
                 w={'100%'}
                 fontWeight={'medium'}
@@ -130,29 +118,22 @@ const ToolBar = ({
           ))}
         </DropdownList>
       </Dropdown>
+
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
+
+      {/* NOTE: 인라인 툴 */}
       <Flex align={'center'} gap={'34px'} px={'36px'}>
-        {INLINE_STYLE.map(({ label, name, Icon }) => (
+        {inlineTools.map(({ label, handler, isActive, Icon }) => (
           <IconButton
-            key={name}
+            key={label}
             aria-label={label}
             icon={<Icon />}
             minW={'28px'}
             h={'28px'}
             variant={'unstyled'}
             display={'flex'}
-            onClick={() => {
-              inlineUtils.setInlineStyles({
-                editorState: value,
-                setEditorState: onChange,
-                type: name,
-              });
-            }}
-            bg={
-              inlineUtils.getInlineStyles(value).includes(name)
-                ? 'orange.100'
-                : 'none'
-            }
+            onClick={handler}
+            bg={isActive ? 'orange.100' : 'none'}
           />
         ))}
       </Flex>
@@ -160,14 +141,11 @@ const ToolBar = ({
   );
 };
 
-const MobileToolBar = ({
-  value,
-  onChange,
-}: {
-  value: EditorState;
-  onChange: Dispatch<SetStateAction<EditorState>>;
-}) => {
+const MobileToolBar = ({ editor }: { editor: Editor }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const { headingTools, headingType } = useBlockTool(editor);
+  const { inlineTools } = useInlineTool(editor);
 
   return (
     <Center
@@ -179,6 +157,7 @@ const MobileToolBar = ({
       borderTop={'1px solid'}
       borderColor={'gray.100'}
     >
+      {/* NOTE: 모바일 헤딩 툴 */}
       <Button
         rightIcon={
           <Icon as={ArrowDownIcon} w={'12px'} h={'12px'} stroke={'black'} />
@@ -190,14 +169,13 @@ const MobileToolBar = ({
         onClick={onOpen}
         gap={'2px'}
       >
-        <Text flexShrink={0}>
-          {BLOCK_LABEL[BlockUtils.getBlockStyles(value)]}
-        </Text>
+        <Text flexShrink={0}>{headingType}</Text>
       </Button>
+
       <BottomMenu isOpen={isOpen} onClose={onClose}>
-        {TEXT_BLOCK_STYLE.map(({ label, name, styles }) => (
+        {headingTools.map(({ handler, label, styles }) => (
           <Center
-            key={name}
+            key={label}
             as={Button}
             variant="unstyled"
             _hover={{ bg: 'orange.100' }}
@@ -208,12 +186,8 @@ const MobileToolBar = ({
             borderBottom={'1px solid'}
             borderColor={'gray.100'}
             onClick={() => {
-              BlockUtils.setBlockStyles({
-                editorState: value,
-                setEditorState: onChange,
-                type: name,
-              });
               onClose();
+              handler();
             }}
             {...styles}
           >
@@ -221,11 +195,14 @@ const MobileToolBar = ({
           </Center>
         ))}
       </BottomMenu>
+
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.200'} />
+
+      {/* NOTE: 모바일 인라인 툴 */}
       <Flex align={'center'} px={'36px'} gap={'26px'}>
-        {INLINE_STYLE.map(({ label, name, Icon }) => (
+        {inlineTools.map(({ Icon, handler, isActive, label }) => (
           <IconButton
-            key={name}
+            key={label}
             aria-label={label}
             display={'flex'}
             icon={<Icon />}
@@ -233,18 +210,8 @@ const MobileToolBar = ({
             minW={'28px'}
             h={'28px'}
             borderRadius={'6px'}
-            bg={
-              inlineUtils.getInlineStyles(value).includes(name)
-                ? 'orange.100'
-                : 'none'
-            }
-            onClick={() => {
-              inlineUtils.setInlineStyles({
-                editorState: value,
-                setEditorState: onChange,
-                type: name,
-              });
-            }}
+            bg={isActive ? 'orange.100' : 'none'}
+            onClick={handler}
           />
         ))}
       </Flex>
