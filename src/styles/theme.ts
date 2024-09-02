@@ -8,7 +8,7 @@ export const colors = {
   black: '#282828',
   white: '#FFFFFF',
   sub: '#5A5A5A',
-  // primary: '#B3D36F',
+  primary: '#2DD38D',
   // secondary: '#FF9029',
   error: '#EF2B2A',
   gray: {
