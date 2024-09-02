@@ -1,4 +1,5 @@
 import {
+  chakra,
   Icon,
   Image,
   Modal,
@@ -15,6 +16,8 @@ interface MapSliderModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const StyledSlider = chakra(Slider);
 
 const MobileMapSlider = ({ images, isOpen, onClose }: MapSliderModalProps) => {
   const settings = {
@@ -42,7 +45,18 @@ const MobileMapSlider = ({ images, isOpen, onClose }: MapSliderModalProps) => {
           cursor="pointer"
         />
         <ModalBody h="100%" w="100%" padding="0">
-          <Slider {...settings}>
+          <StyledSlider
+            {...settings}
+            __css={{
+              '.slick-dots > li > button:before': {
+                opacity: 0.25,
+                color: 'white',
+              },
+              '.slick-dots > li.slick-active > button:before': {
+                opacity: 1,
+              },
+            }}
+          >
             {images.map((image, i) => (
               <Image
                 w="100%"
@@ -52,7 +66,7 @@ const MobileMapSlider = ({ images, isOpen, onClose }: MapSliderModalProps) => {
                 key={i}
               />
             ))}
-          </Slider>
+          </StyledSlider>
         </ModalBody>
       </ModalContent>
     </Modal>
