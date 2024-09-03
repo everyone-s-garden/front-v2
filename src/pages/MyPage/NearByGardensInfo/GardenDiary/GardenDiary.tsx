@@ -1,13 +1,14 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { BottomMenu } from '@/components';
+
 import { ThreeDotsMenuIcon } from '@/assets/icons';
 import MenuButton from '../../components/MenuButton';
-import { useDeletePost, useGetMyManagedGarden } from '@/services/mypage/query';
 import { MyManagedGarden } from '../../type';
-import { useLocation } from 'react-router-dom';
+import { useDeletePost, useGetMyManagedGarden } from '@/services/mypage/query';
 
-const MyGarden = () => {
+const GardenDiary = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useGetMyManagedGarden();
   const { pathname } = useLocation();
@@ -39,7 +40,7 @@ const MyGarden = () => {
         display={{ mobile: 'none', tablet: 'block' }}
       >
         <Text fontSize="20px" fontWeight="semiBold">
-          나의 텃밭
+          텃밭 일기
         </Text>
       </Box>
 
@@ -169,4 +170,4 @@ const MyGarden = () => {
   );
 };
 
-export default MyGarden;
+export default GardenDiary;

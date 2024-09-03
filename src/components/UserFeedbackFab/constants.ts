@@ -3,7 +3,7 @@ import { PATH } from '@/routes/constants';
 export const mobileFabList = [
   {
     key: 'mobile-fab-list',
-    title: '나의 밭 등록하기',
+    title: '텃밭 일기 작성하기',
     subTitle: '현재 가지고 있는 밭 등록해요.',
     link: PATH.MAP.CREATE_MY_GARDEN,
   },

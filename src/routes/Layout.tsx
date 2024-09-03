@@ -3,8 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from '@/components';
 
 import { PATH } from './constants';
-import useLoginStore from '@/stores/useLoginStore';
 import UserFeedbackFab from '@/components/UserFeedbackFab/UserFeedbackFab';
+import useLoginStore from '@/stores/useLoginStore';
 
 const Layout = () => {
   const location = useLocation();

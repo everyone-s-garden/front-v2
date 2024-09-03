@@ -46,7 +46,8 @@ const MyPageNavBar = ({ route }: { route: ISubRoute[] }) => {
         tabsData={mainRoute.slice(0, -1)}
         tabWidth="fit"
         paddingVertical={TAB_PADDING_VERTICAL}
-        borderTop
+        borderTop="1px solid"
+        borderBottom="1px solid"
         textStyle={{
           fontWeight: 'semiBold',
           color: 'green.600',
@@ -58,6 +59,8 @@ const MyPageNavBar = ({ route }: { route: ISubRoute[] }) => {
         color="green"
         tabsData={route}
         tabWidth="fit"
+        borderTop="0px"
+        borderBottom="1px solid"
         indicatorHeight="4px"
         paddingVertical={TAB_PADDING_VERTICAL}
         textStyle={{ fontWeight: 'semiBold', fontSize: '18px' }}

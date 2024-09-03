@@ -6,12 +6,12 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import { UserFeedbackFabIcon, PlusIcon } from '@/assets/icons';
-import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
-import UserFeedbackModal from '@/pages/MyPage/components/UserFeedbackModal';
-import { mobileFabList } from './constants';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserFeedbackFabIcon, PlusIcon } from '@/assets/icons';
+import { mobileFabList } from './constants';
+import UserFeedbackModal from '@/pages/MyPage/components/UserFeedbackModal';
 import { PATH } from '@/routes/constants';
+import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 const UserFeedbackFab = () => {
   const { setModalOpen } = userFeedbackFabStore();
@@ -20,8 +20,7 @@ const UserFeedbackFab = () => {
 
   const navToItem = (link: string) => {
     if (link === 'feedback') {
-      setModalOpen();
-      return;
+      return setModalOpen();
     }
     nav(link);
   };

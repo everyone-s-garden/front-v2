@@ -4,10 +4,8 @@ import {
   CropTrade,
   FavoritedGardens,
   GardenEdit,
-  GardenManagement,
   LikedPosts,
   Main,
-  MyGarden,
   MyGardenEdit,
   MyPage,
   MyPost,
@@ -30,6 +28,7 @@ import {
   Redirection,
   Map,
   Report,
+  GardenDiary,
 } from '@/pages';
 import AuthRoute from './AuthRoute';
 import GuestRoute from './GuestRoute';
@@ -88,18 +87,13 @@ const router = createBrowserRouter([
             path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
             element: <RecentlyViewedGardens />,
           },
-        ],
-      },
-      {
-        path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
-        element: <GardenManagement />,
-        children: [
           {
-            path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
-            element: <MyGarden />,
+            path: MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY,
+            element: <GardenDiary />,
           },
         ],
       },
+
       {
         path: MYPAGE.CROP_TRADE.MAIN,
         element: <CropTrade />,
@@ -188,18 +182,13 @@ const router = createBrowserRouter([
                 path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
                 element: <RecentlyViewedGardens />,
               },
-            ],
-          },
-          {
-            path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
-            element: <GardenManagement />,
-            children: [
               {
-                path: MYPAGE.GARDEN_MANAGEMENT.MY_GARDEN,
-                element: <MyGarden />,
+                path: MYPAGE.NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
+                element: <RecentlyViewedGardens />,
               },
             ],
           },
+
           {
             path: MYPAGE.CROP_TRADE.MAIN,
             element: <CropTrade />,
