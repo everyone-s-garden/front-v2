@@ -18,8 +18,10 @@ import { ProfileIcon } from '@/assets/icons';
 import { headerNavLinks } from './constants';
 import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
+import useLoginStore from '@/stores/useLoginStore';
 
-const MobileHeader = ({ loggedIn = false }) => {
+const MobileHeader = () => {
+  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
   const [tabIndex, setTabIndex] = useState(0);
@@ -33,7 +35,7 @@ const MobileHeader = ({ loggedIn = false }) => {
   }, [currentPath]);
 
   const handleClickProfile = () => {
-    if (loggedIn) {
+    if (isLoggedIn) {
       navigate(PATH.MYPAGE.MAIN);
 
       return;
@@ -55,7 +57,7 @@ const MobileHeader = ({ loggedIn = false }) => {
           variant="unstyled"
           minW="fit-content"
           h="fit-content"
-          fill={loggedIn ? 'black' : 'transparent'}
+          fill={isLoggedIn ? 'black' : 'transparent'}
           stroke="black"
           onClick={handleClickProfile}
         />

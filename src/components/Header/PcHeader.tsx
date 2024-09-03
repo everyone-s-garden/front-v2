@@ -13,12 +13,14 @@ import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
 
-const PcHeader = ({ loggedIn = false }) => {
+const PcHeader = () => {
+  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
+
   const navigate = useNavigate();
   const logout = useLoginStore((state) => state.logout);
 
   const handleClickLoginButton = () => {
-    if (loggedIn) {
+    if (isLoggedIn) {
       logout();
 
       return;
@@ -60,7 +62,7 @@ const PcHeader = ({ loggedIn = false }) => {
         </UnorderedList>
       </nav>
       <Flex gap="30px" alignItems="center">
-        {loggedIn && (
+        {isLoggedIn && (
           <ChakraLink
             as={ReactRouterLink}
             fontWeight="regular"
@@ -75,7 +77,7 @@ const PcHeader = ({ loggedIn = false }) => {
           variant="unstyled"
           onClick={handleClickLoginButton}
         >
-          {loggedIn ? '로그아웃' : '로그인 / 회원가입'}
+          {isLoggedIn ? '로그아웃' : '로그인 / 회원가입'}
         </Button>
         <PcPostMenu />
       </Flex>
