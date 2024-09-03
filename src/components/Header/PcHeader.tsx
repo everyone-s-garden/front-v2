@@ -5,10 +5,11 @@ import {
   Button,
   UnorderedList,
   ListItem,
+  Box,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { PcPostMenu } from './PostMenu';
-import { headerNavLinks } from './constants';
+import { HEADER_HEIGHT, headerNavLinks } from './constants';
 import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
@@ -31,57 +32,71 @@ const PcHeader = () => {
   };
 
   return (
-    <Flex
-      h="108px"
-      maxW="1140px"
-      mx="auto"
-      justifyContent="space-between"
-      alignItems="center"
+    <Box
+      position="fixed"
+      w="100vw"
       px="20px"
+      bg="white"
+      h={HEADER_HEIGHT.PC}
+      zIndex="10000"
     >
-      <nav>
-        <UnorderedList display="flex" gap="37px" alignItems="center" m="0">
-          <ListItem>
-            <ReactRouterLink to={PATH.MAIN}>
-              <Image src={mainLogo} alt="모두의 텃밭 로고" w="54px" h="54px" />
-            </ReactRouterLink>
-          </ListItem>
-          {headerNavLinks.slice(1).map(({ href, tabName }) => (
-            <ListItem key={href}>
-              <ChakraLink
-                as={ReactRouterLink}
-                to={href}
-                fontWeight="semiBold"
-                fontSize="18px"
-                _hover={{ textDecoration: 'none' }}
-              >
-                {tabName}
-              </ChakraLink>
+      <Flex
+        h="100%"
+        maxW="1194px"
+        mx="auto"
+        justifyContent="space-between"
+        alignItems="center"
+        bg="white"
+      >
+        <nav>
+          <UnorderedList display="flex" gap="37px" alignItems="center" m="0">
+            <ListItem>
+              <ReactRouterLink to={PATH.MAIN}>
+                <Image
+                  src={mainLogo}
+                  alt="모두의 텃밭 로고"
+                  w="54px"
+                  h="54px"
+                />
+              </ReactRouterLink>
             </ListItem>
-          ))}
-        </UnorderedList>
-      </nav>
-      <Flex gap="30px" alignItems="center">
-        {isLoggedIn && (
-          <ChakraLink
-            as={ReactRouterLink}
+            {headerNavLinks.slice(1).map(({ href, tabName }) => (
+              <ListItem key={href}>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to={href}
+                  fontWeight="semiBold"
+                  fontSize="18px"
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  {tabName}
+                </ChakraLink>
+              </ListItem>
+            ))}
+          </UnorderedList>
+        </nav>
+        <Flex gap="30px" alignItems="center">
+          {isLoggedIn && (
+            <ChakraLink
+              as={ReactRouterLink}
+              fontWeight="regular"
+              to={PATH.MYPAGE.MAIN}
+              _hover={{ textDecoration: 'none' }}
+            >
+              마이페이지
+            </ChakraLink>
+          )}
+          <Button
             fontWeight="regular"
-            to={PATH.MYPAGE.MAIN}
-            _hover={{ textDecoration: 'none' }}
+            variant="unstyled"
+            onClick={handleClickLoginButton}
           >
-            마이페이지
-          </ChakraLink>
-        )}
-        <Button
-          fontWeight="regular"
-          variant="unstyled"
-          onClick={handleClickLoginButton}
-        >
-          {isLoggedIn ? '로그아웃' : '로그인 / 회원가입'}
-        </Button>
-        <PcPostMenu />
+            {isLoggedIn ? '로그아웃' : '로그인 / 회원가입'}
+          </Button>
+          <PcPostMenu />
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 

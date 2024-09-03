@@ -1,6 +1,11 @@
 import { TabData } from '../Tab/types';
 import { PATH } from '@/routes/constants';
 
+export const HEADER_HEIGHT = {
+  PC: '108px',
+  MOBILE: '64px',
+} as const;
+
 export const headerNavLinks: TabData[] = [
   { tabName: '홈', href: PATH.MAIN, keyword: '' },
   { tabName: '내 주변 분양', href: PATH.MAP.MAIN, keyword: PATH.MAP.MAIN },
