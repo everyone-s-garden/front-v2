@@ -1,15 +1,36 @@
-import { Flex, IconButton, Image } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  Flex,
+  IconButton,
+  Image,
+  Tab,
+  TabIndicator,
+  TabList,
+  Tabs,
+  Link as ChakraLink,
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import {
+  Link as ReactRouterLink,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { ProfileIcon } from '@/assets/icons';
-import Tab from '../Tab/Tab';
 import { headerNavLinks } from './constants';
 import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
-import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 const MobileHeader = ({ loggedIn = false }) => {
+  const currentPath = useLocation().pathname;
   const navigate = useNavigate();
-  const { showGardenDetail } = useShowGardenDetailStore();
+  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    const index = headerNavLinks.findIndex(({ href }) =>
+      href === '/' ? href === currentPath : currentPath.includes(href),
+    );
+
+    setTabIndex(index === -1 ? 0 : index);
+  }, [currentPath]);
 
   const handleClickProfile = () => {
     if (loggedIn) {
@@ -23,32 +44,45 @@ const MobileHeader = ({ loggedIn = false }) => {
   };
 
   return (
-    <Flex
-      h="100px"
-      flexDir="column"
-      justifyContent="space-between"
-      hideFrom="tablet"
-    >
-      <Flex justify="space-between" pt="15px" px="20px">
-        <Link to={PATH.MAIN}>
-          <Image src={mainLogo} alt="모두의 텃밭 로고" w="127px" h="22px" />
-        </Link>
+    <Flex flexDir="column">
+      <Flex justify="space-between" alignItems="center" pt="15px" px="20px">
+        <ReactRouterLink to={PATH.MAIN}>
+          <Image src={mainLogo} alt="모두의 텃밭 로고" w="48px" h="48px" />
+        </ReactRouterLink>
         <IconButton
           aria-label="profile"
           icon={<ProfileIcon />}
-          variant={'unstyled'}
-          minW={'fit-content'}
-          h={'fit-content'}
+          variant="unstyled"
+          minW="fit-content"
+          h="fit-content"
           fill={loggedIn ? 'black' : 'transparent'}
-          stroke={'black'}
+          stroke="black"
           onClick={handleClickProfile}
         />
       </Flex>
-      {!showGardenDetail && (
-        <nav>
-          <Tab tabsData={headerNavLinks} color="orange" tabWidth="fit-full" />
-        </nav>
-      )}
+      <nav>
+        <Tabs index={tabIndex}>
+          <TabList as="ul">
+            {headerNavLinks.map(({ href, tabName }) => (
+              <Tab as="li" key={href} p="0" w="100%" minW="fit-content">
+                <ChakraLink
+                  as={ReactRouterLink}
+                  w="100%"
+                  h="100%"
+                  p="13px 20px"
+                  to={href}
+                  textAlign="center"
+                  _hover={{ textDecoration: 'none' }}
+                  fontWeight="bold"
+                >
+                  {tabName}
+                </ChakraLink>
+              </Tab>
+            ))}
+          </TabList>
+          <TabIndicator mt="-3px" height="3px" bg="green.500" />
+        </Tabs>
+      </nav>
     </Flex>
   );
 };
