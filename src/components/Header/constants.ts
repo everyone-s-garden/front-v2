@@ -2,8 +2,9 @@ import { TabData } from '../Tab/types';
 import { PATH } from '@/routes/constants';
 
 export const HEADER_HEIGHT = {
-  PC: '108px',
-  MOBILE: '64px',
+  PC: 108,
+  MOBILE: 63,
+  MOBILE_NAV: 50,
 } as const;
 
 export const headerNavLinks: TabData[] = [

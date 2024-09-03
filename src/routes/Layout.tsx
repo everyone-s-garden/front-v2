@@ -7,7 +7,12 @@ const Layout = () => {
   return (
     <>
       <Header />
-      <Box pt={HEADER_HEIGHT.PC}>
+      <Box
+        pt={{
+          tablet: HEADER_HEIGHT.PC + 'px',
+          mobile: HEADER_HEIGHT.MOBILE_NAV + 'px',
+        }}
+      >
         <Outlet />
       </Box>
     </>

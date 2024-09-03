@@ -37,7 +37,7 @@ const PcHeader = () => {
       w="100vw"
       px="20px"
       bg="white"
-      h={HEADER_HEIGHT.PC}
+      h={`${HEADER_HEIGHT.PC}px`}
       zIndex="10000"
     >
       <Flex

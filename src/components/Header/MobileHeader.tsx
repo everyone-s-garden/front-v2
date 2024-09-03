@@ -7,6 +7,7 @@ import {
   TabList,
   Tabs,
   Link as ChakraLink,
+  chakra,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import {
@@ -15,16 +16,29 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { ProfileIcon } from '@/assets/icons';
-import { headerNavLinks } from './constants';
+import { HEADER_HEIGHT, headerNavLinks } from './constants';
 import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
 
 const MobileHeader = () => {
+  const [scrollY, setScrollY] = useState(0);
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
   const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const index = headerNavLinks.findIndex(({ href }) =>
@@ -45,9 +59,20 @@ const MobileHeader = () => {
     navigate(PATH.LOGIN.MAIN);
   };
 
+  const dynamicTop = `calc(${Math.max(
+    0,
+    HEADER_HEIGHT.MOBILE - scrollY - 1,
+  )}px)`;
+
   return (
     <Flex flexDir="column">
-      <Flex justify="space-between" alignItems="center" pt="15px" px="20px">
+      <Flex
+        justify="space-between"
+        alignItems="center"
+        pt="15px"
+        px="20px"
+        h={HEADER_HEIGHT.MOBILE}
+      >
         <ReactRouterLink to={PATH.MAIN}>
           <Image src={mainLogo} alt="모두의 텃밭 로고" w="48px" h="48px" />
         </ReactRouterLink>
@@ -62,7 +87,14 @@ const MobileHeader = () => {
           onClick={handleClickProfile}
         />
       </Flex>
-      <nav>
+      <chakra.nav
+        h="50px"
+        w="100%"
+        zIndex="10000"
+        position="fixed"
+        top={dynamicTop}
+        bg="white"
+      >
         <Tabs index={tabIndex}>
           <TabList as="ul">
             {headerNavLinks.map(({ href, tabName }) => (
@@ -84,7 +116,7 @@ const MobileHeader = () => {
           </TabList>
           <TabIndicator mt="-3px" height="3px" bg="green.500" />
         </Tabs>
-      </nav>
+      </chakra.nav>
     </Flex>
   );
 };
