@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button, Text } from '@chakra-ui/react';
 import { PlusIcon } from '@/assets/icons';
-import { postOptions } from '../Header/constants';
 import {
   Dropdown,
   DropdownItem,
   DropdownList,
   DropdownTrigger,
 } from './Dropdown';
+import { postOptions } from '@/constants/postOptions';
 
 const meta = {
   title: 'Components/Dropdown',
