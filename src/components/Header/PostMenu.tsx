@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { PlusIcon } from '@/assets/icons';
-import { postOptions } from './constants';
+import { postOptions } from '@/constants/postOptions';
 
 export const PcPostMenu = () => {
   const navigate = useNavigate();
@@ -41,33 +41,37 @@ export const PcPostMenu = () => {
         글쓰기
       </MenuButton>
       <MenuList borderRadius="10px" border="1px solid" borderColor="gray.200">
-        {postOptions.map(({ title, description, link }) => (
-          <MenuItem
-            key={link}
-            _notLast={{
-              borderBottom: '1px solid',
-              borderColor: 'gray.200',
-            }}
-            _hover={{
-              bg: 'green.100',
-            }}
-            bg="white"
-            w="300px"
-            h="80px"
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="flex-start"
-            px="20px"
-            gap="8px"
-            onClick={() => handleClickPostButton(link)}
-          >
-            <Text fontWeight="medium">{title}</Text>
-            <Text fontWeight="regular" fontSize="12px" color="sub">
-              {description}
-            </Text>
-          </MenuItem>
-        ))}
+        {postOptions.map(({ title, description, link }) => {
+          if (title === '유저의 소리함') return;
+
+          return (
+            <MenuItem
+              key={link}
+              _notLast={{
+                borderBottom: '1px solid',
+                borderColor: 'gray.200',
+              }}
+              _hover={{
+                bg: 'green.100',
+              }}
+              bg="white"
+              w="300px"
+              h="80px"
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="flex-start"
+              px="20px"
+              gap="8px"
+              onClick={() => handleClickPostButton(link)}
+            >
+              <Text fontWeight="medium">{title}</Text>
+              <Text fontWeight="regular" fontSize="12px" color="sub">
+                {description}
+              </Text>
+            </MenuItem>
+          );
+        })}
       </MenuList>
     </Menu>
   );

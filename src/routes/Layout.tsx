@@ -2,6 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '@/components';
 import { HEADER_HEIGHT } from '@/components/Header/constants';
+import UserFeedbackFab from '@/components/UserFeedbackFab/UserFeedbackFab';
 
 const Layout = () => {
   return (
@@ -15,6 +16,7 @@ const Layout = () => {
       >
         <Outlet />
       </Box>
+      <UserFeedbackFab />
     </>
   );
 };
