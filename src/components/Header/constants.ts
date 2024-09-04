@@ -1,6 +1,12 @@
 import { TabData } from '../Tab/types';
 import { PATH } from '@/routes/constants';
 
+export const HEADER_HEIGHT = {
+  PC: 108,
+  MOBILE: 63,
+  MOBILE_NAV: 50,
+} as const;
+
 export const headerNavLinks: TabData[] = [
   { tabName: '홈', href: PATH.MAIN, keyword: '' },
   { tabName: '내 주변 분양', href: PATH.MAP.MAIN, keyword: PATH.MAP.MAIN },
@@ -15,8 +21,8 @@ export const headerNavLinks: TabData[] = [
 
 export const postOptions = [
   {
-    title: '나의 텃밭 등록하기',
-    description: '현재 가지고 있는 밭을 등록해요',
+    title: '텃밭 일기 작성하기',
+    description: '현재 가지고 있는 밭을 가꾸는 일기를 작성해요',
     link: PATH.MAP.CREATE_MY_GARDEN,
   },
   {

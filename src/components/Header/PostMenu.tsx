@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { PlusIcon } from '@/assets/icons';
 import { postOptions } from './constants';
 
-export const PostMenu = (props: MenuButtonProps) => {
+export const PcPostMenu = () => {
   const navigate = useNavigate();
 
   const handleClickPostButton = (path: string) => {
@@ -20,32 +20,27 @@ export const PostMenu = (props: MenuButtonProps) => {
   };
 
   return (
-    <Menu placement={'bottom-end'} {...props}>
+    <Menu placement="bottom-end">
       <MenuButton
         as={Button}
+        display="flex"
         leftIcon={<PlusIcon />}
-        fontWeight="medium"
+        fontWeight="bold"
         bg="green.500"
-        _hover={{ bg: 'green.500' }}
-        _active={{ bg: 'green.500' }}
+        variant="unstyled"
         color="white"
-        w="94px"
-        h="36px"
+        p="8px 12px"
         borderRadius="10px"
-        css={{
-          '& > span': { color: 'white', margin: 0, flexGrow: 0, flexShrink: 0 },
-        }}
         gap="8px"
+        __css={{
+          span: {
+            margin: 0,
+          },
+        }}
       >
         글쓰기
       </MenuButton>
-      <MenuList
-        borderRadius="10px"
-        border="1px solid"
-        borderColor="gray.200"
-        overflow="hidden"
-        py={0}
-      >
+      <MenuList borderRadius="10px" border="1px solid" borderColor="gray.200">
         {postOptions.map(({ title, description, link }) => (
           <MenuItem
             key={link}
@@ -68,7 +63,7 @@ export const PostMenu = (props: MenuButtonProps) => {
             onClick={() => handleClickPostButton(link)}
           >
             <Text fontWeight="medium">{title}</Text>
-            <Text fontSize={12} color="sub">
+            <Text fontWeight="regular" fontSize="12px" color="sub">
               {description}
             </Text>
           </MenuItem>
