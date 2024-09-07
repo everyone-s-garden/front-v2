@@ -1,18 +1,55 @@
-import { Flex, IconButton, Image } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  Flex,
+  IconButton,
+  Image,
+  Tab,
+  TabIndicator,
+  TabList,
+  Tabs,
+  Link as ChakraLink,
+  chakra,
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import {
+  Link as ReactRouterLink,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { ProfileIcon } from '@/assets/icons';
-import { LogoHorizon } from '@/assets/images';
-import Tab from '../Tab/Tab';
-import { headerNavLinks } from './constants';
+import { HEADER_HEIGHT, headerNavLinks } from './constants';
+import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
-import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
+import useLoginStore from '@/stores/useLoginStore';
 
-const MobileHeader = ({ loggedIn = false }) => {
+const MobileHeader = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
+  const currentPath = useLocation().pathname;
   const navigate = useNavigate();
-  const { showGardenDetail } = useShowGardenDetailStore();
+  const [tabIndex, setTabIndex] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const index = headerNavLinks.findIndex(({ href }) =>
+      href === '/' ? href === currentPath : currentPath.includes(href),
+    );
+
+    setTabIndex(index === -1 ? 0 : index);
+  }, [currentPath]);
 
   const handleClickProfile = () => {
-    if (loggedIn) {
+    if (isLoggedIn) {
       navigate(PATH.MYPAGE.MAIN);
 
       return;
@@ -22,33 +59,64 @@ const MobileHeader = ({ loggedIn = false }) => {
     navigate(PATH.LOGIN.MAIN);
   };
 
+  const dynamicTop = `calc(${Math.max(
+    0,
+    HEADER_HEIGHT.MOBILE - scrollY - 1,
+  )}px)`;
+
   return (
-    <Flex
-      h="100px"
-      flexDir="column"
-      justifyContent="space-between"
-      hideFrom="tablet"
-    >
-      <Flex justify="space-between" pt="15px" px="20px">
-        <Link to={PATH.MAIN}>
-          <Image src={LogoHorizon} alt="모두의 텃밭 로고" w="127px" h="22px" />
-        </Link>
+    <Flex flexDir="column">
+      <Flex
+        justify="space-between"
+        alignItems="center"
+        pt="15px"
+        px="20px"
+        h={HEADER_HEIGHT.MOBILE}
+      >
+        <ReactRouterLink to={PATH.MAIN}>
+          <Image src={mainLogo} alt="모두의 텃밭 로고" w="48px" h="48px" />
+        </ReactRouterLink>
         <IconButton
           aria-label="profile"
           icon={<ProfileIcon />}
-          variant={'unstyled'}
-          minW={'fit-content'}
-          h={'fit-content'}
-          fill={loggedIn ? 'black' : 'transparent'}
-          stroke={'black'}
+          variant="unstyled"
+          minW="fit-content"
+          h="fit-content"
+          fill={isLoggedIn ? 'black' : 'transparent'}
+          stroke="black"
           onClick={handleClickProfile}
         />
       </Flex>
-      {!showGardenDetail && (
-        <nav>
-          <Tab tabsData={headerNavLinks} color="orange" tabWidth="fit-full" />
-        </nav>
-      )}
+      <chakra.nav
+        h="50px"
+        w="100%"
+        zIndex="10000"
+        position="fixed"
+        top={dynamicTop}
+        bg="white"
+      >
+        <Tabs index={tabIndex}>
+          <TabList as="ul">
+            {headerNavLinks.map(({ href, tabName }) => (
+              <Tab as="li" key={href} p="0" w="100%" minW="fit-content">
+                <ChakraLink
+                  as={ReactRouterLink}
+                  w="100%"
+                  h="100%"
+                  p="13px 20px"
+                  to={href}
+                  textAlign="center"
+                  _hover={{ textDecoration: 'none' }}
+                  fontWeight="bold"
+                >
+                  {tabName}
+                </ChakraLink>
+              </Tab>
+            ))}
+          </TabList>
+          <TabIndicator mt="-3px" height="3px" bg="green.500" />
+        </Tabs>
+      </chakra.nav>
     </Flex>
   );
 };

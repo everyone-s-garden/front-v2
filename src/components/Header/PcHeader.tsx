@@ -5,20 +5,23 @@ import {
   Button,
   UnorderedList,
   ListItem,
+  Box,
 } from '@chakra-ui/react';
 import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
-import { LogoHorizon } from '@/assets/images';
-import { PostMenu } from './PostMenu';
-import { headerNavLinks } from './constants';
+import { PcPostMenu } from './PostMenu';
+import { HEADER_HEIGHT, headerNavLinks } from './constants';
+import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
 
-const PcHeader = ({ loggedIn = false }) => {
+const PcHeader = () => {
+  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
+
   const navigate = useNavigate();
   const logout = useLoginStore((state) => state.logout);
 
   const handleClickLoginButton = () => {
-    if (loggedIn) {
+    if (isLoggedIn) {
       logout();
 
       return;
@@ -29,63 +32,71 @@ const PcHeader = ({ loggedIn = false }) => {
   };
 
   return (
-    <Flex
-      h="108px"
-      maxW="1167px"
-      mx="auto"
-      justifyContent="space-between"
-      alignItems="center"
-      px={{ mobile: '0', tablet: '20px' }}
-      hideBelow="tablet"
+    <Box
+      position="fixed"
+      w="100vw"
+      px="20px"
+      bg="white"
+      h={`${HEADER_HEIGHT.PC}px`}
+      zIndex="10000"
     >
-      <nav>
-        <UnorderedList display="flex" gap="36px" alignItems="center" m="0">
-          <ListItem>
-            <ReactRouterLink to={PATH.MAIN}>
-              <Image
-                src={LogoHorizon}
-                alt="모두의 텃밭 로고"
-                maxW="163px"
-                h="auto"
-              />
-            </ReactRouterLink>
-          </ListItem>
-          {headerNavLinks.slice(1).map(({ href, tabName }) => (
-            <ListItem key={href}>
-              <ChakraLink
-                as={ReactRouterLink}
-                to={href}
-                fontWeight="semiBold"
-                fontSize="18px"
-                _hover={{ textDecoration: 'none' }}
-              >
-                {tabName}
-              </ChakraLink>
+      <Flex
+        h="100%"
+        maxW="1194px"
+        mx="auto"
+        justifyContent="space-between"
+        alignItems="center"
+        bg="white"
+      >
+        <nav>
+          <UnorderedList display="flex" gap="37px" alignItems="center" m="0">
+            <ListItem>
+              <ReactRouterLink to={PATH.MAIN}>
+                <Image
+                  src={mainLogo}
+                  alt="모두의 텃밭 로고"
+                  w="54px"
+                  h="54px"
+                />
+              </ReactRouterLink>
             </ListItem>
-          ))}
-        </UnorderedList>
-      </nav>
-      <Flex gap="30px" alignItems="center">
-        {loggedIn && (
-          <ChakraLink
-            as={ReactRouterLink}
+            {headerNavLinks.slice(1).map(({ href, tabName }) => (
+              <ListItem key={href}>
+                <ChakraLink
+                  as={ReactRouterLink}
+                  to={href}
+                  fontWeight="semiBold"
+                  fontSize="18px"
+                  _hover={{ textDecoration: 'none' }}
+                >
+                  {tabName}
+                </ChakraLink>
+              </ListItem>
+            ))}
+          </UnorderedList>
+        </nav>
+        <Flex gap="30px" alignItems="center">
+          {isLoggedIn && (
+            <ChakraLink
+              as={ReactRouterLink}
+              fontWeight="regular"
+              to={PATH.MYPAGE.MAIN}
+              _hover={{ textDecoration: 'none' }}
+            >
+              마이페이지
+            </ChakraLink>
+          )}
+          <Button
             fontWeight="regular"
-            to={PATH.MYPAGE.MAIN}
-            _hover={{ textDecoration: 'none' }}
+            variant="unstyled"
+            onClick={handleClickLoginButton}
           >
-            마이페이지
-          </ChakraLink>
-        )}
-        <Button
-          fontWeight="regular"
-          variant={'unstyled'}
-          onClick={handleClickLoginButton}
-        >
-          {loggedIn ? '로그아웃' : '로그인 / 회원가입'}
-        </Button>
-        <PostMenu />
+            {isLoggedIn ? '로그아웃' : '로그인 / 회원가입'}
+          </Button>
+          <PcPostMenu />
+        </Flex>
       </Flex>
-    </Flex>
+    </Box>
   );
 };
 
