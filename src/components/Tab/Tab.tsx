@@ -19,6 +19,7 @@ interface TabProps {
   textStyle?: React.CSSProperties;
   indicatorHeight?: string;
   borderBottom?: string;
+  linkStyle?: React.CSSProperties;
 }
 
 const Tab = ({
@@ -31,6 +32,7 @@ const Tab = ({
   textStyle,
   borderBottom = '2px solid',
   indicatorHeight = '2px',
+  linkStyle,
 }: TabProps) => {
   const [tabIndex, setTabIndex] = useState(-1);
   const { pathname: currentPath } = useLocation();
@@ -109,6 +111,7 @@ const Tab = ({
               w="100%"
               p="8px 16px"
               to={href}
+              style={linkStyle}
               onClick={() => handleClickTab(index)}
               _hover={{ textDecoration: 'none' }}
             >

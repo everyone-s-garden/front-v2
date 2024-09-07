@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { AvatarComponent, TagComponent } from '@/components';
+import { AvatarComponent } from '@/components';
 import { SeedIcon, ShareIcon } from '@/assets/icons';
 
 // interface UserProfileProps {}
@@ -12,40 +12,47 @@ const UserProfile = () => {
     <Flex
       display={{ mobile: 'none', tablet: 'flex' }}
       w="204px"
-      bg="orange.100"
+      h="280px"
+      bg="gray.50"
       borderRadius="10px"
       flexDir="column"
       align="center"
       pos="relative"
-      border="1px"
-      borderColor="secondary"
       minW="204px"
     >
       <Box as="button" pos="absolute" zIndex={2} right="16px" top="12px">
         <ShareIcon aria-label="공유하기" />
       </Box>
-      <Box w="99px" pt="49px">
-        <AvatarComponent size={'full'} aria-label="유저 이미지" />
+
+      <Box mt="48px">
+        <SeedIcon />
       </Box>
-      <TagComponent tagLabel="텃린이" variant="userName" my="10px" />
-      <Text mb="24px" color="orange.500" fontSize="10px">
-        {userEmail}
+      <Text fontWeight={'semiBold'} fontSize={'16px'}>
+        씨앗 등급
       </Text>
-      <Flex
-        mt="auto"
-        borderBottomRadius="10px"
-        align="center"
-        bg="orange.500"
-        w="full"
-        justify="center"
-        py="7px"
-      >
-        <Box mr="12px" w="37.998px" h="36.001px">
-          <SeedIcon />
+      <Flex mt="15.89px">
+        <Box w="44px" h="44px" mr="8px">
+          <AvatarComponent size={'full'} aria-label="유저 이미지" />
         </Box>
-        <Text color="white" fontWeight="semiBold">
-          씨앗 등급
-        </Text>
+        <Flex flexDir={'column'} justify={'space-around'}>
+          <Flex
+            fontWeight={'semiBold'}
+            color="#fff"
+            bg="black"
+            h="21px"
+            w={'61px'}
+            fontSize={'14px'}
+            align={'center'}
+            justify={'center'}
+            borderRadius={'10px'}
+          >
+            텃린이
+          </Flex>
+
+          <Text color="gray.500" fontSize={'10px'} fontWeight={'regular'}>
+            {userEmail}
+          </Text>
+        </Flex>
       </Flex>
     </Flex>
   );

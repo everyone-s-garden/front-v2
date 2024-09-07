@@ -24,7 +24,7 @@ const MyPageNavBar = ({ route }: { route: ISubRoute[] }) => {
   const tabGapSizes = {
     small: 20,
     medium: 30,
-    large: 80,
+    large: 106,
     default: TAB_GAP,
   };
 
@@ -37,6 +37,13 @@ const MyPageNavBar = ({ route }: { route: ISubRoute[] }) => {
   };
 
   const tab_gap = getTabGap(offset.width);
+  const linkStyle = {
+    padding: '0',
+  };
+  const textStyle = {
+    fontWeight: 'semiBold',
+    fontSize: '18px',
+  };
 
   return (
     <Box display={{ mobile: 'none', tablet: 'block' }}>
@@ -48,11 +55,8 @@ const MyPageNavBar = ({ route }: { route: ISubRoute[] }) => {
         paddingVertical={TAB_PADDING_VERTICAL}
         borderTop="1px solid"
         borderBottom="1px solid"
-        textStyle={{
-          fontWeight: 'semiBold',
-          color: 'green.600',
-          fontSize: '18px',
-        }}
+        textStyle={textStyle}
+        linkStyle={linkStyle}
       />
       <Tab
         gap={TAB_GAP}
@@ -61,9 +65,10 @@ const MyPageNavBar = ({ route }: { route: ISubRoute[] }) => {
         tabWidth="fit"
         borderTop="0px"
         borderBottom="1px solid"
-        indicatorHeight="4px"
+        indicatorHeight="3px"
+        linkStyle={linkStyle}
         paddingVertical={TAB_PADDING_VERTICAL}
-        textStyle={{ fontWeight: 'semiBold', fontSize: '18px' }}
+        textStyle={textStyle}
       />
     </Box>
   );
