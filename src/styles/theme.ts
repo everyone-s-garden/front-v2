@@ -72,6 +72,23 @@ export const fontWeights = {
   bold: 700,
 };
 
+export const zIndices = {
+  hide: -1,
+  auto: 'auto',
+  base: 0,
+  header: 5,
+  docked: 10,
+  dropdown: 1000,
+  sticky: 1100,
+  banner: 1200,
+  overlay: 1300,
+  modal: 1400,
+  popover: 1500,
+  skipLink: 1600,
+  toast: 1700,
+  tooltip: 1800,
+};
+
 export const emotionTheme = {
   colors,
   devices,
@@ -88,6 +105,7 @@ export const chakraTheme = {
     Tabs,
     TagStyleConfig,
   },
+  zIndices,
 } satisfies ThemeOverride;
 
 export const theme = extendTheme(chakraTheme);
@@ -95,3 +113,4 @@ export const theme = extendTheme(chakraTheme);
 export type Colors = typeof colors;
 export type Devices = typeof devices;
 export type FontWeight = typeof fontWeights;
+export type ZIndices = typeof zIndices;

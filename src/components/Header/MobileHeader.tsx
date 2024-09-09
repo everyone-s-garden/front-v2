@@ -45,7 +45,7 @@ const MobileHeader = () => {
       href === '/' ? href === currentPath : currentPath.includes(href),
     );
 
-    setTabIndex(index === -1 ? 0 : index);
+    setTabIndex(index);
   }, [currentPath]);
 
   const handleClickProfile = () => {
@@ -90,7 +90,7 @@ const MobileHeader = () => {
       <chakra.nav
         h="50px"
         w="100%"
-        zIndex="10000"
+        zIndex="header"
         position="fixed"
         top={dynamicTop}
         bg="white"

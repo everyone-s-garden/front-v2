@@ -1,11 +1,8 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-// import { HeartIcon } from '@/assets/icons';
 import { DefaultPost } from '@/assets/images';
 import { GardenPost } from '@/services/gardenPost/types';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
-
-// const CHeartIcon = chakra(HeartIcon);
 
 const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
   const navigate = useNavigate();
@@ -61,14 +58,6 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
           src={imageUrl || DefaultPost}
           alt="recent post"
         />
-        {/* <CHeartIcon
-          position="absolute"
-          top="12px"
-          left="12px"
-          fill={isLiked ? 'white' : 'transparent'}
-          stroke={'white'}
-          strokeWidth={1.5}
-        /> */}
       </Box>
       <Flex flexDir="column" gap="3px">
         <Text
