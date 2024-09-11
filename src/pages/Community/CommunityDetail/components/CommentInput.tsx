@@ -50,8 +50,7 @@ const CommentInput = ({
           ref={commentRef}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              handleSubmitComment(commentRef.current?.value ?? '', commentId);
-              commentRef.current!.value = '';
+              e.preventDefault();
             }
           }}
           autoFocus={autoFocus}
