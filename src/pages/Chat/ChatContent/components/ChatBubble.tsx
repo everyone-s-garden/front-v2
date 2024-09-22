@@ -41,7 +41,7 @@ const ChatBubble = ({ chat, profile, isMine }: ChatBubbleProps) => {
           fontWeight="medium"
           h="fit-content"
           p={{ mobile: '8px 12px', tablet: '10px 13px' }}
-          bg="orange.400"
+          bg={isMine ? 'green.300' : 'green.100'}
           rounded="10px"
           display="flex"
         >
@@ -51,7 +51,7 @@ const ChatBubble = ({ chat, profile, isMine }: ChatBubbleProps) => {
           {isMine && !readOrNot && (
             <Text
               fontSize={{ mobile: '10px', tablet: '12px' }}
-              color="orange.500"
+              color="green.600"
               flexShrink="0"
               alignSelf="flex-end"
               lineHeight="10px"

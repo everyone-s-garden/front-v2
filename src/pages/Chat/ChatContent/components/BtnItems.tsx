@@ -10,16 +10,20 @@ const BtnItems = () => {
         rounded="10px"
         fontSize="16px"
         fontWeight="semiBold"
-        bg="orange.300"
+        bg="green.300"
+        border="1px solid"
+        borderColor="green.500"
         w="100%"
-        p={{ mobile: '8px', tablet: '10px 24px' }}
+        p={{ mobile: '8px', tablet: '0px 24px' }}
+        justifyContent="center"
+        alignItems="center"
       >
         후기 보내기
       </Button>
       <Button
         variant="unstyled"
         display={{ mobile: 'none', tablet: 'flex' }}
-        bg="orange.300"
+        bg="gray.200"
         p="10px"
       >
         <ETCIcon />
