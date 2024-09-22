@@ -29,7 +29,7 @@ const MobileHeader = ({
         position="absolute"
         w="100vw"
         h="1px"
-        bg="gray.200"
+        bg="gray.100"
         bottom="0"
         left="-20px"
       />
