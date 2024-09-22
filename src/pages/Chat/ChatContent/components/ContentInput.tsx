@@ -1,19 +1,19 @@
-import { Button, Flex, chakra, createIcon } from '@chakra-ui/react';
+import { Button, Flex, chakra } from '@chakra-ui/react';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PlusIcon = createIcon({
-  displayName: 'PlusIcon',
-  viewBox: '0 0 28 29',
-  path: (
-    <path
-      d="M7 14.5H14M14 14.5H21M14 14.5V7.5M14 14.5V21.5"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  ),
-});
+// const PlusIcon = createIcon({
+//   displayName: 'PlusIcon',
+//   viewBox: '0 0 28 29',
+//   path: (
+//     <path
+//       d="M7 14.5H14M14 14.5H21M14 14.5V7.5M14 14.5V21.5"
+//       strokeWidth="1.5"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//   ),
+// });
 
 interface ContentInputProps {
   sendMessage: (message: string) => void;
