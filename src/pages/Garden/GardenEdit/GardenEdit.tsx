@@ -1,6 +1,6 @@
 import { Box, Center, Flex, Text, Textarea } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import {
   Controller,
   FormProvider,
@@ -306,7 +306,9 @@ const GardenEdit = () => {
                 errorMessage={errors.address?.message}
                 flexGrow={1}
               >
-                <AddressSearchBar />
+                <Suspense fallback={null}>
+                  <AddressSearchBar />
+                </Suspense>
               </FlexInput>
 
               <FlexInput label="시설" gap={{ mobile: '12px', tablet: '' }}>
