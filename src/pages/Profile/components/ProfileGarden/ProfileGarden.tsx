@@ -1,17 +1,15 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 import ProfileGardenSlider from './ProfileGardenSlider';
-import ProfileGarendFooter from './ProfileGarendFooter';
+import ProfileGardenFooter from './ProfileGarendFooter';
 
-const ProfileGarden = () => {
+interface ProfileGardenProps {
+  otherManagedGardens: ManagedGarden[] | undefined;
+}
+
+const ProfileGarden = ({ otherManagedGardens }: ProfileGardenProps) => {
   return (
-    <Flex
-      mb={{ tablet: '164px' }}
-      flexDir="column"
-      borderBottom="1px solid"
-      borderColor="gray.100"
-      overflow="hidden"
-    >
+    <Box mb={{ tablet: '164px' }} overflow="hidden">
       <Box
         w="fit-content"
         borderRadius="10px"
@@ -25,19 +23,23 @@ const ProfileGarden = () => {
       >
         나의 텃밭
       </Box>
-      <ProfileGardenSlider />
-      <ProfileGarendFooter />
-      <Text
-        color="sub"
-        fontSize={{ mobile: '16px', tablet: '18px' }}
-        mt={{ mobile: '24px', tablet: '31px' }}
-        mb={{ mobile: '50px', tablet: '70px' }}
-      >
-        안녕하세요. 저희는 아빠, 엄마, 13살 된 딸아이 그리고 삽살개 한 마리와
-        고양이 두 마리가 함께 사는 가족입니다 : ) 텃밭을 만들고 시작한지는
-        3개월째입니다. 예쁘게 봐주세요 !
-      </Text>
-    </Flex>
+      <Flex flexDir="column" borderBottom="1px solid" borderColor="gray.100">
+        {otherManagedGardens?.map((el, i) => (
+          <Box key={i}>
+            <ProfileGardenSlider images={el.images} />
+            <ProfileGardenFooter garden={el} />
+            <Text
+              color="sub"
+              fontSize={{ mobile: '16px', tablet: '18px' }}
+              mt={{ mobile: '24px', tablet: '31px' }}
+              mb={{ mobile: '50px', tablet: '70px' }}
+            >
+              {el.description}
+            </Text>
+          </Box>
+        ))}
+      </Flex>
+    </Box>
   );
 };
 

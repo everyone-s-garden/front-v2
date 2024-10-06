@@ -1,7 +1,17 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import { LocationPrimaryIcon } from '@/assets/icons';
 
-const ProfileGarendFooter = () => {
+interface ProfileGardenFooterProps {
+  garden: ManagedGarden;
+}
+
+const ProfileGardenFooter = ({ garden }: ProfileGardenFooterProps) => {
+  const monthsUsing = dayjs(garden.useEndDate).diff(
+    dayjs(garden.useStartDate),
+    'month',
+  );
+
   return (
     <Flex
       alignItems="center"
@@ -13,16 +23,16 @@ const ProfileGarendFooter = () => {
     >
       <Icon as={LocationPrimaryIcon} w="20px" h="20px" />
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
-        양평 씨앗 농장
+        {garden.gardenName}
       </Text>
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
         /
       </Text>
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
-        3개월째
+        {monthsUsing}개월째
       </Text>
     </Flex>
   );
 };
 
-export default ProfileGarendFooter;
+export default ProfileGardenFooter;

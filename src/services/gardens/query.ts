@@ -20,6 +20,12 @@ export const gardensQuery = {
       queryKey: [...gardensQuery.details(), id],
       queryFn: () => gardensAPI.getIndividualGarden(id),
     }),
+
+  otherUsersGarden: (userId: number) =>
+    queryOptions({
+      queryKey: [...gardensQuery.details(), userId],
+      queryFn: () => gardensAPI.getOtherUsersGardens(userId),
+    }),
 };
 
 export const useGetEveryGardens = (pageNumber: number) => {
@@ -44,6 +50,10 @@ export const useGetMapGardens = (
   });
 
   return { data, refetch };
+};
+
+export const useGetOtherUsersGardens = (userId: number) => {
+  return useQuery(gardensQuery.otherUsersGarden(userId));
 };
 
 export const useGetGardensScroll = (

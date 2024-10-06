@@ -30,3 +30,18 @@ interface GardenDetail extends Garden {
   writerId: number;
   openAPIResourceId: string;
 }
+
+interface ManagedGarden {
+  myManagedGardenId: number;
+  gardenName: string;
+  useStartDate: string;
+  useEndDate: string;
+  images: string[];
+  description: string;
+}
+
+interface OtherManagedGardenGetResponses {
+  otherManagedGardenGetResponses: ManagedGarden[];
+  nextManagedGardenId: number;
+  hasNext: boolean;
+}
