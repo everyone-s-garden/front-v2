@@ -2,15 +2,12 @@ import { Box, Icon } from '@chakra-ui/react';
 import { ShareIcon } from '@/assets/icons';
 import ProfileCardBody from './ProfileCardBody';
 import ProfileCardFooter from './ProfileCardFooter';
-import { useGetUserInfo } from '@/services/user/query';
 
 interface ProfileCardProps {
-  userId: string;
+  userInfo: UserInfo;
 }
 
-const ProfileCard = ({ userId }: ProfileCardProps) => {
-  const { data: userInfo } = useGetUserInfo(Number(userId));
-
+const ProfileCard = ({ userInfo }: ProfileCardProps) => {
   return (
     <Box
       pos="relative"

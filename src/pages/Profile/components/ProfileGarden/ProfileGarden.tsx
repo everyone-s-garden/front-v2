@@ -5,9 +5,13 @@ import ProfileGardenFooter from './ProfileGarendFooter';
 
 interface ProfileGardenProps {
   otherManagedGardens: ManagedGarden[] | undefined;
+  userInfo: UserInfo;
 }
 
-const ProfileGarden = ({ otherManagedGardens }: ProfileGardenProps) => {
+const ProfileGarden = ({
+  otherManagedGardens,
+  userInfo,
+}: ProfileGardenProps) => {
   return (
     <Box mb={{ tablet: '164px' }} overflow="hidden">
       <Box
@@ -21,7 +25,7 @@ const ProfileGarden = ({ otherManagedGardens }: ProfileGardenProps) => {
         mb="14px"
         display={{ mobile: 'none', tablet: 'block' }}
       >
-        나의 텃밭
+        {userInfo.nickname}님의 텃밭
       </Box>
       <Flex flexDir="column" borderBottom="1px solid" borderColor="gray.100">
         {otherManagedGardens?.map((el, i) => (
