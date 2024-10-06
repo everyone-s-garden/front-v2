@@ -8,12 +8,12 @@ import {
   Hide,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@/assets/icons';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
-import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/routes/constants';
 
 interface CardProps {

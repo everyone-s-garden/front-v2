@@ -1,8 +1,8 @@
-import { EditorState } from 'draft-js';
+// import { EditorState } from 'draft-js';
 
-const isEditorEmpty = (value: EditorState) => {
-  // BUG: IME composition state is not considered empty
-  return !value.getCurrentContent().hasText();
-};
+// const isEditorEmpty = (value: EditorState) => {
+//   // BUG: IME composition state is not considered empty
+//   return !value.getCurrentContent().hasText();
+// };
 
-export default isEditorEmpty;
+// export default isEditorEmpty;

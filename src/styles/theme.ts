@@ -6,10 +6,10 @@ import TagStyleConfig from './components/tag';
 
 export const colors = {
   black: '#282828',
-  sub: '#5A5A5A',
   white: '#FFFFFF',
-  primary: '#B3D36F',
-  secondary: '#FF9029',
+  sub: '#5A5A5A',
+  primary: '#2DD38D',
+  // secondary: '#FF9029',
   error: '#EF2B2A',
   gray: {
     50: '#F0F0F0',
@@ -23,27 +23,34 @@ export const colors = {
     800: '#414141',
   },
   green: {
-    100: '#F1F7E4',
-    200: '#DCEBBD',
-    300: '#C8DF96',
-    400: '#B3D36F',
-    500: '#9EC646',
-    600: '#83A834',
-    700: '#658128',
-    800: '#4F5A1C',
-    900: '#283310',
+    100: '#EAFBF4',
+    200: '#D5F6E8',
+    300: '#ABEDD1',
+    400: '#56DCA4',
+    500: '#2DD38D',
+    600: '#23A971',
+    700: '#247546',
   },
-  orange: {
-    100: '#FFF4EB',
-    200: '#FFDFC2',
-    300: '#FFC58F',
-    400: '#FFAB5C',
-    500: '#FF9029',
-    600: '#F77700',
-    700: '#C25200',
-    800: '#8F4500',
-    900: '#5C2C00',
-  },
+  // green: {
+  //   100: '#F1F7E4',
+  //   200: '#DCEBBD',
+  //   300: '#C8DF96',
+  //   400: '#B3D36F',
+  //   500: '#9EC646',
+  //   600: '#83A834',
+  //   700: '#658128',
+  // },
+  // orange: {
+  //   100: '#FFF4EB',
+  //   200: '#FFDFC2',
+  //   300: '#FFC58F',
+  //   400: '#FFAB5C',
+  //   500: '#FF9029',
+  //   600: '#F77700',
+  //   700: '#C25200',
+  //   800: '#8F4500',
+  //   900: '#5C2C00',
+  // },
 };
 
 export const devices = {
@@ -65,6 +72,23 @@ export const fontWeights = {
   bold: 700,
 };
 
+export const zIndices = {
+  hide: -1,
+  auto: 'auto',
+  base: 0,
+  header: 5,
+  docked: 10,
+  dropdown: 1000,
+  sticky: 1100,
+  banner: 1200,
+  overlay: 1300,
+  modal: 1400,
+  popover: 1500,
+  skipLink: 1600,
+  toast: 1700,
+  tooltip: 1800,
+};
+
 export const emotionTheme = {
   colors,
   devices,
@@ -81,6 +105,7 @@ export const chakraTheme = {
     Tabs,
     TagStyleConfig,
   },
+  zIndices,
 } satisfies ThemeOverride;
 
 export const theme = extendTheme(chakraTheme);
@@ -88,3 +113,4 @@ export const theme = extendTheme(chakraTheme);
 export type Colors = typeof colors;
 export type Devices = typeof devices;
 export type FontWeight = typeof fontWeights;
+export type ZIndices = typeof zIndices;

@@ -27,10 +27,10 @@ const RecentPosts = () => {
           navigation={true}
           freeMode={true}
           modules={[FreeMode, Navigation]}
-          style={{ width: '100%' }}
+          style={{ width: '100%', zIndex: 0 }}
         >
           {recentGardenPosts.map((postData, idx) => (
-            <SwiperSlide key={idx} style={{ width: 'fit-content' }}>
+            <SwiperSlide key={idx} style={{ width: 'fit-content', zIndex: 0 }}>
               <RecentPostItem postData={postData} />
             </SwiperSlide>
           ))}

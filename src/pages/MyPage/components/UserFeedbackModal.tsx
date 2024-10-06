@@ -1,4 +1,5 @@
-import { ArrowDownIcon, UserFeedBackSmileIcon } from '@/assets/icons';
+import { Box, Flex, ModalCloseButton, Text, Textarea } from '@chakra-ui/react';
+import { useState } from 'react';
 import {
   Dropdown,
   DropdownItem,
@@ -7,12 +8,11 @@ import {
   ImageSelector,
   Modal,
 } from '@/components';
-import { Box, Flex, ModalCloseButton, Text, Textarea } from '@chakra-ui/react';
+import { ArrowDownIcon, UserFeedBackSmileIcon } from '@/assets/icons';
 import { userFeedBackItem } from '../constants';
-import { useState } from 'react';
-import { userFeedbackModalProps } from '../type';
-import { useImageStore } from '@/stores/imageStore';
 import { postUserFeedback } from '@/services/mypage/api';
+import { useImageStore } from '@/stores/imageStore';
+import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 const breakPoints = {
   320: { slidesPerView: 3, spaceBetween: 5 },
@@ -31,10 +31,8 @@ const initialFeedbackType = {
   value: 'default',
 };
 
-const UserFeedbackModal = ({
-  modalOpen,
-  setModalOpen,
-}: userFeedbackModalProps) => {
+const UserFeedbackModal = () => {
+  const { modalOpen, setModalOpen } = userFeedbackFabStore();
   const [feedbackType, setFeedbackType] = useState(initialFeedbackType);
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
@@ -42,7 +40,7 @@ const UserFeedbackModal = ({
   const [errorState, setErrorState] = useState(false);
 
   const closeModal = () => {
-    setModalOpen(false);
+    setModalOpen();
     setFeedbackType(initialFeedbackType);
     setImages([]);
     setErrorState(false);
@@ -51,8 +49,10 @@ const UserFeedbackModal = ({
   const validateForm = () => {
     if (feedbackType.value === 'default' || feedbackText.length < 8) {
       setErrorState(true);
+
       return false;
     }
+
     return true;
   };
   const onSubmit = async () => {

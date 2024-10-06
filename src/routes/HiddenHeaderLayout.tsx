@@ -1,31 +1,23 @@
-import { Box, Container } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '@/components';
-import useLoginStore from '@/stores/useLoginStore';
+import { HEADER_HEIGHT } from '@/components/Header/constants';
 
 const HiddenHeaderLayout = () => {
-  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
-
   return (
-    <Container maxW={'auto'} px={0}>
-      <Box
-        pos="sticky"
-        top={0}
-        bg="white"
-        zIndex={10}
-        display={{ mobile: 'none', tablet: 'block' }}
-      >
-        <Header loggedIn={isLoggedIn} />
+    <>
+      <Box display={{ mobile: 'none', tablet: 'block' }}>
+        <Header />
       </Box>
       <Box
-        h={{
-          mobile: undefined,
-          tablet: 'calc(100svh - 108px)',
+        pt={{
+          tablet: HEADER_HEIGHT.PC + 'px',
+          mobile: 0,
         }}
       >
         <Outlet />
       </Box>
-    </Container>
+    </>
   );
 };
 

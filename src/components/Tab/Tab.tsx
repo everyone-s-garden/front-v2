@@ -1,9 +1,13 @@
-import { TabIndicator, TabList, Tabs, Tab as TabItem } from '@chakra-ui/react';
-import { nanoid } from 'nanoid';
+import {
+  TabIndicator,
+  TabList,
+  Tabs,
+  Tab as TabItem,
+  Link as ChakraLink,
+} from '@chakra-ui/react';
 import { useCallback, useLayoutEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link as ReactRouterLink, useLocation } from 'react-router-dom';
 import { TabData } from './types';
-import useShowGardensStore from '@/stores/useShowGardensStore';
 
 interface TabProps {
   gap?: number;
@@ -27,9 +31,7 @@ const Tab = ({
   indicatorHeight = '2px',
 }: TabProps) => {
   const [tabIndex, setTabIndex] = useState(-1);
-
   const { pathname: currentPath } = useLocation();
-  const navigate = useNavigate();
 
   const getTabStyles = useCallback(() => {
     switch (tabWidth) {
@@ -51,11 +53,10 @@ const Tab = ({
     }
   }, [tabWidth]);
 
-  const handleClickTab = (index: number, href: string) => {
-    if (currentPath === href) return;
+  const handleClickTab = (index: number) => {
+    if (tabIndex === index) return;
 
     setTabIndex(index);
-    navigate(href);
   };
 
   useLayoutEffect(() => {
@@ -75,16 +76,10 @@ const Tab = ({
     setTabIndex(calculateSelectedIndex());
   }, [currentPath, tabIndex, tabsData]);
 
-  const { showGardens } = useShowGardensStore();
-
   return (
-    <Tabs
-      position="relative"
-      index={tabIndex}
-      bg="white"
-      zIndex={showGardens ? -1 : 0}
-    >
+    <Tabs position="relative" index={tabIndex} bg="white" zIndex="0">
       <TabList
+        as="ul"
         py={paddingVertical}
         gap={`${gap}px`}
         borderBottom={'2px solid'}
@@ -96,8 +91,9 @@ const Tab = ({
       >
         {tabsData.map(({ tabName, href }, index) => (
           <TabItem
-            onClick={() => handleClickTab(index, href)}
-            key={nanoid()}
+            as="li"
+            p="0"
+            key={href}
             _selected={{
               color: textStyle?.color || 'black',
             }}
@@ -105,7 +101,17 @@ const Tab = ({
             fontWeight={textStyle?.fontWeight}
             {...getTabStyles()}
           >
-            {tabName}
+            <ChakraLink
+              as={ReactRouterLink}
+              textAlign="center"
+              w="100%"
+              p="8px 16px"
+              to={href}
+              onClick={() => handleClickTab(index)}
+              _hover={{ textDecoration: 'none' }}
+            >
+              {tabName}
+            </ChakraLink>
           </TabItem>
         ))}
       </TabList>

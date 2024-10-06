@@ -1,13 +1,8 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { HeadphonesIcon, TextBubbleGreenIcon } from '@/assets/icons';
-import { useState } from 'react';
 import UserFeedbackModal from './UserFeedbackModal';
 
-// interface UserFeedBackProps {}
-
 const UserFeedBack = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-
   return (
     <>
       <Flex
@@ -23,7 +18,6 @@ const UserFeedBack = () => {
         border="1px"
         borderColor="green.500"
         as="button"
-        onClick={() => setModalOpen(true)}
       >
         <Box mr="6.03px" aria-label="유저의 소리함">
           <Text fontWeight="medium" fontSize="12px">
@@ -38,7 +32,7 @@ const UserFeedBack = () => {
           <HeadphonesIcon />
         </Flex>
       </Flex>
-      <UserFeedbackModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <UserFeedbackModal />
     </>
   );
 };
