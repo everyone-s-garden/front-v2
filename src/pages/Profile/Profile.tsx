@@ -7,7 +7,10 @@ import NoContent from './components/noContent/NoContent';
 import ProfileCard from './components/profileCard/ProfileCard';
 import ProfileCommunity from './components/profileCommunity/ProfileCommunity';
 import ProfileSaleGarden from './components/profileSaleGarden/ProfileSaleGarden';
-import { useGetOtherUsersGardens } from '@/services/gardens/query';
+import {
+  useGetOtherUsersGardenForSale,
+  useGetOtherUsersGardens,
+} from '@/services/gardens/query';
 import { useGetUserInfo } from '@/services/user/query';
 
 const Profile = () => {
@@ -15,10 +18,16 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState(profileTabs[0]);
   const { userId } = useParams();
 
-  const { data } = useGetOtherUsersGardens(Number(userId));
+  const { data: otherManagedGardensData } = useGetOtherUsersGardens(
+    Number(userId),
+  );
   const { data: userInfo } = useGetUserInfo(Number(userId));
+  const { data: otherGardensForSaleData, refetch: refetchGardensForSale } =
+    useGetOtherUsersGardenForSale(Number(userId));
 
-  const otherManagedGardens = data?.otherManagedGardenGetResponses;
+  const otherManagedGardens =
+    otherManagedGardensData?.otherManagedGardenGetResponses;
+  const otherGardensForSale = otherGardensForSaleData?.otherGardenGetResponse;
 
   return (
     <Box w="full" pos="relative" mb={{ mobile: '187px', tablet: '0px' }}>
@@ -53,7 +62,17 @@ const Profile = () => {
                 otherManagedGardens={otherManagedGardens}
               />
             ))}
-          {activeTab === profileTabs[1] && <ProfileSaleGarden />}
+          {activeTab === profileTabs[1] &&
+            (otherGardensForSale?.length === 0 ? (
+              <Box w={{ tablet: '886px' }} mb={{ tablet: '164px' }} mx={'auto'}>
+                <NoContent type="garden" />
+              </Box>
+            ) : (
+              <ProfileSaleGarden
+                otherGardensForSale={otherGardensForSale}
+                refetchGardensForSale={refetchGardensForSale}
+              />
+            ))}
           {activeTab === profileTabs[2] && (
             <ProfileCommunity userId={userId as string} />
           )}

@@ -1,9 +1,15 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
-function ProfileGardenStatus() {
+interface ProfileGardenStatusProps {
+  garden: GardenForSale | undefined;
+}
+
+function ProfileGardenStatus({ garden }: ProfileGardenStatusProps) {
   const gardenStatusArr = ['모집 중', '상시모집', '마감'];
-  const [gardenStatus] = useState(gardenStatusArr[0]);
+  const [gardenStatus] = useState(
+    garden?.gardenStatus === 'ACTIVE' ? gardenStatusArr[0] : gardenStatusArr[2],
+  );
 
   return (
     <Flex

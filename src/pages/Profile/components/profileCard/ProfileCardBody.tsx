@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { DefaultProfile } from '@/assets/images';
 
 interface ProfileCardBodyProps {
@@ -43,13 +43,13 @@ const ProfileCardBody = ({ userInfo }: ProfileCardBodyProps) => {
         >
           {userInfo?.nickname}
         </Box>
-        <Text
+        {/* <Text
           color="orange.500"
           fontSize={{ mobile: '10px', tablet: '7.82px', desktop: '10px' }}
           fontWeight="medium"
         >
           rrgy980@naver.com
-        </Text>
+        </Text> */}
       </Flex>
     </Flex>
   );

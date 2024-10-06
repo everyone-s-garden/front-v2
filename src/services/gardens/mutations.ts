@@ -6,7 +6,7 @@ import { gardensQuery } from './query';
 export const useLikeGarden = (
   liked: boolean | undefined,
   id: number | undefined,
-  setLiked: Dispatch<SetStateAction<boolean>>,
+  setLiked: Dispatch<SetStateAction<boolean | undefined>>,
 ) => {
   const queryClient = new QueryClient();
   const { mutate: mutateLikeGarden } = useMutation({
@@ -15,7 +15,7 @@ export const useLikeGarden = (
       gardenLikeId,
     }: {
       type: 'like' | 'cancel';
-      gardenLikeId: number | undefined;
+      gardenLikeId?: number | undefined;
     }) => gardensAPI.likeGarden(type, id, gardenLikeId),
     onMutate: () => {
       if (liked) setLiked(false);

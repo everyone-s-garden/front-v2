@@ -25,7 +25,7 @@ const ProfileGarden = ({
         mb="14px"
         display={{ mobile: 'none', tablet: 'block' }}
       >
-        {userInfo.nickname}님의 텃밭
+        {userInfo?.nickname}님의 텃밭
       </Box>
       <Flex flexDir="column" borderBottom="1px solid" borderColor="gray.100">
         {otherManagedGardens?.map((el, i) => (

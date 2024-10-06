@@ -1,12 +1,36 @@
-import { Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Spinner, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { HeartIcon } from '@/assets/icons';
+import { useLikeGarden } from '@/services/gardens/mutations';
 
-const ProfileIndividualSaleGardenFooter = () => {
-  const [liked, setLiked] = useState(false);
+interface ProfileIndividualSaleGardenFooterProps {
+  garden: GardenForSale | undefined;
+  refetchGardensForSale: () => void;
+}
+
+const ProfileIndividualSaleGardenFooter = ({
+  garden,
+  refetchGardensForSale,
+}: ProfileIndividualSaleGardenFooterProps) => {
+  const [liked, setLiked] = useState(garden?.isLiked);
+  const [loading, setLoading] = useState(false);
+
+  const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
 
   const handleClickLike = () => {
-    setLiked(!liked);
+    setLoading(true);
+
+    mutateLikeGarden({
+      type: 'like',
+    });
+
+    setTimeout(() => {
+      refetchGardensForSale();
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 150);
+    }, 250);
   };
 
   return (
@@ -23,13 +47,19 @@ const ProfileIndividualSaleGardenFooter = () => {
         cursor="pointer"
         onClick={handleClickLike}
       >
-        <Icon as={HeartIcon} fill={liked ? 'orange.500' : 'gray.300'} />
-        <Text
-          fontSize={{ mobile: '14px', tablet: '16px' }}
-          color={liked ? 'orange.500' : 'gray.300'}
-        >
-          찜하기
-        </Text>
+        {loading ? (
+          <Spinner size="sm" emptyColor="gray.200" color="green.500" />
+        ) : (
+          <>
+            <Icon as={HeartIcon} fill={liked ? 'orange.500' : 'gray.300'} />
+            <Text
+              fontSize={{ mobile: '14px', tablet: '16px' }}
+              color={liked ? 'orange.500' : 'gray.300'}
+            >
+              찜하기
+            </Text>
+          </>
+        )}
       </Flex>
       <Flex
         w="50%"

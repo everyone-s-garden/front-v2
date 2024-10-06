@@ -45,3 +45,18 @@ interface OtherManagedGardenGetResponses {
   nextManagedGardenId: number;
   hasNext: boolean;
 }
+
+interface GardenForSale {
+  gardenId: number;
+  gardenName: string;
+  price: string;
+  gardenStatus: 'ACTIVE' | 'INACTIVE' | 'PENDING';
+  images: string[];
+  isLiked: boolean;
+}
+
+interface OtherGardenGetResponse {
+  otherGardenGetResponse: GardenForSale[];
+  nextGardenId: number;
+  hasNext: boolean;
+}
