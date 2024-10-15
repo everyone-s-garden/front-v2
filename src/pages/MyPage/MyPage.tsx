@@ -13,10 +13,8 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AvatarComponent } from '@/components';
 import { ArrowDownIcon } from '@/assets/icons';
-import { SeedIcon } from '@/assets/icons';
+import { SeedSmallIcon } from '@/assets/icons';
 import {
-  cropTradeRoute,
-  gardenManagementRoute,
   mainRoute,
   nearByRoute,
   settingsRoute,
@@ -36,8 +34,8 @@ const Panel = ({ tabName }: { tabName: string }) => {
   const routes: Routes = useMemo(
     () => ({
       '내 주변 분양': nearByRoute,
-      '작물 거래': cropTradeRoute,
-      '텃밭 관리': gardenManagementRoute,
+      // '작물 거래': cropTradeRoute,
+      // '텃밭 관리': gardenManagementRoute,
       '속닥 속닥': whispersRoute,
       설정: settingsRoute,
       '유저의 소리함': [],
@@ -100,10 +98,11 @@ const GridComponent = ({ item }: { item: IMainRoute }) => {
       <Flex flexDir="column">
         <Text
           fontSize="18px"
-          fontWeight="semiBold"
+          fontWeight="bold"
           color="black"
           textAlign="start"
           zIndex={2}
+          marginBottom="8px"
         >
           {item.tabName}
         </Text>
@@ -111,7 +110,8 @@ const GridComponent = ({ item }: { item: IMainRoute }) => {
           fontSize="12px"
           noOfLines={2}
           textAlign="start"
-          color="black"
+          color="gray.500"
+          fontWeight={'medium'}
           zIndex={2}
         >
           {item.des}
@@ -145,13 +145,12 @@ const MyPage = () => {
         <Flex
           w="full"
           h={{ mobile: 'fit-content', tablet: '151px' }}
-          bg={{ mobile: 'inherit', tablet: 'orange.100' }}
+          bg={{ mobile: 'inherit', tablet: 'gray.50' }}
           px={{ mobile: '0', tablet: '30px' }}
           borderRadius={{ mobile: '0', tablet: '10px' }}
           align="center"
-          borderColor={{ mobile: 'gray.100', tablet: 'orange.200' }}
-          borderWidth={{ mobile: '0px', tablet: '1px' }}
           borderBottomWidth={{ mobile: '1px', tablet: '0px' }}
+          borderBottomColor={{ mobile: 'gray.100', tablet: 'transparent' }}
           mt={{ mobile: '54px', tablet: '103px' }}
           pb={{ mobile: '29px', tablet: '0px' }}
         >
@@ -159,16 +158,11 @@ const MyPage = () => {
             <AvatarComponent size="full" src={myProfile.profileImage} />
           </Box>
           <Box>
-            <Text
-              mb="8px"
-              color="orange.500"
-              fontWeight="semiBold"
-              fontSize="18px"
-            >
+            <Text mb="8px" color="black" fontWeight="semiBold" fontSize="18px">
               {myProfile.nickname}
             </Text>
             <Flex
-              bg="orange.500"
+              bg="#E06B9F"
               borderRadius="16px"
               alignItems="center"
               px="12px"
@@ -184,10 +178,10 @@ const MyPage = () => {
                 씨앗 등급
               </Text>
               <Box w="20px">
-                <SeedIcon />
+                <SeedSmallIcon />
               </Box>
             </Flex>
-            <Text color="orange.500" fontSize="10px">
+            <Text color="gray.500" fontSize="10px">
               {myProfile.email}
             </Text>
           </Box>
@@ -203,10 +197,10 @@ const MyPage = () => {
           </Text>
 
           <Grid
-            templateColumns="repeat(3,1fr)"
+            templateColumns="repeat(2,1fr)"
             gap="18px"
             mt="20px"
-            rowGap="32px"
+            rowGap="18px"
           >
             {mainRoute?.map((route) => (
               <GridComponent key={route.keyword} item={route} />

@@ -15,9 +15,11 @@ interface TabProps {
   color: 'green' | 'orange' | 'white';
   tabsData: TabData[];
   paddingVertical?: number;
-  borderTop?: boolean;
+  borderTop?: string;
   textStyle?: React.CSSProperties;
   indicatorHeight?: string;
+  borderBottom?: string;
+  linkStyle?: React.CSSProperties;
 }
 
 const Tab = ({
@@ -26,9 +28,11 @@ const Tab = ({
   color,
   tabsData,
   paddingVertical,
-  borderTop = false,
+  borderTop = '2px solid',
   textStyle,
+  borderBottom = '2px solid',
   indicatorHeight = '2px',
+  linkStyle,
 }: TabProps) => {
   const [tabIndex, setTabIndex] = useState(-1);
   const { pathname: currentPath } = useLocation();
@@ -82,10 +86,10 @@ const Tab = ({
         as="ul"
         py={paddingVertical}
         gap={`${gap}px`}
-        borderBottom={'2px solid'}
+        borderBottom={borderBottom}
         borderBottomColor="gray.200"
         justifyContent="center"
-        borderTop={borderTop ? '2px solid' : ''}
+        borderTop={borderTop}
         borderTopColor={borderTop ? 'gray.200' : ''}
         {...{ color: 'orange.100' }}
       >
@@ -107,6 +111,7 @@ const Tab = ({
               w="100%"
               p="8px 16px"
               to={href}
+              style={linkStyle}
               onClick={() => handleClickTab(index)}
               _hover={{ textDecoration: 'none' }}
             >
