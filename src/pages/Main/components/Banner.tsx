@@ -1,23 +1,13 @@
 import { Flex, Hide, Image, Show } from '@chakra-ui/react';
 import { Fragment } from 'react';
 import { ImageSlider } from '@/components';
-import {
-  Banner1,
-  Banner1Mobile,
-  Banner2,
-  Banner2Mobile,
-} from '@/assets/images';
+import { mainBanner, mainBannerMobile } from '@/assets/images/banners';
 
 const BANNER_INFO = [
   {
-    pc: Banner1,
-    mobile: Banner1Mobile,
-    bgColor: '#FEF9E6',
-  },
-  {
-    pc: Banner2,
-    mobile: Banner2Mobile,
-    bgColor: '#F0FBE4',
+    pc: mainBanner,
+    mobile: mainBannerMobile,
+    bgColor: '#131313',
   },
 ];
 
