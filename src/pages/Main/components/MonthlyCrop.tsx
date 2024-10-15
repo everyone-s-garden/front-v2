@@ -37,7 +37,7 @@ const MonthlyCrop = () => {
   if (!monthCrops) return null;
 
   return (
-    <Box bgColor="#fff7ee" py={{ mobile: '45px', tablet: '90px' }} px="20px">
+    <Box bgColor="green.100" py={{ mobile: '45px', tablet: '90px' }} px="20px">
       <Flex
         flexDir="column"
         m="0 auto"
