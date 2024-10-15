@@ -34,7 +34,7 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
   const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
   const isGardenLiked = gardenInfo?.gardenLikeId === 0 ? false : true;
-  const [liked, setLiked] = useState(isGardenLiked);
+  const [liked, setLiked] = useState<boolean | undefined>(isGardenLiked);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isClickedCallInWeb, setIsClickedCallInWeb] = useState(false);

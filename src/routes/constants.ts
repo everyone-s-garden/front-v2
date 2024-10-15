@@ -45,6 +45,7 @@ const MYPAGE = {
     COMMENTED_POSTS: '/mypage/whispers/commented-posts',
     LIKED_POSTS: '/mypage/whispers/liked-posts',
   },
+  PROFILE: '/profile/:userId',
 };
 
 const SETTINGS = '/settings';

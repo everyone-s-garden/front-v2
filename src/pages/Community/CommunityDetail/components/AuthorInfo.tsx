@@ -1,4 +1,5 @@
 import { Center, Flex, Icon, Text, useDisclosure } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import { AvatarComponent, Modal } from '@/components';
 import { ClosePrimaryIcon } from '@/assets/icons';
 import { GRADE } from '../../constants';
@@ -7,10 +8,13 @@ import Grade from '@/components/Grade/Grade';
 
 const AuthorInfo = ({ userId, profile, name, memberMannerGrade }: User) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   const handleClickUser = () => {
-    userId;
-    alert(`준비 중인 기능입니다.`);
+    // userId;
+    navigate(`/profile/${userId}`);
+
+    // alert(`준비 중인 기능입니다.`);
   };
 
   return (

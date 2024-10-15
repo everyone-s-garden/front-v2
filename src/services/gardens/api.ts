@@ -20,6 +20,26 @@ const gardensAPI = {
     return response.data;
   },
 
+  getOtherUsersGardens: async (
+    userId: number,
+  ): Promise<OtherManagedGardenGetResponses> => {
+    const response = await apiClient.get(
+      `/v2/gardens/other-managed?otherMemberIdToVisit=${userId}`,
+    );
+
+    return response.data;
+  },
+
+  getOtherUserGardenForSale: async (
+    userId: number,
+  ): Promise<OtherGardenGetResponse> => {
+    const response = await apiClient.get(
+      `/v2/gardens/other?otherMemberIdToVisit=${userId}`,
+    );
+
+    return response.data;
+  },
+
   getGardensInBounds: async (
     map: naver.maps.Map | null,
     type: 'ALL' | 'PUBLIC' | 'PRIVATE',

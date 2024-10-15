@@ -36,6 +36,7 @@ import GuestRoute from './GuestRoute';
 import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
+import Profile from '@/pages/Profile/Profile';
 
 const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, REPORT } =
   PATH;
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
       {
         path: COMMUNITY.DETAIL,
         element: <CommunityDetail />,
+      },
+      {
+        path: MYPAGE.PROFILE,
+        element: <Profile />,
       },
 
       // NOTE: 로그인하지 않은 사용자만 접근 가능한 페이지

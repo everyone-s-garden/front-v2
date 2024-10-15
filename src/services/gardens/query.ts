@@ -8,6 +8,7 @@ import gardensAPI from './api';
 export const gardensQuery = {
   all: () => ['gardens'] as const,
   details: () => [...gardensQuery.all(), 'detail'],
+  forSale: () => [...gardensQuery.all(), 'for-sale'],
 
   everyGarden: (pageNumber: number) =>
     queryOptions({
@@ -19,6 +20,18 @@ export const gardensQuery = {
     queryOptions({
       queryKey: [...gardensQuery.details(), id],
       queryFn: () => gardensAPI.getIndividualGarden(id),
+    }),
+
+  otherUsersGarden: (userId: number) =>
+    queryOptions({
+      queryKey: [...gardensQuery.details(), userId],
+      queryFn: () => gardensAPI.getOtherUsersGardens(userId),
+    }),
+
+  otherUsersGardenForSale: (userId: number) =>
+    queryOptions({
+      queryKey: [...gardensQuery.forSale(), userId],
+      queryFn: () => gardensAPI.getOtherUserGardenForSale(userId),
     }),
 };
 
@@ -44,6 +57,14 @@ export const useGetMapGardens = (
   });
 
   return { data, refetch };
+};
+
+export const useGetOtherUsersGardens = (userId: number) => {
+  return useQuery(gardensQuery.otherUsersGarden(userId));
+};
+
+export const useGetOtherUsersGardenForSale = (userId: number) => {
+  return useQuery(gardensQuery.otherUsersGardenForSale(userId));
 };
 
 export const useGetGardensScroll = (
