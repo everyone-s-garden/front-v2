@@ -1,9 +1,15 @@
-export { default as cloudyIcon } from './cloudy-icon.svg';
-export { default as rainIcon } from './rain-icon.svg';
-export { default as snowIcon } from './snow-icon.svg';
-export { default as sunnyIcon } from './sunny-icon.svg';
-export { default as mostlyCloudyIcon } from './mostlyCloudy-icon.svg';
-export { default as rainSnowIcon } from './rainSnow-icon.svg';
-export { default as showerIcon } from './shower-icon.svg';
-export { default as mainSunnyIcon } from './mainSunny-icon.svg';
-export { default as mainMostlyCloudyIcon } from './mainMostlyCloudy-icon.svg';
+export { default as cloudyIcon } from './cloudy.svg';
+export { default as rainIcon } from './rain.svg';
+export { default as snowIcon } from './snow.svg';
+export { default as sunnyIcon } from './sunny.svg';
+export { default as mostlyCloudyIcon } from './mostlycloudy.svg';
+export { default as rainSnowIcon } from './rainsnow.svg';
+export { default as showerIcon } from './shower.svg';
+
+export { default as mainSunnyIcon } from './main-sunny.svg';
+export { default as mainMostlyCloudyIcon } from './main-mostlycloudy.svg';
+export { default as mainCloudyIcon } from './main-cloudy.svg';
+export { default as mainRainIcon } from './main-rain.svg';
+export { default as mainSnowIcon } from './main-snow.svg';
+export { default as mainShowerIcon } from './main-shower.svg';
+export { default as mainRainSnowIcon } from './main-rainsnow.svg';
