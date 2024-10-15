@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import { Header } from '@/components';
 import { HEADER_HEIGHT } from '@/components/Header/constants';
 import UserFeedbackFab from '@/components/UserFeedbackFab/UserFeedbackFab';
-import useLoginStore from '@/stores/useLoginStore';
 
 const Layout = () => {
   return (

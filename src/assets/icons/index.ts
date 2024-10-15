@@ -60,3 +60,4 @@ export { default as PostBoxIcon } from './post-box.svg?react';
 export { default as NoPostIcon } from './no-post.svg?react';
 export { default as NoGardenIcon } from './no-garden.svg?react';
 export { default as DefaultProfileSVG } from './default-profile-image.svg?react';
+export { default as MainArrow } from './main-arrow.svg?react';

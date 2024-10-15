@@ -117,7 +117,7 @@ const MobileHeader = () => {
               </Tab>
             ))}
           </TabList>
-          <TabIndicator mt="-3px" height="3px" bg="green.500" />
+          <TabIndicator mt="-2px" height="3px" bg="green.500" />
         </Tabs>
       </chakra.nav>
     </Flex>

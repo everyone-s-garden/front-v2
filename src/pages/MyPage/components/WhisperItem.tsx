@@ -1,7 +1,7 @@
 import { Box, Flex, Image, ListItem, Text } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AvatarComponent, BottomMenu, TagComponent } from '@/components';
+import { AvatarComponent, BottomMenu } from '@/components';
 import {
   GardenImageDefaultIcon,
   HeartUnfiledIcon,
