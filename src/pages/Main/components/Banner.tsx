@@ -16,6 +16,7 @@ const Banner = () => {
   return (
     <Flex bg={BANNER_INFO[0].bgColor} justifyContent="center">
       <Image
+        draggable={false}
         maxW={{ mobile: '500px', tablet: '1440px' }}
         w="100%"
         src={isLargerThanTablet ? mainBanner : mainBannerMobile}
