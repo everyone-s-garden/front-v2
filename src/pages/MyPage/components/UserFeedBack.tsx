@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { HeadphonesIcon, TextBubbleGreenIcon } from '@/assets/icons';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
