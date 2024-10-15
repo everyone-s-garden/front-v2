@@ -11,7 +11,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'import'],
+  plugins: ['react-refresh', 'import', 'unused-imports'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -20,6 +20,17 @@ module.exports = {
     'newline-before-return': 'error',
     'import/newline-after-import': 'error',
     'storybook/prefer-pascal-case': 'off',
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
     'import/order': [
       'error',
       {
