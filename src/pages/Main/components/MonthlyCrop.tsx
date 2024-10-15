@@ -81,7 +81,7 @@ const MonthlyCrop = () => {
                   <Flex flexDir="column" gap="5px">
                     <Text
                       textColor="gray.700"
-                      fontSize={{ tablet: '14px', desktop: '20px' }}
+                      fontSize={{ tablet: '14px', desktop: '16px' }}
                       fontWeight="regular"
                       letterSpacing="0.16px"
                     >
@@ -89,7 +89,7 @@ const MonthlyCrop = () => {
                     </Text>
                     <Link
                       textColor="gray.700"
-                      fontSize={{ tablet: '14px', desktop: '20px' }}
+                      fontSize={{ tablet: '14px', desktop: '16px' }}
                       fontWeight="regular"
                       letterSpacing="0.16px"
                       href={item.link}
