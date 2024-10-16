@@ -1,16 +1,12 @@
-import { Box, Flex, IconButton } from '@chakra-ui/react';
-import { useRef } from 'react';
+import { Box, Flex } from '@chakra-ui/react';
 import { Navigation, FreeMode } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { NavigationOptions } from 'swiper/types';
-import { MainArrow } from '@/assets/icons';
 import ItemTitle from '../ItemTitle';
 import RecentPostItem from './RecentPostItem';
 import { useGetRecentGardenPosts } from '@/services/gardenPost/query';
+import './swiper.css';
 
 const RecentPosts = () => {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
   const { data: recentGardenPosts } = useGetRecentGardenPosts();
 
   if (!recentGardenPosts) {
@@ -23,14 +19,13 @@ const RecentPosts = () => {
         <ItemTitle>방금 등록된 따끈따끈한 게시글!</ItemTitle>
         <Box position="relative">
           <Swiper
-            onBeforeInit={(swiper) => {
-              const navigation = swiper.params.navigation as NavigationOptions;
-
-              navigation.prevEl = prevRef.current;
-              navigation.nextEl = nextRef.current;
-            }}
             slidesPerView="auto"
             spaceBetween={15}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            freeMode={true}
             modules={[FreeMode, Navigation]}
             style={{ width: '100%', zIndex: 0 }}
           >
@@ -43,8 +38,8 @@ const RecentPosts = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <IconButton
-            ref={prevRef}
+          {/* <IconButton
+            className="swiper-button-prev"
             variant="unstyled"
             position="absolute"
             top="50%"
@@ -55,7 +50,7 @@ const RecentPosts = () => {
             icon={<MainArrow />}
           />
           <IconButton
-            ref={nextRef}
+            className="swiper-button-next"
             variant="unstyled"
             aria-label="right"
             position="absolute"
@@ -64,7 +59,7 @@ const RecentPosts = () => {
             zIndex="10"
             transform="translateY(-50%)"
             icon={<MainArrow />}
-          />
+          /> */}
         </Box>
       </Flex>
     </Box>

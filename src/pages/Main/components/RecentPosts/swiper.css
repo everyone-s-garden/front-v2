@@ -1,0 +1,20 @@
+.swiper-button-next {
+  background: url('/src/assets/icons/main-arrow.svg') no-repeat;
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.swiper-button-prev {
+  background: url('/src/assets/icons/main-arrow.svg') no-repeat;
+  rotate: 180deg;
+  width: 44px !important;
+  height: 44px !important;
+}
+.swiper-button-disabled {
+  display: none !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
