@@ -17,17 +17,17 @@ const GardenList = ({ gardens }: { gardens: Garden[] }) => {
       borderBottom="1px solid"
       borderBottomColor="gray.100"
       key={garden.gardenId}
+      cursor="pointer"
+      onClick={() => {
+        setGardenId(garden.gardenId);
+        setShowGardenDetail(true);
+      }}
     >
       <Flex gap="17px">
         <Image
           w={{ mobile: '148px', tablet: '176px' }}
           h={{ mobile: '115px', tablet: '138px' }}
           borderRadius="8px"
-          cursor="pointer"
-          onClick={() => {
-            setGardenId(garden.gardenId);
-            setShowGardenDetail(true);
-          }}
           src={garden.images[0] === null ? MapGardenNoImg : garden.images[0]}
           alt={garden.gardenName}
         />
