@@ -32,21 +32,16 @@ const useGeolocation = () => {
   };
 
   useEffect(() => {
-    let watcher: number | null = null;
     if ('geolocation' in navigator) {
-      watcher = navigator.geolocation.watchPosition(onSuccess, onError);
+      navigator.geolocation.getCurrentPosition(onSuccess, onError, {
+        enableHighAccuracy: false,
+      });
     } else {
       onError({
         code: 0,
         message: 'Geolocation not supported',
       });
     }
-
-    return () => {
-      if (watcher !== null) {
-        navigator.geolocation.clearWatch(watcher);
-      }
-    };
   }, []);
 
   return location;
