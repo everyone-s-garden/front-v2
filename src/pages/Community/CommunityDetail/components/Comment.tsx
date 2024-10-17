@@ -42,7 +42,7 @@ const Comment = ({
       state: {
         from: pathname,
         name: 'community_comment',
-        color: 'orange',
+        color: 'green',
         reportId: commentId,
       },
     });

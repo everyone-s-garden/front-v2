@@ -43,7 +43,7 @@ const ProfileIndividualSaleGardenFooter = ({
         gap="4px"
         borderRadius="6px"
         border="1px solid"
-        borderColor={liked ? 'orange.300' : 'gray.200'}
+        borderColor={liked ? 'green.300' : 'gray.200'}
         cursor="pointer"
         onClick={handleClickLike}
       >
@@ -51,10 +51,10 @@ const ProfileIndividualSaleGardenFooter = ({
           <Spinner size="sm" emptyColor="gray.200" color="green.500" />
         ) : (
           <>
-            <Icon as={HeartIcon} fill={liked ? 'orange.500' : 'gray.300'} />
+            <Icon as={HeartIcon} fill={liked ? 'green.500' : 'gray.300'} />
             <Text
               fontSize={{ mobile: '14px', tablet: '16px' }}
-              color={liked ? 'orange.500' : 'gray.300'}
+              color={liked ? 'green.500' : 'gray.300'}
             >
               찜하기
             </Text>

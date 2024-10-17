@@ -34,7 +34,7 @@ const NearByGardensInfo = () => {
                 speed="0.6s"
                 size="xl"
                 thickness="3px"
-                color="orange.500"
+                color="green.500"
               />
             </Flex>
           }

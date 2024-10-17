@@ -30,7 +30,7 @@ function ProfileGardenStatus({ garden }: ProfileGardenStatusProps) {
     >
       <Flex gap="5px" alignItems="center">
         {gardenStatus === gardenStatusArr[0] && (
-          <Box w="9px" h="9px" bgColor="orange.600" borderRadius="50%" />
+          <Box w="9px" h="9px" bgColor="green.600" borderRadius="50%" />
         )}
         <Text
           color={gardenStatus === gardenStatusArr[2] ? 'gray.300' : 'black'}

@@ -8,9 +8,9 @@ const WeatherTag = ({ children }: PropsWithChildren) => {
       fontWeight="semiBold"
       rounded="10px"
       border="1px"
-      borderColor="orange.600"
-      bg="orange.100"
-      color="orange.600"
+      borderColor="green.600"
+      bg="green.100"
+      color="green.600"
       w="fit-content"
       p={{ mobile: '6px 8px', tablet: '8px 12px' }}
     >

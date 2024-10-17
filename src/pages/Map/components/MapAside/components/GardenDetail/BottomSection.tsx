@@ -118,7 +118,7 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
       state: {
         from: pathname,
         name: 'garden',
-        color: 'orange',
+        color: 'green',
         reportId: gardenInfo?.gardenId,
       },
     });
@@ -164,7 +164,7 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
           flexShrink="1"
           bgColor="white"
           border="1px solid"
-          borderColor={liked ? 'orange.500' : 'gray.100'}
+          borderColor={liked ? 'green.500' : 'gray.100'}
           padding="14px"
           _hover={{}}
           _active={{}}
@@ -180,11 +180,11 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
                 w="24px"
                 h="24px"
                 as={HeartIcon}
-                fill={liked ? 'orange.500' : 'gray.300'}
+                fill={liked ? 'green.500' : 'gray.300'}
                 marginRight="6px"
               />
               <Text
-                color={liked ? 'orange.500' : 'gray.300'}
+                color={liked ? 'green.500' : 'gray.300'}
                 fontWeight="medium"
               >
                 찜하기
@@ -306,7 +306,7 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
           </Text>
         </Box>
 
-        <AlertToast show={isCopied} message="복사되었습니다." color="green" />
+        <AlertToast show={isCopied} message="복사되었습니다." />
       </Modal>
       {gardenInfo?.openAPIResourceId && (
         <form

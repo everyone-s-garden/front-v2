@@ -149,7 +149,6 @@ const CommunityEdit = () => {
                       spaceBetween: 14,
                     },
                   }}
-                  color="orange"
                   size={{ mobile: 100, tablet: 136, desktop: 136 }}
                 />
               </Box>
@@ -165,7 +164,6 @@ const CommunityEdit = () => {
       </Content>
 
       <BlockerModal
-        color="orange"
         blockState={methods.getValues('content') !== '' || images.length > 0}
       />
     </>

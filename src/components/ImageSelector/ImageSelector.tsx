@@ -18,7 +18,6 @@ import { useImageStore } from '@/stores/imageStore';
 
 interface ImageSelectorProps {
   breakPoints: Record<number, { slidesPerView: number; spaceBetween?: number }>;
-  color: 'green' | 'orange';
   size: {
     mobile: number;
     tablet: number;
@@ -29,7 +28,6 @@ interface ImageSelectorProps {
 
 const ImageSelector = ({
   breakPoints,
-  color = 'green',
   size,
   showArrow = true,
 }: ImageSelectorProps) => {
@@ -72,7 +70,7 @@ const ImageSelector = ({
         },
         '.swiper-button-prev::after, .swiper-button-next::after': {
           fontSize: '20px',
-          color: `${color}.500`,
+          color: `green.500`,
         },
         '.swiper-button-prev': {
           top: '50%',
@@ -95,7 +93,7 @@ const ImageSelector = ({
     >
       <Button
         as={FormLabel}
-        bg={`${color}.100`}
+        bg={`green.100`}
         borderRadius={10}
         w={size}
         h={size}
@@ -106,8 +104,8 @@ const ImageSelector = ({
         flexShrink={0}
         mr={'10px'}
         mb={0}
-        _hover={{ bg: `${color}.100` }}
-        _active={{ bg: `${color}.100` }}
+        _hover={{ bg: `green.100` }}
+        _active={{ bg: `green.100` }}
       >
         <input
           id="image-upload"
@@ -117,8 +115,8 @@ const ImageSelector = ({
           onChange={handleImageAdd}
           style={{ display: 'none' }}
         />
-        <Icon as={CameraIcon} fill={`${color}.500`} w={'24px'} h={'24px'} />
-        <Text fontWeight="medium" color={`${color}.500`}>
+        <Icon as={CameraIcon} fill={`green.500`} w={'24px'} h={'24px'} />
+        <Text fontWeight="medium" color={`green.500`}>
           {images.length}/10
         </Text>
       </Button>

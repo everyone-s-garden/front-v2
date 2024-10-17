@@ -13,7 +13,7 @@ const ProfileCardFooter = ({ memberMannerGrade }: ProfileCardFooterProps) => {
       justifyContent="center"
       alignItems="center"
       mx="auto"
-      bgColor="orange.500"
+      bgColor="green.500"
       h={{ mobile: '48px', tablet: '43.8px', desktop: '56px' }}
       pos="absolute"
       bottom="0"

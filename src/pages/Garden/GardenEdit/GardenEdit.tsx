@@ -147,7 +147,6 @@ const GardenEdit = () => {
               }}
             >
               <ImageSelector
-                color="green"
                 breakPoints={{
                   0: {
                     slidesPerView: 2.5,
@@ -363,7 +362,6 @@ const GardenEdit = () => {
       </Content>
 
       <BlockerModal
-        color="green"
         blockState={Object.values(methods.getValues()).some((value) => value)}
       />
     </>

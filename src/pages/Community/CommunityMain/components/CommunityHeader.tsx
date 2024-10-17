@@ -1,20 +1,25 @@
-import { Box, Heading, Show, Text } from '@chakra-ui/react';
+import { Flex, Heading, Show, Text } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
 const CommunityHeader = ({ children }: PropsWithChildren) => {
   return (
-    <Box
-      h={{ mobile: '131px', tablet: '230px' }}
-      bg={'orange.100'}
+    <Flex
+      h={{ mobile: '127px', tablet: '218px' }}
+      bg={'green.100'}
       pt={{ mobile: '23px', tablet: '28px' }}
       px={'20px'}
       pb={{ mobile: '23px', tablet: '20px' }}
-      display={'flex'}
       flexDir={'column'}
       alignItems={'center'}
+      justifyContent={'center'}
     >
       <Show above="tablet">
-        <Heading as={'h1'} fontWeight={'bold'} fontSize={'24px'} mb={'12px'}>
+        <Heading
+          as={'h1'}
+          fontWeight={'bold'}
+          fontSize={'24px'}
+          margin="0 0 12px 0"
+        >
           속닥속닥
         </Heading>
         <Text color={'sub'}>
@@ -22,7 +27,7 @@ const CommunityHeader = ({ children }: PropsWithChildren) => {
         </Text>
       </Show>
       {children}
-    </Box>
+    </Flex>
   );
 };
 

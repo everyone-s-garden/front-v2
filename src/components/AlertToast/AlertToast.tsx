@@ -4,10 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 interface AlertToastProps {
   show: boolean;
   message: string;
-  color?: 'green' | 'orange' | 'red';
 }
 
-const AlertToast = ({ show, message, color = 'green' }: AlertToastProps) => {
+const AlertToast = ({ show, message }: AlertToastProps) => {
   const Box = chakra(motion.div);
 
   return (
@@ -22,7 +21,7 @@ const AlertToast = ({ show, message, color = 'green' }: AlertToastProps) => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          bgColor={`${color}.500`}
+          bgColor="green.500"
           color="white"
           fontSize="15px"
           fontWeight="medium"

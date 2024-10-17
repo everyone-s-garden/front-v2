@@ -17,7 +17,7 @@ const ProfileGardenFooter = ({ garden }: ProfileGardenFooterProps) => {
       alignItems="center"
       borderBottomRadius="10px"
       h="60px"
-      bgColor="orange.100"
+      bgColor="green.100"
       gap="12px"
       pl="20px"
     >

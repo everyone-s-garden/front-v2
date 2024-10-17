@@ -12,7 +12,7 @@ import { TabData } from './types';
 interface TabProps {
   gap?: number;
   tabWidth?: 'full' | 'fit' | 'fit-full';
-  color: 'green' | 'orange' | 'white';
+  color: 'green' | 'white';
   tabsData: TabData[];
   paddingVertical?: number;
   borderTop?: string;
@@ -91,7 +91,7 @@ const Tab = ({
         justifyContent="center"
         borderTop={borderTop}
         borderTopColor={borderTop ? 'gray.200' : ''}
-        {...{ color: 'orange.100' }}
+        {...{ color: 'green.100' }}
       >
         {tabsData.map(({ tabName, href }, index) => (
           <TabItem

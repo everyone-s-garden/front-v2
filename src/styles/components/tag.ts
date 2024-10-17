@@ -31,7 +31,7 @@ const sizeVariants = {
 
 const variantVariants = {
   whisper: {
-    backgroundColor: 'orange.200',
+    backgroundColor: 'green.200',
     px: '10px',
     py: '6px',
     borderRadius: '8px',
@@ -41,7 +41,7 @@ const variantVariants = {
     const { progress } = props;
 
     return {
-      backgroundColor: progress ? 'green.100' : 'orange.500',
+      backgroundColor: progress ? 'green.100' : 'green.500',
       color: progress ? 'green.600' : 'white',
       px: '11px',
       py: '8px',
@@ -49,7 +49,7 @@ const variantVariants = {
     };
   },
   userName: {
-    backgroundColor: 'orange.500',
+    backgroundColor: 'green.500',
     borderRadius: '10px',
     color: 'white',
     fontWeight: 'semiBold',

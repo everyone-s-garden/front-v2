@@ -134,7 +134,7 @@ const ReportForm = ({ from, color, name, reportId, memberId }: ReportState) => {
               isChatPending
             }
             display={'flex'}
-            colorScheme="orange"
+            colorScheme="green"
           >
             신고하기
           </Button>
