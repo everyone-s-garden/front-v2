@@ -3,11 +3,10 @@ import { useBlocker } from 'react-router-dom';
 import Modal from './Modal';
 
 interface BlockerModalProps {
-  color: 'green' | 'orange';
   blockState: boolean;
 }
 
-const BlockerModal = ({ color, blockState }: BlockerModalProps) => {
+const BlockerModal = ({ blockState }: BlockerModalProps) => {
   const { proceed, reset, state } = useBlocker(
     ({ currentLocation, nextLocation }) =>
       blockState && currentLocation.pathname !== nextLocation.pathname,
@@ -20,7 +19,6 @@ const BlockerModal = ({ color, blockState }: BlockerModalProps) => {
       handleClickButton={() => proceed && proceed()}
       showButton={true}
       showExitIcon={true}
-      buttonColor={color}
       buttonContent={'이동하기'}
       buttonDisabled={false}
     >
@@ -35,7 +33,9 @@ const BlockerModal = ({ color, blockState }: BlockerModalProps) => {
           fontSize={{ mobile: 'inherit', tablet: '18px' }}
           fontWeight="semibold"
         >
-          {`작성 중인 내용이 있습니다.\n다른 페이지로 이동하시겠습니까?`}
+          작성 중인 내용이 있습니다.
+          <br />
+          다른 페이지로 이동하시겠습니까?
         </Text>
       </Center>
     </Modal>

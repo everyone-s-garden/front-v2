@@ -45,7 +45,7 @@ const Interaction = ({
             py={'10px'}
             w={'fit-content'}
             mx={'auto'}
-            bg="orange.500"
+            bg="green.500"
             borderRadius={'10px'}
           >
             링크가 복사되었습니다.
@@ -80,8 +80,8 @@ const Interaction = ({
             icon={
               <Icon
                 as={HeartIcon}
-                fill={isLikeClick ? 'orange.500' : 'none'}
-                stroke={isLikeClick ? 'orange.500' : 'gray.200'}
+                fill={isLikeClick ? 'green.500' : 'none'}
+                stroke={isLikeClick ? 'green.500' : 'gray.200'}
                 strokeWidth={2}
                 w={'24px'}
                 h={'24px'}

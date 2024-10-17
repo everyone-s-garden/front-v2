@@ -56,7 +56,7 @@ const WeatherHeader = () => {
         </Text>
       </Flex>
       {isLocationLoading ? (
-        <Spinner size="md" color="orange.500" />
+        <Spinner size="md" color="green.500" />
       ) : (
         <Button
           leftIcon={

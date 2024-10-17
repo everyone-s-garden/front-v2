@@ -71,7 +71,7 @@ export const 정렬: Story = {
               key={item}
               _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
               _notFirst={{ borderRadius: 0 }}
-              _hover={{ bg: 'orange.100' }}
+              _hover={{ bg: 'green.100' }}
               onClick={onClose}
               py="20px"
             >

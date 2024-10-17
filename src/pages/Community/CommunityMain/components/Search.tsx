@@ -24,8 +24,8 @@ const Search = () => {
         borderRadius={'6px'}
         maxW={'496px'}
         w={'100%'}
-        mt={{ mobile: '0', tablet: '20px' }}
-        mb={'20px'}
+        mt={{ mobile: '0', tablet: '18px' }}
+        mb={'18px'}
       >
         <Icon
           as={SearchIcon}

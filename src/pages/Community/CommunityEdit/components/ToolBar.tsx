@@ -47,7 +47,7 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       flexShrink={0}
     >
       {/* NOTE: 주제 */}
-      <Dropdown colorScheme="orange" variant={'none'}>
+      <Dropdown colorScheme="green" variant={'none'}>
         <DropdownTrigger
           as={Button}
           rightIcon={
@@ -90,7 +90,7 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       <Divider orientation="vertical" h={'20px'} borderColor={'gray.400'} />
 
       {/* NOTE: 헤딩 툴 */}
-      <Dropdown colorScheme="orange" variant={'none'}>
+      <Dropdown colorScheme="green" variant={'none'}>
         <DropdownTrigger
           as={Button}
           rightIcon={
@@ -133,7 +133,7 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
             variant={'unstyled'}
             display={'flex'}
             onClick={handler}
-            bg={isActive ? 'orange.100' : 'none'}
+            bg={isActive ? 'green.100' : 'none'}
           />
         ))}
       </Flex>
@@ -178,7 +178,7 @@ const MobileToolBar = ({ editor }: { editor: Editor }) => {
             key={label}
             as={Button}
             variant="unstyled"
-            _hover={{ bg: 'orange.100' }}
+            _hover={{ bg: 'green.100' }}
             fontWeight={'medium'}
             h={'60px'}
             borderTopRadius={20}
@@ -210,7 +210,7 @@ const MobileToolBar = ({ editor }: { editor: Editor }) => {
             minW={'28px'}
             h={'28px'}
             borderRadius={'6px'}
-            bg={isActive ? 'orange.100' : 'none'}
+            bg={isActive ? 'green.100' : 'none'}
             onClick={handler}
           />
         ))}
@@ -234,9 +234,9 @@ const PostType = () => {
         rightIcon={
           <Icon as={ArrowDownIcon} stroke={'black'} w={'12px'} h={'12px'} />
         }
-        bg={getValues('postType') ? 'orange.200' : 'orange.100'}
-        _hover={{ bg: 'orange.200' }}
-        _active={{ bg: 'orange.200' }}
+        bg={getValues('postType') ? 'green.200' : 'green.100'}
+        _hover={{ bg: 'green.200' }}
+        _active={{ bg: 'green.200' }}
         borderRadius={8}
         onClick={onOpen}
         w={'fit-content'}
@@ -257,7 +257,7 @@ const PostType = () => {
             as={Button}
             key={type}
             variant="unstyled"
-            _hover={{ bg: 'orange.100' }}
+            _hover={{ bg: 'green.100' }}
             onClick={() => {
               setValue('postType', type);
               clearErrors('postType');

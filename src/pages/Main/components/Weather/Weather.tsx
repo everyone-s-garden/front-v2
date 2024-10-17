@@ -26,7 +26,7 @@ const Weather = () => {
                   speed="0.6s"
                   size="md"
                   thickness="3px"
-                  color="orange.500"
+                  color="green.500"
                 />
               </Flex>
             }
@@ -68,7 +68,7 @@ const Weather = () => {
                         speed="0.6s"
                         size="sm"
                         thickness="3px"
-                        color="orange.500"
+                        color="green.500"
                       />
                     </Flex>
                   }

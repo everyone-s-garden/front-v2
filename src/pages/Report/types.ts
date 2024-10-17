@@ -4,7 +4,7 @@ export type Name =
   | 'chat'
   | 'community_post'
   | 'community_comment';
-export type Color = 'orange' | 'green';
+export type Color = 'green';
 
 export interface ReportState {
   from: string;
