@@ -34,7 +34,7 @@ const MapHeader = ({
       <Show above="tablet">
         <Box w="1187px" h="57px" margin="0 auto" padding="0 20px">
           <Flex w="100%" h="36px" alignItems="center" gap="30px">
-            <Text cursor="pointer" fontSize="15px" fontWeight="regular">
+            <Text userSelect="none" fontSize="15px" fontWeight="regular">
               분양주체
             </Text>
             <Text

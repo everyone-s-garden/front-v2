@@ -24,11 +24,11 @@ const GardenStatus = ({ gardenStatus, type }: GardenStatusProps) => {
       borderColor="green.500"
     >
       {gardenStatus === 'ACTIVE' && (
-        <Box w="9px" h="9px" bgColor="orange.500" borderRadius="50%" />
+        <Box w="9px" h="9px" bgColor="green.500" borderRadius="50%" />
       )}
 
       <Text fontSize={type === 'normal' ? '14px' : '16px'}>
-        {gardenStatus === 'ACTIVE' ? '모집중' : '마감'}
+        {gardenStatus === 'ACTIVE' ? '모집 중' : '마감'}
       </Text>
     </Flex>
   );
