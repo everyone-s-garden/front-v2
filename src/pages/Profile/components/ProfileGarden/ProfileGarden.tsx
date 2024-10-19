@@ -27,7 +27,13 @@ const ProfileGarden = ({
       >
         {userInfo?.nickname}님의 텃밭
       </Box>
-      <Flex flexDir="column" borderBottom="1px solid" borderColor="gray.100">
+      <Flex
+        minWidth={'740px'}
+        maxW={'740px'}
+        flexDir="column"
+        borderBottom="1px solid"
+        borderColor="gray.100"
+      >
         {otherManagedGardens?.map((el, i) => (
           <Box key={i}>
             <ProfileGardenSlider images={el.images} />

@@ -54,6 +54,12 @@ export interface MyManagedGarden {
   description: string;
 }
 
+export interface MyManagedGardenGetResponses {
+  myManagedGardenGetResponses: MyManagedGarden[];
+  nextMyManagedGardenId: number;
+  hasNext: boolean;
+}
+
 export interface userFeedbackModalProps {
   modalOpen: boolean;
   setModalOpen: React.Dispatch<SetStateAction<boolean>>;
