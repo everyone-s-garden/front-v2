@@ -28,14 +28,14 @@ const ProfileIndividualSaleGarden = ({
       >
         {garden?.gardenName}
       </Text>
-      {/* {garden?.price} */}
-      {/* <Text
+
+      <Text
         fontSize={{ mobile: '14px', tablet: '16px' }}
         color={{ mobile: 'sub', tablet: 'black' }}
         mt={{ mobile: '-2px', tablet: '0px' }}
       >
-        평당 15,000원
-      </Text> */}
+        {Number(garden?.price).toLocaleString()} 원
+      </Text>
 
       <ProfileIndividualSaleGardenFooter
         garden={garden}
