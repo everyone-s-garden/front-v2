@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
 const useOtherGardenSale = ({
   otherGardensForSaleData,
@@ -8,6 +8,15 @@ const useOtherGardenSale = ({
   setNextGardenForSaleId: Dispatch<SetStateAction<number>>;
 }) => {
   const otherGardensForSaleDataRef = useRef<HTMLDivElement>(null);
+  const [hasNext, setHasNext] = useState(true);
+
+  useEffect(() => {
+    if (otherGardensForSaleData && otherGardensForSaleData.hasNext) {
+      setHasNext(true);
+    } else {
+      setHasNext(false);
+    }
+  }, [otherGardensForSaleData]);
 
   useEffect(() => {
     const options = {
@@ -17,12 +26,10 @@ const useOtherGardenSale = ({
     };
 
     const onIntersect = async (entries: IntersectionObserverEntry[]) => {
-      if (
-        entries[0].isIntersecting &&
-        otherGardensForSaleData?.nextGardenId &&
-        otherGardensForSaleData?.hasNext
-      ) {
-        setNextGardenForSaleId(otherGardensForSaleData?.nextGardenId);
+      if (entries[0].isIntersecting && hasNext && otherGardensForSaleData) {
+        if (otherGardensForSaleData.nextGardenId) {
+          setNextGardenForSaleId(otherGardensForSaleData.nextGardenId);
+        }
       }
     };
 
@@ -35,11 +42,7 @@ const useOtherGardenSale = ({
     return () => {
       observer.disconnect();
     };
-  }, [
-    otherGardensForSaleData?.hasNext,
-    otherGardensForSaleData?.nextGardenId,
-    setNextGardenForSaleId,
-  ]);
+  }, [[hasNext, otherGardensForSaleData, setNextGardenForSaleId]]);
 
   return { otherGardensForSaleDataRef };
 };

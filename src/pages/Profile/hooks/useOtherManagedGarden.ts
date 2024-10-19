@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
 const useOtherManagedGarden = ({
   otherManagedGardensData,
@@ -8,6 +8,15 @@ const useOtherManagedGarden = ({
   setNextGardenId: Dispatch<SetStateAction<number>>;
 }) => {
   const otherManagedGardensRef = useRef<HTMLDivElement>(null);
+  const [hasNext, setHasNext] = useState(true);
+
+  useEffect(() => {
+    if (otherManagedGardensData && otherManagedGardensData.hasNext) {
+      setHasNext(true);
+    } else {
+      setHasNext(false);
+    }
+  }, [otherManagedGardensData]);
 
   useEffect(() => {
     const options = {
@@ -17,12 +26,10 @@ const useOtherManagedGarden = ({
     };
 
     const onIntersect = async (entries: IntersectionObserverEntry[]) => {
-      if (
-        entries[0].isIntersecting &&
-        otherManagedGardensData?.nextManagedGardenId &&
-        otherManagedGardensData?.hasNext
-      ) {
-        setNextGardenId(otherManagedGardensData?.nextManagedGardenId);
+      if (entries[0].isIntersecting && hasNext && otherManagedGardensData) {
+        if (otherManagedGardensData.nextManagedGardenId) {
+          setNextGardenId(otherManagedGardensData.nextManagedGardenId);
+        }
       }
     };
 
@@ -35,11 +42,7 @@ const useOtherManagedGarden = ({
     return () => {
       observer.disconnect();
     };
-  }, [
-    otherManagedGardensData?.hasNext,
-    otherManagedGardensData?.nextManagedGardenId,
-    setNextGardenId,
-  ]);
+  }, [hasNext, otherManagedGardensData, setNextGardenId]);
 
   return { otherManagedGardensRef };
 };

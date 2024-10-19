@@ -1,5 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfileGarden from './components/ProfileGarden/ProfileGarden';
 import ProfileTab from './components/ProfileTab';
@@ -21,12 +21,19 @@ const Profile = () => {
   const { userId } = useParams();
   const [nextGardenId, setNextGardenId] = useState(0);
   const [nextGardenForSaleId, setNextGardenForSaleId] = useState(0);
+  const [allManagedGardens, setAllManagedGardens] = useState<ManagedGarden[]>(
+    [],
+  );
+  const [allGardensForSale, setAllGardensForSale] = useState<GardenForSale[]>(
+    [],
+  );
   const { data: userInfo } = useGetUserInfo(Number(userId));
 
   const { data: otherManagedGardensData } = useGetOtherUsersGardens(
     Number(userId),
     nextGardenId,
   );
+
   const { data: otherGardensForSaleData, refetch: refetchGardensForSale } =
     useGetOtherUsersGardenForSale(Number(userId), nextGardenForSaleId);
 
@@ -40,9 +47,23 @@ const Profile = () => {
     setNextGardenForSaleId,
   });
 
-  const otherManagedGardens =
-    otherManagedGardensData?.otherManagedGardenGetResponses;
-  const otherGardensForSale = otherGardensForSaleData?.otherGardenGetResponse;
+  useEffect(() => {
+    if (otherManagedGardensData?.otherManagedGardenGetResponses) {
+      setAllManagedGardens((prevGardens) => [
+        ...prevGardens,
+        ...otherManagedGardensData.otherManagedGardenGetResponses,
+      ]);
+    }
+  }, [otherManagedGardensData]);
+
+  useEffect(() => {
+    if (otherGardensForSaleData?.otherGardenGetResponse) {
+      setAllGardensForSale((prevGardensForSale) => [
+        ...prevGardensForSale,
+        ...otherGardensForSaleData.otherGardenGetResponse,
+      ]);
+    }
+  }, [otherGardensForSaleData]);
 
   return (
     <Box w="full" pos="relative" mb={{ mobile: '187px', tablet: '0px' }}>
@@ -67,7 +88,7 @@ const Profile = () => {
           <ProfileCard userInfo={userInfo} />
 
           {activeTab === profileTabs[0] &&
-            (otherManagedGardens?.length === 0 ? (
+            (allManagedGardens.length === 0 ? (
               <Box w={{ tablet: '886px' }} mb={{ tablet: '164px' }} mx={'auto'}>
                 <NoContent type="garden" />
               </Box>
@@ -75,25 +96,27 @@ const Profile = () => {
               <Box>
                 <ProfileGarden
                   userInfo={userInfo}
-                  otherManagedGardens={otherManagedGardens}
+                  otherManagedGardens={allManagedGardens}
                 />
                 <div ref={otherManagedGardensRef} />
               </Box>
             ))}
+
           {activeTab === profileTabs[1] &&
-            (otherGardensForSale?.length === 0 ? (
+            (allGardensForSale.length === 0 ? (
               <Box w={{ tablet: '886px' }} mb={{ tablet: '164px' }} mx={'auto'}>
                 <NoContent type="garden" />
               </Box>
             ) : (
               <Box>
                 <ProfileSaleGarden
-                  otherGardensForSale={otherGardensForSale}
+                  otherGardensForSale={allGardensForSale}
                   refetchGardensForSale={refetchGardensForSale}
                 />
                 <div ref={otherGardensForSaleDataRef} />
               </Box>
             ))}
+
           {activeTab === profileTabs[2] && (
             <ProfileCommunity userId={userId as string} />
           )}
