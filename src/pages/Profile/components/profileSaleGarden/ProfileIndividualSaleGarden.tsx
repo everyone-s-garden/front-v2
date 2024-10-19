@@ -28,7 +28,7 @@ const ProfileIndividualSaleGarden = ({
       >
         {garden?.gardenName}
       </Text>
-
+      {/* {garden?.price} */}
       {/* <Text
         fontSize={{ mobile: '14px', tablet: '16px' }}
         color={{ mobile: 'sub', tablet: 'black' }}

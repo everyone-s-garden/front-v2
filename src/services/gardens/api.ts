@@ -22,9 +22,10 @@ const gardensAPI = {
 
   getOtherUsersGardens: async (
     userId: number,
+    nextGardenId: number = 0,
   ): Promise<OtherManagedGardenGetResponses> => {
     const response = await apiClient.get(
-      `/v2/gardens/other-managed?otherMemberIdToVisit=${userId}`,
+      `/v2/gardens/other-managed?otherMemberIdToVisit=${userId}&nextManagedGardenId=${nextGardenId}`,
     );
 
     return response.data;
@@ -32,9 +33,10 @@ const gardensAPI = {
 
   getOtherUserGardenForSale: async (
     userId: number,
+    nextGardenId: number,
   ): Promise<OtherGardenGetResponse> => {
     const response = await apiClient.get(
-      `/v2/gardens/other?otherMemberIdToVisit=${userId}`,
+      `/v2/gardens/other?otherMemberIdToVisit=${userId}&nextManagedGardenId=${nextGardenId}`,
     );
 
     return response.data;

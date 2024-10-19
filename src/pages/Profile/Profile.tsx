@@ -7,6 +7,8 @@ import NoContent from './components/noContent/NoContent';
 import ProfileCard from './components/profileCard/ProfileCard';
 import ProfileCommunity from './components/profileCommunity/ProfileCommunity';
 import ProfileSaleGarden from './components/profileSaleGarden/ProfileSaleGarden';
+import useOtherGardenSale from './hooks/useOtherGardenSale';
+import useOtherManagedGarden from './hooks/useOtherManagedGarden';
 import {
   useGetOtherUsersGardenForSale,
   useGetOtherUsersGardens,
@@ -14,16 +16,29 @@ import {
 import { useGetUserInfo } from '@/services/user/query';
 
 const Profile = () => {
-  const profileTabs = ['텃밭 보기', '분양 텃밭', '속닥속닥'];
+  const profileTabs = ['텃밭 일기', '분양 텃밭', '속닥속닥'];
   const [activeTab, setActiveTab] = useState(profileTabs[0]);
   const { userId } = useParams();
+  const [nextGardenId, setNextGardenId] = useState(0);
+  const [nextGardenForSaleId, setNextGardenForSaleId] = useState(0);
+  const { data: userInfo } = useGetUserInfo(Number(userId));
 
   const { data: otherManagedGardensData } = useGetOtherUsersGardens(
     Number(userId),
+    nextGardenId,
   );
-  const { data: userInfo } = useGetUserInfo(Number(userId));
   const { data: otherGardensForSaleData, refetch: refetchGardensForSale } =
-    useGetOtherUsersGardenForSale(Number(userId));
+    useGetOtherUsersGardenForSale(Number(userId), nextGardenForSaleId);
+
+  const { otherManagedGardensRef } = useOtherManagedGarden({
+    otherManagedGardensData,
+    setNextGardenId,
+  });
+
+  const { otherGardensForSaleDataRef } = useOtherGardenSale({
+    otherGardensForSaleData,
+    setNextGardenForSaleId,
+  });
 
   const otherManagedGardens =
     otherManagedGardensData?.otherManagedGardenGetResponses;
@@ -57,10 +72,13 @@ const Profile = () => {
                 <NoContent type="garden" />
               </Box>
             ) : (
-              <ProfileGarden
-                userInfo={userInfo}
-                otherManagedGardens={otherManagedGardens}
-              />
+              <Box>
+                <ProfileGarden
+                  userInfo={userInfo}
+                  otherManagedGardens={otherManagedGardens}
+                />
+                <div ref={otherManagedGardensRef} />
+              </Box>
             ))}
           {activeTab === profileTabs[1] &&
             (otherGardensForSale?.length === 0 ? (
@@ -68,10 +86,13 @@ const Profile = () => {
                 <NoContent type="garden" />
               </Box>
             ) : (
-              <ProfileSaleGarden
-                otherGardensForSale={otherGardensForSale}
-                refetchGardensForSale={refetchGardensForSale}
-              />
+              <Box>
+                <ProfileSaleGarden
+                  otherGardensForSale={otherGardensForSale}
+                  refetchGardensForSale={refetchGardensForSale}
+                />
+                <div ref={otherGardensForSaleDataRef} />
+              </Box>
             ))}
           {activeTab === profileTabs[2] && (
             <ProfileCommunity userId={userId as string} />

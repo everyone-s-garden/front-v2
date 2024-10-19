@@ -18,10 +18,12 @@ const ProfileIndividualSaleGardenFooter = ({
   const { mutateLikeGarden } = useLikeGarden(liked, garden?.gardenId, setLiked);
 
   const handleClickLike = () => {
+    if (loading) return;
     setLoading(true);
 
     mutateLikeGarden({
-      type: 'like',
+      type: garden?.isLiked ? 'cancel' : 'like',
+      gardenLikeId: garden?.gardenId,
     });
 
     setTimeout(() => {

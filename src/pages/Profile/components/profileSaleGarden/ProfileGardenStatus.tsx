@@ -6,9 +6,9 @@ interface ProfileGardenStatusProps {
 }
 
 function ProfileGardenStatus({ garden }: ProfileGardenStatusProps) {
-  const gardenStatusArr = ['모집 중', '상시모집', '마감'];
+  const gardenStatusArr = ['모집 중', '마감'];
   const [gardenStatus] = useState(
-    garden?.gardenStatus === 'ACTIVE' ? gardenStatusArr[0] : gardenStatusArr[2],
+    garden?.gardenStatus === 'ACTIVE' ? gardenStatusArr[0] : gardenStatusArr[1],
   );
 
   return (
