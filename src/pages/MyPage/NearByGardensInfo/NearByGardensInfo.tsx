@@ -1,10 +1,10 @@
 import { Box, Flex, Spinner } from '@chakra-ui/react';
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import MyPageNavBar from '../components/MyPageNavBar';
 import UserFeedBack from '../components/UserFeedBack';
 import UserProfile from '../components/UserProfile';
 import { nearByRoute } from '../constants';
-import { Suspense } from 'react';
 
 const NearByGardensInfo = () => {
   return (
@@ -34,7 +34,7 @@ const NearByGardensInfo = () => {
                 speed="0.6s"
                 size="xl"
                 thickness="3px"
-                color="orange.500"
+                color="green.500"
               />
             </Flex>
           }

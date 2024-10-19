@@ -40,7 +40,10 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={emotionTheme}>
         <ChakraProvider theme={theme}>
-          <NavermapsProvider ncpClientId={import.meta.env.VITE_NCP_CLIENT_ID}>
+          <NavermapsProvider
+            ncpClientId={import.meta.env.VITE_NCP_CLIENT_ID}
+            submodules={['geocoder']}
+          >
             <Global styles={globalStyles} />
             <RouterProvider router={router} />
           </NavermapsProvider>

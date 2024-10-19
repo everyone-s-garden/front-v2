@@ -1,7 +1,7 @@
 import { Box, Flex, Image, ListItem, Text } from '@chakra-ui/react';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AvatarComponent, BottomMenu, TagComponent } from '@/components';
+import { AvatarComponent, BottomMenu } from '@/components';
 import {
   GardenImageDefaultIcon,
   HeartUnfiledIcon,
@@ -74,7 +74,19 @@ const WhisperItem = ({
             alignItems={'center'}
             mb={{ mobile: '8px', tablet: '0' }}
           >
-            <TagComponent tagLabel="텃밭 자랑" />
+            {/* <TagComponent tagLabel="텃밭 자랑" /> */}
+            <Flex
+              bg="black"
+              color="white"
+              borderRadius="6px"
+              p="6px 10px"
+              align={'center'}
+              justify={'center'}
+              fontSize={'16px'}
+              fontWeight={'medium'}
+            >
+              텃밭 자랑
+            </Flex>
             <Box hideFrom={'tablet'} ml="auto">
               <ThreeDotsMenuIcon onClick={menuOpen} cursor="pointer" />
               <BottomMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>

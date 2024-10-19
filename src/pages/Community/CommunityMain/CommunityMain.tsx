@@ -35,7 +35,7 @@ const CommunityMain = () => {
       <Box
         maxW={1194}
         mx={'auto'}
-        pt={{ mobile: '20px', tablet: '70px' }}
+        pt={{ mobile: '20px', tablet: '67px' }}
         px={'20px'}
       >
         <Order />
@@ -51,8 +51,7 @@ const CommunityMain = () => {
               iconFill={false}
               iconStroke={false}
               size="large"
-              description={`등록된 글이 없습니다.
-              새로운 글을 등록해보세요 !`}
+              description={`등록된 글이 없습니다. 새로운 글을 등록해보세요 !`}
               py={{ mobile: '50px', tablet: '80px' }}
             />
           )}

@@ -33,17 +33,17 @@ export const REPORT_DATA = {
   },
   chat: {
     name: '거래',
-    color: 'orange',
+    color: 'green',
     report: REPORT_TYPE.CHAT,
   },
   community_post: {
     name: '속닥속닥 게시글',
-    color: 'orange',
+    color: 'green',
     report: REPORT_TYPE.DEFAULT,
   },
   community_comment: {
     name: '속닥속닥 댓글',
-    color: 'orange',
+    color: 'green',
     report: REPORT_TYPE.DEFAULT,
   },
 };

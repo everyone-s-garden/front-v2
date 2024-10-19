@@ -1,6 +1,6 @@
 import { Text, Image, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import BtnItems from './BtnItems';
+// import BtnItems from './BtnItems';
 import MobileHeader from './MobileHeader';
 import { EnterChatRoom } from '@/services/chat/type';
 import { useGetIndividualGarden } from '@/services/gardens/query';
@@ -38,13 +38,14 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
       zIndex="1"
       justifyContent="space-between"
       alignItems={{ mobile: 'flex-start', tablet: 'center' }}
-      h={{ mobile: '193px', tablet: '86px' }}
+      // h={{ mobile: '193px', tablet: '86px' }}
+      h={{ mobile: '125px', tablet: '86px' }}
       padding={{ mobile: '0 20px 10px 20px', tablet: '17px' }}
       flexDirection={{ mobile: 'column', tablet: 'row' }}
       borderBottom={{ mobile: '1px solid', tablet: 'none' }}
       borderLeft={{ mobile: 'none', tablet: '1px solid' }}
-      borderColor={{ mobile: 'gray.200', tablet: 'orange.200' }}
-      backgroundColor={{ mobile: 'white', tablet: 'orange.100' }}
+      borderColor={{ mobile: 'gray.100', tablet: 'gray.200' }}
+      backgroundColor={{ mobile: 'white', tablet: 'gray.50' }}
     >
       <MobileHeader
         partnerNickname={partnerNickname}
@@ -53,8 +54,8 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
       <Flex alignItems="center" gap="15px">
         {gardenDetailData && (
           <Image
-            w={{ mobile: '52px', tablet: '52px' }}
-            h={{ mobile: '52px', tablet: '52px' }}
+            w={{ mobile: '52px', tablet: '54px' }}
+            h={{ mobile: '52px', tablet: '54px' }}
             borderRadius="10px"
             backgroundColor="gray.100"
             src={images[0]}
@@ -91,7 +92,8 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
           </Text>
         </Flex>
       </Flex>
-      <BtnItems />
+      {/* 추가 예정 */}
+      {/* <BtnItems /> */}
     </Flex>
   );
 };

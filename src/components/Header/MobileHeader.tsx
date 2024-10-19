@@ -20,8 +20,10 @@ import { HEADER_HEIGHT, headerNavLinks } from './constants';
 import mainLogo from './mainLogo.svg';
 import { PATH } from '@/routes/constants';
 import useLoginStore from '@/stores/useLoginStore';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 const MobileHeader = () => {
+  const { showGardenDetail } = useShowGardenDetailStore();
   const [scrollY, setScrollY] = useState(0);
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const currentPath = useLocation().pathname;
@@ -94,6 +96,7 @@ const MobileHeader = () => {
         position="fixed"
         top={dynamicTop}
         bg="white"
+        display={showGardenDetail ? 'none' : 'block'}
       >
         <Tabs index={tabIndex}>
           <TabList as="ul">
@@ -114,7 +117,7 @@ const MobileHeader = () => {
               </Tab>
             ))}
           </TabList>
-          <TabIndicator mt="-3px" height="3px" bg="green.500" />
+          <TabIndicator mt="-2px" height="3px" bg="green.500" />
         </Tabs>
       </chakra.nav>
     </Flex>

@@ -28,6 +28,7 @@ const MYPAGE = {
     RECENTLY_VIEWED_GARDENS:
       '/mypage/nearby-gardens-info/recently-viewed-gardens',
     MY_POSTS: '/mypage/nearby-gardens-info/my-posts',
+    GARDEN_DIARY: '/mypage/nearby-gardens-info/garden-diary',
   },
   CROP_TRADE: {
     MAIN: '/mypage/crop-trade',
@@ -35,9 +36,6 @@ const MYPAGE = {
     SALES_HISTORY: '/mypage/crop-trade/sales-history',
     PURCHASE_HISTORY: '/mypage/crop-trade/purchase-history',
     WISH_LIST: '/mypage/crop-trade/wish-list',
-  },
-  GARDEN_MANAGEMENT: {
-    MY_GARDEN: '/mypage/my-garden',
   },
   WHISPERS: {
     MAIN: '/mypage/whispers',

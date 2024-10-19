@@ -9,10 +9,12 @@ import {
   Image,
   Link,
   Text,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { getMonthImage } from '../utils/getMonthImage';
 import ItemTitle from './ItemTitle';
 import { useGetMonthCrops } from '@/services/crop/query';
+import { devices } from '@/styles/theme';
 
 const MONTH_TITLE = [
   '1월 추운 겨울 심기 좋은 작물 추천 해드려요!',
@@ -33,11 +35,12 @@ const MonthlyCrop = () => {
   const { data: monthCrops } = useGetMonthCrops();
   const currentMonth = new Date().getMonth();
   const currentMonthImage = getMonthImage(currentMonth + 1);
+  const [isLargerThanDesktop] = useMediaQuery(devices.desktop);
 
   if (!monthCrops) return null;
 
   return (
-    <Box bgColor="#fff7ee" py={{ mobile: '45px', tablet: '90px' }} px="20px">
+    <Box bgColor="green.100" py={{ mobile: '45px', tablet: '90px' }} px="20px">
       <Flex
         flexDir="column"
         m="0 auto"
@@ -47,19 +50,18 @@ const MonthlyCrop = () => {
       >
         <ItemTitle>{MONTH_TITLE[currentMonth]}</ItemTitle>
         <Flex
-          flexDir={{ mobile: 'column', tablet: 'row', desktop: 'row' }}
+          flexDir={{ mobile: 'column', tablet: 'column', desktop: 'row' }}
           gap={{ mobile: '24px', tablet: '30px' }}
         >
           <Image
             rounded="10px"
-            hideBelow="desktop"
-            src={currentMonthImage.pc}
-            height={'min-content'}
-          />
-          <Image
-            rounded="10px"
-            hideFrom="desktop"
-            src={currentMonthImage.mobile}
+            src={
+              isLargerThanDesktop
+                ? currentMonthImage.pc
+                : currentMonthImage.mobile
+            }
+            maxW={{ mobile: '100%', desktop: '582px' }}
+            h={{ mobile: 'auto', desktop: 'fit-content' }}
           />
           <Accordion allowToggle w="100%">
             {monthCrops[currentMonth].cropInfos.map((item, index) => (
@@ -79,7 +81,7 @@ const MonthlyCrop = () => {
                   <Flex flexDir="column" gap="5px">
                     <Text
                       textColor="gray.700"
-                      fontSize={{ tablet: '14px', desktop: '20px' }}
+                      fontSize={{ tablet: '14px', desktop: '16px' }}
                       fontWeight="regular"
                       letterSpacing="0.16px"
                     >
@@ -87,7 +89,7 @@ const MonthlyCrop = () => {
                     </Text>
                     <Link
                       textColor="gray.700"
-                      fontSize={{ tablet: '14px', desktop: '20px' }}
+                      fontSize={{ tablet: '14px', desktop: '16px' }}
                       fontWeight="regular"
                       letterSpacing="0.16px"
                       href={item.link}

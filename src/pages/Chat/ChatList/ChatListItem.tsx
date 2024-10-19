@@ -26,8 +26,8 @@ const ChatListItem = ({ chat }: { chat: ChatRoom }) => {
       cursor="pointer"
       borderBottom={{ mobile: '1px solid', tablet: 'none' }}
       rounded={{ mobile: 'none', tablet: '10px' }}
-      borderColor="gray.200"
-      _hover={{ backgroundColor: 'orange.300' }}
+      borderColor="gray.100"
+      _hover={{ backgroundColor: 'green.100' }}
       onClick={handleEnterChatRoom}
     >
       <Flex alignItems="center" gap="14px">
@@ -66,7 +66,7 @@ const ChatListItem = ({ chat }: { chat: ChatRoom }) => {
                 fontWeight="semiBold"
                 fontSize="14px"
                 rounded="10px"
-                bg="#FF5C00"
+                bg="green.500"
                 color="white"
               >
                 {readNotCnt > 99 ? '99+' : readNotCnt}

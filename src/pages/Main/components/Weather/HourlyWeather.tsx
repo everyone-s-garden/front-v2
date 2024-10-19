@@ -109,6 +109,7 @@ const HourlyWeather = ({
             }}
           >
             <Line
+              isAnimationActive={false}
               type="linear"
               dot={false}
               dataKey="temperature"
@@ -139,6 +140,7 @@ const HourlyWeather = ({
             }}
           >
             <Line
+              isAnimationActive={false}
               type="linear"
               dot={false}
               dataKey="temperature"

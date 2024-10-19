@@ -25,15 +25,17 @@ const ChatContents = () => {
 
   useEffect(() => {
     setSocketMessage([]);
-    if (!client.current) {
+
+    const connect = () => {
       client.current = new StompJS.Client({
         brokerURL: import.meta.env.VITE_API_CHAT_URL,
         connectHeaders: {
-          'access-token': token!,
+          'access-token': token || '',
         },
-        debug: (str) => {
-          console.log(str);
-        },
+        reconnectDelay: 5000,
+        // debug: (str) => {
+        //   console.log(str);
+        // },
         onConnect: () => {
           client.current &&
             client.current.subscribe(
@@ -47,9 +49,14 @@ const ChatContents = () => {
           console.log('Broker reported error: ' + frame.headers['message']);
           console.log('Additional details: ' + frame.body);
         },
+        onWebSocketClose: () => {
+          console.log('WebSocket closed, retrying...');
+        },
       });
       client.current.activate();
-    }
+    };
+
+    connect();
 
     return () => {
       if (client.current) {

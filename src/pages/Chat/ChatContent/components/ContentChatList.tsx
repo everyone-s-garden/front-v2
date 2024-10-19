@@ -58,13 +58,15 @@ const ContentChatList = ({
       flexDirection="column"
       overflowY="scroll"
       gap="24px"
-      border={{
-        mobile: '0',
+      borderLeft={{
         tablet: '1px solid',
       }}
-      borderColor={{ mobile: '', tablet: 'gray.200' }}
+      borderRight={{
+        tablet: '1px solid',
+      }}
+      borderColor={{ mobile: '', tablet: 'gray.100' }}
       ref={scrollRef}
-      h={{ mobile: 'calc(100% - 273px)', tablet: 'calc(100% - 241px)' }}
+      h={{ mobile: 'calc(100vh - 205px)', tablet: 'calc(100% - 241px)' }}
     >
       <div ref={target} />
       {chatContents.pages

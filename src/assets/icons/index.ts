@@ -13,6 +13,7 @@ export { default as LocationSecondaryIcon } from './location-secondary.svg?react
 export { default as LocationPrimaryIcon } from './location-primary.svg?react';
 export { default as ShareIcon } from './share.svg?react';
 export { default as SeedIcon } from './seed.svg?react';
+export { default as SeedSmallIcon } from './seed-small.svg?react';
 export { default as HeartIcon } from './heart.svg?react';
 export { default as ThreeDotsMenuIcon } from './three-dots-menu.svg?react';
 export { default as HeadphonesIcon } from './headphones.svg?react';
@@ -59,3 +60,4 @@ export { default as PostBoxIcon } from './post-box.svg?react';
 export { default as NoPostIcon } from './no-post.svg?react';
 export { default as NoGardenIcon } from './no-garden.svg?react';
 export { default as DefaultProfileSVG } from './default-profile-image.svg?react';
+export { default as MainArrow } from './main-arrow.svg?react';

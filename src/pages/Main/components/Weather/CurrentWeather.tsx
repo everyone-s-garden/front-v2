@@ -31,7 +31,12 @@ const CurrentWeather = () => {
       <Image
         alignSelf="flex-end"
         src={getWeatherIcon(currentWeather.skyValue, true)}
-        h={{ mobile: '80px', tablet: '130px' }}
+        h={{
+          mobile: ['맑음', '구름많음'].includes(currentWeather.skyValue)
+            ? '60px'
+            : '85px',
+          tablet: '130px',
+        }}
       />
       <Flex alignItems="center" justifyContent="center" gap="22px">
         <Text

@@ -21,7 +21,7 @@ const Content = () => {
       state: {
         from: pathname,
         name: 'community_post',
-        color: 'orange',
+        color: 'green',
         reportId: postId,
       },
     });

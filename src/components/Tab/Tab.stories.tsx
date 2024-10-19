@@ -36,7 +36,7 @@ export const 기본: Story = {
     color: {
       control: 'radio',
       description: '탭의 색상을 설정합니다.',
-      options: ['green', 'orange'],
+      options: ['green', 'white'],
       defaultValue: 'green',
     },
     gap: {
@@ -65,7 +65,7 @@ export const 기본: Story = {
 };
 
 export const Header: Story = {
-  args: { color: 'orange', tabsData: headerNavLinks, tabWidth: 'fit-full' },
+  args: { color: 'green', tabsData: headerNavLinks, tabWidth: 'fit-full' },
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',

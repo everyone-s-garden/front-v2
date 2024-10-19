@@ -15,7 +15,7 @@ const SubmitButton = ({ isPending = false }: SubmitButtonProps) => {
         h={{ mobile: '60px', tablet: '54px' }}
         m={{ mobile: 0, tablet: '50px auto 100px auto' }}
         borderRadius={{ mobile: '0', tablet: '10px' }}
-        bg={'orange.500'}
+        bg={'green.500'}
         fontWeight={'semiBold'}
         color={'white'}
         type={'submit'}

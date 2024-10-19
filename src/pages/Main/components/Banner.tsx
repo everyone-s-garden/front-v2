@@ -1,52 +1,27 @@
-import { Flex, Hide, Image, Show } from '@chakra-ui/react';
-import { Fragment } from 'react';
-import { ImageSlider } from '@/components';
-import {
-  Banner1,
-  Banner1Mobile,
-  Banner2,
-  Banner2Mobile,
-} from '@/assets/images';
+import { Flex, Image, useMediaQuery } from '@chakra-ui/react';
+import { mainBanner, mainBannerMobile } from '@/assets/images/banners';
+import { devices } from '@/styles/theme';
 
 const BANNER_INFO = [
   {
-    pc: Banner1,
-    mobile: Banner1Mobile,
-    bgColor: '#FEF9E6',
-  },
-  {
-    pc: Banner2,
-    mobile: Banner2Mobile,
-    bgColor: '#F0FBE4',
+    pc: mainBanner,
+    mobile: mainBannerMobile,
+    bgColor: '#131313',
   },
 ];
 
 const Banner = () => {
+  const [isLargerThanTablet] = useMediaQuery(devices.tablet);
+
   return (
-    <ImageSlider arrowStyle="plain" numberOfSlides={BANNER_INFO.length}>
-      {BANNER_INFO.map(({ pc, bgColor }, idx) => (
-        <Fragment key={idx}>
-          <Flex justifyContent="center" bg={bgColor}>
-            <Show above="tablet">
-              <Image
-                hideFrom="mobile"
-                draggable={false}
-                src={pc}
-                alt="main page banner"
-              />
-            </Show>
-            <Hide above="tablet">
-              <Image
-                hideBelow={'tablet'}
-                draggable={false}
-                src={BANNER_INFO[idx].mobile}
-                alt="main page banner"
-              />
-            </Hide>
-          </Flex>
-        </Fragment>
-      ))}
-    </ImageSlider>
+    <Flex bg={BANNER_INFO[0].bgColor} justifyContent="center">
+      <Image
+        draggable={false}
+        maxW={{ mobile: '500px', tablet: '1440px' }}
+        w="100%"
+        src={isLargerThanTablet ? mainBanner : mainBannerMobile}
+      />
+    </Flex>
   );
 };
 

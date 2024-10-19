@@ -19,7 +19,7 @@ const SearchBar = forwardRef<
   const { control, setValue } = useFormContext<MyGarden | Garden>();
   const value = useWatch({ control, name: fieldName });
 
-  const debounceValue = useDebounce(value, 500);
+  const debounceValue = useDebounce(value, 300);
   const setSearchValue = useSearchStore((state) => state.setSearchValue);
   const setShowResults = useSearchStore((state) => state.setShowResults);
 

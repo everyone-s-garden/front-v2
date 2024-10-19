@@ -26,7 +26,6 @@ export const 기본: Story = {
       768: { slidesPerView: 4.5, spaceBetween: 12 },
       1024: { slidesPerView: 6, spaceBetween: 14 },
     },
-    color: 'orange',
     size: { mobile: 100, tablet: 136, desktop: 136 },
   },
   argTypes: {
@@ -37,12 +36,6 @@ export const 기본: Story = {
     size: {
       control: 'object',
       description: '이미지 크기를 설정합니다.',
-    },
-    color: {
-      control: 'radio',
-      description: '색상을 설정합니다.',
-      options: ['green', 'orange'],
-      defaultValue: 'green',
     },
   },
 };
@@ -55,7 +48,6 @@ export const 길이_제한: Story = {
       768: { slidesPerView: 4.5, spaceBetween: 12 },
       1024: { slidesPerView: 6, spaceBetween: 14 },
     },
-    color: 'orange',
     size: { mobile: 100, tablet: 136, desktop: 136 },
   },
   render: (args) => {

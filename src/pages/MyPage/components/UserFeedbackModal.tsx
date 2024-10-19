@@ -95,7 +95,6 @@ const UserFeedbackModal = () => {
       showButton={true}
       onClose={closeModal}
       buttonContent="등록하기"
-      buttonColor="green"
       handleClickButton={onSubmit}
     >
       <Box w="340px" h="518px" px="16px" pt="26px" pb="34px">
@@ -169,7 +168,6 @@ const UserFeedbackModal = () => {
           borderColor={isTextareaError ? 'red.300' : 'green.500'}
         />
         <ImageSelector
-          color="green"
           breakPoints={breakPoints}
           size={size}
           showArrow={false}

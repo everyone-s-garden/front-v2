@@ -1,14 +1,6 @@
-import {
-  Box,
-  Center,
-  Flex,
-  List,
-  ListItem,
-  Text,
-  Textarea,
-} from '@chakra-ui/react';
+import { Box, Center, Flex, Text, Textarea } from '@chakra-ui/react';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import {
   Controller,
   FormProvider,
@@ -18,19 +10,17 @@ import {
 import { NumericFormat, PatternFormat } from 'react-number-format';
 import { useNavigate } from 'react-router-dom';
 import { BlockerModal, Content, DatePicker } from '@/components';
+import AddressSearchBar from '../components/AddressSearchBar';
 import FlexInput from '../components/FlexInput';
 import FormButton from '../components/FormButton';
 import Input from '../components/Input';
 import MobileHeader from '../components/MobileHeader';
-import SearchBar from '../components/SearchBar';
 import SubmitButton from '../components/SubmitButton';
 import { Garden, useGardenForm } from './schema';
 import ImageSelector from '@/components/ImageSelector/ImageSelector';
 import { PATH } from '@/routes/constants';
 import { useCreateGarden } from '@/services/garden/query';
-import { useGetLocation } from '@/services/region/query';
 import { useImageStore } from '@/stores/imageStore';
-import useSearchStore from '@/stores/searchStore';
 import removeNumberFormmating from '@/utils/removeNumberFormatting';
 
 const GardenEdit = () => {
@@ -45,14 +35,9 @@ const GardenEdit = () => {
     setError,
   } = methods;
 
-  const searchValue = useSearchStore((state) => state.searchValue);
-  const showResults = useSearchStore((state) => state.showResults);
   const images = useImageStore((state) => state.images);
   const resetImages = useImageStore((state) => state.resetImages);
-
-  const { data: results } = useGetLocation(searchValue);
   const { mutate: createGarden } = useCreateGarden();
-
   const navigate = useNavigate();
 
   const gardenState = useWatch({ control, name: 'gardenStatus' });
@@ -162,7 +147,6 @@ const GardenEdit = () => {
               }}
             >
               <ImageSelector
-                color="green"
                 breakPoints={{
                   0: {
                     slidesPerView: 2.5,
@@ -321,57 +305,9 @@ const GardenEdit = () => {
                 errorMessage={errors.address?.message}
                 flexGrow={1}
               >
-                <SearchBar
-                  placeholder={'지역명을 입력해주세요.'}
-                  fieldName="address"
-                >
-                  {results &&
-                    results.locationSearchResponses.length > 0 &&
-                    showResults && (
-                      <List
-                        borderRadius={10}
-                        border={'1px solid'}
-                        borderColor={'gray.200'}
-                        maxH={{ mobile: '235px', tablet: '217px' }}
-                        overflow={'auto'}
-                      >
-                        {results.locationSearchResponses.map(
-                          ({ latitude, longitude, position }) => (
-                            <ListItem
-                              key={position}
-                              p={'13px 15px'}
-                              fontSize={'14px'}
-                              fontWeight={'medium'}
-                              borderBottom={'1px solid'}
-                              borderRight={'1px solid'}
-                              borderColor={'gray.100'}
-                              _first={{ borderTopRadius: '10px' }}
-                              _last={{
-                                borderBottom: 'none',
-                                borderBottomRadius: '10px',
-                              }}
-                              _hover={{ bg: 'green.100' }}
-                              cursor={'pointer'}
-                              onMouseDown={() => {
-                                setValue('address', position);
-                                setValue('latitude', latitude);
-                                setValue('longitude', longitude);
-                                clearErrors('address');
-                              }}
-                              onTouchStart={() => {
-                                setValue('address', position);
-                                setValue('latitude', latitude);
-                                setValue('longitude', longitude);
-                                clearErrors('address');
-                              }}
-                            >
-                              {position}
-                            </ListItem>
-                          ),
-                        )}
-                      </List>
-                    )}
-                </SearchBar>
+                <Suspense fallback={null}>
+                  <AddressSearchBar />
+                </Suspense>
               </FlexInput>
 
               <FlexInput label="시설" gap={{ mobile: '12px', tablet: '' }}>
@@ -426,7 +362,6 @@ const GardenEdit = () => {
       </Content>
 
       <BlockerModal
-        color="green"
         blockState={Object.values(methods.getValues()).some((value) => value)}
       />
     </>

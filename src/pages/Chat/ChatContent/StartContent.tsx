@@ -30,9 +30,9 @@ const StartContent = () => {
       <Box
         w="100%"
         h="86px"
-        bg="orange.100"
+        bg="gray.50"
         borderLeft="1px solid"
-        borderColor="orange.200"
+        borderColor="gray.200"
         position="absolute"
       />
       <Flex

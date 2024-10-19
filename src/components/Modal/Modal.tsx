@@ -14,7 +14,6 @@ export interface ModalProps {
   showExitIcon: boolean;
   showButton: boolean;
   buttonContent?: string;
-  buttonColor?: 'green' | 'orange';
   buttonDisabled?: boolean;
   handleClickButton?: () => void;
 }
@@ -25,13 +24,12 @@ const Modal = ({
   showExitIcon,
   showButton,
   buttonContent,
-  buttonColor,
   buttonDisabled,
   handleClickButton,
   children,
 }: PropsWithChildren<ModalProps>) => {
   const buttonColorStyles = {
-    backgroundColor: buttonColor === 'green' ? 'green.500' : 'orange.500',
+    backgroundColor: 'green.500',
     _hover: {},
     _active: {},
     ...(buttonDisabled && { opacity: 0.3 }),

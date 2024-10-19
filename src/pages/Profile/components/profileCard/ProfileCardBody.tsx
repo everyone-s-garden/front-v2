@@ -36,7 +36,7 @@ const ProfileCardBody = ({ userInfo }: ProfileCardBodyProps) => {
           py={{ motile: '4px', tablet: '3.13px', desktop: '4px' }}
           px={{ mobile: '12px', tablet: '10px' }}
           borderRadius="10px"
-          bgColor="orange.500"
+          bgColor="green.500"
           color="white"
           w="fit-content"
           h="fit-content"
@@ -44,7 +44,7 @@ const ProfileCardBody = ({ userInfo }: ProfileCardBodyProps) => {
           {userInfo?.nickname}
         </Box>
         {/* <Text
-          color="orange.500"
+          color="green.500"
           fontSize={{ mobile: '10px', tablet: '7.82px', desktop: '10px' }}
           fontWeight="medium"
         >

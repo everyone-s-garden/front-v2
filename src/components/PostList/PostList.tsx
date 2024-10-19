@@ -65,11 +65,13 @@ const PostList = ({ posts }: PostListProps) => {
                   align={{ tablet: 'center' }}
                 >
                   <Tag
-                    bg={'orange.200'}
+                    bg="black"
+                    color="white"
                     px={{ mobile: '6px', tablet: '10px' }}
                     py={{ mobile: '4px', tablet: '6px' }}
                     h={'fit-content'}
                     w={'fit-content'}
+                    rounded={'8px'}
                     fontSize={{ mobile: 14, tablet: 18 }}
                     flexShrink={0}
                   >
@@ -105,7 +107,6 @@ const PostList = ({ posts }: PostListProps) => {
                 <Flex align={'center'}>
                   <AvatarComponent
                     src={userInfo.profile || undefined}
-                    // name={userInfo.name}
                     w={'24px'}
                     h={'24px'}
                     mr={{ mobile: '6px', tablet: '8px' }}
@@ -143,14 +144,12 @@ const PostList = ({ posts }: PostListProps) => {
                     as={CommentIcon}
                     w={'20px'}
                     h={'20px'}
-                    fill={'sub'}
                     flexShrink={0}
                     mr={'2px'}
                   />
                   <Text
                     fontWeight={'medium'}
                     fontSize={{ mobile: '14px', tablet: '16px' }}
-                    color={'sub'}
                     mt={'2px'}
                     flexShrink={0}
                   >

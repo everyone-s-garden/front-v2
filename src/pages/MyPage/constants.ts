@@ -1,15 +1,12 @@
 import {
   NearbyGardenMyPageIcon,
   WhisperMyPageIcon,
-  CropTradeMyPageIcon,
   SettingsMyPageIcon,
-  GardenManagementMyPageIcon,
   UserFeedBackMyPageIcon,
 } from '@/assets/icons';
 import { PATH } from '@/routes/constants';
 
-const { NEARBY_GARDENS_INFO, CROP_TRADE, GARDEN_MANAGEMENT, WHISPERS } =
-  PATH.MYPAGE;
+const { NEARBY_GARDENS_INFO, CROP_TRADE, WHISPERS } = PATH.MYPAGE;
 
 export const mainRoute = [
   {
@@ -19,20 +16,20 @@ export const mainRoute = [
     des: '내 주변 분양에서 활동한 내역을\n볼 수 있어요.',
     icon: NearbyGardenMyPageIcon,
   },
-  {
-    tabName: '작물 거래',
-    keyword: CROP_TRADE.MAIN,
-    href: CROP_TRADE.VERIFY_LOCATION,
-    des: '작물거래에서 판매하고 구매한\n내역을 볼 수 있어요.',
-    icon: CropTradeMyPageIcon,
-  },
-  {
-    tabName: '텃밭 관리',
-    keyword: GARDEN_MANAGEMENT.MY_GARDEN,
-    href: GARDEN_MANAGEMENT.MY_GARDEN,
-    des: '나의 텃밭을 관리할 수 있어요.',
-    icon: GardenManagementMyPageIcon,
-  },
+  // {
+  //   tabName: '작물 거래',
+  //   keyword: CROP_TRADE.MAIN,
+  //   href: CROP_TRADE.VERIFY_LOCATION,
+  //   des: '작물거래에서 판매하고 구매한\n내역을 볼 수 있어요.',
+  //   icon: CropTradeMyPageIcon,
+  // },
+  // {
+  //   tabName: '텃밭 관리',
+  //   keyword: GARDEN_MANAGEMENT.MY_GARDEN,
+  //   href: GARDEN_MANAGEMENT.MY_GARDEN,
+  //   des: '나의 텃밭을 관리할 수 있어요.',
+  //   icon: GardenManagementMyPageIcon,
+  // },
   {
     tabName: '속닥 속닥',
     keyword: WHISPERS.MAIN,
@@ -72,6 +69,11 @@ export const nearByRoute = [
     keyword: NEARBY_GARDENS_INFO.MY_POSTS,
     href: NEARBY_GARDENS_INFO.MY_POSTS,
   },
+  {
+    tabName: '텃밭 일기',
+    keyword: NEARBY_GARDENS_INFO.GARDEN_DIARY,
+    href: NEARBY_GARDENS_INFO.GARDEN_DIARY,
+  },
 ];
 
 export const cropTradeRoute = [
@@ -95,14 +97,6 @@ export const cropTradeRoute = [
     tabName: '관심 목록',
     keyword: CROP_TRADE.WISH_LIST,
     href: CROP_TRADE.WISH_LIST,
-  },
-];
-
-export const gardenManagementRoute = [
-  {
-    tabName: '나의 텃밭',
-    keyword: GARDEN_MANAGEMENT.MY_GARDEN,
-    href: GARDEN_MANAGEMENT.MY_GARDEN,
   },
 ];
 

@@ -17,10 +17,9 @@ const Tabs: ComponentStyleConfig = defineStyleConfig({
     },
   },
   defaultProps: {
-    variant: 'orange',
+    variant: 'green',
   },
   variants: {
-    orange: {},
     green: {},
   },
 });

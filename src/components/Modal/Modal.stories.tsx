@@ -20,7 +20,6 @@ export const 작물거래글쓰기: Story = {
     showExitIcon: false,
     showButton: true,
     buttonContent: '등록하기',
-    buttonColor: 'green',
     buttonDisabled: true,
     children: (
       <Box w="392px" h="calc(560px - 61px)">
@@ -80,7 +79,6 @@ export const 채팅거래완료: Story = {
     showExitIcon: true,
     showButton: true,
     buttonContent: '후기 작성하기',
-    buttonColor: 'orange',
     buttonDisabled: false,
     isOpen: false,
     children: (
@@ -121,7 +119,6 @@ export const 마이페이지게시글삭제: Story = {
     showExitIcon: true,
     showButton: true,
     buttonContent: '삭제하기',
-    buttonColor: 'green',
     buttonDisabled: false,
     isOpen: false,
     children: (
