@@ -1,16 +1,25 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
 
+import { Dispatch, SetStateAction } from 'react';
 import ProfileGardenStatus from './ProfileGardenStatus';
 import ProfileIndividualSaleGardenFooter from './ProfileIndividualSaleGardenFooter';
 
 interface ProfileIndividualSaleGardenProps {
   garden: GardenForSale | undefined;
   refetchGardensForSale: () => void;
+  onOpen?: () => void;
+  setContact: Dispatch<SetStateAction<string>>;
+  setGardenId: Dispatch<SetStateAction<number | null>>;
+  setChatRoomId: Dispatch<SetStateAction<number>>;
 }
 
 const ProfileIndividualSaleGarden = ({
   garden,
   refetchGardensForSale,
+  onOpen,
+  setContact,
+  setGardenId,
+  setChatRoomId,
 }: ProfileIndividualSaleGardenProps) => {
   return (
     <Flex
@@ -40,6 +49,10 @@ const ProfileIndividualSaleGarden = ({
       <ProfileIndividualSaleGardenFooter
         garden={garden}
         refetchGardensForSale={refetchGardensForSale}
+        onOpen={onOpen}
+        setContact={setContact}
+        setGardenId={setGardenId}
+        setChatRoomId={setChatRoomId}
       />
     </Flex>
   );
