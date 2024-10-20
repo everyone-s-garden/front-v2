@@ -53,6 +53,8 @@ interface GardenForSale {
   gardenStatus: 'ACTIVE' | 'INACTIVE' | 'PENDING';
   images: string[];
   isLiked: boolean;
+  contact: string;
+  chatRoomId: number;
 }
 
 interface OtherGardenGetResponse {

@@ -43,6 +43,13 @@ const ProfileCardBody = ({ userInfo }: ProfileCardBodyProps) => {
         >
           {userInfo?.nickname}
         </Box>
+        {/* <Text
+          color="green.500"
+          fontSize={{ mobile: '10px', tablet: '7.82px', desktop: '10px' }}
+          fontWeight="medium"
+        >
+          rrgy980@naver.com
+        </Text> */}
       </Flex>
     </Flex>
   );

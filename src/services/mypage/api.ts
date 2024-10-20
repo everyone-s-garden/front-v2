@@ -1,3 +1,4 @@
+import { MyManagedGardenGetResponses } from '@/pages/MyPage/type';
 import { whisperPageParams } from './type';
 import apiClient from '@/api/apiClient';
 
@@ -50,9 +51,11 @@ export const cropTradeAPI = {
 };
 
 export const myManagedGardenAPI = {
-  getMyManagedGarden: async () => {
+  getMyManagedGarden: async (
+    nextGardenId: number,
+  ): Promise<MyManagedGardenGetResponses> => {
     const res = await apiClient.get(
-      `/v2/gardens/my-managed?nextMyManagedGardenId=0`,
+      `/v2/gardens/my-managed?nextMyManagedGardenId=${nextGardenId}`,
     );
 
     return res.data;

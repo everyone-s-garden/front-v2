@@ -1,16 +1,25 @@
 import { Flex, Image, Text } from '@chakra-ui/react';
 
+import { Dispatch, SetStateAction } from 'react';
 import ProfileGardenStatus from './ProfileGardenStatus';
 import ProfileIndividualSaleGardenFooter from './ProfileIndividualSaleGardenFooter';
 
 interface ProfileIndividualSaleGardenProps {
   garden: GardenForSale | undefined;
   refetchGardensForSale: () => void;
+  onOpen?: () => void;
+  setContact: Dispatch<SetStateAction<string>>;
+  setGardenId: Dispatch<SetStateAction<number | null>>;
+  setChatRoomId: Dispatch<SetStateAction<number>>;
 }
 
 const ProfileIndividualSaleGarden = ({
   garden,
   refetchGardensForSale,
+  onOpen,
+  setContact,
+  setGardenId,
+  setChatRoomId,
 }: ProfileIndividualSaleGardenProps) => {
   return (
     <Flex
@@ -29,17 +38,21 @@ const ProfileIndividualSaleGarden = ({
         {garden?.gardenName}
       </Text>
 
-      {/* <Text
+      <Text
         fontSize={{ mobile: '14px', tablet: '16px' }}
         color={{ mobile: 'sub', tablet: 'black' }}
         mt={{ mobile: '-2px', tablet: '0px' }}
       >
-        평당 15,000원
-      </Text> */}
+        {Number(garden?.price).toLocaleString()} 원
+      </Text>
 
       <ProfileIndividualSaleGardenFooter
         garden={garden}
         refetchGardensForSale={refetchGardensForSale}
+        onOpen={onOpen}
+        setContact={setContact}
+        setGardenId={setGardenId}
+        setChatRoomId={setChatRoomId}
       />
     </Flex>
   );

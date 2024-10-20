@@ -130,14 +130,18 @@ export const useGetBookmarkLists = () => {
 
 export const myManagedGardenQueries = {
   all: () => ['myManagedGardens'] as const,
-  myManagedGarden: () =>
+  myManagedGarden: (nextGardenId: number) =>
     queryOptions({
-      queryKey: [...myManagedGardenQueries.all(), 'myManangedGarden'],
-      queryFn: () => myManagedGardenAPI.getMyManagedGarden(),
+      queryKey: [
+        ...myManagedGardenQueries.all(),
+        'myManangedGarden',
+        nextGardenId,
+      ],
+      queryFn: () => myManagedGardenAPI.getMyManagedGarden(nextGardenId),
     }),
 };
-export const useGetMyManagedGarden = () => {
-  return useSuspenseQuery(myManagedGardenQueries.myManagedGarden());
+export const useGetMyManagedGarden = (nextGardenId: number) => {
+  return useSuspenseQuery(myManagedGardenQueries.myManagedGarden(nextGardenId));
 };
 
 export const whisperKey = ['whisper'] as const;

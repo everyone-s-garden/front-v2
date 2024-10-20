@@ -22,16 +22,16 @@ export const gardensQuery = {
       queryFn: () => gardensAPI.getIndividualGarden(id),
     }),
 
-  otherUsersGarden: (userId: number) =>
+  otherUsersGarden: (userId: number, nextGardenId: number) =>
     queryOptions({
-      queryKey: [...gardensQuery.details(), userId],
-      queryFn: () => gardensAPI.getOtherUsersGardens(userId),
+      queryKey: [...gardensQuery.details(), userId, nextGardenId],
+      queryFn: () => gardensAPI.getOtherUsersGardens(userId, nextGardenId),
     }),
 
-  otherUsersGardenForSale: (userId: number) =>
+  otherUsersGardenForSale: (userId: number, nextGardenId: number) =>
     queryOptions({
-      queryKey: [...gardensQuery.forSale(), userId],
-      queryFn: () => gardensAPI.getOtherUserGardenForSale(userId),
+      queryKey: [...gardensQuery.forSale(), userId, nextGardenId],
+      queryFn: () => gardensAPI.getOtherUserGardenForSale(userId, nextGardenId),
     }),
 };
 
@@ -59,12 +59,18 @@ export const useGetMapGardens = (
   return { data, refetch };
 };
 
-export const useGetOtherUsersGardens = (userId: number) => {
-  return useQuery(gardensQuery.otherUsersGarden(userId));
+export const useGetOtherUsersGardens = (
+  userId: number,
+  nextGardenId: number,
+) => {
+  return useQuery(gardensQuery.otherUsersGarden(userId, nextGardenId));
 };
 
-export const useGetOtherUsersGardenForSale = (userId: number) => {
-  return useQuery(gardensQuery.otherUsersGardenForSale(userId));
+export const useGetOtherUsersGardenForSale = (
+  userId: number,
+  nextGardenId: number,
+) => {
+  return useQuery(gardensQuery.otherUsersGardenForSale(userId, nextGardenId));
 };
 
 export const useGetGardensScroll = (
