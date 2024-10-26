@@ -24,12 +24,14 @@ interface ImageSelectorProps {
     desktop: number;
   };
   showArrow?: boolean;
+  initialImages?: { file: File; url: string }[];
 }
 
 const ImageSelector = ({
   breakPoints,
   size,
   showArrow = true,
+  initialImages,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
@@ -52,6 +54,7 @@ const ImageSelector = ({
     const updatedImages = images.filter(({ url }) => url !== urlToRemove);
     setImages(updatedImages);
   };
+  console.log(initialImages);
 
   return (
     <Box

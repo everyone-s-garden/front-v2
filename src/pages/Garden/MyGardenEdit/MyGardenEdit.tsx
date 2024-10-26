@@ -11,7 +11,7 @@ import {
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler, useWatch } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BlockerModal, Content, DatePicker, ImageSelector } from '@/components';
 import FlexInput from '../components/FlexInput';
 import MobileHeader from '../components/MobileHeader';
@@ -25,6 +25,7 @@ import useSearchStore from '@/stores/searchStore';
 
 const MyGardenCreate = () => {
   const methods = useMyGardenForm();
+  const { state } = useLocation();
   const {
     formState: { errors },
     control,
@@ -36,6 +37,7 @@ const MyGardenCreate = () => {
   } = methods;
 
   const searchValue = useSearchStore((state) => state.searchValue);
+
   const showResults = useSearchStore((state) => state.showResults);
   const images = useImageStore((state) => state.images);
   const resetImages = useImageStore((state) => state.resetImages);
@@ -93,16 +95,18 @@ const MyGardenCreate = () => {
     });
     formData.append('myManagedGardenCreateRequest', jsonBlob);
 
-    createMyGarden(formData, {
-      onSuccess() {
-        // TODO: 나의 텃밭 등록 성공 시 처리
-        methods.reset();
-        setTimeout(() => navigate(PATH.MAP.MAIN));
-      },
-      onError() {
-        alert('나의 텃밭 등록에 실패했습니다.');
-      },
-    });
+    if (!state?.info) {
+      createMyGarden(formData, {
+        onSuccess() {
+          // TODO: 나의 텃밭 등록 성공 시 처리
+          methods.reset();
+          setTimeout(() => navigate(PATH.MAP.MAIN));
+        },
+        onError() {
+          alert('나의 텃밭 등록에 실패했습니다.');
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -110,6 +114,30 @@ const MyGardenCreate = () => {
       resetImages();
     };
   }, [resetImages]);
+
+  useEffect(() => {
+    // Check if there's info data passed via state
+    if (state?.info) {
+      const {
+        gardenId,
+        gardenName,
+        address,
+        useStartDate,
+        useEndDate,
+        description,
+      } = state?.info;
+
+      // Set form values with the existing info
+
+      console.log(state.info);
+      setValue('gardenId', gardenId);
+      setValue('gardenName', gardenName);
+      setValue('address', address);
+      setValue('useStartDate', useStartDate);
+      setValue('useEndDate', useEndDate);
+      setValue('description', description);
+    }
+  }, [state, setValue]);
 
   return (
     <>
@@ -145,6 +173,7 @@ const MyGardenCreate = () => {
               }}
             >
               <ImageSelector
+                initialImages={state?.info?.images}
                 breakPoints={{
                   0: {
                     slidesPerView: 2.5,
@@ -257,6 +286,7 @@ const MyGardenCreate = () => {
                 errorTop={{ mobile: '72px', tablet: '60px' }}
               >
                 <DatePicker
+                  initialDate={state?.info?.useStartDate}
                   onChange={(date: string) => {
                     setValue('useStartDate', date);
 
@@ -275,6 +305,7 @@ const MyGardenCreate = () => {
                   }}
                 />
                 <DatePicker
+                  initialDate={state?.info?.useEndDate}
                   onChange={(date: string) => {
                     setValue('useEndDate', date);
 

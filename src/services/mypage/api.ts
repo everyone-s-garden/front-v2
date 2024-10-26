@@ -60,6 +60,12 @@ export const myManagedGardenAPI = {
 
     return res.data;
   },
+  removetMyManagedGarden: async (nextGardenId: number) => {
+    const res = await apiClient.delete(
+      `/v2/gardens/my-managed/${nextGardenId}`,
+    );
+    return res.data;
+  },
 };
 
 export const whisperAPI = {

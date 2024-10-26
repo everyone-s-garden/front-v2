@@ -13,18 +13,20 @@ import {
   ModalContent,
 } from '@chakra-ui/react';
 import dayjs, { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import DatePickerCalendar from './DatePickerCalendar';
 
 interface DatePickerProps {
   placeholder?: string;
   onChange: (date: string) => void;
+  initialDate?: string;
 }
 
 const DatePicker = ({
   placeholder = '사용 시작일',
   onChange,
+  initialDate,
 }: DatePickerProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentDate, setCurrentDate] = useState(dayjs());
@@ -47,6 +49,14 @@ const DatePicker = ({
   const handleOpen = () => {
     onOpen();
   };
+
+  useEffect(() => {
+    if (initialDate) {
+      const parsedDate = dayjs(initialDate, 'YYYY.MM.DD');
+      setSelectedDate(parsedDate);
+      setCurrentDate(parsedDate);
+    }
+  }, [initialDate]);
 
   return (
     <Menu>
