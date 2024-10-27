@@ -1,22 +1,14 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { BottomMenu } from '@/components';
-
-import { ThreeDotsMenuIcon } from '@/assets/icons';
-import MenuButton from '../../components/MenuButton';
 import { MyManagedGarden } from '../../type';
-import { useDeletePost, useGetMyManagedGarden } from '@/services/mypage/query';
+import useMyManaged from '../hooks/useMyManaged';
 import ProfileGardenSlider from '@/pages/Profile/components/ProfileGarden/ProfileGardenSlider';
 import ProfileGardenFooter from '@/pages/Profile/components/ProfileGarden/ProfileGarendFooter';
-import useMyManaged from '../hooks/useMyManaged';
+import { useGetMyManagedGarden } from '@/services/mypage/query';
 
 const GardenDiary = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [nextGardenId, setNextGardenId] = useState(0);
   const { data: myManagedGardensData } = useGetMyManagedGarden(nextGardenId);
-  const { pathname } = useLocation();
-  const { mutate: deletePost } = useDeletePost();
   const [allManagedGardens, setAllManagedGardens] = useState<MyManagedGarden[]>(
     [],
   );
@@ -26,10 +18,6 @@ const GardenDiary = () => {
     setNextGardenId,
   });
 
-  if (!myManagedGardensData) return;
-
-  console.log(myManagedGardensData);
-
   useEffect(() => {
     if (myManagedGardensData?.myManagedGardenGetResponses) {
       setAllManagedGardens((prevGardens) => [
@@ -38,6 +26,8 @@ const GardenDiary = () => {
       ]);
     }
   }, [myManagedGardensData]);
+
+  if (!myManagedGardensData) return;
 
   if (myManagedGardensData.myManagedGardenGetResponses.length === 0)
     return <h1>등록된 나의 게시글이 없습니다.</h1>;
