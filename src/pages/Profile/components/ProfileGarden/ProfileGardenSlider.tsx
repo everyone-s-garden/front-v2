@@ -15,7 +15,7 @@ const ProfileGardenSlider = ({ images }: ProfileGardenSliderProps) => {
     <Box borderTopRadius="10px" w="full" overflow="hidden" h="330px">
       <ImageSlider arrowStyle="circle" numberOfSlides={images.length}>
         {images.map((image, i) => (
-          <Image src={image} key={i} w="full" h="330px" />
+          <Image src={image} key={i} w={'full'} h="330px" objectFit={'cover'} />
         ))}
       </ImageSlider>
     </Box>
