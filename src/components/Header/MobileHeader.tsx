@@ -23,12 +23,14 @@ import useLoginStore from '@/stores/useLoginStore';
 import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 const MobileHeader = () => {
-  const { showGardenDetail } = useShowGardenDetailStore();
   const [scrollY, setScrollY] = useState(0);
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
   const [tabIndex, setTabIndex] = useState(0);
+  const showGardenDetail = useShowGardenDetailStore(
+    (state) => state.showGardenDetail,
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,7 +98,11 @@ const MobileHeader = () => {
         position="fixed"
         top={dynamicTop}
         bg="white"
-        display={showGardenDetail ? 'none' : 'block'}
+        display={
+          showGardenDetail && currentPath.includes(PATH.MAP.MAIN)
+            ? 'none'
+            : 'block'
+        }
       >
         <Tabs index={tabIndex}>
           <TabList as="ul">
