@@ -10,7 +10,6 @@ import MyMarker from './Marker/MyMarker';
 import useGeolocation from '@/hooks/useGeolocation';
 import { useGetMapGardens } from '@/services/gardens/query';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
-import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 interface MapComponentProps {
   map: naver.maps.Map | null;
@@ -23,16 +22,9 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   const navermaps = useNavermaps();
   const geolocation = useGeolocation();
   const gardenType = getGardenType(headerOption);
-  const { showGardenDetail, setShowGardenDetail } = useShowGardenDetailStore();
   const { gardenId } = useMapGardenDetailIdStore();
   const { data: mapGardens, refetch } = useGetMapGardens(gardenType, map);
   const gardens: Garden[] = mapGardens?.gardenByComplexesResponses;
-
-  useEffect(() => {
-    setShowGardenDetail(
-      gardenId && location.state && location.state.data ? true : false,
-    );
-  }, [gardenId, location, setShowGardenDetail]);
 
   useEffect(() => {
     if (map) {
@@ -97,8 +89,6 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
     >
       <GardensContainer
         {...{
-          showGardenDetail,
-          setShowGardenDetail,
           gardenType,
           map,
         }}

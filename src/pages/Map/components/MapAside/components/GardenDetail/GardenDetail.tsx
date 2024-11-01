@@ -10,7 +10,9 @@ import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 const GardenDetail = () => {
   const { gardenId } = useMapGardenDetailIdStore();
   const { data: gardenInfo, refetch } = useGetIndividualGarden(gardenId);
-  const { setShowGardenDetail } = useShowGardenDetailStore();
+  const setShowGardenDetail = useShowGardenDetailStore(
+    (state) => state.setShowGardenDetail,
+  );
 
   if (!gardenInfo)
     return (
