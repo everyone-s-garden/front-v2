@@ -61,6 +61,10 @@ const chatAPI = {
 
     return response.data;
   },
+
+  deleteGardenChatRoom: async (roomId: number) => {
+    await apiClient.delete(`/garden-chats/${roomId}`);
+  },
 };
 
 export default chatAPI;
