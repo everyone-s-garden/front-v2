@@ -24,21 +24,24 @@ interface ImageSelectorProps {
     desktop: number;
   };
   showArrow?: boolean;
+  maxImageLength?: number;
 }
 
 const ImageSelector = ({
   breakPoints,
   size,
   showArrow = true,
+  maxImageLength,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
+  const maxLen = maxImageLength ?? MAX_IMAGE_LENGTH;
 
   const handleImageAdd = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (!target.files) return;
 
-    if (images.length + target.files.length > MAX_IMAGE_LENGTH)
-      return alert(ALERT_MESSAGE.MAX_IMAGE);
+    if (images.length + target.files.length > maxLen)
+      return alert(ALERT_MESSAGE.MAX_IMAGE(maxLen));
 
     const files = Array.from(target.files);
     const urls = files.map((file) => URL.createObjectURL(file));
@@ -93,7 +96,7 @@ const ImageSelector = ({
     >
       <Button
         as={FormLabel}
-        bg={`green.100`}
+        bg={`gray.50`}
         borderRadius={10}
         w={size}
         h={size}
@@ -104,8 +107,8 @@ const ImageSelector = ({
         flexShrink={0}
         mr={'10px'}
         mb={0}
-        _hover={{ bg: `green.100` }}
-        _active={{ bg: `green.100` }}
+        _hover={{ bg: `gray.100` }}
+        _active={{ bg: `gray.100` }}
       >
         <input
           id="image-upload"
@@ -115,8 +118,8 @@ const ImageSelector = ({
           onChange={handleImageAdd}
           style={{ display: 'none' }}
         />
-        <Icon as={CameraIcon} fill={`green.500`} w={'24px'} h={'24px'} />
-        <Text fontWeight="medium" color={`green.500`}>
+        <Icon as={CameraIcon} fill={`gray.500`} w={'24px'} h={'24px'} />
+        <Text fontWeight="medium" color={`gray.500`}>
           {images.length}/10
         </Text>
       </Button>
