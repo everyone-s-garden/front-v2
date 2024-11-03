@@ -7,11 +7,6 @@ interface ProfileGardenFooterProps {
 }
 
 const ProfileGardenFooter = ({ garden }: ProfileGardenFooterProps) => {
-  const monthsUsing = dayjs(garden.useEndDate).diff(
-    dayjs(garden.useStartDate),
-    'month',
-  );
-
   return (
     <Flex
       alignItems="center"
@@ -21,15 +16,15 @@ const ProfileGardenFooter = ({ garden }: ProfileGardenFooterProps) => {
       gap="12px"
       pl="20px"
     >
-      <Icon as={LocationPrimaryIcon} w="20px" h="20px" />
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
-        {garden.gardenName}
+        {dayjs(garden.createdAt).format('M월 D일')}
       </Text>
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
         /
       </Text>
+      <Icon as={LocationPrimaryIcon} w="20px" h="20px" />
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
-        {monthsUsing}개월째
+        {garden.myManagedGardenName}
       </Text>
     </Flex>
   );

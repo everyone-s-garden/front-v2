@@ -47,9 +47,8 @@ export interface CropTrade {
 
 export interface MyManagedGarden {
   myManagedGardenId: number;
-  gardenName: string;
-  useStartDate: string;
-  useEndDate: string;
+  myManagedGardenName: string;
+  createdAt: string;
   images: string[];
   description: string;
 }
