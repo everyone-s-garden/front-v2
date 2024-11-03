@@ -1,7 +1,7 @@
-import { Box, Button, calc, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { MyManagedGarden, MyManagedGardenGetResponses } from '../../type';
-import useMyManaged from '../hooks/useMyManaged';
+import { MyManagedGarden } from '../../type';
+// import useMyManaged from '../hooks/useMyManaged';
 import ProfileGardenSlider from '@/pages/Profile/components/ProfileGarden/ProfileGardenSlider';
 import ProfileGardenFooter from '@/pages/Profile/components/ProfileGarden/ProfileGarendFooter';
 import {
@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, FreeMode } from 'swiper/modules';
 
 const GardenDiary = () => {
-  const [nextGardenId, setNextGardenId] = useState(0);
+  const [nextGardenId] = useState(0);
   const { data: myManagedGardensData } = useGetMyManagedGarden(nextGardenId);
   const [allManagedGardens, setAllManagedGardens] = useState<MyManagedGarden[]>(
     [],
@@ -22,10 +22,10 @@ const GardenDiary = () => {
   const nav = useNavigate();
   const { mutate } = useDeleteMyManagedGarden();
 
-  const { myManagedGardensRef } = useMyManaged({
-    myManagedGardensData: myManagedGardensData,
-    setNextGardenId,
-  });
+  // const { myManagedGardensRef } = useMyManaged({
+  //   myManagedGardensData: myManagedGardensData,
+  //   setNextGardenId,
+  // });
 
   useEffect(() => {
     if (myManagedGardensData?.myManagedGardenGetResponses) {
