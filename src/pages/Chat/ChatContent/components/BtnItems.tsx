@@ -1,10 +1,26 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownList,
+  DropdownTrigger,
+} from '@/components';
 import { ETCIcon } from '@/assets/icons';
+import { useDeleteGardenChatRoom } from '@/services/chat/query';
 
-const BtnItems = () => {
+const BtnItems = ({ roomId }: { roomId: number }) => {
+  const navigate = useNavigate();
+  const { mutate: deleteChatRoom } = useDeleteGardenChatRoom();
+
+  const handleDeleteChatRoom = () => {
+    deleteChatRoom(roomId);
+    navigate('/chat');
+  };
+
   return (
     <Flex w={{ mobile: '100%', tablet: 'auto' }} gap="10px">
-      <Button
+      {/* <Button
         variant="unstyled"
         display="flex"
         rounded="10px"
@@ -19,15 +35,25 @@ const BtnItems = () => {
         alignItems="center"
       >
         후기 보내기
-      </Button>
-      <Button
-        variant="unstyled"
-        display={{ mobile: 'none', tablet: 'flex' }}
-        bg="gray.200"
-        p="10px"
-      >
-        <ETCIcon />
-      </Button>
+      </Button> */}
+      <Dropdown>
+        <DropdownTrigger
+          rounded="10px"
+          display={{ mobile: 'block', tablet: 'flex' }}
+          bg={{ mobile: 'transparent', tablet: 'gray.200' }}
+          p="10px"
+          position={{ mobile: 'absolute', tablet: 'static' }}
+          top="3px"
+          right="3px"
+        >
+          <ETCIcon />
+        </DropdownTrigger>
+        <DropdownList>
+          <DropdownItem onClick={handleDeleteChatRoom}>
+            채팅방 나가기
+          </DropdownItem>
+        </DropdownList>
+      </Dropdown>
     </Flex>
   );
 };

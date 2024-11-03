@@ -88,7 +88,7 @@ const ChatContents = () => {
       right="0"
       z-index="91"
     >
-      <ContentHeader productInfo={productInfo} />
+      <ContentHeader productInfo={productInfo} roomId={roomId} />
       <ContentChatList
         roomId={roomId}
         socketMessage={socketMessage}

@@ -1,12 +1,18 @@
 import { Text, Image, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 // import BtnItems from './BtnItems';
+import BtnItems from './BtnItems';
 import MobileHeader from './MobileHeader';
 import { EnterChatRoom } from '@/services/chat/type';
 import { useGetIndividualGarden } from '@/services/gardens/query';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
-const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
+interface ContentHeaderProps {
+  productInfo: EnterChatRoom;
+  roomId: number;
+}
+
+const ContentHeader = ({ productInfo, roomId }: ContentHeaderProps) => {
   const navigate = useNavigate();
   const { setGardenId } = useMapGardenDetailIdStore();
   const {
@@ -38,7 +44,6 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
       zIndex="1"
       justifyContent="space-between"
       alignItems={{ mobile: 'flex-start', tablet: 'center' }}
-      // h={{ mobile: '193px', tablet: '86px' }}
       h={{ mobile: '125px', tablet: '86px' }}
       padding={{ mobile: '0 20px 10px 20px', tablet: '17px' }}
       flexDirection={{ mobile: 'column', tablet: 'row' }}
@@ -92,8 +97,7 @@ const ContentHeader = ({ productInfo }: { productInfo: EnterChatRoom }) => {
           </Text>
         </Flex>
       </Flex>
-      {/* 추가 예정 */}
-      {/* <BtnItems /> */}
+      <BtnItems roomId={roomId} />
     </Flex>
   );
 };

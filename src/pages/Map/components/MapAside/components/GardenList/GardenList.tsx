@@ -5,8 +5,10 @@ import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 const GardenList = ({ gardens }: { gardens: Garden[] }) => {
-  const { setGardenId } = useMapGardenDetailIdStore();
-  const { setShowGardenDetail } = useShowGardenDetailStore();
+  const setGardenId = useMapGardenDetailIdStore((state) => state.setGardenId);
+  const setShowGardenDetail = useShowGardenDetailStore(
+    (state) => state.setShowGardenDetail,
+  );
 
   return gardens?.map((garden) => (
     <Box

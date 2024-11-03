@@ -12,16 +12,11 @@ const Button = chakra(motion.button);
 const GardenContainer = chakra(motion.div);
 
 interface GardensContainerProps {
-  showGardenDetail: boolean;
   gardenType: 'ALL' | 'PUBLIC' | 'PRIVATE';
   map: naver.maps.Map | null;
 }
 
-const GardensContainer = ({
-  showGardenDetail,
-  gardenType,
-  map,
-}: GardensContainerProps) => {
+const GardensContainer = ({ gardenType, map }: GardensContainerProps) => {
   const { isShowAside, setIsShowAside } = useShowMapAside();
   const [hasNext, setHasNext] = useState(false);
   const { startLat, startLong, endLat, endLong } = getMapBounds(map);
@@ -65,7 +60,6 @@ const GardensContainer = ({
           ) : (
             <MapAside
               {...{
-                showGardenDetail,
                 fetchNextPage,
                 hasNextPage,
                 hasNext,
@@ -125,7 +119,6 @@ const GardensContainer = ({
             ) : (
               <MapAside
                 {...{
-                  showGardenDetail,
                   fetchNextPage,
                   hasNextPage,
                   hasNext,
