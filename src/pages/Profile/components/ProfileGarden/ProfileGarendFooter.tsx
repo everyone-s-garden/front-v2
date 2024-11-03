@@ -56,7 +56,7 @@ const ProfileGardenFooter = ({
       pl="20px"
     >
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
-        {garden.useStartDate}
+        {garden.createdAt}
       </Text>
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
         /
@@ -64,7 +64,7 @@ const ProfileGardenFooter = ({
       <Icon as={LocationPrimaryIcon} w="20px" h="20px" />
 
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
-        {garden.gardenName}
+        {garden.myManagedGardenName}
       </Text>
 
       <MenuButton

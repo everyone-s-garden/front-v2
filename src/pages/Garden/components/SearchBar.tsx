@@ -9,14 +9,16 @@ import useSearchStore from '@/stores/searchStore';
 
 interface SearchBarProps {
   placeholder?: string;
-  fieldName: 'gardenName' | 'address';
+  fieldName: 'myManagedGardenName' | 'address';
 }
 
 const SearchBar = forwardRef<
   HTMLInputElement,
   PropsWithChildren<SearchBarProps>
 >(({ placeholder, fieldName, children }, ref) => {
-  const { control, setValue } = useFormContext<MyGarden | Garden>();
+  const { control, setValue, clearErrors } = useFormContext<
+    MyGarden | Garden
+  >();
   const value = useWatch({ control, name: fieldName });
 
   const debounceValue = useDebounce(value, 300);
@@ -47,6 +49,7 @@ const SearchBar = forwardRef<
           value={value}
           onChange={(e) => {
             setValue(fieldName, e.target.value);
+            e.target.value && clearErrors([fieldName]);
           }}
           onBlur={() => {
             setShowResults(false);

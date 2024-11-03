@@ -21,3 +21,10 @@ export const useCreateGarden = () => {
 export const useCreateMyGarden = () => {
   return useMutation({ mutationFn: gardenAPI.createMyGarden });
 };
+export const useUpdateMyGarden = () => {
+  return useMutation({
+    mutationFn: (variables: { formData: FormData; gardenId: number }) => {
+      return gardenAPI.updateMyGarden(variables.formData, variables.gardenId);
+    },
+  });
+};
