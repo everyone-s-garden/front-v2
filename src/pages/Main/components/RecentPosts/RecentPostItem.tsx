@@ -3,10 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { DefaultPost } from '@/assets/images';
 import { GardenPost } from '@/services/gardenPost/types';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
   const navigate = useNavigate();
-  const { setGardenId } = useMapGardenDetailIdStore();
+  const setGardenId = useMapGardenDetailIdStore((state) => state.setGardenId);
+  const setShowGardenDetail = useShowGardenDetailStore(
+    (state) => state.setShowGardenDetail,
+  );
 
   const {
     imageUrl,
@@ -39,6 +43,7 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
       state: { data: { lat: latitude, lng: longitude } },
     });
     setGardenId(gardenId);
+    setShowGardenDetail(true);
   };
 
   return (

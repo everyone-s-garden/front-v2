@@ -28,7 +28,7 @@ const ProfileGarden = ({
         {userInfo?.nickname}님의 텃밭
       </Box>
       <Flex
-        minWidth={'740px'}
+        minWidth={{ mobile: 'auto', tablet: '740px' }}
         maxW={'740px'}
         flexDir="column"
         borderBottom="1px solid"

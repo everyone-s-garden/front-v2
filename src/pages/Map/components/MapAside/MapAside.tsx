@@ -2,9 +2,9 @@ import { Box } from '@chakra-ui/react';
 import GardenDetail from './components/GardenDetail/GardenDetail';
 import GardenList from './components/GardenList/GardenList';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 interface MapGardensProps {
-  showGardenDetail: boolean;
   hasNext: boolean;
   fetchNextPage: () => void;
   hasNextPage: boolean;
@@ -12,7 +12,6 @@ interface MapGardensProps {
 }
 
 const MapAside = ({
-  showGardenDetail,
   hasNext,
   fetchNextPage,
   hasNextPage,
@@ -24,6 +23,9 @@ const MapAside = ({
     },
     hasNextPage,
   });
+  const showGardenDetail = useShowGardenDetailStore(
+    (state) => state.showGardenDetail,
+  );
 
   return (
     <Box position="relative">

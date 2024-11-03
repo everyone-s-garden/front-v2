@@ -1,18 +1,14 @@
 import {
-  queryOptions,
   useInfiniteQuery,
   useMutation,
   useQuery,
+  useQueryClient,
 } from '@tanstack/react-query';
 import chatAPI from './api';
 
 export const chatQueries = {
   all: () => ['chat'] as const,
-  gardenChatRooms: () =>
-    queryOptions({
-      queryKey: [...chatQueries.all(), 'gardenChatRooms'],
-      queryFn: chatAPI.getGardenChatRooms,
-    }),
+  gardenChatRooms: () => [...chatQueries.all(), 'gardenChatRooms'] as const,
 };
 
 export const useCreateGardenChatRoom = () => {
@@ -34,7 +30,10 @@ export const useRegisterGardenChatSession = () => {
 };
 
 export const useGetGardenChatRooms = () => {
-  return useQuery(chatQueries.gardenChatRooms());
+  return useQuery({
+    queryKey: chatQueries.gardenChatRooms(),
+    queryFn: chatAPI.getGardenChatRooms,
+  });
 };
 
 export const useGetGardenChatContents = ({ roomId }: { roomId: number }) => {
@@ -45,6 +44,19 @@ export const useGetGardenChatContents = ({ roomId }: { roomId: number }) => {
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.hasNext ? allPages.length : undefined;
+    },
+  });
+};
+
+export const useDeleteGardenChatRoom = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: chatAPI.deleteGardenChatRoom,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: chatQueries.gardenChatRooms(),
+      });
     },
   });
 };

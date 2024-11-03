@@ -47,7 +47,11 @@ const UserFeedbackModal = () => {
   };
 
   const validateForm = () => {
-    if (feedbackType.value === 'default' || feedbackText.length < 8) {
+    if (
+      feedbackType.value === 'default' ||
+      feedbackText.length < 8 ||
+      feedbackText.length > 255
+    ) {
       setErrorState(true);
 
       return false;
@@ -86,7 +90,8 @@ const UserFeedbackModal = () => {
   };
 
   const isDropdownError = errorState && feedbackType.value === 'default';
-  const isTextareaError = errorState && feedbackText.length < 8;
+  const isTextareaMinError = errorState && feedbackText.length < 8;
+  const isTextareaMaxError = errorState && feedbackText.length > 255;
 
   return (
     <Modal
@@ -97,15 +102,23 @@ const UserFeedbackModal = () => {
       buttonContent="등록하기"
       handleClickButton={onSubmit}
     >
-      <Box w="340px" h="518px" px="16px" pt="26px" pb="34px">
-        <Flex align="center" mb="24px" justify="space-between">
+      <Flex
+        flexDir="column"
+        gap="20px"
+        w="340px"
+        h="518px"
+        px="16px"
+        pt="26px"
+        pb="34px"
+      >
+        <Flex align="center" mb="4px" justify="space-between">
           <Text fontWeight="semiBold" fontSize="18px">
             유저의 소리함
           </Text>
 
           <ModalCloseButton __css={{ position: 'relative' }} />
         </Flex>
-        <Flex align="center" justify="center" mb="20px">
+        <Flex align="center" justify="center">
           <UserFeedBackSmileIcon />
           <Box
             w="216px"
@@ -127,7 +140,6 @@ const UserFeedbackModal = () => {
             borderRadius="10px"
             border={isDropdownError ? '2px solid' : '1px solid'}
             borderColor={isDropdownError ? 'red.300' : 'green.500'}
-            mb="20px"
           >
             <Flex
               px="16px"
@@ -162,17 +174,30 @@ const UserFeedbackModal = () => {
           resize="none"
           h="105px"
           fontSize="14px"
-          mb="20px"
           onChange={(e) => setFeedbackText(e.currentTarget.value)}
-          border={isTextareaError ? '2px solid' : '1px solid'}
-          borderColor={isTextareaError ? 'red.300' : 'green.500'}
+          border={
+            isTextareaMinError || isTextareaMaxError ? '2px solid' : '1px solid'
+          }
+          borderColor={
+            isTextareaMinError || isTextareaMaxError ? 'red.300' : 'green.500'
+          }
         />
+        {isTextareaMinError && (
+          <Text fontSize="12px" mt="-18px" color="red.300">
+            8자 이상 입력해주세요.
+          </Text>
+        )}
+        {isTextareaMaxError && (
+          <Text fontSize="12px" mt="-18px" color="red.300">
+            255자 이하로 입력해주세요.
+          </Text>
+        )}
         <ImageSelector
           breakPoints={breakPoints}
           size={size}
           showArrow={false}
         />
-      </Box>
+      </Flex>
     </Modal>
   );
 };
