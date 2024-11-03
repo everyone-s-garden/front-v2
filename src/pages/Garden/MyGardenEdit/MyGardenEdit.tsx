@@ -95,18 +95,16 @@ const MyGardenCreate = () => {
     });
     formData.append('myManagedGardenCreateRequest', jsonBlob);
 
-    if (!state?.info) {
-      createMyGarden(formData, {
-        onSuccess() {
-          // TODO: 나의 텃밭 등록 성공 시 처리
-          methods.reset();
-          setTimeout(() => navigate(PATH.MAP.MAIN));
-        },
-        onError() {
-          alert('나의 텃밭 등록에 실패했습니다.');
-        },
-      });
-    }
+    createMyGarden(formData, {
+      onSuccess() {
+        // TODO: 나의 텃밭 등록 성공 시 처리
+        methods.reset();
+        setTimeout(() => navigate(PATH.MAP.MAIN));
+      },
+      onError() {
+        alert('나의 텃밭 등록에 실패했습니다.');
+      },
+    });
   };
 
   useEffect(() => {
@@ -114,30 +112,6 @@ const MyGardenCreate = () => {
       resetImages();
     };
   }, [resetImages]);
-
-  useEffect(() => {
-    // Check if there's info data passed via state
-    if (state?.info) {
-      const {
-        gardenId,
-        gardenName,
-        address,
-        useStartDate,
-        useEndDate,
-        description,
-      } = state?.info;
-
-      // Set form values with the existing info
-
-      console.log(state.info);
-      setValue('gardenId', gardenId);
-      setValue('gardenName', gardenName);
-      setValue('address', address);
-      setValue('useStartDate', useStartDate);
-      setValue('useEndDate', useEndDate);
-      setValue('description', description);
-    }
-  }, [state, setValue]);
 
   return (
     <>

@@ -14,6 +14,7 @@ import { LocationPrimaryIcon, ThreeDotsMenuIcon } from '@/assets/icons';
 import MenuButton from '@/pages/MyPage/components/MenuButton';
 import { BottomMenu } from '@/components';
 import { useState } from 'react';
+import dayjs from 'dayjs';
 
 interface ProfileGardenFooterProps {
   garden: ManagedGarden;
@@ -46,6 +47,9 @@ const ProfileGardenFooter = ({
     setModalOpen(false);
   };
 
+  const formattedDate = dayjs(garden.createdAt, 'YYYY.MM.DD').format(
+    'MM월 DD일',
+  );
   return (
     <Flex
       alignItems="center"
@@ -56,7 +60,7 @@ const ProfileGardenFooter = ({
       pl="20px"
     >
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
-        {garden.createdAt}
+        {formattedDate}
       </Text>
       <Text fontSize={{ mobile: '16px', tablet: '18px' }} fontWeight="medium">
         /
