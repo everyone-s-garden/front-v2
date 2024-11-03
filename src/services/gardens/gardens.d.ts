@@ -33,9 +33,8 @@ interface GardenDetail extends Garden {
 
 interface ManagedGarden {
   myManagedGardenId: number;
-  gardenName: string;
-  useStartDate: string;
-  useEndDate: string;
+  myManagedGardenName: string;
+  createdAt: string;
   images: string[];
   description: string;
 }
