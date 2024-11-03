@@ -1,15 +1,13 @@
 import { Box, Flex, Icon } from '@chakra-ui/react';
 import { Address, useDaumPostcodePopup } from 'react-daum-postcode';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 import { useNavermaps } from 'react-naver-maps';
 import { SearchIcon } from '@/assets/icons';
-import { MyGarden } from '../MyGardenEdit/schema';
+import { useGardenForm } from '../GardenEdit/schema';
 
 const AddressSearchBar = () => {
   const navermaps = useNavermaps();
-  const { control, setValue, clearErrors } = useFormContext<
-    MyGarden | Garden
-  >();
+  const { control, setValue, clearErrors } = useGardenForm();
   const value = useWatch({ control, name: 'address' });
   const open = useDaumPostcodePopup();
 
