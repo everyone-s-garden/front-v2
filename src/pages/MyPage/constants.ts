@@ -10,7 +10,7 @@ const { NEARBY_GARDENS_INFO, CROP_TRADE, WHISPERS } = PATH.MYPAGE;
 
 export const mainRoute = [
   {
-    tabName: '내 주변 분양',
+    tabName: '텃밭 활동',
     keyword: NEARBY_GARDENS_INFO.MAIN,
     href: NEARBY_GARDENS_INFO.FAVORITED_GARDENS,
     des: '내 주변 분양에서 활동한 내역을\n볼 수 있어요.',
@@ -65,7 +65,7 @@ export const nearByRoute = [
     href: NEARBY_GARDENS_INFO.RECENTLY_VIEWED_GARDENS,
   },
   {
-    tabName: '내가 올린 글',
+    tabName: '내 분양 텃밭',
     keyword: NEARBY_GARDENS_INFO.MY_POSTS,
     href: NEARBY_GARDENS_INFO.MY_POSTS,
   },

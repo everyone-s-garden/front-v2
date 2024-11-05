@@ -33,7 +33,7 @@ const Panel = ({ tabName }: { tabName: string }) => {
 
   const routes: Routes = useMemo(
     () => ({
-      '내 주변 분양': nearByRoute,
+      '텃밭 활동': nearByRoute,
       // '작물 거래': cropTradeRoute,
       // '텃밭 관리': gardenManagementRoute,
       '속닥 속닥': whispersRoute,
