@@ -120,7 +120,7 @@ const ImageSelector = ({
         />
         <Icon as={CameraIcon} fill={`gray.500`} w={'24px'} h={'24px'} />
         <Text fontWeight="medium" color={`gray.500`}>
-          {images.length}/10
+          {images.length}/{maxImageLength}
         </Text>
       </Button>
       <Swiper
