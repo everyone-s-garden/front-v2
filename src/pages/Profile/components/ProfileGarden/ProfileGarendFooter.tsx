@@ -18,8 +18,8 @@ import dayjs from 'dayjs';
 
 interface ProfileGardenFooterProps {
   garden: ManagedGarden;
-  handleDelete: (id: number) => void;
-  handleEdit: (el: Object) => void;
+  handleDelete?: (id: number) => void;
+  handleEdit?: (el: Object) => void;
 }
 
 const ProfileGardenFooter = ({
@@ -27,15 +27,11 @@ const ProfileGardenFooter = ({
   handleDelete,
   handleEdit,
 }: ProfileGardenFooterProps) => {
-  // const monthsUsing = dayjs(garden.useEndDate).diff(
-  //   dayjs(garden.useStartDate),
-  //   'month',
-  // );
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [modalOpen, setModalOpen] = useState(false);
 
   const onEditClick = () => {
-    handleEdit(garden);
+    handleEdit && handleEdit(garden);
     onClose();
   };
   const confirmModalOpen = () => {
@@ -43,7 +39,7 @@ const ProfileGardenFooter = ({
     onClose();
   };
   const onPressDelete = () => {
-    handleDelete(garden.myManagedGardenId);
+    handleDelete && handleDelete(garden.myManagedGardenId);
     setModalOpen(false);
   };
 
@@ -74,8 +70,10 @@ const ProfileGardenFooter = ({
         itemId={garden.myManagedGardenId}
         ml="auto"
         mr="15px"
-        handleDelete={() => handleDelete(garden.myManagedGardenId)}
-        handleEdit={() => handleEdit(garden)}
+        handleDelete={() =>
+          handleDelete && handleDelete(garden.myManagedGardenId)
+        }
+        handleEdit={() => handleEdit && handleEdit(garden)}
       />
       <Hide above="tablet">
         <Box ml="auto" mr="15px" onClick={onOpen}>

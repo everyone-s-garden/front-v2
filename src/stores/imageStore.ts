@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 interface ImageState {
-  images: { file: File; url: string }[];
-  setImages: (images: { file: File; url: string }[]) => void;
+  images: { file: File; url: string }[] | string[];
+  setImages: (images: { file: File; url: string }[] | string[]) => void;
   resetImages: () => void;
 }
 

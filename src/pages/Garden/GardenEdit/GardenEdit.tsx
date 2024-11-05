@@ -90,9 +90,12 @@ const GardenEdit = () => {
       },
     );
 
-    images.forEach(({ file }) => {
-      formData.append('gardenImages', file);
+    images.forEach((image) => {
+      if (typeof image !== 'string') {
+        formData.append('gardenImages', image.file);
+      }
     });
+
     formData.append('gardenCreateRequest', jsonBlob);
 
     createGarden(formData, {
