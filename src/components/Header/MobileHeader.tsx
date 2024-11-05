@@ -27,7 +27,7 @@ const MobileHeader = () => {
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const currentPath = useLocation().pathname;
   const navigate = useNavigate();
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(-1);
   const showGardenDetail = useShowGardenDetailStore(
     (state) => state.showGardenDetail,
   );
@@ -123,7 +123,9 @@ const MobileHeader = () => {
               </Tab>
             ))}
           </TabList>
-          <TabIndicator mt="-2px" height="3px" bg="green.500" />
+          {tabIndex !== -1 && (
+            <TabIndicator mt="-2px" height="3px" bg="green.500" />
+          )}
         </Tabs>
       </chakra.nav>
     </Flex>
