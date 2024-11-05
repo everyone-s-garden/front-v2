@@ -15,6 +15,7 @@ import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
 import { PATH } from '@/routes/constants';
+import { MapGardenNoImg } from '@/assets/images';
 
 interface CardProps {
   heart?: boolean;
@@ -71,7 +72,7 @@ const GardenItem = ({
             w="full"
             h="full"
             borderRadius="8px"
-            src={thumbnail}
+            src={!thumbnail ? MapGardenNoImg : thumbnail}
             objectFit="cover"
           />
           <Overlay report={report} />

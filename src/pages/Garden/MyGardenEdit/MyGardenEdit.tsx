@@ -81,10 +81,10 @@ const MyGardenCreate = () => {
       createMyGarden(formData, {
         onSuccess() {
           // TODO: 나의 텃밭 등록 성공 시 처리
-          methods.reset();
-          setTimeout(() =>
-            navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
-          );
+          // methods.reset();
+          // setTimeout(() =>
+          //   navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
+          // );
         },
         onError() {
           alert('나의 텃밭 등록에 실패했습니다.');
