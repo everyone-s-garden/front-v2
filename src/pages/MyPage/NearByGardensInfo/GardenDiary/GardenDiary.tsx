@@ -19,6 +19,7 @@ const GardenDiary = () => {
   const [allManagedGardens, setAllManagedGardens] = useState<MyManagedGarden[]>(
     [],
   );
+
   const nav = useNavigate();
   const { mutate } = useDeleteMyManagedGarden();
 
@@ -33,6 +34,7 @@ const GardenDiary = () => {
       //   ...prevGardens,
       //   ...myManagedGardensData.myManagedGardenGetResponses,
       // ]);
+
       setAllManagedGardens((prevGardens) => {
         const combinedGardens = [
           ...prevGardens,
@@ -57,6 +59,7 @@ const GardenDiary = () => {
         return uniqueGardens;
       });
     }
+    return () => setAllManagedGardens([]);
   }, [myManagedGardensData]);
 
   if (!myManagedGardensData) return;
@@ -76,6 +79,7 @@ const GardenDiary = () => {
   };
 
   const editGarden = (info: MyManagedGarden) => {
+    console.log(info);
     nav(PATH.MAP.CREATE_MY_GARDEN, { state: { info } });
   };
 
@@ -121,7 +125,7 @@ const GardenDiary = () => {
             modules={[FreeMode, Navigation]}
             freeMode={false}
             style={{
-              width: '100%',
+              width: 'fit-content',
               zIndex: 0,
               maxWidth: '720px',
               paddingBottom: 150,

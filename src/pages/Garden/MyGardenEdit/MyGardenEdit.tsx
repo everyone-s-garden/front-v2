@@ -58,8 +58,14 @@ const MyGardenCreate = () => {
     });
 
     images.forEach((image) => {
+      console.log(image);
       if (typeof image !== 'string') {
         formData.append('gardenImage', image.file);
+      } else {
+        formData.append(
+          'gardenImage',
+          new Blob([''], { type: 'application/octet-stream' }),
+        );
       }
     });
 
@@ -69,7 +75,10 @@ const MyGardenCreate = () => {
         { formData, gardenId: state.info.myManagedGardenId },
         {
           onSuccess() {
-            console.log('success');
+            methods.reset();
+            setTimeout(() =>
+              navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
+            );
           },
           onError() {
             alert('나의 텃밭 수정에 실패했습니다.');
@@ -81,10 +90,10 @@ const MyGardenCreate = () => {
       createMyGarden(formData, {
         onSuccess() {
           // TODO: 나의 텃밭 등록 성공 시 처리
-          // methods.reset();
-          // setTimeout(() =>
-          //   navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
-          // );
+          methods.reset();
+          setTimeout(() =>
+            navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
+          );
         },
         onError() {
           alert('나의 텃밭 등록에 실패했습니다.');
@@ -101,7 +110,6 @@ const MyGardenCreate = () => {
 
   useEffect(() => {
     if (state?.info) {
-      console.log(state.info);
       setValue('myManagedGardenName', state.info.myManagedGardenName);
       setValue('createdAt', state.info.createdAt);
       setValue('description', state.info.description);

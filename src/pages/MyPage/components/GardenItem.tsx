@@ -7,7 +7,7 @@ import {
   Button,
   Hide,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@/assets/icons';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
@@ -26,6 +26,7 @@ interface CardProps {
   checkedItems?: Record<string, boolean>;
   handleCheck?: (id: number) => void;
   handleDelete?: (id: number) => void;
+  handleEdit?: (info: BaseGardenItem) => void;
 }
 
 const GardenItem = ({
@@ -37,6 +38,7 @@ const GardenItem = ({
   handleCheck,
   idx,
   handleDelete,
+  handleEdit,
 }: CardProps) => {
   // eslint-disable-next-line
   const [report] = useState(false);
@@ -53,6 +55,17 @@ const GardenItem = ({
   };
 
   const navigateToDetail = () => nav(PATH.MAP.MAIN, { state: { id } });
+  const isBaseGardenItem = (
+    item: RecentGardenItem | BaseGardenItem | CropTrade,
+  ): item is BaseGardenItem => {
+    return 'gardenId' in item && 'gardenName' in item;
+  };
+
+  const handleEditClick = () => {
+    if (handleEdit && isBaseGardenItem(item)) {
+      handleEdit(item);
+    }
+  };
 
   return (
     <ListItem
@@ -162,7 +175,10 @@ const GardenItem = ({
             isDisabled={report}
             fontSize="14px"
             fontWeight="semiBold"
-            onClick={() => alert(`수정하기 click${idx}`)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditClick();
+            }}
             _hover={{ bg: 'green.500' }}
           >
             수정하기
@@ -170,7 +186,15 @@ const GardenItem = ({
           </Button>
         </Box>
         {menu && (
-          <MenuButton ml="auto" itemId={itemId} handleDelete={handleDelete} />
+          <MenuButton
+            ml="auto"
+            itemId={itemId}
+            handleDelete={handleDelete}
+            handleEdit={(e) => {
+              e.stopPropagation();
+              handleEditClick();
+            }}
+          />
         )}
       </Flex>
     </ListItem>
