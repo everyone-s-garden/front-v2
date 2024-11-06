@@ -105,6 +105,7 @@ const GardenDiary = () => {
 
       <Flex flexDir="column">
         <Box
+          w={{ mobile: '100%', tablet: '95%' }}
           position="relative"
           __css={{
             '.swiper-button-next': {
@@ -125,9 +126,9 @@ const GardenDiary = () => {
             modules={[FreeMode, Navigation]}
             freeMode={false}
             style={{
-              width: 'fit-content',
+              width: '100%',
               zIndex: 0,
-              maxWidth: '720px',
+              maxWidth: 720,
               paddingBottom: 150,
             }}
           >
