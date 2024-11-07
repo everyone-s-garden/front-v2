@@ -7,7 +7,7 @@ import {
   Button,
   Hide,
 } from '@chakra-ui/react';
-import { MouseEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@/assets/icons';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
@@ -36,7 +36,6 @@ const GardenItem = ({
   item,
   checkedItems,
   handleCheck,
-  idx,
   handleDelete,
   handleEdit,
 }: CardProps) => {
