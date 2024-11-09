@@ -19,6 +19,7 @@ const AddressSearchBar = () => {
           return alert('오류가 발생하였습니다. 다시 시도해주세요.');
         }
         const { x, y } = response.v2.addresses[0];
+
         setValue('address', data.roadAddress);
         setValue('longitude', Number(x));
         setValue('latitude', Number(y));

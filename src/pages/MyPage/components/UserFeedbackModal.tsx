@@ -64,8 +64,10 @@ const UserFeedbackModal = () => {
 
     const formData = new FormData();
 
-    images.forEach(({ file }) => {
-      formData.append('images', file);
+    images.forEach((image) => {
+      if (typeof image !== 'string') {
+        formData.append('images', image.file);
+      }
     });
 
     const jsonBlob = new Blob(

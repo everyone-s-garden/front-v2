@@ -9,20 +9,26 @@ import {
 } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { FormProvider, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BlockerModal, Content, DatePicker, ImageSelector } from '@/components';
 import FlexInput from '../components/FlexInput';
 import MobileHeader from '../components/MobileHeader';
 import SearchBar from '../components/SearchBar';
 import SubmitButton from '../components/SubmitButton';
 import { MyGarden, useMyGardenForm } from './schema';
-import { PATH } from '@/routes/constants';
-import { useCreateMyGarden, useGetGardenByName } from '@/services/garden/query';
+import {
+  useCreateMyGarden,
+  useGetGardenByName,
+  useUpdateMyGarden,
+} from '@/services/garden/query';
 import { useImageStore } from '@/stores/imageStore';
 import useSearchStore from '@/stores/searchStore';
+import { PATH } from '@/routes/constants';
 
 const MyGardenCreate = () => {
   const methods = useMyGardenForm();
+  const { state } = useLocation();
+
   const {
     formState: { errors },
     register,
@@ -32,12 +38,14 @@ const MyGardenCreate = () => {
   } = methods;
 
   const searchValue = useSearchStore((state) => state.searchValue);
+
   const showResults = useSearchStore((state) => state.showResults);
   const images = useImageStore((state) => state.images);
   const resetImages = useImageStore((state) => state.resetImages);
 
   const { data: results } = useGetGardenByName(searchValue);
   const { mutate: createMyGarden } = useCreateMyGarden();
+  const { mutate: updateMyGarden } = useUpdateMyGarden();
 
   const navigate = useNavigate();
 
@@ -49,23 +57,49 @@ const MyGardenCreate = () => {
       type: 'application/json',
     });
 
-    images.forEach(({ file }) => {
-      formData.append('gardenImage', file);
-    });
-    formData.append('myManagedGardenCreateRequest', jsonBlob);
-
-    createMyGarden(formData, {
-      onSuccess() {
-        // TODO: 나의 텃밭 등록 성공 시 처리
-        methods.reset();
-        setTimeout(() =>
-          navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
+    images.forEach((image) => {
+      console.log(image);
+      if (typeof image !== 'string') {
+        formData.append('gardenImage', image.file);
+      } else {
+        formData.append(
+          'gardenImage',
+          new Blob([''], { type: 'application/octet-stream' }),
         );
-      },
-      onError() {
-        alert('나의 텃밭 등록에 실패했습니다.');
-      },
+      }
     });
+
+    if (state?.info) {
+      formData.append('myManagedGardenUpdateRequest', jsonBlob);
+      updateMyGarden(
+        { formData, gardenId: state.info.myManagedGardenId },
+        {
+          onSuccess() {
+            methods.reset();
+            setTimeout(() =>
+              navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
+            );
+          },
+          onError() {
+            alert('나의 텃밭 수정에 실패했습니다.');
+          },
+        },
+      );
+    } else {
+      formData.append('myManagedGardenCreateRequest', jsonBlob);
+      createMyGarden(formData, {
+        onSuccess() {
+          // TODO: 나의 텃밭 등록 성공 시 처리
+          methods.reset();
+          setTimeout(() =>
+            navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
+          );
+        },
+        onError() {
+          alert('나의 텃밭 등록에 실패했습니다.');
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -73,6 +107,14 @@ const MyGardenCreate = () => {
       resetImages();
     };
   }, [resetImages]);
+
+  useEffect(() => {
+    if (state?.info) {
+      setValue('myManagedGardenName', state.info.myManagedGardenName);
+      setValue('createdAt', state.info.createdAt);
+      setValue('description', state.info.description);
+    }
+  }, [state]);
 
   return (
     <>
@@ -108,6 +150,7 @@ const MyGardenCreate = () => {
               }}
             >
               <ImageSelector
+                initialImages={state?.info.images}
                 breakPoints={{
                   0: {
                     slidesPerView: 2.5,
@@ -119,7 +162,7 @@ const MyGardenCreate = () => {
                   },
                 }}
                 size={{ mobile: 100, tablet: 136, desktop: 136 }}
-                maxImageLength={1}
+                // maxImageLength={1}
               />
             </Box>
 
@@ -211,6 +254,7 @@ const MyGardenCreate = () => {
                 errorTop={{ mobile: '72px', tablet: '60px' }}
               >
                 <DatePicker
+                  initialDate={state?.info?.createdAt}
                   placeholder="작성 날짜"
                   onChange={(date: string) => {
                     setValue('createdAt', date);

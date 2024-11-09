@@ -15,6 +15,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { ALERT_MESSAGE, MAX_IMAGE_LENGTH } from './constants';
 import { useImageStore } from '@/stores/imageStore';
+import { useEffect } from 'react';
 
 interface ImageSelectorProps {
   breakPoints: Record<number, { slidesPerView: number; spaceBetween?: number }>;
@@ -25,13 +26,20 @@ interface ImageSelectorProps {
   };
   showArrow?: boolean;
   maxImageLength?: number;
+  initialImages?: string[];
 }
+const imageTypeCheck = (
+  image: string | { file: File; url: string },
+): image is { file: File; url: string } => {
+  return typeof image !== 'string';
+};
 
 const ImageSelector = ({
   breakPoints,
   size,
   showArrow = true,
   maxImageLength,
+  initialImages,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
@@ -45,16 +53,33 @@ const ImageSelector = ({
 
     const files = Array.from(target.files);
     const urls = files.map((file) => URL.createObjectURL(file));
-    setImages([
-      ...images,
-      ...files.map((file, index) => ({ file, url: urls[index] })),
-    ]);
+    const newImages = files.map((file, index) => ({ file, url: urls[index] }));
+    if (images.every((image) => typeof image !== 'string')) {
+      setImages([...images, ...newImages] as { file: File; url: string }[]);
+    }
   };
 
   const handleImageRemove = (urlToRemove: string) => {
-    const updatedImages = images.filter(({ url }) => url !== urlToRemove);
-    setImages(updatedImages);
+    const updatedImages = images.filter(
+      (image): image is string | { file: File; url: string } =>
+        imageTypeCheck(image)
+          ? image.url !== urlToRemove
+          : image !== urlToRemove,
+    );
+
+    // 타입 검사 후 setImages에 전달
+    if (updatedImages.every((image) => typeof image === 'string')) {
+      setImages(updatedImages as string[]);
+    } else if (updatedImages.every((image) => imageTypeCheck(image))) {
+      setImages(updatedImages as { file: File; url: string }[]);
+    }
   };
+
+  useEffect(() => {
+    if (initialImages) {
+      setImages(initialImages);
+    }
+  }, [initialImages]);
 
   return (
     <Box
@@ -149,11 +174,13 @@ const ImageSelector = ({
                 right={'8px'}
                 _hover={{ bg: 'white' }}
                 _active={{ bg: 'white' }}
-                onClick={() => handleImageRemove(image.url)}
+                onClick={() =>
+                  handleImageRemove(imageTypeCheck(image) ? image.url : image)
+                }
               />
               <Image
-                src={image.url}
-                alt={`image-${image.url}`}
+                src={imageTypeCheck(image) ? image.url : image}
+                alt={`image-${imageTypeCheck(image) ? image.url : image}`}
                 w={'100%'}
                 h={'100%'}
                 borderRadius={10}

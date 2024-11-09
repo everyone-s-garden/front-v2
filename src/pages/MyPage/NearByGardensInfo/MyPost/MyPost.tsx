@@ -7,12 +7,15 @@ import {
   useGetNearByGardenMineLists,
 } from '@/services/mypage/query';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BaseGardenItem } from '../../type';
+import { PATH } from '@/routes/constants';
 
 const MyPost = () => {
   const { data, fetchNextPage, hasNextPage } = useGetNearByGardenMineLists();
   const { pathname } = useLocation();
   const { mutate: deletePost } = useDeletePost();
+  const nav = useNavigate();
   const { ref } = useInfiniteScroll<HTMLDivElement>({
     fetchData: () => {
       fetchNextPage();
@@ -43,6 +46,9 @@ const MyPost = () => {
     setCheckedItems({});
     setCheckboxOpen(false);
   };
+
+  const handleEdit = (info: BaseGardenItem) =>
+    nav(PATH.MAP.CREATE_GARDEN, { state: { info } });
   useEffect(() => {
     if (!checkboxOpen) {
       setCheckedItems({});
@@ -82,6 +88,7 @@ const MyPost = () => {
           checkedItems={checkedItems}
           handleCheck={handleCheck}
           handleDelete={handleDelete}
+          handleEdit={handleEdit}
         />
       ))}
       <div style={{ height: 100 }} ref={ref} />

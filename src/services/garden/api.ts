@@ -30,6 +30,14 @@ const gardenAPI = {
 
     return response.data;
   },
+  updateMyGarden: async (gardenData: FormData, gardenId: number) => {
+    const response = await apiClient.put(
+      `v2/gardens/my-managed/${gardenId}`,
+      gardenData,
+    );
+
+    return response.data;
+  },
 };
 
 export default gardenAPI;

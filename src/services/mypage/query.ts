@@ -190,14 +190,12 @@ export const useGetCommentedPosts = () => {
 const getQueryKeys = (path: string) => {
   if (path.includes('nearby')) return [...nearByGardenQueries.all(), 'mine'];
   if (path.includes('crop')) return cropTradeQueries.all();
-  if (path.includes('my-garden')) return myManagedGardenQueries.all();
   if (path.includes('whisper')) return [...whisperKey, 'myPosts'];
 };
 
 const getPath = (path: string) => {
   if (path.includes('nearby')) return '/v2/gardens';
   if (path.includes('crop')) return '/v1/crops/posts';
-  if (path.includes('my-garden')) return '/v2/gardens/my-managed';
   if (path.includes('whisper')) return '/v1/posts';
 
   return '';
@@ -212,6 +210,23 @@ export const useDeletePost = () => {
     onSuccess: (_, variables) => {
       const { path } = variables;
       queryClient.invalidateQueries({ queryKey: getQueryKeys(path) });
+    },
+  });
+};
+
+export const useDeleteMyManagedGarden = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (nextGardenId: number) =>
+      myManagedGardenAPI.removetMyManagedGarden(nextGardenId),
+    onSuccess: (nextGardenId) => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          ...myManagedGardenQueries.all(),
+          'myManangedGarden',
+          nextGardenId,
+        ],
+      });
     },
   });
 };

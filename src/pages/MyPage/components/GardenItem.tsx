@@ -15,6 +15,7 @@ import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
 import { PATH } from '@/routes/constants';
+import { MapGardenNoImg } from '@/assets/images';
 
 interface CardProps {
   heart?: boolean;
@@ -25,6 +26,7 @@ interface CardProps {
   checkedItems?: Record<string, boolean>;
   handleCheck?: (id: number) => void;
   handleDelete?: (id: number) => void;
+  handleEdit?: (info: BaseGardenItem) => void;
 }
 
 const GardenItem = ({
@@ -34,8 +36,8 @@ const GardenItem = ({
   item,
   checkedItems,
   handleCheck,
-  idx,
   handleDelete,
+  handleEdit,
 }: CardProps) => {
   // eslint-disable-next-line
   const [report] = useState(false);
@@ -52,6 +54,17 @@ const GardenItem = ({
   };
 
   const navigateToDetail = () => nav(PATH.MAP.MAIN, { state: { id } });
+  const isBaseGardenItem = (
+    item: RecentGardenItem | BaseGardenItem | CropTrade,
+  ): item is BaseGardenItem => {
+    return 'gardenId' in item && 'gardenName' in item;
+  };
+
+  const handleEditClick = () => {
+    if (handleEdit && isBaseGardenItem(item)) {
+      handleEdit(item);
+    }
+  };
 
   return (
     <ListItem
@@ -71,7 +84,7 @@ const GardenItem = ({
             w="full"
             h="full"
             borderRadius="8px"
-            src={thumbnail}
+            src={!thumbnail ? MapGardenNoImg : thumbnail}
             objectFit="cover"
           />
           <Overlay report={report} />
@@ -161,7 +174,10 @@ const GardenItem = ({
             isDisabled={report}
             fontSize="14px"
             fontWeight="semiBold"
-            onClick={() => alert(`수정하기 click${idx}`)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditClick();
+            }}
             _hover={{ bg: 'green.500' }}
           >
             수정하기
@@ -169,7 +185,15 @@ const GardenItem = ({
           </Button>
         </Box>
         {menu && (
-          <MenuButton ml="auto" itemId={itemId} handleDelete={handleDelete} />
+          <MenuButton
+            ml="auto"
+            itemId={itemId}
+            handleDelete={handleDelete}
+            handleEdit={(e) => {
+              e.stopPropagation();
+              handleEditClick();
+            }}
+          />
         )}
       </Flex>
     </ListItem>
