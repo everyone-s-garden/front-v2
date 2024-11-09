@@ -16,6 +16,7 @@ import MobileHeader from '../components/MobileHeader';
 import SearchBar from '../components/SearchBar';
 import SubmitButton from '../components/SubmitButton';
 import { MyGarden, useMyGardenForm } from './schema';
+import { PATH } from '@/routes/constants';
 import {
   useCreateMyGarden,
   useGetGardenByName,
@@ -23,7 +24,6 @@ import {
 } from '@/services/garden/query';
 import { useImageStore } from '@/stores/imageStore';
 import useSearchStore from '@/stores/searchStore';
-import { PATH } from '@/routes/constants';
 
 const MyGardenCreate = () => {
   const methods = useMyGardenForm();
@@ -114,7 +114,7 @@ const MyGardenCreate = () => {
       setValue('createdAt', state.info.createdAt);
       setValue('description', state.info.description);
     }
-  }, [state]);
+  }, [state, setValue]);
 
   return (
     <>
@@ -162,7 +162,7 @@ const MyGardenCreate = () => {
                   },
                 }}
                 size={{ mobile: 100, tablet: 136, desktop: 136 }}
-                // maxImageLength={1}
+                maxImageLength={1}
               />
             </Box>
 
