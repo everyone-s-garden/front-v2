@@ -14,7 +14,15 @@ const gardensAPI = {
     return response.data;
   },
 
-  getIndividualGarden: async (id: number | null): Promise<GardenDetail> => {
+  getGardenPosition: async (
+    id: number,
+  ): Promise<Pick<Garden, 'latitude' | 'longitude'>> => {
+    const response = await apiClient.get(`/v2/gardens/${id}/locations`);
+
+    return response.data;
+  },
+
+  getIndividualGarden: async (id: number | null): Promise<Garden> => {
     const response = await apiClient.get(`/v2/gardens/${id}`);
 
     return response.data;
