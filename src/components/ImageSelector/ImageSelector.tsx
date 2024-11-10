@@ -43,13 +43,12 @@ const ImageSelector = ({
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
-  const maxLen = maxImageLength;
 
   const handleImageAdd = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (!target.files) return;
 
-    if (images.length + target.files.length > maxLen)
-      return alert(ALERT_MESSAGE.MAX_IMAGE(maxLen));
+    if (images.length + target.files.length > maxImageLength)
+      return alert(ALERT_MESSAGE.MAX_IMAGE(maxImageLength));
 
     const files = Array.from(target.files);
     const urls = files.map((file) => URL.createObjectURL(file));
@@ -79,7 +78,7 @@ const ImageSelector = ({
     if (initialImages) {
       setImages(initialImages);
     }
-  }, [initialImages]);
+  }, [initialImages, setImages]);
 
   return (
     <Box
