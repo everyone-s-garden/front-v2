@@ -8,6 +8,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { CameraIcon, ClosePrimaryIcon } from '@/assets/icons';
@@ -15,7 +16,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { ALERT_MESSAGE, MAX_IMAGE_LENGTH } from './constants';
 import { useImageStore } from '@/stores/imageStore';
-import { useEffect } from 'react';
 
 interface ImageSelectorProps {
   breakPoints: Record<number, { slidesPerView: number; spaceBetween?: number }>;
@@ -38,18 +38,17 @@ const ImageSelector = ({
   breakPoints,
   size,
   showArrow = true,
-  maxImageLength,
+  maxImageLength = MAX_IMAGE_LENGTH,
   initialImages,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
-  const maxLen = maxImageLength ?? MAX_IMAGE_LENGTH;
 
   const handleImageAdd = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (!target.files) return;
 
-    if (images.length + target.files.length > maxLen)
-      return alert(ALERT_MESSAGE.MAX_IMAGE(maxLen));
+    if (images.length + target.files.length > maxImageLength)
+      return alert(ALERT_MESSAGE.MAX_IMAGE(maxImageLength));
 
     const files = Array.from(target.files);
     const urls = files.map((file) => URL.createObjectURL(file));
@@ -79,7 +78,7 @@ const ImageSelector = ({
     if (initialImages) {
       setImages(initialImages);
     }
-  }, [initialImages]);
+  }, [initialImages, setImages]);
 
   return (
     <Box

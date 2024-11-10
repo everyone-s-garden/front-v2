@@ -10,12 +10,15 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@/assets/icons';
+import { MapGardenNoImg } from '@/assets/images';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
 import { PATH } from '@/routes/constants';
-import { MapGardenNoImg } from '@/assets/images';
+import { useGetGardenPositionById } from '@/services/gardens/mutations';
+import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 interface CardProps {
   heart?: boolean;
@@ -39,21 +42,45 @@ const GardenItem = ({
   handleDelete,
   handleEdit,
 }: CardProps) => {
-  // eslint-disable-next-line
   const [report] = useState(false);
   const nav = useNavigate();
+  const { mutate: getGardenPosition } = useGetGardenPositionById();
+  const setGardenId = useMapGardenDetailIdStore((state) => state.setGardenId);
+  const setShowGardenDetail = useShowGardenDetailStore(
+    (state) => state.setShowGardenDetail,
+  );
 
   const thumbnail = 'images' in item ? item.images[0] : item.imageUrl;
   const id = 'gardenId' in item ? item.gardenId : item.cropPostId;
   const title = 'gardenName' in item ? item.gardenName : item.title;
   const itemId = 'gardenId' in item ? item.gardenId : item.cropPostId;
   const price = 'price' in item ? item.price : null;
+  const latitude = 'latitude' in item ? item.latitude : null;
+  const longitude = 'longitude' in item ? item.longitude : null;
 
   const handleLike = () => {
     console.log('like');
   };
 
-  const navigateToDetail = () => nav(PATH.MAP.MAIN, { state: { id } });
+  const handlePostClick = () => {
+    if (!latitude || !longitude) {
+      getGardenPosition(id, {
+        onSuccess: (data) => {
+          nav(PATH.MAP.MAIN, {
+            state: { data: { lat: data.latitude, lng: data.longitude } },
+          });
+        },
+      });
+    } else {
+      nav(PATH.MAP.MAIN, {
+        state: { data: { lat: latitude, lng: longitude } },
+      });
+    }
+
+    setGardenId(id);
+    setShowGardenDetail(true);
+  };
+
   const isBaseGardenItem = (
     item: RecentGardenItem | BaseGardenItem | CropTrade,
   ): item is BaseGardenItem => {
@@ -71,7 +98,7 @@ const GardenItem = ({
       cursor="pointer"
       mb="32px"
       mt={{ mobile: '16px', tablet: '0' }}
-      onClick={navigateToDetail}
+      onClick={handlePostClick}
     >
       <Flex flex={1}>
         <Box
@@ -124,15 +151,6 @@ const GardenItem = ({
             >
               {title}
             </Text>
-            {'location' in item && (
-              <Text
-                mt={{ mobile: '0', tablet: '8px' }}
-                ml={{ mobile: '6px', tablet: '0' }}
-                fontSize="16px"
-              >
-                {/* {item.location} */}
-              </Text>
-            )}
           </Flex>
           <Flex
             flexDir={{ mobile: 'row-reverse', tablet: 'column' }}

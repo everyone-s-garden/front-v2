@@ -1,15 +1,15 @@
 import { Box, List, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import GardenItem from '../../components/GardenItem';
 import MobileEditButton from '../../components/MobileEditButton';
+import { BaseGardenItem } from '../../type';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { PATH } from '@/routes/constants';
 import {
   useDeletePost,
   useGetNearByGardenMineLists,
 } from '@/services/mypage/query';
-import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { BaseGardenItem } from '../../type';
-import { PATH } from '@/routes/constants';
 
 const MyPost = () => {
   const { data, fetchNextPage, hasNextPage } = useGetNearByGardenMineLists();
@@ -55,6 +55,7 @@ const MyPost = () => {
     }
   }, [checkboxOpen]);
   if (!data) return;
+
   if (data.length === 0) return <h1>게시글이 존재하지 않습니다.</h1>;
 
   return (
