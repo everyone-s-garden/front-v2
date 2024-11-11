@@ -33,8 +33,8 @@ const Login = () => {
     >
       <Icon
         pos="absolute"
-        top={{ mobile: '20px', tablet: '30px' }}
-        left={{ mobile: '26px', tablet: '30px' }}
+        top={{ mobile: '26px', tablet: '30px' }}
+        left={{ mobile: '20px', tablet: '30px' }}
         w={{ mobile: '24px', tablet: '30px' }}
         h={{ mobile: '24px', tablet: '30px' }}
         cursor="pointer"
