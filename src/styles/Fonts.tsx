@@ -5,7 +5,7 @@ const Fonts = () => (
     styles={`
       @font-face {
         font-family: 'KIMM';
-        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Bold.woff2') format('woff2');
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KIMM_Light.woff2') format('woff2');
         font-weight: 300;
         font-style: normal;
       }

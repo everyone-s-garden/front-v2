@@ -51,7 +51,9 @@ const Login = () => {
           fontFamily="KIMM"
           color="green.600"
           fontSize="32px"
-          fontWeight="regular"
+          style={{
+            WebkitTextStrokeWidth: '1.5px',
+          }}
         >
           모두의 텃밭
         </Text>
