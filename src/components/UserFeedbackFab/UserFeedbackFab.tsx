@@ -15,11 +15,15 @@ import { PlusIcon } from '@/assets/icons';
 import { PcFab } from '@/assets/images';
 import { postOptions } from '@/constants/postOptions';
 import UserFeedbackModal from '@/pages/MyPage/components/UserFeedbackModal';
+import useLoginStore from '@/stores/useLoginStore';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 const UserFeedbackFab = () => {
+  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const { setModalOpen } = userFeedbackFabStore();
   const navigate = useNavigate();
+
+  if (!isLoggedIn) return null;
 
   const navToItem = (link: string) => {
     if (link === 'feedback') {
