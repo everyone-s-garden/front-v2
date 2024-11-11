@@ -31,7 +31,6 @@ import {
   GardenDiary,
 } from '@/pages';
 import AuthRoute from './AuthRoute';
-import GuestRoute from './GuestRoute';
 import HiddenHeaderLayout from './HiddenHeaderLayout';
 import Layout from './Layout';
 import { PATH } from './constants';
@@ -41,6 +40,10 @@ const { CHAT, COMMUNITY, ERROR, LOGIN, MAIN, MAP, MYPAGE, SETTINGS, REPORT } =
   PATH;
 
 const router = createBrowserRouter([
+  {
+    path: LOGIN.MAIN,
+    element: <Login />,
+  },
   {
     element: <Layout />,
     children: [
@@ -147,18 +150,6 @@ const router = createBrowserRouter([
         path: MYPAGE.PROFILE,
         element: <Profile />,
       },
-
-      // NOTE: 로그인하지 않은 사용자만 접근 가능한 페이지
-      {
-        element: <GuestRoute />,
-        children: [
-          {
-            path: LOGIN.MAIN,
-            element: <Login />,
-          },
-        ],
-      },
-
       // NOTE: 로그인 시에만 접근 가능한 페이지
       {
         element: <AuthRoute />,
