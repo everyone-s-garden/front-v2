@@ -1,4 +1,3 @@
-export { default as LogoHorizon } from './logo/logo_horizon.png';
 export { default as MapNoGardenImg } from './map/map-no-garden-img.jpeg';
 export { default as MapGardenNoImg } from './map/map-garden-no-img.jpg';
 export { default as DefaultPost } from './default_post.png';

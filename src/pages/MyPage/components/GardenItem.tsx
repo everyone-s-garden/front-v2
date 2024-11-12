@@ -10,11 +10,15 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeartIcon } from '@/assets/icons';
+import { MapGardenNoImg } from '@/assets/images';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
 import { PATH } from '@/routes/constants';
+import { useGetGardenPositionById } from '@/services/gardens/mutations';
+import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
+import useShowGardenDetailStore from '@/stores/useShowGardenDetailStore';
 
 interface CardProps {
   heart?: boolean;
@@ -25,6 +29,7 @@ interface CardProps {
   checkedItems?: Record<string, boolean>;
   handleCheck?: (id: number) => void;
   handleDelete?: (id: number) => void;
+  handleEdit?: (info: BaseGardenItem) => void;
 }
 
 const GardenItem = ({
@@ -34,31 +39,66 @@ const GardenItem = ({
   item,
   checkedItems,
   handleCheck,
-  idx,
   handleDelete,
+  handleEdit,
 }: CardProps) => {
-  // eslint-disable-next-line
   const [report] = useState(false);
   const nav = useNavigate();
+  const { mutate: getGardenPosition } = useGetGardenPositionById();
+  const setGardenId = useMapGardenDetailIdStore((state) => state.setGardenId);
+  const setShowGardenDetail = useShowGardenDetailStore(
+    (state) => state.setShowGardenDetail,
+  );
 
   const thumbnail = 'images' in item ? item.images[0] : item.imageUrl;
   const id = 'gardenId' in item ? item.gardenId : item.cropPostId;
   const title = 'gardenName' in item ? item.gardenName : item.title;
   const itemId = 'gardenId' in item ? item.gardenId : item.cropPostId;
   const price = 'price' in item ? item.price : null;
+  const latitude = 'latitude' in item ? item.latitude : null;
+  const longitude = 'longitude' in item ? item.longitude : null;
 
   const handleLike = () => {
     console.log('like');
   };
 
-  const navigateToDetail = () => nav(PATH.MAP.MAIN, { state: { id } });
+  const handlePostClick = () => {
+    if (!latitude || !longitude) {
+      getGardenPosition(id, {
+        onSuccess: (data) => {
+          nav(PATH.MAP.MAIN, {
+            state: { data: { lat: data.latitude, lng: data.longitude } },
+          });
+        },
+      });
+    } else {
+      nav(PATH.MAP.MAIN, {
+        state: { data: { lat: latitude, lng: longitude } },
+      });
+    }
+
+    setGardenId(id);
+    setShowGardenDetail(true);
+  };
+
+  const isBaseGardenItem = (
+    item: RecentGardenItem | BaseGardenItem | CropTrade,
+  ): item is BaseGardenItem => {
+    return 'gardenId' in item && 'gardenName' in item;
+  };
+
+  const handleEditClick = () => {
+    if (handleEdit && isBaseGardenItem(item)) {
+      handleEdit(item);
+    }
+  };
 
   return (
     <ListItem
       cursor="pointer"
       mb="32px"
       mt={{ mobile: '16px', tablet: '0' }}
-      onClick={navigateToDetail}
+      onClick={handlePostClick}
     >
       <Flex flex={1}>
         <Box
@@ -71,7 +111,7 @@ const GardenItem = ({
             w="full"
             h="full"
             borderRadius="8px"
-            src={thumbnail}
+            src={!thumbnail ? MapGardenNoImg : thumbnail}
             objectFit="cover"
           />
           <Overlay report={report} />
@@ -111,15 +151,6 @@ const GardenItem = ({
             >
               {title}
             </Text>
-            {'location' in item && (
-              <Text
-                mt={{ mobile: '0', tablet: '8px' }}
-                ml={{ mobile: '6px', tablet: '0' }}
-                fontSize="16px"
-              >
-                {/* {item.location} */}
-              </Text>
-            )}
           </Flex>
           <Flex
             flexDir={{ mobile: 'row-reverse', tablet: 'column' }}
@@ -161,7 +192,10 @@ const GardenItem = ({
             isDisabled={report}
             fontSize="14px"
             fontWeight="semiBold"
-            onClick={() => alert(`수정하기 click${idx}`)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditClick();
+            }}
             _hover={{ bg: 'green.500' }}
           >
             수정하기
@@ -169,7 +203,15 @@ const GardenItem = ({
           </Button>
         </Box>
         {menu && (
-          <MenuButton ml="auto" itemId={itemId} handleDelete={handleDelete} />
+          <MenuButton
+            ml="auto"
+            itemId={itemId}
+            handleDelete={handleDelete}
+            handleEdit={(e) => {
+              e.stopPropagation();
+              handleEditClick();
+            }}
+          />
         )}
       </Flex>
     </ListItem>

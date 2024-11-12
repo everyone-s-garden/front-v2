@@ -8,6 +8,7 @@ import { RouterProvider } from 'react-router-dom';
 import router from './routes/router';
 import loginAPI from './services/login/api';
 import useLoginStore from './stores/useLoginStore';
+import Fonts from './styles/Fonts';
 import globalStyles from './styles/globalStyles';
 import { emotionTheme, theme } from './styles/theme';
 
@@ -40,6 +41,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={emotionTheme}>
         <ChakraProvider theme={theme}>
+          <Fonts />
           <NavermapsProvider
             ncpClientId={import.meta.env.VITE_NCP_CLIENT_ID}
             submodules={['geocoder']}

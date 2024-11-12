@@ -50,7 +50,6 @@ export { default as AlignCenterIcon } from './align-center.svg?react';
 export { default as AlignRightIcon } from './align-right.svg?react';
 export { default as SearchIcon } from './search.svg?react';
 export { default as KakaoLogo } from './kakao-logo.svg?react';
-export { default as LoginLogo } from './login-logo.svg?react';
 export { default as ParagraphIcon } from './paragraph.svg?react';
 export { default as PostIcon } from './post.svg?react';
 export { default as ETCIcon } from './etc.svg?react';

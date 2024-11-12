@@ -35,3 +35,9 @@ export const useLikeGarden = (
 
   return { mutateLikeGarden };
 };
+
+export const useGetGardenPositionById = () => {
+  return useMutation({
+    mutationFn: (id: number) => gardensAPI.getGardenPosition(id),
+  });
+};

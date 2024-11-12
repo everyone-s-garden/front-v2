@@ -17,28 +17,27 @@ const LoginLink = ({ type, icon, content, link }: LoginLinkProps) => {
       justifyContent="center"
       alignItems="center"
       w="100%"
-      h={{ mobile: '60px', tablet: '80px' }}
+      h="56px"
       bgColor={type === 'kakao' ? '#FEE500' : '#2EC100'}
-      borderRadius="20px"
-      marginTop={{ mobile: '20px', tablet: '40px' }}
+      borderRadius="10px"
       _hover={{}}
     >
       {type === 'kakao' && (
         <Icon
           as={icon}
           pos="absolute"
-          left="20px"
-          w={{ mobile: '25px', tablet: '40px' }}
-          h={{ mobile: '25px', tablet: '40px' }}
+          left={{ mobile: '26px', tablet: '20px' }}
+          w="24px"
+          h="24px"
         />
       )}
 
       {type === 'naver' && (
         <Text
           pos="absolute"
-          left={{ mobile: '24px', tablet: '27px' }}
+          left={{ mobile: '26px', tablet: '20px' }}
           filter="white"
-          fontSize={{ mobile: '25px', tablet: '40px' }}
+          fontSize="30px"
           color="white"
           fontWeight="900"
         >
@@ -47,8 +46,8 @@ const LoginLink = ({ type, icon, content, link }: LoginLinkProps) => {
       )}
 
       <Text
-        fontSize={{ mobile: '14px', tablet: '26px' }}
-        fontWeight="medium"
+        fontSize={{ mobile: '16px', tablet: '18px' }}
+        fontWeight="regular"
         color={type === 'naver' ? 'white' : 'black'}
       >
         {content}

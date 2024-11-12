@@ -1,15 +1,29 @@
 import { Box, Text } from '@chakra-ui/react';
 import { Dropdown, DropdownItem, DropdownTrigger } from '@/components';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
+import { MouseEventHandler } from 'react';
 
 interface MenuButtonProps {
   ml: string;
+  mr?: string;
   itemId: number;
   handleDelete?: (id: number) => void;
+  handleEdit?: MouseEventHandler<HTMLButtonElement>;
 }
-const MenuButton = ({ ml, itemId, handleDelete }: MenuButtonProps) => {
+const MenuButton = ({
+  ml,
+  mr,
+  itemId,
+  handleDelete,
+  handleEdit,
+}: MenuButtonProps) => {
   return (
-    <Box display={{ mobile: 'none', tablet: 'block' }} ml={ml} pos="relative">
+    <Box
+      display={{ mobile: 'none', tablet: 'block' }}
+      ml={ml}
+      mr={mr}
+      pos="relative"
+    >
       <Dropdown>
         {({ isOpen }) => (
           <>
@@ -34,7 +48,7 @@ const MenuButton = ({ ml, itemId, handleDelete }: MenuButtonProps) => {
                 w="111px"
                 px="0px"
                 py="0px"
-                onClick={() => alert(`수정하기 클릭`)}
+                onClick={handleEdit}
               >
                 <Text
                   fontWeight="medium"

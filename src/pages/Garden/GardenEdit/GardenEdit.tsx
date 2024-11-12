@@ -46,6 +46,7 @@ const GardenEdit = () => {
   const isToilet = useWatch({ control, name: 'isToilet' });
   const isWaterway = useWatch({ control, name: 'isWaterway' });
   const isEquipment = useWatch({ control, name: 'isEquipment' });
+  const address = useWatch({ control, name: 'address' });
   useWatch({ control, name: 'price' });
   useWatch({ control, name: 'size' });
   useWatch({ control, name: 'contact' });
@@ -72,6 +73,21 @@ const GardenEdit = () => {
     return true;
   };
 
+  const handleAddressChange = ({
+    address,
+    latitude,
+    longitude,
+  }: {
+    address: string;
+    latitude: number;
+    longitude: number;
+  }) => {
+    setValue('address', address);
+    clearErrors('address');
+    setValue('longitude', longitude);
+    setValue('latitude', latitude);
+  };
+
   const onSubmit: SubmitHandler<Garden> = (data) => {
     const formData = new FormData();
 
@@ -90,9 +106,12 @@ const GardenEdit = () => {
       },
     );
 
-    images.forEach(({ file }) => {
-      formData.append('gardenImages', file);
+    images.forEach((image) => {
+      if (typeof image !== 'string') {
+        formData.append('gardenImages', image.file);
+      }
     });
+
     formData.append('gardenCreateRequest', jsonBlob);
 
     createGarden(formData, {
@@ -306,7 +325,10 @@ const GardenEdit = () => {
                 flexGrow={1}
               >
                 <Suspense fallback={null}>
-                  <AddressSearchBar />
+                  <AddressSearchBar
+                    address={address}
+                    onAddressChange={handleAddressChange}
+                  />
                 </Suspense>
               </FlexInput>
 

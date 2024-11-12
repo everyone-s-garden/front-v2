@@ -40,7 +40,6 @@ const ChatList = () => {
           borderColor="gray.50"
         >
           <Tab w="100%">내 주변 분양</Tab>
-          {/* <Tab w="100%">내 주변 분양</Tab> */}
         </TabList>
         <TabIndicator mt="-4px" h="4px" bg="green.500" />
       </Tabs>

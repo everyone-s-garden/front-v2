@@ -1,12 +1,10 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { useState } from 'react';
 import { AvatarComponent } from '@/components';
-import { SeedIcon, ShareIcon } from '@/assets/icons';
-
-// interface UserProfileProps {}
+import { SeedIcon } from '@/assets/icons';
+import { useGetMyProfileInfo } from '@/services/user/query';
 
 const UserProfile = () => {
-  const [userEmail] = useState('rrgy908@naver.com');
+  const { data: myProfile } = useGetMyProfileInfo();
 
   return (
     <Flex
@@ -20,9 +18,9 @@ const UserProfile = () => {
       pos="relative"
       minW="204px"
     >
-      <Box as="button" pos="absolute" zIndex={2} right="16px" top="12px">
+      {/* <Box as="button" pos="absolute" zIndex={2} right="16px" top="12px">
         <ShareIcon aria-label="공유하기" />
-      </Box>
+      </Box> */}
 
       <Box mt="48px">
         <SeedIcon />
@@ -46,11 +44,11 @@ const UserProfile = () => {
             justify={'center'}
             borderRadius={'10px'}
           >
-            텃린이
+            {myProfile?.nickname}
           </Flex>
 
           <Text color="gray.500" fontSize={'10px'} fontWeight={'regular'}>
-            {userEmail}
+            {myProfile?.email}
           </Text>
         </Flex>
       </Flex>

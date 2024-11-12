@@ -1,7 +1,7 @@
 import { List } from '@chakra-ui/react';
 import GardenItem from '../../components/GardenItem';
-import { useGetNearByGardenLikeLists } from '@/services/mypage/query';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { useGetNearByGardenLikeLists } from '@/services/mypage/query';
 
 const FavoritedGardens = () => {
   const { data, fetchNextPage, hasNextPage } = useGetNearByGardenLikeLists();
