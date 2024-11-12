@@ -96,9 +96,8 @@ const ProfileSaleGarden = ({
         <Grid
           gridTemplateColumns={{ tablet: '1fr 1fr', desktop: '1fr 1fr 1fr' }}
           gridRowGap="52px"
-          gridColumnGap="48px"
+          gridColumnGap="45px"
           flexDir="column"
-          gap="45px"
         >
           {otherGardensForSale?.map((el, i) => (
             <ProfileIndividualSaleGarden

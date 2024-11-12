@@ -10,11 +10,11 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import { BottomMenu } from '@/components';
 import { LocationPrimaryIcon, ThreeDotsMenuIcon } from '@/assets/icons';
 import MenuButton from '@/pages/MyPage/components/MenuButton';
-import { BottomMenu } from '@/components';
-import { useState } from 'react';
-import dayjs from 'dayjs';
 
 interface ProfileGardenFooterProps {
   garden: ManagedGarden;
@@ -46,6 +46,7 @@ const ProfileGardenFooter = ({
   const formattedDate = dayjs(garden.createdAt, 'YYYY.MM.DD').format(
     'MM월 DD일',
   );
+
   return (
     <Flex
       alignItems="center"

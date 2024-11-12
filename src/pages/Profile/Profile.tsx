@@ -27,6 +27,7 @@ const Profile = () => {
   const [allGardensForSale, setAllGardensForSale] = useState<GardenForSale[]>(
     [],
   );
+
   const { data: userInfo } = useGetUserInfo(Number(userId));
 
   const { data: otherManagedGardensData } = useGetOtherUsersGardens(

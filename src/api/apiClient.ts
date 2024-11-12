@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import tokenManager from '@/services/login/tokenManager';
+import useLoginStore from '@/stores/useLoginStore';
 import { ApiError } from '@/types/error';
 
 const apiClient = axios.create({
@@ -26,6 +27,11 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ApiError>) => {
+    const { logout } = useLoginStore();
+    if (error.message === 'AxiosError: Request failed with status code 401') {
+      logout();
+    }
+
     return Promise.reject(error.response?.data);
   },
 );
