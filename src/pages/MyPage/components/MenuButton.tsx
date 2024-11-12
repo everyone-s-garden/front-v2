@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
+import { MouseEventHandler } from 'react';
 import { Dropdown, DropdownItem, DropdownTrigger } from '@/components';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
-import { MouseEventHandler } from 'react';
 
 interface MenuButtonProps {
   ml: string;

@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { PANELS } from '../constants/panels';
+import { PANELS } from '../../constants/panels';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 interface PanelItemProps {
@@ -15,7 +15,7 @@ export default function PanelItem({ item }: PanelItemProps) {
     if (item.href === null) {
       setModalOpen();
     } else {
-      navigate(item.href);
+      navigate(item.subPages ? item.subPages[0].href : item.href);
     }
   };
 

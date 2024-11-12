@@ -17,7 +17,7 @@ import {
   Modal,
 } from '@/components';
 import { ArrowDownIcon, UserFeedBackSmileIcon } from '@/assets/icons';
-import { userFeedBackItem } from '../../pages/MyPage/constants';
+import { userFeedBackItem } from '../../pages/MyPage/constants/constants';
 import { postUserFeedback } from '@/services/mypage/api';
 import { useImageStore } from '@/stores/imageStore';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';

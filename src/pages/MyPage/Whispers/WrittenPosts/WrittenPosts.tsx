@@ -1,10 +1,11 @@
 import { List } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import MobileEditButton from '../../components/MobileEditButton';
-import WhisperItem from '../../components/WhisperItem';
-import { useDeletePost, useGetWhisperMyPosts } from '@/services/mypage/query';
-import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { useLocation } from 'react-router-dom';
+import MobileEditButton from '../../components/MobileEditButton';
+import NoContent from '../../components/NoContent';
+import WhisperItem from '../../components/WhisperItem';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { useDeletePost, useGetWhisperMyPosts } from '@/services/mypage/query';
 
 const WrittenPosts = () => {
   const { data, hasNextPage, fetchNextPage } = useGetWhisperMyPosts();
@@ -46,9 +47,13 @@ const WrittenPosts = () => {
 
   if (!data) return;
 
-  if (data.length === 0) return <h1>게시글이 존재하지 않습니다.</h1>;
+  if (data.length === 0)
+    return (
+      <NoContent content={`등록된 글이 없습니다.\n새로운 글을 등록해보세요!`} />
+    );
+
   return (
-    <List w="full" px={{ mobile: '20px', tablet: '0px' }}>
+    <List w="full">
       <MobileEditButton
         checkboxOpen={checkboxOpen}
         setCheckboxOpen={setCheckboxOpen}

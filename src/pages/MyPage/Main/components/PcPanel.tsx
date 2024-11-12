@@ -1,5 +1,5 @@
 import { Flex, Grid, Text } from '@chakra-ui/react';
-import { PANELS } from '../constants/panels';
+import { PANELS } from '../../constants/panels';
 import PanelItem from './PanelItem';
 
 export default function PcPanel() {

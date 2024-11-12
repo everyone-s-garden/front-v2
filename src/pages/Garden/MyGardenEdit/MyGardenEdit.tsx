@@ -76,9 +76,7 @@ const MyGardenCreate = () => {
         {
           onSuccess() {
             methods.reset();
-            setTimeout(() =>
-              navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
-            );
+            setTimeout(() => navigate(PATH.MYPAGE.WHISPERS.GARDEN_DIARY));
           },
           onError() {
             alert('나의 텃밭 수정에 실패했습니다.');
@@ -91,9 +89,7 @@ const MyGardenCreate = () => {
         onSuccess() {
           // TODO: 나의 텃밭 등록 성공 시 처리
           methods.reset();
-          setTimeout(() =>
-            navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.GARDEN_DIARY),
-          );
+          setTimeout(() => navigate(PATH.MYPAGE.WHISPERS.GARDEN_DIARY));
         },
         onError() {
           alert('나의 텃밭 등록에 실패했습니다.');

@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { HeartIcon } from '@/assets/icons';
 import { MapGardenNoImg } from '@/assets/images';
 import { BaseGardenItem, CropTrade, RecentGardenItem } from '../type';
 import MenuButton from './MenuButton';
@@ -33,7 +32,6 @@ interface CardProps {
 }
 
 const GardenItem = ({
-  heart,
   menu,
   checkboxOpen,
   item,
@@ -57,10 +55,6 @@ const GardenItem = ({
   const price = 'price' in item ? item.price : null;
   const latitude = 'latitude' in item ? item.latitude : null;
   const longitude = 'longitude' in item ? item.longitude : null;
-
-  const handleLike = () => {
-    console.log('like');
-  };
 
   const handlePostClick = () => {
     if (!latitude || !longitude) {
@@ -111,13 +105,12 @@ const GardenItem = ({
             w="full"
             h="full"
             borderRadius="8px"
-            src={!thumbnail ? MapGardenNoImg : thumbnail}
+            src={thumbnail || MapGardenNoImg}
             objectFit="cover"
           />
           <Overlay report={report} />
-          {heart && (
+          {/* {heart && (
             <Box
-              onClick={handleLike}
               as="button"
               pos="absolute"
               top={{ mobile: '8px', tablet: '12px' }}
@@ -125,9 +118,9 @@ const GardenItem = ({
               bg="transparent"
               aria-label="좋아요 버튼"
             >
-              <HeartIcon color="red" />
+              <HeartIcon />
             </Box>
-          )}
+          )} */}
           {handleCheck && checkedItems && (
             <MobileCheckbox
               handleCheckbox={handleCheck}
@@ -138,38 +131,26 @@ const GardenItem = ({
           )}
         </Box>
         <Box flex={1}>
-          <Flex
-            align={{ mobile: 'center', tablet: 'flex-start' }}
+          <Text
+            fontSize={{ mobile: '16px', tablet: '18px' }}
             mb="8px"
-            flexDir={{ mobile: 'row', tablet: 'column' }}
+            fontWeight="semiBold"
+            noOfLines={{ mobile: 2, tablet: 1 }}
           >
-            <Text
-              color="black"
-              fontSize={{ mobile: '16px', tablet: '18px' }}
-              fontWeight="semiBold"
-              noOfLines={{ mobile: 2, tablet: 1 }}
-            >
-              {title}
-            </Text>
-          </Flex>
+            {title}
+          </Text>
           <Flex
             flexDir={{ mobile: 'row-reverse', tablet: 'column' }}
             justify={{ mobile: 'flex-end', tablet: 'flex-start' }}
           >
             {'size' in item && (
-              <>
-                <Text color="gray.700" noOfLines={1} fontSize="16px">
-                  {item.size}평
-                </Text>
-                <Text display={{ mobile: 'block', tablet: 'none' }} mx={1}>
-                  {' '}
-                  /{' '}
-                </Text>
-              </>
+              <Text color="sub" noOfLines={1} fontSize="16px">
+                <Hide above="tablet">&nbsp;/&nbsp;</Hide>
+                {item.size}평
+              </Text>
             )}
             <Text color="black" noOfLines={1} fontWeight="semiBold" mb="6px">
-              <Hide below="tablet">평당 </Hide>
-              {(+price!).toLocaleString()} 원
+              평당 {(+price!).toLocaleString()}원
             </Text>
           </Flex>
           <Text
@@ -181,26 +162,27 @@ const GardenItem = ({
           >
             신고가 접수된 게시글 입니다.
           </Text>
-          <Button
-            w="full"
-            display={{ mobile: 'block', tablet: 'none' }}
-            bg="green.500"
-            color="white"
-            h="32px"
-            maxW="223px"
-            borderRadius="6px"
-            isDisabled={report}
-            fontSize="14px"
-            fontWeight="semiBold"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleEditClick();
-            }}
-            _hover={{ bg: 'green.500' }}
-          >
-            수정하기
-            <Overlay report={report} />
-          </Button>
+          {handleEdit && (
+            <Button
+              w="full"
+              display={{ mobile: 'block', tablet: 'none' }}
+              bg="green.500"
+              color="white"
+              h="32px"
+              borderRadius="6px"
+              isDisabled={report}
+              fontSize="14px"
+              fontWeight="semiBold"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleEditClick();
+              }}
+              _hover={{ bg: 'green.500' }}
+            >
+              수정하기
+              <Overlay report={report} />
+            </Button>
+          )}
         </Box>
         {menu && (
           <MenuButton

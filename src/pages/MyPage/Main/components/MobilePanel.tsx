@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowDownIcon } from '@/assets/icons';
-import { PANELS } from '../constants/panels';
+import { PANELS } from '../../constants/panels';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 export default function MobilePanel() {
