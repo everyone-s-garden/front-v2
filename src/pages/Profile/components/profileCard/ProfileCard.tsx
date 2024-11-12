@@ -1,7 +1,7 @@
-import { Box, Icon } from '@chakra-ui/react';
+import { Box, Icon, Show } from '@chakra-ui/react';
 import { ShareIcon } from '@/assets/icons';
-import ProfileCardBody from './ProfileCardBody';
-import ProfileCardFooter from './ProfileCardFooter';
+import MobileProfile from './MobileProfile';
+import TabletAndPCProfile from './TabletAndPCProfile';
 
 interface ProfileCardProps {
   userInfo: UserInfo;
@@ -12,13 +12,15 @@ const ProfileCard = ({ userInfo }: ProfileCardProps) => {
     <Box
       pos="relative"
       w={{ mobile: 'full', tablet: '160px', desktop: '204px' }}
-      h={{ mobile: '166px', tablet: '218px', desktop: '280px' }}
+      h={{ mobile: '144px', tablet: '218px', desktop: '280px' }}
       borderRadius="10px"
-      border="1px solid"
-      borderColor="green.500"
-      bgColor="green.100"
+      bgColor="gray.50"
       mt={{ mobile: '21px', tablet: '0px' }}
       mb={{ mobile: '96px', tablet: '0px' }}
+      pt={{ mobile: '20px', tablet: '36px', desktop: '48px' }}
+      pb={{ mobile: '20px', tablet: '27px', desktop: '40px' }}
+      pl={{ mobile: '20px', tablet: '16px', desktop: '30px' }}
+      pr={{ mobile: '40px', tablet: '16px', desktop: '30px' }}
       overflow="hidden"
       flexShrink="0"
     >
@@ -30,9 +32,12 @@ const ProfileCard = ({ userInfo }: ProfileCardProps) => {
         cursor="pointer"
         display={{ mobile: 'none', tablet: 'block' }}
       />
-
-      <ProfileCardBody userInfo={userInfo} />
-      <ProfileCardFooter memberMannerGrade={userInfo?.memberMannerGrade} />
+      <Show below="tablet">
+        <MobileProfile userInfo={userInfo} />
+      </Show>
+      <Show above="tablet">
+        <TabletAndPCProfile userInfo={userInfo} />
+      </Show>
     </Box>
   );
 };
