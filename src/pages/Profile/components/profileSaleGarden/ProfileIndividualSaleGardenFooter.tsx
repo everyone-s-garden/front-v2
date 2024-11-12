@@ -87,7 +87,7 @@ const ProfileIndividualSaleGardenFooter = ({
         fontSize={{ mobile: '14px', tablet: '16px' }}
         color="white"
         borderRadius="6px"
-        bgColor="green.500"
+        bgColor="black"
         cursor="pointer"
       >
         신청하기
