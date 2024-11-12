@@ -1,6 +1,6 @@
 import { Flex, Icon, Spinner, Text } from '@chakra-ui/react';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { HeartIcon } from '@/assets/icons';
+import { HeartLg } from '@/assets/icons';
 import { useLikeGarden } from '@/services/gardens/mutations';
 
 interface ProfileIndividualSaleGardenFooterProps {
@@ -61,7 +61,11 @@ const ProfileIndividualSaleGardenFooter = ({
           <Spinner size="sm" emptyColor="gray.200" color="green.500" />
         ) : (
           <>
-            <Icon as={HeartIcon} fill={liked ? 'green.500' : 'gray.300'} />
+            <Icon
+              as={HeartLg}
+              fill={liked ? 'green.500' : 'gray.300'}
+              width={'24px'}
+            />
             <Text
               fontSize={{ mobile: '14px', tablet: '16px' }}
               color={liked ? 'green.500' : 'gray.300'}

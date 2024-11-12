@@ -32,6 +32,7 @@ const ProfileIndividualSaleGarden = ({
       <ProfileGardenStatus garden={garden} />
       <Image src={garden?.images[0]} borderRadius="10px" alt="" h="160px" />
       <Text
+        lineHeight={'100%'}
         fontSize={{ mobile: '16px', tablet: '18px' }}
         fontWeight={{ mobile: 'bold', tablet: 'semiBold' }}
       >
@@ -39,6 +40,7 @@ const ProfileIndividualSaleGarden = ({
       </Text>
 
       <Text
+        lineHeight={'100%'}
         fontSize={{ mobile: '14px', tablet: '16px' }}
         color={{ mobile: 'sub', tablet: 'black' }}
         mt={{ mobile: '-2px', tablet: '0px' }}
