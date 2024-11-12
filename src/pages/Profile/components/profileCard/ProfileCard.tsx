@@ -2,9 +2,10 @@ import { Box, Icon, Show } from '@chakra-ui/react';
 import { ShareIcon } from '@/assets/icons';
 import MobileProfile from './MobileProfile';
 import TabletAndPCProfile from './TabletAndPCProfile';
+import { OtherUserInfo } from '@/services/user/user';
 
 interface ProfileCardProps {
-  userInfo: UserInfo;
+  userInfo: OtherUserInfo;
 }
 
 const ProfileCard = ({ userInfo }: ProfileCardProps) => {

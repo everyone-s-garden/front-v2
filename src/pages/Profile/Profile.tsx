@@ -66,6 +66,8 @@ const Profile = () => {
     }
   }, [otherGardensForSaleData]);
 
+  if (!userInfo) return null;
+
   return (
     <Box w="full" pos="relative" mb={{ mobile: '187px', tablet: '0px' }}>
       <ProfileTab

@@ -22,19 +22,19 @@ const UserFeedBack = () => {
       onClick={() => setModalOpen()}
     >
       <Flex
-        mr="6.03px"
+        mr="6px"
         aria-label="유저의 소리함"
         flexDir={'column'}
         align={'flex-start'}
       >
         <Text fontWeight="medium" fontSize="12px">
-          제한사항이 있나요?
+          제안사항이 있나요?
         </Text>
         <Text fontWeight="semiBold" fontSize="16px">
           유저의 소리함
         </Text>
       </Flex>
-      <Flex>
+      <Flex gap="7px">
         <TextBubbleGreenIcon />
         <HeadphonesIcon />
       </Flex>

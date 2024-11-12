@@ -1,6 +1,14 @@
-interface UserInfo {
-  memberMannerGrade: string;
+import { Grade } from '@/types/grade';
+
+interface DefaultUserInfo {
   nickname: string;
-  profileImageUrl: string | null;
+  memberMannerGrade: Grade;
   email: string;
+}
+interface MyInfo extends DefaultUserInfo {
+  profileImage: string;
+}
+
+interface OtherUserInfo extends DefaultUserInfo {
+  profileImageUrl: string;
 }

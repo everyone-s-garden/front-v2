@@ -1,12 +1,15 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react';
-
-import { DefaultProfile, UserGrade } from '@/assets/images';
+import { DefaultProfile } from '@/assets/images';
+import { OtherUserInfo } from '@/services/user/user';
+import { getLargeGradeIcon } from '@/utils/grade/getLargeGardeIcon';
 
 interface MobileProfileProps {
-  userInfo: UserInfo;
+  userInfo: OtherUserInfo;
 }
 
 const MobileProfile = ({ userInfo }: MobileProfileProps) => {
+  const UserGradeIcon = getLargeGradeIcon(userInfo.memberMannerGrade);
+
   return (
     <Flex justifyContent={'space-between'}>
       <Flex flexDir={'column'} justifyContent={'space-between'}>
@@ -41,7 +44,7 @@ const MobileProfile = ({ userInfo }: MobileProfileProps) => {
           </Text>
         </Box>
       </Flex>
-      <Image src={UserGrade} h={'102px'} />
+      <UserGradeIcon />
     </Flex>
   );
 };

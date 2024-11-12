@@ -1,6 +1,6 @@
-import { MyManagedGardenGetResponses } from '@/pages/MyPage/type';
 import { whisperPageParams } from './type';
 import apiClient from '@/api/apiClient';
+import { MyManagedGardenGetResponses } from '@/pages/MyPage/type';
 
 const nearByBasePath = '/v2/gardens';
 const cropTradeBasePath = '/v1/my/crops';
@@ -64,6 +64,7 @@ export const myManagedGardenAPI = {
     const res = await apiClient.delete(
       `/v2/gardens/my-managed/${nextGardenId}`,
     );
+
     return res.data;
   },
 };
