@@ -13,10 +13,10 @@ const MapNoGarden = () => {
       <Image src={MapNoGardenImg} w="66px" h="66px" />
 
       <Box>
-        <Text fontWeight="semibold" fontSize="18px" color="#80AC49">
+        <Text fontWeight="semibold" fontSize="18px" color="gray.300">
           해당 지역에는 텃밭이 없어요!
         </Text>
-        <Text fontWeight="regular" fontSize="16px" color="#80AC49">
+        <Text fontWeight="regular" fontSize="16px" color="gray.300">
           지도를 다른 곳으로 움직여보세요.
         </Text>
       </Box>

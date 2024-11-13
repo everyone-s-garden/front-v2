@@ -1,5 +1,5 @@
-export { default as MapNoGardenImg } from './map/map-no-garden-img.jpeg';
-export { default as MapGardenNoImg } from './map/map-garden-no-img.jpg';
+export { default as MapNoGardenImg } from './map/map-no-garden-img.png';
+export { default as MapGardenNoImg } from './map/map-garden-no-img.png';
 export { default as DefaultPost } from './default_post.png';
 export { default as DefaultProfile } from './default_profile.png';
 export { default as Seed } from './grade/seed.png';

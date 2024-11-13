@@ -196,7 +196,7 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
         <Button
           color="white"
           padding="14px 52px"
-          bgColor="green.500"
+          bgColor="black"
           flexShrink="1"
           w="100%"
           h="48px"
