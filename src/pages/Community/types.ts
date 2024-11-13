@@ -2,7 +2,8 @@ export type PostType =
   | 'INFORMATION_SHARE'
   | 'GARDEN_SHOWCASE'
   | 'QUESTION'
-  | 'ETC';
+  | 'ETC'
+  | '';
 
 export type OrderByOptions =
   | 'COMMENT_COUNT'
