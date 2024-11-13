@@ -9,8 +9,6 @@ const PostType = () => {
 
   const handleClickType = (type: TypePost) => {
     if (postType === type) {
-      setPostType('');
-
       return;
     }
 
