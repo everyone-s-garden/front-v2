@@ -9,4 +9,3 @@ export { default as Fruit } from './grade/fruit.png';
 export { default as Harvest } from './grade/harvest.png';
 export { default as Farmer } from './grade/farmer.png';
 export { default as PcFab } from './fab/pc_fab.png';
-export { default as UserGrade } from './grade/user-grade.png';
