@@ -91,9 +91,10 @@ const Interaction = ({
             h={'48px'}
             bg={'white'}
             borderRadius={'50%'}
+            border={'1px solid'}
+            borderColor={'gray.100'}
             variant={'unstyled'}
             display={'flex'}
-            shadow={'md'}
             onClick={() => handleClickLikePost(isLikeClick)}
           />
           <Text fontSize={'12px'} fontWeight={'medium'} color={'sub'} minW={2}>
@@ -110,7 +111,7 @@ const Interaction = ({
           <IconButton
             aria-label="댓글로 이동"
             icon={
-              <Icon as={CommentIcon} fill={'green.500'} w={'24px'} h={'24px'} />
+              <Icon as={CommentIcon} fill={'black'} w={'24px'} h={'24px'} />
             }
             w={'48px'}
             h={'48px'}
@@ -118,7 +119,8 @@ const Interaction = ({
             borderRadius={'50%'}
             variant={'unstyled'}
             display={'flex'}
-            shadow={'md'}
+            border={'1px solid'}
+            borderColor={'gray.100'}
             onClick={handleClickComment}
           />
           <Text fontSize={'12px'} fontWeight={'medium'} color={'sub'} minW={2}>
@@ -143,7 +145,8 @@ const Interaction = ({
           borderRadius={'50%'}
           variant={'unstyled'}
           display={'flex'}
-          shadow={'md'}
+          border={'1px solid'}
+          borderColor={'gray.100'}
           onClick={() => onCopy(window.location.href)}
         />
       </Box>
