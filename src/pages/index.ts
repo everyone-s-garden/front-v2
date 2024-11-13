@@ -1,5 +1,5 @@
 export { default as Main } from './Main/Main';
-export { default as MyPage } from './MyPage/MyPage';
+export { default as MyPage } from './MyPage/Main/MyPage';
 export { default as CropTrade } from './MyPage/CropTrade/CropTrade';
 export { default as PurchaseHistory } from './MyPage/CropTrade/PurchaseHistory/PurchaseHistory';
 export { default as SalesHistory } from './MyPage/CropTrade/SalesHistory/SalesHistory';

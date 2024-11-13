@@ -1,16 +1,20 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
-import { DefaultProfile, UserGrade } from '@/assets/images';
+import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react';
+import { DefaultProfile } from '@/assets/images';
+import { OtherUserInfo } from '@/services/user/user';
+import { getLargeGradeIcon } from '@/utils/grade/getLargeGardeIcon';
 
 interface TabletAndPCProfileProps {
-  userInfo: UserInfo;
+  userInfo: OtherUserInfo;
 }
 
 const TabletAndPCProfile = ({ userInfo }: TabletAndPCProfileProps) => {
+  const UserGrade = getLargeGradeIcon(userInfo.memberMannerGrade);
+
   return (
     <Flex w="full" h="full" justifyContent={'space-between'} flexDir={'column'}>
       <Flex flexDir={'column'} alignItems={'center'} justifyContent={'center'}>
-        <Image
-          src={UserGrade}
+        <Icon
+          as={UserGrade}
           w={{ tablet: '62px', desktop: '76px' }}
           h={{ tablet: '84px', desktop: '102px' }}
         />

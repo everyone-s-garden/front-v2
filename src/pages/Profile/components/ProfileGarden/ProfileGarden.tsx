@@ -2,10 +2,11 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 import ProfileGardenSlider from './ProfileGardenSlider';
 import ProfileGardenFooter from './ProfileGarendFooter';
+import { OtherUserInfo } from '@/services/user/user';
 
 interface ProfileGardenProps {
   otherManagedGardens: ManagedGarden[] | undefined;
-  userInfo: UserInfo;
+  userInfo: OtherUserInfo | undefined;
 }
 
 const ProfileGarden = ({
