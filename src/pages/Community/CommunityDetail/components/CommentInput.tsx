@@ -8,7 +8,7 @@ interface CommentInputProps extends FlexProps {
   commentId?: number;
   autoFocus?: boolean;
   handleSubmitComment: (content: string, parentCommentId?: number) => void;
-  userInfo: User;
+  userInfo?: User;
 }
 
 const CommentInput = ({
