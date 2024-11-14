@@ -86,7 +86,6 @@ const GardenDiary = () => {
   };
 
   const editGarden = (info: MyManagedGarden) => {
-    console.log(info);
     nav(PATH.MAP.CREATE_MY_GARDEN, { state: { info } });
   };
 

@@ -17,6 +17,20 @@ const MenuButton = ({
   handleDelete,
   handleEdit,
 }: MenuButtonProps) => {
+  const handleDeleteClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    handleDelete && handleDelete(itemId);
+  };
+
+  const handleEditClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    handleEdit && handleEdit(e);
+  };
+
   return (
     <Box
       display={{ mobile: 'none', tablet: 'block' }}
@@ -48,7 +62,7 @@ const MenuButton = ({
                 w="111px"
                 px="0px"
                 py="0px"
-                onClick={handleEdit}
+                onClick={handleEditClick}
               >
                 <Text
                   fontWeight="medium"
@@ -64,7 +78,7 @@ const MenuButton = ({
                 w="111px"
                 px="0px"
                 py="20px"
-                onClick={() => handleDelete && handleDelete(itemId)}
+                onClick={handleDeleteClick}
               >
                 <Text fontWeight="medium" fontSize="16px" color="gray.700">
                   삭제하기

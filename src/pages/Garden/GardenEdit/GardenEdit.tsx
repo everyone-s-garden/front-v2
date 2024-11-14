@@ -8,7 +8,7 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { NumericFormat, PatternFormat } from 'react-number-format';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BlockerModal, Content, DatePicker } from '@/components';
 import AddressSearchBar from '../components/AddressSearchBar';
 import FlexInput from '../components/FlexInput';
@@ -19,11 +19,14 @@ import SubmitButton from '../components/SubmitButton';
 import { Garden, useGardenForm } from './schema';
 import ImageSelector from '@/components/ImageSelector/ImageSelector';
 import { PATH } from '@/routes/constants';
-import { useCreateGarden } from '@/services/garden/query';
+import { useCreateGarden, useUpdateGarden } from '@/services/garden/query';
+import { useGetIndividualGarden } from '@/services/gardens/query';
 import { useImageStore } from '@/stores/imageStore';
 import removeNumberFormmating from '@/utils/removeNumberFormatting';
 
 const GardenEdit = () => {
+  const { state } = useLocation();
+  const { data } = useGetIndividualGarden(state?.info?.gardenId);
   const methods = useGardenForm();
   const {
     register,
@@ -38,6 +41,7 @@ const GardenEdit = () => {
   const images = useImageStore((state) => state.images);
   const resetImages = useImageStore((state) => state.resetImages);
   const { mutate: createGarden } = useCreateGarden();
+  const { mutate: updateGarden } = useUpdateGarden();
   const navigate = useNavigate();
 
   const gardenState = useWatch({ control, name: 'gardenStatus' });
@@ -92,38 +96,91 @@ const GardenEdit = () => {
     const formData = new FormData();
 
     /** 분양 텃밭 form blob */
-    const jsonBlob = new Blob(
-      [
-        JSON.stringify({
-          ...data,
-          price: removeNumberFormmating(data.price),
-          size: removeNumberFormmating(data.size),
-          contact: removeNumberFormmating(data.contact),
-        }),
-      ],
-      {
-        type: 'application/json',
-      },
-    );
 
-    images.forEach((image) => {
-      if (typeof image !== 'string') {
-        formData.append('gardenImages', image.file);
+    if (state?.info) {
+      let hasNewImages = false;
+      const remainImages: string[] = [];
+
+      images.forEach((image) => {
+        if (typeof image === 'string') {
+          remainImages.push(image);
+        } else {
+          formData.append('newGardenImages', image.file);
+          hasNewImages = true;
+        }
+      });
+      if (!hasNewImages) {
+        formData.append(
+          'newGardenImages',
+          new Blob([''], { type: 'application/octet-stream' }),
+        );
       }
-    });
+      console.log('remainImages', remainImages);
+      const jsonBlob = new Blob(
+        [
+          JSON.stringify({
+            ...data,
+            remainGardenImageUrls: remainImages,
+            price: removeNumberFormmating(data.price),
+            size: removeNumberFormmating(data.size),
+            contact: removeNumberFormmating(data.contact),
+            gardenType: 'PRIVATE',
+          }),
+        ],
+        {
+          type: 'application/json',
+        },
+      );
 
-    formData.append('gardenCreateRequest', jsonBlob);
+      formData.append('gardenUpdateRequest', jsonBlob);
 
-    createGarden(formData, {
-      onSuccess() {
-        // TODO: 분양 텃밭 등록 성공 시 처리
-        methods.reset();
-        setTimeout(() => navigate(PATH.MAP.MAIN));
-      },
-      onError() {
-        alert('분양 텃밭 등록에 실패했습니다.');
-      },
-    });
+      updateGarden(
+        { formData, gardenId: state.info.gardenId },
+        {
+          onSuccess() {
+            methods.reset();
+            setTimeout(() =>
+              navigate(PATH.MYPAGE.NEARBY_GARDENS_INFO.MY_POSTS),
+            );
+          },
+          onError() {
+            alert('분양 텃밭 수정에 실패했습니다.');
+          },
+        },
+      );
+    } else {
+      images.forEach((image) => {
+        if (typeof image !== 'string') {
+          formData.append('gardenImages', image.file);
+        }
+      });
+      const jsonBlob = new Blob(
+        [
+          JSON.stringify({
+            ...data,
+            price: removeNumberFormmating(data.price),
+            size: removeNumberFormmating(data.size),
+            contact: removeNumberFormmating(data.contact),
+            gardenType: 'PRIVATE',
+          }),
+        ],
+        {
+          type: 'application/json',
+        },
+      );
+      formData.append('gardenCreateRequest', jsonBlob);
+
+      createGarden(formData, {
+        onSuccess() {
+          // TODO: 분양 텃밭 등록 성공 시 처리
+          methods.reset();
+          setTimeout(() => navigate(PATH.MAP.MAIN));
+        },
+        onError() {
+          alert('분양 텃밭 등록에 실패했습니다.');
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -131,6 +188,31 @@ const GardenEdit = () => {
       resetImages();
     };
   }, [resetImages]);
+
+  useEffect(() => {
+    if (state && state.info) {
+      setValue('gardenName', state.info.gardenName);
+      setValue('price', state.info.price);
+      setValue('size', state.info.size);
+      setValue('contact', state.info.contact);
+      setValue('gardenStatus', state.info.gardenStatus);
+      if (data) {
+        setValue('contact', data.contact);
+        setValue(
+          'recruitStartDate',
+          data.recruitStartDate.replaceAll('-', '.'),
+        );
+        setValue('recruitEndDate', data.recruitEndDate.replaceAll('-', '.'));
+        setValue('address', data.address);
+        setValue('longitude', data.longitude);
+        setValue('latitude', data.latitude);
+        setValue('isToilet', data.gardenFacilities.includes('화장실'));
+        setValue('isWaterway', data.gardenFacilities.includes('수로실'));
+        setValue('isEquipment', data.gardenFacilities.includes('농기구'));
+        setValue('gardenDescription', data.gardenDescription);
+      }
+    }
+  }, [state, setValue, data]);
 
   return (
     <>
@@ -166,6 +248,7 @@ const GardenEdit = () => {
               }}
             >
               <ImageSelector
+                initialImages={state?.info.images}
                 breakPoints={{
                   0: {
                     slidesPerView: 2.5,
@@ -260,6 +343,9 @@ const GardenEdit = () => {
                 errorTop={{ mobile: '72px', tablet: '60px' }}
               >
                 <DatePicker
+                  initialDate={
+                    state && state.info && data && data.recruitStartDate
+                  }
                   onChange={(date: string) => {
                     setValue('recruitStartDate', date);
 
@@ -277,6 +363,9 @@ const GardenEdit = () => {
                   }}
                 />
                 <DatePicker
+                  initialDate={
+                    state && state.info && data && data.recruitEndDate
+                  }
                   onChange={(date: string) => {
                     setValue('recruitEndDate', date);
 

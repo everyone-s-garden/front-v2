@@ -50,6 +50,7 @@ const MyPost = () => {
 
   const handleEdit = (info: BaseGardenItem) =>
     nav(PATH.MAP.CREATE_GARDEN, { state: { info } });
+
   useEffect(() => {
     if (!checkboxOpen) {
       setCheckedItems({});

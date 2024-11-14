@@ -53,9 +53,7 @@ const ImageSelector = ({
     const files = Array.from(target.files);
     const urls = files.map((file) => URL.createObjectURL(file));
     const newImages = files.map((file, index) => ({ file, url: urls[index] }));
-    if (images.every((image) => typeof image !== 'string')) {
-      setImages([...images, ...newImages] as { file: File; url: string }[]);
-    }
+    setImages([...images, ...newImages] as { file: File; url: string }[]);
   };
 
   const handleImageRemove = (urlToRemove: string) => {

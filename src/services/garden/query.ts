@@ -17,6 +17,19 @@ export const useGetGardenByName = (gardenName: string) => {
 export const useCreateGarden = () => {
   return useMutation({ mutationFn: gardenAPI.createGarden });
 };
+export const useUpdateGarden = () => {
+  return useMutation({
+    mutationFn: ({
+      formData,
+      gardenId,
+    }: {
+      formData: FormData;
+      gardenId: number;
+    }) => {
+      return gardenAPI.updateGarden(formData, gardenId);
+    },
+  });
+};
 
 export const useCreateMyGarden = () => {
   return useMutation({ mutationFn: gardenAPI.createMyGarden });

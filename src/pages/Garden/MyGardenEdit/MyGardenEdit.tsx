@@ -58,7 +58,6 @@ const MyGardenCreate = () => {
     });
 
     images.forEach((image) => {
-      console.log(image);
       if (typeof image !== 'string') {
         formData.append('gardenImage', image.file);
       } else {
