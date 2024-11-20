@@ -1,6 +1,5 @@
 import {
   NearbyGardenMyPageIcon,
-  SettingsMyPageIcon,
   UserFeedBackMyPageIcon,
   WhisperMyPageIcon,
 } from '@/assets/icons';
@@ -53,14 +52,14 @@ export const PANELS = [
     ],
     isNavBar: true,
   },
-  {
-    tabName: '설정',
-    description: '고객센터 및 회원정보를 수정할 수 있어요.',
-    href: PATH.SETTINGS,
-    icon: SettingsMyPageIcon,
-    subPages: null,
-    isNavBar: true,
-  },
+  // {
+  //   tabName: '설정',
+  //   description: '고객센터 및 회원정보를 수정할 수 있어요.',
+  //   href: PATH.SETTINGS,
+  //   icon: SettingsMyPageIcon,
+  //   subPages: null,
+  //   isNavBar: true,
+  // },
   {
     tabName: '유저의 소리함',
     description: '모두의텃밭에 대한 의견을 남겨주세요.',
