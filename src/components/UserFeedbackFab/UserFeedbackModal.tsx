@@ -187,7 +187,7 @@ const UserFeedbackModal = () => {
                   key={item.key}
                   py="15px"
                   pl="16px"
-                  fontSize="12px"
+                  fontSize="14px"
                   fontWeight="medium"
                   onClick={() => setFeedbackType(item)}
                   borderBottomColor="gray.100 !important"
@@ -230,6 +230,7 @@ const UserFeedbackModal = () => {
             breakPoints={breakPoints}
             size={size}
             showArrow={false}
+            fontSize={12}
           />
         </Flex>
       </Modal>

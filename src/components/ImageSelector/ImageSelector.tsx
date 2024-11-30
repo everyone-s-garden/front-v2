@@ -27,6 +27,7 @@ interface ImageSelectorProps {
   showArrow?: boolean;
   maxImageLength?: number;
   initialImages?: string[];
+  fontSize?: number;
 }
 const imageTypeCheck = (
   image: string | { file: File; url: string },
@@ -40,6 +41,7 @@ const ImageSelector = ({
   showArrow = true,
   maxImageLength = MAX_IMAGE_LENGTH,
   initialImages,
+  fontSize = 16,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
@@ -141,7 +143,7 @@ const ImageSelector = ({
           style={{ display: 'none' }}
         />
         <Icon as={CameraIcon} fill={`gray.500`} w={'24px'} h={'24px'} />
-        <Text fontWeight="medium" color={`gray.500`}>
+        <Text fontWeight="medium" color={`gray.500`} fontSize={`${fontSize}px`}>
           {images.length}/{maxImageLength}
         </Text>
       </Button>
