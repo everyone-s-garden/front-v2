@@ -1,6 +1,7 @@
 import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react';
 import { DefaultProfile } from '@/assets/images';
 import { OtherUserInfo } from '@/services/user/user';
+import { getFormattedUserGrade } from '@/utils/grade/getFormattedUserGrade';
 import { getLargeGradeIcon } from '@/utils/grade/getLargeGardeIcon';
 
 interface TabletAndPCProfileProps {
@@ -22,7 +23,7 @@ const TabletAndPCProfile = ({ userInfo }: TabletAndPCProfileProps) => {
           fontSize={{ tablet: '14px', desktop: '16px' }}
           fontWeight={'semiBold'}
         >
-          {userInfo?.memberMannerGrade}
+          {getFormattedUserGrade(userInfo?.memberMannerGrade)}
         </Text>
       </Flex>
 
