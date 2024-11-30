@@ -57,22 +57,24 @@ const MenuButton = ({
               zIndex={2}
               display={isOpen ? 'block' : 'none'}
             >
-              <DropdownItem
-                justifyContent="center"
-                w="111px"
-                px="0px"
-                py="0px"
-                onClick={handleEditClick}
-              >
-                <Text
-                  fontWeight="medium"
-                  fontSize="16px"
-                  py="20px"
-                  color="gray.700"
+              {handleEdit && (
+                <DropdownItem
+                  justifyContent="center"
+                  w="111px"
+                  px="0px"
+                  py="0px"
+                  onClick={handleEditClick}
                 >
-                  게시글 수정
-                </Text>
-              </DropdownItem>
+                  <Text
+                    fontWeight="medium"
+                    fontSize="16px"
+                    py="20px"
+                    color="gray.700"
+                  >
+                    게시글 수정
+                  </Text>
+                </DropdownItem>
+              )}
               <DropdownItem
                 justifyContent="center"
                 w="111px"

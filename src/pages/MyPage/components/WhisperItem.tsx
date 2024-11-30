@@ -90,7 +90,7 @@ const WhisperItem = ({
             <Box hideFrom={'tablet'} ml="auto">
               <ThreeDotsMenuIcon onClick={menuOpen} cursor="pointer" />
               <BottomMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <Box
+                {/* <Box
                   as="button"
                   p="18px"
                   display="flex"
@@ -99,7 +99,7 @@ const WhisperItem = ({
                   _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
                 >
                   게시글 수정
-                </Box>
+                </Box> */}
                 <Box
                   as="button"
                   p="18px"
