@@ -1,6 +1,7 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, Image, Text } from '@chakra-ui/react';
 import { DefaultProfile } from '@/assets/images';
 import { OtherUserInfo } from '@/services/user/user';
+import { getFormattedUserGrade } from '@/utils/grade/getFormattedUserGrade';
 import { getLargeGradeIcon } from '@/utils/grade/getLargeGardeIcon';
 
 interface MobileProfileProps {
@@ -38,13 +39,15 @@ const MobileProfile = ({ userInfo }: MobileProfileProps) => {
         </Flex>
 
         <Box>
-          <Text fontWeight={'semiBold'}>{userInfo.memberMannerGrade}</Text>
+          <Text fontWeight={'semiBold'}>
+            {getFormattedUserGrade(userInfo.memberMannerGrade)}
+          </Text>
           <Text fontSize={'10px'} color={'gray.500'}>
             {userInfo.email}
           </Text>
         </Box>
       </Flex>
-      <UserGradeIcon />
+      <Icon as={UserGradeIcon} w={'76px'} h={'102px'} />
     </Flex>
   );
 };
