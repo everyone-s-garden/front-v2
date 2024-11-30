@@ -15,7 +15,7 @@ export default function PanelItem({ item }: PanelItemProps) {
     if (item.href === null) {
       setModalOpen();
     } else {
-      navigate(item.subPages ? item.subPages[0].href : item.href);
+      navigate(item.subPages && item.subPages[0].href);
     }
   };
 
