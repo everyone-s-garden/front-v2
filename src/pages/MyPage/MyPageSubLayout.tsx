@@ -1,11 +1,14 @@
-import { Box, Flex, Spinner } from '@chakra-ui/react';
+import { Box, Flex, Spinner, useMediaQuery } from '@chakra-ui/react';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import MyPageNavBar from './components/MyPageNavBar';
 import UserFeedBack from './components/UserFeedBack';
 import UserProfile from './components/UserProfile';
+import { devices } from '@/styles/theme';
 
 export default function MyPageSubLayout() {
+  const [isLargerThanTablet] = useMediaQuery(devices.tablet);
+
   return (
     <Box w="100%" h="100%">
       <MyPageNavBar />
@@ -16,13 +19,12 @@ export default function MyPageSubLayout() {
         mx="auto"
         px="20px"
       >
-        <Box
-          mr={{ mobile: '0px', tablet: '56px' }}
-          display={{ mobile: 'none', tablet: 'block' }}
-        >
-          <UserProfile />
-          <UserFeedBack />
-        </Box>
+        {isLargerThanTablet && (
+          <Box mr="56px">
+            <UserProfile />
+            <UserFeedBack />
+          </Box>
+        )}
 
         <Suspense
           fallback={
