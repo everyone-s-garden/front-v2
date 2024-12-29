@@ -1,3 +1,5 @@
+import { Whisper } from './type';
+
 export const gardenMockData = [
   {
     gardenId: 1234,
@@ -40,7 +42,7 @@ export const cropMockData = [
   },
 ];
 
-export const whisperMockData = [
+export const whisperMockData: Whisper[] = [
   {
     postId: 12345678,
     title: '저희 텃밭에서 몇가지 야채를 수확했어요 ! #텃밭 #수확의 기쁨',
@@ -54,6 +56,7 @@ export const whisperMockData = [
       profile: '이름',
       name: '닉네임',
     },
+    postType: 'INFORMATION_SHARE',
   },
   {
     postId: 12345679,
@@ -68,5 +71,6 @@ export const whisperMockData = [
       profile: '이름',
       name: '닉네임',
     },
+    postType: 'INFORMATION_SHARE',
   },
 ];
