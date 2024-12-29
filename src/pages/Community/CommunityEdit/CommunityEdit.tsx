@@ -86,9 +86,10 @@ const CommunityEdit = () => {
     formData.append('texts', jsonBlob);
 
     createPost(formData, {
-      onSuccess() {
+      async onSuccess() {
+        await setTimeout(() => navigate(PATH.COMMUNITY.MAIN));
         methods.reset();
-        setTimeout(() => navigate(PATH.COMMUNITY.MAIN));
+        resetImages();
       },
     });
   };
