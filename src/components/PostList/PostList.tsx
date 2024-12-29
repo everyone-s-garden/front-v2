@@ -57,7 +57,11 @@ const PostList = ({ posts }: PostListProps) => {
             borderBottom={'1px solid'}
             borderBottomColor={'gray.100'}
           >
-            <Flex justify={'space-between'}>
+            <Flex
+              justify={'space-between'}
+              cursor="pointer"
+              onClick={() => handleClickItem(postId)}
+            >
               <Flex flexDir={'column'} gap={'8px'}>
                 <Flex
                   gap={{ mobile: '8px', tablet: '10px' }}
@@ -86,8 +90,6 @@ const PostList = ({ posts }: PostListProps) => {
                     noOfLines={{ mobile: 2, tablet: 1 }}
                     wordBreak={'break-all'}
                     overflowWrap={'anywhere'}
-                    onClick={() => handleClickItem(postId)}
-                    cursor={'pointer'}
                     w={'100%'}
                   >
                     {title}
@@ -171,8 +173,6 @@ const PostList = ({ posts }: PostListProps) => {
                     alt="Post Preview"
                     w={'100%'}
                     h={'100%'}
-                    onClick={() => handleClickItem(postId)}
-                    cursor={'pointer'}
                   />
                 )}
               </Box>
