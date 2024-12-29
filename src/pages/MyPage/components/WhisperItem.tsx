@@ -12,6 +12,7 @@ import { Whisper } from '../type';
 import MenuButton from './MenuButton';
 import MobileCheckbox from './MobileCheckbox';
 import Overlay from './Overlay';
+import { POST } from '@/pages/Community/constants';
 import { PATH } from '@/routes/constants';
 
 interface WhisperProps {
@@ -85,7 +86,7 @@ const WhisperItem = ({
               fontSize={'16px'}
               fontWeight={'medium'}
             >
-              텃밭 자랑
+              {POST.TYPE[item.postType]}
             </Flex>
             <Box hideFrom={'tablet'} ml="auto">
               <ThreeDotsMenuIcon onClick={menuOpen} cursor="pointer" />
