@@ -28,7 +28,6 @@ const MYPAGE = {
     RECENTLY_VIEWED_GARDENS:
       '/mypage/nearby-gardens-info/recently-viewed-gardens',
     MY_POSTS: '/mypage/nearby-gardens-info/my-posts',
-    GARDEN_DIARY: '/mypage/nearby-gardens-info/garden-diary',
   },
   CROP_TRADE: {
     MAIN: '/mypage/crop-trade',
@@ -42,6 +41,7 @@ const MYPAGE = {
     WRITTEN_POSTS: '/mypage/whispers/written-posts',
     COMMENTED_POSTS: '/mypage/whispers/commented-posts',
     LIKED_POSTS: '/mypage/whispers/liked-posts',
+    GARDEN_DIARY: '/mypage/whispers/garden-diary',
   },
   PROFILE: '/profile/:userId',
 };

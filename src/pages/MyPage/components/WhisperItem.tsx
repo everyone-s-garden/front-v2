@@ -90,7 +90,7 @@ const WhisperItem = ({
             <Box hideFrom={'tablet'} ml="auto">
               <ThreeDotsMenuIcon onClick={menuOpen} cursor="pointer" />
               <BottomMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <Box
+                {/* <Box
                   as="button"
                   p="18px"
                   display="flex"
@@ -99,7 +99,7 @@ const WhisperItem = ({
                   _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
                 >
                   게시글 수정
-                </Box>
+                </Box> */}
                 <Box
                   as="button"
                   p="18px"
@@ -134,9 +134,7 @@ const WhisperItem = ({
           {getPlainText(item.content)}
         </Text>
         <Flex align="center" mb={{ mobile: '8px', tablet: '0' }} mt="8px">
-          <Box w="24px" h="24px">
-            <AvatarComponent src={item.userInfo.profile} size="full" />
-          </Box>
+          <AvatarComponent src={item.userInfo.profile} h="24px" w="24px" />
           <Text ml="8px" mr="10px">
             {item.userInfo.name}
           </Text>
@@ -164,10 +162,7 @@ const WhisperItem = ({
         minH={{ mobile: '118px', tablet: '132px' }}
         borderRadius="10px"
         ml={{ mobile: '0', tablet: '22px' }}
-        display={{
-          mobile: 'block',
-          tablet: item?.preview ? 'block' : 'none',
-        }}
+        display={item?.preview ? 'block' : 'none'}
         mr={{ mobile: '13px', tablet: '0' }}
         position="relative"
       >

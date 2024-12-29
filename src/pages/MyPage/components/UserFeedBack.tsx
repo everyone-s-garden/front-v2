@@ -7,7 +7,6 @@ const UserFeedBack = () => {
 
   return (
     <Flex
-      display={{ mobile: 'none', tablet: 'flex' }}
       cursor="pointer"
       mt="20px"
       bg="green.100"

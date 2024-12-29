@@ -69,11 +69,6 @@ export const nearByRoute = [
     keyword: NEARBY_GARDENS_INFO.MY_POSTS,
     href: NEARBY_GARDENS_INFO.MY_POSTS,
   },
-  {
-    tabName: '텃밭 일기',
-    keyword: NEARBY_GARDENS_INFO.GARDEN_DIARY,
-    href: NEARBY_GARDENS_INFO.GARDEN_DIARY,
-  },
 ];
 
 export const cropTradeRoute = [
@@ -115,6 +110,11 @@ export const whispersRoute = [
     tabName: '좋아요 누른 글',
     keyword: WHISPERS.LIKED_POSTS,
     href: WHISPERS.LIKED_POSTS,
+  },
+  {
+    tabName: '텃밭 일기',
+    keyword: WHISPERS.GARDEN_DIARY,
+    href: WHISPERS.GARDEN_DIARY,
   },
 ];
 

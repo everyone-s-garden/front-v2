@@ -18,7 +18,10 @@ const formMessage = {
 const { type, title, content } = formMessage;
 
 const FormSchema = z.object({
-  postType: z.enum(['정보 공유', '텃밭 자랑', '질문하기', '기타'], type),
+  postType: z.enum(
+    ['정보 공유', '텃밭 자랑', '질문하기', '기타', '전체'],
+    type,
+  ),
   title: z.string().min(title.min.value, title.min.message),
   content: z
     .string({ required_error: content.message })

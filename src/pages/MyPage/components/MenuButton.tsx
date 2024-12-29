@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react';
+import { MouseEventHandler } from 'react';
 import { Dropdown, DropdownItem, DropdownTrigger } from '@/components';
 import { ThreeDotsMenuIcon } from '@/assets/icons';
-import { MouseEventHandler } from 'react';
 
 interface MenuButtonProps {
   ml: string;
@@ -17,6 +17,20 @@ const MenuButton = ({
   handleDelete,
   handleEdit,
 }: MenuButtonProps) => {
+  const handleDeleteClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    handleDelete && handleDelete(itemId);
+  };
+
+  const handleEditClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    handleEdit && handleEdit(e);
+  };
+
   return (
     <Box
       display={{ mobile: 'none', tablet: 'block' }}
@@ -43,28 +57,30 @@ const MenuButton = ({
               zIndex={2}
               display={isOpen ? 'block' : 'none'}
             >
-              <DropdownItem
-                justifyContent="center"
-                w="111px"
-                px="0px"
-                py="0px"
-                onClick={handleEdit}
-              >
-                <Text
-                  fontWeight="medium"
-                  fontSize="16px"
-                  py="20px"
-                  color="gray.700"
+              {handleEdit && (
+                <DropdownItem
+                  justifyContent="center"
+                  w="111px"
+                  px="0px"
+                  py="0px"
+                  onClick={handleEditClick}
                 >
-                  게시글 수정
-                </Text>
-              </DropdownItem>
+                  <Text
+                    fontWeight="medium"
+                    fontSize="16px"
+                    py="20px"
+                    color="gray.700"
+                  >
+                    게시글 수정
+                  </Text>
+                </DropdownItem>
+              )}
               <DropdownItem
                 justifyContent="center"
                 w="111px"
                 px="0px"
                 py="20px"
-                onClick={() => handleDelete && handleDelete(itemId)}
+                onClick={handleDeleteClick}
               >
                 <Text fontWeight="medium" fontSize="16px" color="gray.700">
                   삭제하기

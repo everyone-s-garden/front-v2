@@ -51,7 +51,7 @@ const Comment = ({
   return (
     <Flex
       key={commentId}
-      pr={{ mobile: 0, tablet: subComments ? '100px' : 0 }}
+      pr={{ mobile: 0, tablet: subComments ? '10px' : 0 }}
       gap={'8px'}
       {...rest}
     >
@@ -161,6 +161,7 @@ const Comment = ({
             handleSubmitComment={handleSubmitComment}
             mt={'2px'}
             autoFocus={true}
+            userInfo={userInfo}
           />
         )}
       </Flex>

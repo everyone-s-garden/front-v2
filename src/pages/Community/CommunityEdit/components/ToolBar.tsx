@@ -70,20 +70,24 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         <DropdownList
           minW={getValues('postType')?.length > 3 ? '140px' : '120px'}
         >
-          {Object.values(POST.TYPE).map((type) => (
-            <DropdownItem
-              key={type}
-              height={'48px'}
-              onClick={() => {
-                clearErrors('postType');
-                setValue('postType', type);
-              }}
-            >
-              <Text w={'100%'} textAlign={'center'} fontWeight={'medium'}>
-                {type}
-              </Text>
-            </DropdownItem>
-          ))}
+          {Object.values(POST.TYPE).map((type) => {
+            if (type === '전체') return null;
+
+            return (
+              <DropdownItem
+                key={type}
+                height={'48px'}
+                onClick={() => {
+                  clearErrors('postType');
+                  setValue('postType', type);
+                }}
+              >
+                <Text w={'100%'} textAlign={'center'} fontWeight={'medium'}>
+                  {type}
+                </Text>
+              </DropdownItem>
+            );
+          })}
         </DropdownList>
       </Dropdown>
 

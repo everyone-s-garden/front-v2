@@ -25,6 +25,11 @@ const gardenAPI = {
 
     return response.data;
   },
+  updateGarden: async (gardenData: FormData, gardenId: number) => {
+    const response = await apiClient.put(`v2/gardens/${gardenId}`, gardenData);
+
+    return response.data;
+  },
   createMyGarden: async (gardenData: FormData) => {
     const response = await apiClient.post(`v2/gardens/my-managed`, gardenData);
 

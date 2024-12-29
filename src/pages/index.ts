@@ -7,12 +7,10 @@ export { default as VerifyLocation } from './MyPage/CropTrade/VerifyLocation/Ver
 export { default as WishList } from './MyPage/CropTrade/WishList/WishList';
 export { default as FavoritedGardens } from './MyPage/NearByGardensInfo/FavoritedGardens/FavoritedGardens';
 export { default as MyPost } from './MyPage/NearByGardensInfo/MyPost/MyPost';
-export { default as NearByGardensInfo } from './MyPage/NearByGardensInfo/NearByGardensInfo';
 export { default as RecentlyViewedGardens } from './MyPage/NearByGardensInfo/RecentlyViewedGardens/RecentlyViewedGardens';
-export { default as GardenDiary } from './MyPage/NearByGardensInfo/GardenDiary/GardenDiary';
+export { default as GardenDiary } from './MyPage/Whispers/GardenDiary/GardenDiary';
 export { default as CommentedPosts } from './MyPage/Whispers/CommentedPosts/CommentedPosts';
 export { default as LikedPosts } from './MyPage/Whispers/LikedPosts/LikedPosts';
-export { default as Whispers } from './MyPage/Whispers/Whispers';
 export { default as WrittenPosts } from './MyPage/Whispers/WrittenPosts/WrittenPosts';
 export { default as Settings } from './Settings/Settings';
 export { default as GardenEdit } from './Garden/GardenEdit/GardenEdit';

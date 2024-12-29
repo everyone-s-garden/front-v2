@@ -1,4 +1,5 @@
 const POST_TYPE = {
+  ALL: '전체',
   INFORMATION_SHARE: '정보 공유',
   GARDEN_SHOWCASE: '텃밭 자랑',
   QUESTION: '질문하기',
@@ -6,6 +7,7 @@ const POST_TYPE = {
 } as const;
 
 const POST_TYPE_KO = {
+  전체: '',
   '정보 공유': 'INFORMATION_SHARE',
   '텃밭 자랑': 'GARDEN_SHOWCASE',
   질문하기: 'QUESTION',

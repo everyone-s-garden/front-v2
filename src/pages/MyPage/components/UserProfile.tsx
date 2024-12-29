@@ -22,7 +22,6 @@ const UserProfile = () => {
       flexDir="column"
       align="center"
       justify="center"
-      display={{ mobile: 'none', tablet: 'flex' }}
     >
       <GradeIcon />
       <Text fontSize="16px" fontWeight="semiBold" mt="10px" mb="16px">

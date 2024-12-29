@@ -17,7 +17,7 @@ import {
   Modal,
 } from '@/components';
 import { ArrowDownIcon, UserFeedBackSmileIcon } from '@/assets/icons';
-import { userFeedBackItem } from '../../pages/MyPage/constants';
+import { userFeedBackItem } from '../../pages/MyPage/constants/constants';
 import { postUserFeedback } from '@/services/mypage/api';
 import { useImageStore } from '@/stores/imageStore';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
@@ -187,7 +187,7 @@ const UserFeedbackModal = () => {
                   key={item.key}
                   py="15px"
                   pl="16px"
-                  fontSize="12px"
+                  fontSize="14px"
                   fontWeight="medium"
                   onClick={() => setFeedbackType(item)}
                   borderBottomColor="gray.100 !important"
@@ -230,6 +230,7 @@ const UserFeedbackModal = () => {
             breakPoints={breakPoints}
             size={size}
             showArrow={false}
+            fontSize={12}
           />
         </Flex>
       </Modal>

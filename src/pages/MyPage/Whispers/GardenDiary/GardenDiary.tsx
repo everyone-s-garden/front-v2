@@ -1,17 +1,18 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Navigation, FreeMode } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import NoContent from '../../components/NoContent';
 import { MyManagedGarden } from '../../type';
 // import useMyManaged from '../hooks/useMyManaged';
 import ProfileGardenSlider from '@/pages/Profile/components/ProfileGarden/ProfileGardenSlider';
 import ProfileGardenFooter from '@/pages/Profile/components/ProfileGarden/ProfileGarendFooter';
+import { PATH } from '@/routes/constants';
 import {
   useDeleteMyManagedGarden,
   useGetMyManagedGarden,
 } from '@/services/mypage/query';
-import { useNavigate } from 'react-router-dom';
-import { PATH } from '@/routes/constants';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, FreeMode } from 'swiper/modules';
 
 const GardenDiary = () => {
   const [nextGardenId] = useState(0);
@@ -51,6 +52,7 @@ const GardenDiary = () => {
             ) {
               acc.push(current);
             }
+
             return acc;
           },
           [],
@@ -59,13 +61,18 @@ const GardenDiary = () => {
         return uniqueGardens;
       });
     }
+
     return () => setAllManagedGardens([]);
   }, [myManagedGardensData]);
 
   if (!myManagedGardensData) return;
 
   if (myManagedGardensData.myManagedGardenGetResponses.length === 0)
-    return <h1>등록된 나의 게시글이 없습니다.</h1>;
+    return (
+      <NoContent
+        content={`등록된 일기가 없습니다.\n새로운 일기를 등록해보세요!`}
+      />
+    );
 
   // const handleDeleteClick = () => {
   //   deletePost({ path: pathname, id: myGarden.myManagedGardenId });
@@ -79,19 +86,12 @@ const GardenDiary = () => {
   };
 
   const editGarden = (info: MyManagedGarden) => {
-    console.log(info);
     nav(PATH.MAP.CREATE_MY_GARDEN, { state: { info } });
   };
 
   return (
-    <Box
-      w="100%"
-      pl={{ mobile: '20px', tablet: '0' }}
-      pr={{ mobile: '21px', tablet: '0' }}
-      pb={{ mobile: '0', tablet: '150px' }}
-    >
+    <Box w="100%" pb={{ mobile: '0', tablet: '150px' }}>
       <Box
-        pt="13px"
         pb="19px"
         borderBottom="1px solid"
         borderColor="gray.100"
@@ -144,7 +144,6 @@ const GardenDiary = () => {
             ))}
           </Swiper>
         </Box>
-        {/* <div ref={myManagedGardensRef} /> */}
       </Flex>
     </Box>
   );

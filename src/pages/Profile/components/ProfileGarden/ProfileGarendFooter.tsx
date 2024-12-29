@@ -19,7 +19,7 @@ import MenuButton from '@/pages/MyPage/components/MenuButton';
 interface ProfileGardenFooterProps {
   garden: ManagedGarden;
   handleDelete?: (id: number) => void;
-  handleEdit?: (el: Object) => void;
+  handleEdit?: (el: unknown) => void;
 }
 
 const ProfileGardenFooter = ({
@@ -81,10 +81,12 @@ const ProfileGardenFooter = ({
           <ThreeDotsMenuIcon />
           <BottomMenu isOpen={isOpen} onClose={onClose}>
             <Button
+              p="18px"
               h="60px"
-              bg="green.100"
-              display={'flex'}
-              justifyContent={'flex-start'}
+              display="flex"
+              justifyContent="flex-start"
+              _hover={{ bg: 'green.100' }}
+              _first={{ borderTopRadius: 20, borderBottomRadius: 0 }}
               onClick={onEditClick}
             >
               <Text fontSize={'16px'} fontWeight={'medium'}>
@@ -92,9 +94,12 @@ const ProfileGardenFooter = ({
               </Text>
             </Button>
             <Button
+              p="18px"
               h="60px"
-              display={'flex'}
-              justifyContent={'flex-start'}
+              display="flex"
+              justifyContent="flex-start"
+              _hover={{ bg: 'green.100' }}
+              _notFirst={{ borderRadius: 0 }}
               onClick={confirmModalOpen}
             >
               <Text fontSize={'16px'} fontWeight={'medium'}>

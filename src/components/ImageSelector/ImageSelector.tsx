@@ -27,6 +27,7 @@ interface ImageSelectorProps {
   showArrow?: boolean;
   maxImageLength?: number;
   initialImages?: string[];
+  fontSize?: number;
 }
 const imageTypeCheck = (
   image: string | { file: File; url: string },
@@ -40,6 +41,7 @@ const ImageSelector = ({
   showArrow = true,
   maxImageLength = MAX_IMAGE_LENGTH,
   initialImages,
+  fontSize = 16,
 }: ImageSelectorProps) => {
   const images = useImageStore((state) => state.images);
   const setImages = useImageStore((state) => state.setImages);
@@ -53,9 +55,7 @@ const ImageSelector = ({
     const files = Array.from(target.files);
     const urls = files.map((file) => URL.createObjectURL(file));
     const newImages = files.map((file, index) => ({ file, url: urls[index] }));
-    if (images.every((image) => typeof image !== 'string')) {
-      setImages([...images, ...newImages] as { file: File; url: string }[]);
-    }
+    setImages([...images, ...newImages] as { file: File; url: string }[]);
   };
 
   const handleImageRemove = (urlToRemove: string) => {
@@ -143,7 +143,7 @@ const ImageSelector = ({
           style={{ display: 'none' }}
         />
         <Icon as={CameraIcon} fill={`gray.500`} w={'24px'} h={'24px'} />
-        <Text fontWeight="medium" color={`gray.500`}>
+        <Text fontWeight="medium" color={`gray.500`} fontSize={`${fontSize}px`}>
           {images.length}/{maxImageLength}
         </Text>
       </Button>

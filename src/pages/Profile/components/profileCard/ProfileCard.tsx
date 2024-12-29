@@ -21,7 +21,7 @@ const ProfileCard = ({ userInfo }: ProfileCardProps) => {
       pt={{ mobile: '20px', tablet: '36px', desktop: '48px' }}
       pb={{ mobile: '20px', tablet: '27px', desktop: '40px' }}
       pl={{ mobile: '20px', tablet: '16px', desktop: '30px' }}
-      pr={{ mobile: '40px', tablet: '16px', desktop: '30px' }}
+      pr={{ mobile: '25px', tablet: '16px', desktop: '30px' }}
       overflow="hidden"
       flexShrink="0"
     >

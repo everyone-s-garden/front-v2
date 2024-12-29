@@ -7,10 +7,8 @@ const PostType = () => {
   const postType = useWhisperStore((state) => state.params.postType);
   const setPostType = useWhisperStore((state) => state.setPostType);
 
-  const handleClickType = (type: TypePost) => {
+  const handleClickType = (type: TypePost | '') => {
     if (postType === type) {
-      setPostType('');
-
       return;
     }
 

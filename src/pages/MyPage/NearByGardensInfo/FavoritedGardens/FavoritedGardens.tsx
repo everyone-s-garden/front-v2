@@ -1,6 +1,7 @@
 import { List } from '@chakra-ui/react';
 import GardenItem from '../../components/GardenItem';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import NoContent from '@/pages/MyPage/components/NoContent';
 import { useGetNearByGardenLikeLists } from '@/services/mypage/query';
 
 const FavoritedGardens = () => {
@@ -14,7 +15,10 @@ const FavoritedGardens = () => {
 
   if (!data) return;
 
-  if (data.length === 0) return <h1>게시글이 존재하지 않습니다.</h1>;
+  if (data.length === 0)
+    return (
+      <NoContent content={`등록된 글이 없습니다.\n새로운 글을 등록해보세요!`} />
+    );
 
   return (
     <List w="100%" spacing="32px" px={{ mobile: '20px', tablet: '0px' }}>

@@ -1,41 +1,36 @@
-import { Center, Flex, Image, List, ListItem, Text } from '@chakra-ui/react';
-import { Farmer, Fruit, Harvest, Seed, Sprout, Stem } from '@/assets/images';
+import { Center, Flex, Icon, List, ListItem, Text } from '@chakra-ui/react';
+import { Grade as GradeType } from '@/types/grade';
+import { getFormattedUserGrade } from '@/utils/grade/getFormattedUserGrade';
+import { getLargeGradeIcon } from '@/utils/grade/getLargeGardeIcon';
 
-const gradeData = [
+type GradeData = {
+  grade: GradeType;
+  description: string;
+};
+
+const gradeData: GradeData[] = [
   {
-    image: Seed,
-    grade: '씨앗 등급',
-    color: '#FF9029',
+    grade: 'SEED',
     description: '회원 가입 시 씨앗 등급',
   },
   {
-    image: Sprout,
-    grade: '새싹 등급',
-    color: '#296512',
+    grade: 'SPROUT',
     description: '댓글 5회, 글 1회 이상 시 새싹등급',
   },
   {
-    image: Stem,
-    grade: '가지 등급',
-    color: '#83A834',
+    grade: 'STEM',
     description: '댓글 10회, 글 5회 이상 시 가지등급',
   },
   {
-    image: Fruit,
-    grade: '열매 등급',
-    color: '#F6C857',
+    grade: 'FRUIT',
     description: '글 15회 이상, 거래 1회 이상 시 열매 등급',
   },
   {
-    image: Harvest,
-    grade: '수확 등급',
-    color: '#C15201',
+    grade: 'HARVEST',
     description: '거래 5회 이상 시 수확 등급',
   },
   {
-    image: Farmer,
-    grade: '농사꾼 등급',
-    color: 'black',
+    grade: 'FARMER',
     description: '거래 10회 이상 시 농사꾼 등급',
   },
 ];
@@ -46,8 +41,8 @@ const Grade = () => {
       <Text fontSize={{ mobile: '16px', tablet: '20px' }} fontWeight={'bold'}>
         모두의 텃밭 등급제도
       </Text>
-      <List mt={'48px'} maxW={'300px'} w={'100%'}>
-        {gradeData.map(({ image, grade, description, color }) => (
+      <List mt={{ mobile: '35px', tablet: '48px' }} maxW={'300px'} w={'100%'}>
+        {gradeData.map(({ grade, description }) => (
           <ListItem
             key={grade}
             display={'flex'}
@@ -58,18 +53,17 @@ const Grade = () => {
             borderBottom={'1px solid'}
             borderBottomColor={'gray.100'}
           >
-            <Image
-              src={image}
-              alt={grade}
-              h={{ mobile: '44px', tablet: '56px' }}
+            <Icon
+              as={getLargeGradeIcon(grade)}
+              w={{ mobile: '46px', desktop: '54px' }}
+              h={{ mobile: '61px', desktop: '73px' }}
             />
             <Flex flexDir={'column'} gap={'4px'}>
               <Text
-                color={color}
                 fontWeight={'semiBold'}
                 fontSize={{ mobile: '14px', tablet: '16px' }}
               >
-                {grade}
+                {getFormattedUserGrade(grade)}
               </Text>
               <Text
                 fontSize={{ mobile: '12px', tablet: '14px' }}

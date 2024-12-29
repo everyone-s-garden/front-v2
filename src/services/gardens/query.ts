@@ -20,6 +20,7 @@ export const gardensQuery = {
     queryOptions({
       queryKey: [...gardensQuery.details(), id],
       queryFn: () => gardensAPI.getIndividualGarden(id),
+      enabled: !!id,
     }),
 
   otherUsersGarden: (userId: number, nextGardenId: number) =>

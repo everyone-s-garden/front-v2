@@ -5,13 +5,12 @@ import {
   AccordionPanel,
   Box,
 } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowDownIcon } from '@/assets/icons';
-import { PANELS } from '../constants/panels';
+import { PANELS } from '../../constants/panels';
 import { userFeedbackFabStore } from '@/stores/userFeedbackFabStore';
 
 export default function MobilePanel() {
-  const navigate = useNavigate();
   const setModalOpen = userFeedbackFabStore((state) => state.setModalOpen);
 
   return (
@@ -30,11 +29,7 @@ export default function MobilePanel() {
                 onClick={() => {
                   if (item.subPages) return;
 
-                  if (item.href) {
-                    navigate(item.href);
-                  } else {
-                    setModalOpen();
-                  }
+                  setModalOpen();
                 }}
               >
                 {item.tabName}
