@@ -1,4 +1,5 @@
 import React, { SetStateAction } from 'react';
+import { PostType } from '../Community/types';
 
 export interface IMainRoute {
   href: string;
@@ -17,6 +18,7 @@ export interface Whisper {
   content: string;
   likesCount: number;
   commentsCount: number;
+  postType: PostType;
   userInfo: {
     userId: number;
     profile: string;
