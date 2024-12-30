@@ -73,13 +73,6 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
   }, []);
 
   const handleClickCall = () => {
-    if (!isLoggedIn) {
-      navigate(PATH.LOGIN.MAIN, {
-        state: { from: pathname },
-      });
-
-      return;
-    }
     if (!isMobile) setIsClickedCallInWeb(true);
     setTimeout(() => {
       setIsClickedCallInWeb(false);
@@ -116,6 +109,14 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
   };
 
   const handleClickChat = () => {
+    if (!isLoggedIn) {
+      navigate(PATH.LOGIN.MAIN, {
+        state: { from: pathname },
+      });
+
+      return;
+    }
+
     if (gardenInfo?.roomId === -1) {
       createGardenChatRoom({
         postId: gardenInfo?.gardenId,
