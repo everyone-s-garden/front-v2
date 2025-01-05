@@ -70,6 +70,10 @@ const Comment = ({
         <Text
           fontSize={{ mobile: '14px', tablet: '16px' }}
           fontWeight={'medium'}
+          sx={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
         >
           {content}
         </Text>
