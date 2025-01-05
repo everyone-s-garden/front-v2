@@ -27,6 +27,10 @@ const CommunityDetail = () => {
     hasNextPage,
   } = useGetPopularPosts();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [postId]);
+
   const { mutate: createComment } = useCreateComment();
   const { mutate: createLikePost } = useCreateLikePost();
   const { mutate: deleteLikePost } = useDeleteLikePost();
@@ -41,7 +45,6 @@ const CommunityDetail = () => {
   });
 
   const commentRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
 
   const handleClickLikePost = (isLike: boolean) => {
     if (isLike) {
@@ -77,13 +80,8 @@ const CommunityDetail = () => {
     commentRef.current?.scrollIntoView();
   };
 
-  useEffect(() => {
-    topRef.current?.scrollIntoView();
-  }, [postId]);
-
   return (
     <>
-      <div ref={topRef} />
       <Box
         maxW={1234}
         mx={'auto'}
