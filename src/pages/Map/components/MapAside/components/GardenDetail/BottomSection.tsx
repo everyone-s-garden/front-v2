@@ -23,6 +23,7 @@ import useClipboard from '@/hooks/useClipboard';
 import { PATH } from '@/routes/constants';
 import { useCreateGardenChatRoom } from '@/services/chat/query';
 import { useLikeGarden } from '@/services/gardens/mutations';
+import useLoginStore from '@/stores/useLoginStore';
 
 interface BottomSectionProps {
   gardenInfo?: GardenDetail;
@@ -32,6 +33,7 @@ interface BottomSectionProps {
 const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
   const ref = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const [loading, setLoading] = useState<boolean | undefined>(undefined);
   const isGardenLiked = gardenInfo?.gardenLikeId === 0 ? false : true;
   const [liked, setLiked] = useState<boolean | undefined>(isGardenLiked);
@@ -78,6 +80,13 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
   };
 
   const handleClickLike = () => {
+    if (!isLoggedIn) {
+      navigate(PATH.LOGIN.MAIN, {
+        state: { from: pathname },
+      });
+
+      return;
+    }
     setLoading(true);
     if (liked)
       mutateLikeGarden({
@@ -100,6 +109,14 @@ const BottomSection = ({ gardenInfo, refetch }: BottomSectionProps) => {
   };
 
   const handleClickChat = () => {
+    if (!isLoggedIn) {
+      navigate(PATH.LOGIN.MAIN, {
+        state: { from: pathname },
+      });
+
+      return;
+    }
+
     if (gardenInfo?.roomId === -1) {
       createGardenChatRoom({
         postId: gardenInfo?.gardenId,

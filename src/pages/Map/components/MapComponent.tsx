@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Container as MapDiv, NaverMap, useNavermaps } from 'react-naver-maps';
 import { useLocation } from 'react-router-dom';
 import getGardenType from '../utils/getGardenType';
@@ -7,7 +7,6 @@ import GardensContainer from './GardensContainer';
 import MapSpinner from './MapSpinner';
 import MarkerCluster from './Marker/MarkerCluster';
 import MyMarker from './Marker/MyMarker';
-import useGeolocation from '@/hooks/useGeolocation';
 import { useGetMapGardens } from '@/services/gardens/query';
 import useMapGardenDetailIdStore from '@/stores/useMapGardenDetailIdStore';
 
@@ -20,7 +19,12 @@ interface MapComponentProps {
 const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
   const location = useLocation();
   const navermaps = useNavermaps();
-  const geolocation = useGeolocation();
+  // const geolocation = useGeolocation();
+  const [isCurrentLocationLoaded, setIsCurrentLocationLoaded] = useState(false);
+  const [position, setPosition] = useState({
+    lat: 37.3595704,
+    lng: 127.105399,
+  });
   const gardenType = getGardenType(headerOption);
   const { gardenId } = useMapGardenDetailIdStore();
   const { data: mapGardens, refetch } = useGetMapGardens(gardenType, map);
@@ -53,21 +57,31 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
     }
   }, [map, refetch, headerOption]);
 
-  let position = {
-    lat: 37.3595704,
-    lng: 127.105399,
-  };
+  // if (geolocation.loaded && !geolocation.error && geolocation.coordinates) {
+  //   position = {
+  //     lat: geolocation.coordinates.lat,
+  //     lng: geolocation.coordinates.lng,
+  //   };
+  // }
 
-  if (geolocation.loaded && !geolocation.error && geolocation.coordinates) {
-    position = {
-      lat: geolocation.coordinates.lat,
-      lng: geolocation.coordinates.lng,
-    };
-  }
-
-  if (!geolocation.loaded) {
-    return <MapSpinner />;
-  }
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setPosition({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+          setIsCurrentLocationLoaded(true);
+        },
+        () => {
+          setIsCurrentLocationLoaded(true);
+        },
+      );
+    } else {
+      setIsCurrentLocationLoaded(true);
+    }
+  }, []);
 
   const getDefaultCenter = () => {
     if (gardenId && location.state && location.state.data) {
@@ -79,6 +93,10 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
 
     return new navermaps.LatLng(position.lat, position.lng);
   };
+
+  if (!isCurrentLocationLoaded) {
+    return <MapSpinner />;
+  }
 
   return (
     <Box
@@ -93,7 +111,6 @@ const MapComponent = ({ map, setMap, headerOption }: MapComponentProps) => {
           map,
         }}
       />
-
       <MapDiv style={{ width: '100%', height: '100%' }}>
         <NaverMap
           ref={setMap}

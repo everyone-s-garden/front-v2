@@ -27,12 +27,14 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
   const endDate = new Date(recruitEndDate);
   const currentDate = new Date();
 
+  const formattedAddress = address.split(' ').slice(0, 2).join(' ');
   const duration = Math.ceil(
     (endDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24),
   );
 
-  const term =
-    duration > 0
+  const term = isNaN(duration)
+    ? '모집중'
+    : duration > 0
       ? `${duration}일 남음`
       : duration === 0
         ? '마감 임박'
@@ -72,7 +74,7 @@ const RecentPostItem = ({ postData }: { postData: GardenPost }) => {
           {gardenName}
         </Text>
         <Text color="gray.700" fontSize="14px" fontWeight="regular">
-          {address}
+          {formattedAddress}
         </Text>
         <Flex alignItems="center" gap="8px">
           <Text fontSize="16px" fontWeight="bold">
